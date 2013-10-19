@@ -9,6 +9,7 @@ public class TickGenerator {
 
     protected Timer FTimer;
     protected ArrayList<TickItem> FItems;
+    protected Integer FBaseInterval;
 
     protected void DoTick() {
         Iterator lItr = FItems.iterator();
@@ -33,6 +34,13 @@ public class TickGenerator {
     public TickGenerator() {
         FItems = new ArrayList<TickItem>();
         FTimer = new Timer();
+        FBaseInterval = 10;
+    }
+
+    public TickGenerator(Integer aBaseInterval) {
+        FItems = new ArrayList<TickItem>();
+        FTimer = new Timer();
+        FBaseInterval = aBaseInterval;
     }
 
     public void Initialize() {
@@ -43,7 +51,7 @@ public class TickGenerator {
                 }
             }
         };
-        FTimer.schedule(lTimerTask,100,10);
+        FTimer.schedule(lTimerTask,100,FBaseInterval);
     }
 
     public void Finalize() {
