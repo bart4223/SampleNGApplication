@@ -2,33 +2,41 @@ package Uniwork.Graphics;
 
 public class Point2D {
 
-    protected Integer FX;
-    protected Integer FY;
+    protected double FX;
+    protected double FY;
 
     public Point2D() {
-        FX = 0;
-        FY = 0;
+        FX = 0.0;
+        FY = 0.0;
     }
 
-    public Point2D(Integer aX, Integer aY) {
+    public Point2D(double aX, double aY) {
         FX = aX;
         FY = aY;
     }
 
-    public void setX(Integer aValue) {
+    public void setX(double aValue) {
         FX = aValue;
     }
 
-    public Integer getX() {
+    public double getX() {
         return FX;
     }
 
-    public void setY(Integer aValue) {
+    public Integer getXAsInt() {
+        return (int)FX;
+    }
+
+    public void setY(double aValue) {
         FY = aValue;
     }
 
-    public Integer getY() {
+    public double getY() {
         return FY;
+    }
+
+    public Integer getYAsInt() {
+        return (int)FY;
     }
 
 }
