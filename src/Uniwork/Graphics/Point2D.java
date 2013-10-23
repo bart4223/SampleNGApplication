@@ -1,6 +1,6 @@
 package Uniwork.Graphics;
 
-public class Point2D {
+public class Point2D extends GeometryObject{
 
     protected double FX;
     protected double FY;
@@ -8,11 +8,13 @@ public class Point2D {
     public Point2D() {
         FX = 0.0;
         FY = 0.0;
+        FDimensions = 2;
     }
 
     public Point2D(double aX, double aY) {
         FX = aX;
         FY = aY;
+        FDimensions = 2;
     }
 
     public void setX(double aValue) {
