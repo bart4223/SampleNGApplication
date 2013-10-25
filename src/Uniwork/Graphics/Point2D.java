@@ -6,7 +6,7 @@ public class Point2D extends GeometryObject{
     protected double FY;
 
     public Point2D() {
-        this(0.0,0.0);
+        this(0.0, 0.0);
     }
 
     public Point2D(double aX, double aY) {
@@ -24,7 +24,7 @@ public class Point2D extends GeometryObject{
     }
 
     public Integer getXAsInt() {
-        return (int)FX;
+        return (int)getX();
     }
 
     public void setY(double aValue) {
@@ -36,7 +36,7 @@ public class Point2D extends GeometryObject{
     }
 
     public Integer getYAsInt() {
-        return (int)FY;
+        return (int)getY();
     }
 
 }

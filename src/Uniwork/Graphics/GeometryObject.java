@@ -6,6 +6,10 @@ public class GeometryObject {
     protected String FDescription;
     protected Integer FDimensions;
 
+    protected void InternalUpdate() {
+
+    }
+
     public GeometryObject() {
         FName = "";
         FDescription = "";
