@@ -1,41 +1,32 @@
 package Uniwork.Graphics;
 
 
-public class Circle extends GeometryObject {
-
-    protected double FRadius;
-    protected double FDiameter;
-
-    @Override
-    protected void InternalUpdate() {
-        super.InternalUpdate();
-        FDiameter = FRadius * 2;
-    }
+public class Circle extends Ellipse {
 
     public Circle() {
         this(0.0);
     }
 
     public Circle(double aRadius) {
-        FRadius = aRadius;
+        super(aRadius, aRadius);
         InternalUpdate();
     }
 
     public void setRadius(double aValue) {
-        FRadius = aValue;
-        InternalUpdate();
+        setRadiusX(aValue);
+        setRadiusY(aValue);
     }
 
     public double getRadius() {
-        return FRadius;
+        return getRadiusX();
     }
 
     public double getDiameter() {
-        return FDiameter;
+        return getDiameterX();
     }
 
     public Integer getDiameterAsInt() {
-        return (int)getDiameter();
+        return (int)getDiameterXAsInt();
     }
 
 }
