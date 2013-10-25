@@ -7,19 +7,29 @@ public class Vector2D {
 
     protected double FX;
     protected double FY;
+    protected double FAmount;
+    protected double FGradient;
+
+    protected void InternalUpdate() {
+        FAmount = sqrt(FX*FX+FY*FY);
+        FGradient = 0;
+        if (FX!=0)
+            FGradient = abs(FY/FX);
+    }
 
     public Vector2D() {
-        FX = 0.0;
-        FY = 0.0;
+        this(0.0,0.0);
     }
 
     public Vector2D(double aX, double aY) {
         FX = aX;
         FY = aY;
+        InternalUpdate();
     }
 
     public void setX(double aValue) {
         FX = aValue;
+        InternalUpdate();
     }
 
     public double getX() {
@@ -28,6 +38,7 @@ public class Vector2D {
 
     public void setY(double aValue) {
         FY = aValue;
+        InternalUpdate();
     }
 
     public double getY() {
@@ -35,11 +46,11 @@ public class Vector2D {
     }
 
     public double getAmount() {
-        return sqrt(FX*FX+FY*FY);
+        return FAmount;
     }
 
     public double getGradient( ) {
-        return abs(FY/FX);
+        return FGradient;
     }
 
 }
