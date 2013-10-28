@@ -2,6 +2,7 @@ package Uniwork.Graphics;
 
 public class GeometryObject {
 
+    protected Integer FID;
     protected String FName;
     protected String FDescription;
     protected Integer FDimensions;
@@ -14,6 +15,7 @@ public class GeometryObject {
         FName = "";
         FDescription = "";
         FDimensions = 0;
+        FID = 0;
     }
 
     public GeometryObject(String aName, String aDescription) {
@@ -27,6 +29,14 @@ public class GeometryObject {
 
     public String getName( ) {
         return FName;
+    }
+
+    public void setID(Integer aID) {
+        FID = aID;
+    }
+
+    public Integer getID( ) {
+        return FID;
     }
 
     public void setDescription(String aDescription) {

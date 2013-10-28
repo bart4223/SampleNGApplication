@@ -1,6 +1,7 @@
 package Uniwork.Graphics;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 public class Vector2D {
@@ -11,7 +12,7 @@ public class Vector2D {
     protected double FGradient;
 
     protected void InternalUpdate() {
-        FAmount = sqrt(FX*FX+FY*FY);
+        FAmount = sqrt(pow(FX, 2.0)+pow(FY, 2.0));
         FGradient = 0;
         if (FX!=0)
             FGradient = abs(FY/FX);
@@ -51,6 +52,14 @@ public class Vector2D {
 
     public double getGradient( ) {
         return FGradient;
+    }
+
+    public Vector2D Add(Vector2D aVector) {
+        return new Vector2D(getX()+aVector.getX(), getY()+aVector.getY());
+    }
+
+    public Vector2D Sub(Vector2D aVector) {
+        return new Vector2D(getX()-aVector.getX(), getY()-aVector.getY());
     }
 
 }

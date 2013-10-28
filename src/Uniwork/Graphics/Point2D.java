@@ -1,5 +1,8 @@
 package Uniwork.Graphics;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 public class Point2D extends GeometryObject{
 
     protected double FX;
@@ -37,6 +40,10 @@ public class Point2D extends GeometryObject{
 
     public Integer getYAsInt() {
         return (int)getY();
+    }
+
+    public double getEuclidDistance(Point2D aPoint) {
+        return sqrt(pow(getX() - aPoint.getX(), 2.0) + pow(getY() - aPoint.getY(), 2.0));
     }
 
 }
