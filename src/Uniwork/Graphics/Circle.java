@@ -1,6 +1,5 @@
 package Uniwork.Graphics;
 
-
 public class Circle extends Ellipse {
 
     public Circle() {
