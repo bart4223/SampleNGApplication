@@ -4,6 +4,10 @@ public class VirtualSceneObject2D extends VirtualSceneObject{
 
     protected Point2D FPosition;
 
+    public VirtualSceneObject2D() {
+        this(new Point2D(0, 0));
+    }
+
     public VirtualSceneObject2D(Point2D aPosition) {
         super();
         FPosition = aPosition;

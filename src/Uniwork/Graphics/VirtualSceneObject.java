@@ -5,10 +5,7 @@ public class VirtualSceneObject {
     protected Integer FID;
     protected String FName;
     protected String FDescription;
-
-    protected Boolean DoDetectCollision(VirtualSceneObject aVirtualSceneObject) {
-        return false;
-    }
+    protected GeometryObject FHull;
 
     public VirtualSceneObject() {
         this(0, "", "");
@@ -18,6 +15,7 @@ public class VirtualSceneObject {
         FID = aID;
         FName = aName;
         FDescription = aDescription;
+        FHull = null;
     }
 
     public void setName(String aName) {
@@ -44,11 +42,8 @@ public class VirtualSceneObject {
         return FDescription;
     }
 
-    public Boolean DetectCollision(VirtualSceneObject aVirtualSceneObject) {
-        if (!aVirtualSceneObject.equals(this))
-            return DoDetectCollision(aVirtualSceneObject);
-        else
-            return false;
+    public GeometryObject getHull() {
+        return FHull;
     }
 
 }
