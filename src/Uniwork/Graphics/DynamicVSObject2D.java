@@ -25,6 +25,10 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
             getPosition().setY(getPosition().getY() + getDirection().getGradient());
     }
 
+    public DynamicVSObject2D() {
+        this(new Point2D(0, 0), new Vector2D(0, 0), 0);
+    }
+
     public DynamicVSObject2D(Point2D aPoint, Vector2D aDirection, double aVelocity) {
         super(aPoint);
         FDirection = aDirection;
