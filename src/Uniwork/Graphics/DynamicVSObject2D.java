@@ -31,7 +31,7 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
         return FCollisionDetectionCallback;
     }
 
-    protected void CallCollisionDetection() {
+    protected void CallCollisionDetectionCallback() {
         CollisionDetectionCallback lCollisionDetectionCallback = getCollisionDetectionCallback();
         if (lCollisionDetectionCallback != null) {
             lCollisionDetectionCallback.DetectCollision(this);
@@ -54,7 +54,7 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
         if (FMoveDelaying <= 0) {
             FMoveDelaying = getMoveDelaying();
             DoMoving();
-            CallCollisionDetection();
+            CallCollisionDetectionCallback();
         }
         else {
             FMoveDelaying = FMoveDelaying - 1;
