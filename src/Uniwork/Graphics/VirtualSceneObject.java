@@ -6,6 +6,7 @@ public class VirtualSceneObject {
     protected String FName;
     protected String FDescription;
     protected GeometryObject FHull;
+    protected Object FCallback;
 
     public VirtualSceneObject() {
         this(0, "", "");
@@ -16,6 +17,7 @@ public class VirtualSceneObject {
         FName = aName;
         FDescription = aDescription;
         FHull = null;
+        FCallback = null;
     }
 
     public void setName(String aName) {
@@ -44,6 +46,14 @@ public class VirtualSceneObject {
 
     public GeometryObject getHull() {
         return FHull;
+    }
+
+    public void setCallback(Object aCallback) {
+        FCallback = aCallback;
+    }
+
+    public Object getCallback() {
+        return FCallback;
     }
 
 }
