@@ -62,4 +62,13 @@ public class Vector2D {
         return new Vector2D(getX()-aVector.getX(), getY()-aVector.getY());
     }
 
+    public void Invert() {
+        setX(-getX());
+        setY(-getY());
+    }
+
+    public Boolean Equals(Vector2D aVector) {
+        return (getX() == aVector.getX() && getY() == aVector.getY());
+    }
+
 }
