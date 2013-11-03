@@ -8,6 +8,10 @@ public class VirtualSceneObject {
     protected GeometryObject FHull;
     protected Object FCallback;
 
+    protected Boolean DoDetectCollision(VirtualSceneObject aVirtualSceneObject) {
+        return false;
+    }
+
     public VirtualSceneObject() {
         this(0, "", "");
     }
@@ -54,6 +58,13 @@ public class VirtualSceneObject {
 
     public Object getCallback() {
         return FCallback;
+    }
+
+    public Boolean DetectCollision(VirtualSceneObject aVirtualSceneObject) {
+        if (!aVirtualSceneObject.equals(this))
+            return DoDetectCollision(aVirtualSceneObject);
+        else
+            return false;
     }
 
 }

@@ -5,13 +5,10 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
     protected Integer FMoveDelaying;
     protected Vector2D FDirection;
     protected double FVelocity;
+    protected CollisionDetectionCallback FCollisionDetectionCallback;
 
     protected Integer getMoveDelaying() {
         return (int)(1 / FVelocity*FDirection.getAmount() * 10);
-    }
-
-    protected Boolean DoDetectCollision(VirtualSceneObject aVirtualSceneObject) {
-        return false;
     }
 
     protected void DoMoving() {
@@ -25,6 +22,22 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
             getPosition().setY(getPosition().getY() + getDirection().getGradient());
     }
 
+    protected CollisionDetectionCallback getCollisionDetectionCallback() {
+        if (FCollisionDetectionCallback == null && FCallback != null) {
+            if (FCallback instanceof CollisionDetectionCallback) {
+                FCollisionDetectionCallback = (CollisionDetectionCallback)FCallback;
+            }
+        }
+        return FCollisionDetectionCallback;
+    }
+
+    protected void CallCollisionDetection() {
+        CollisionDetectionCallback lCollisionDetectionCallback = getCollisionDetectionCallback();
+        if (lCollisionDetectionCallback != null) {
+            lCollisionDetectionCallback.DetectCollision(this);
+        }
+    }
+
     public DynamicVSObject2D() {
         this(new Point2D(0, 0), new Vector2D(0, 0), 0);
     }
@@ -34,23 +47,18 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
         FDirection = aDirection;
         FVelocity = aVelocity;
         FMoveDelaying = 0;
+        FCollisionDetectionCallback = null;
     }
 
     public void Moving() {
         if (FMoveDelaying <= 0) {
             FMoveDelaying = getMoveDelaying();
             DoMoving();
+            CallCollisionDetection();
         }
         else {
             FMoveDelaying = FMoveDelaying - 1;
         }
-    }
-
-    public Boolean DetectCollision(VirtualSceneObject aVirtualSceneObject) {
-        if (!aVirtualSceneObject.equals(this))
-            return DoDetectCollision(aVirtualSceneObject);
-        else
-            return false;
     }
 
     public Vector2D getDirection() {
