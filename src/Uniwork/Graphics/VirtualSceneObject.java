@@ -12,6 +12,10 @@ public class VirtualSceneObject {
         return false;
     }
 
+    protected void DoCollisionDetected(VirtualSceneObject aVirtualSceneObject) {
+
+    }
+
     public VirtualSceneObject() {
         this(0, "", "");
     }
@@ -61,10 +65,14 @@ public class VirtualSceneObject {
     }
 
     public Boolean DetectCollision(VirtualSceneObject aVirtualSceneObject) {
-        if (!aVirtualSceneObject.equals(this))
-            return DoDetectCollision(aVirtualSceneObject);
-        else
-            return false;
+        Boolean lResult = false;
+        if (!aVirtualSceneObject.equals(this)) {
+            lResult = DoDetectCollision(aVirtualSceneObject);
+            if (lResult) {
+                DoCollisionDetected(aVirtualSceneObject);
+            }
+        }
+        return lResult;
     }
 
 }

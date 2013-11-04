@@ -11,6 +11,13 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
         return (int)(1 / FVelocity*FDirection.getAmount() * 10);
     }
 
+    @Override
+    protected void DoCollisionDetected(VirtualSceneObject aVirtualSceneObject) {
+        super.DoCollisionDetected(aVirtualSceneObject);
+        DoCalcNewDirection(aVirtualSceneObject);
+        DoMoving();
+    }
+
     protected void DoMoving() {
         if (getDirection().getX() < 0)
             getPosition().setX(getPosition().getX() - 1);
@@ -20,6 +27,10 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
             getPosition().setY(getPosition().getY() - getDirection().getGradient());
         else
             getPosition().setY(getPosition().getY() + getDirection().getGradient());
+    }
+
+    protected void DoCalcNewDirection(VirtualSceneObject aVirtualSceneObject) {
+
     }
 
     protected CollisionDetectionCallback getCollisionDetectionCallback() {
