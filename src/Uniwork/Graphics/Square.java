@@ -16,4 +16,20 @@ public class Square extends StaticVSObject2D {
         return (Rectangle)FHull;
     }
 
+    public double getSideA() {
+        return getHull().getA();
+    }
+
+    public double getSideB() {
+        return getHull().getB();
+    }
+
+    public Point2D getTopLeft() {
+        return new Point2D(getPosition().getX() - getSideA() / 2, getPosition().getY() + getSideB() / 2);
+    }
+
+    public Point2D getBottomRight() {
+        return new Point2D(getPosition().getX() + getSideA() / 2, getPosition().getY() - getSideB() / 2);
+    }
+
 }
