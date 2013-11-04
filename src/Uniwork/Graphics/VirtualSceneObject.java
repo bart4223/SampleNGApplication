@@ -69,10 +69,14 @@ public class VirtualSceneObject {
         if (!aVirtualSceneObject.equals(this)) {
             lResult = DoDetectCollision(aVirtualSceneObject);
             if (lResult) {
-                DoCollisionDetected(aVirtualSceneObject);
+                CollisionDetected(aVirtualSceneObject);
             }
         }
         return lResult;
+    }
+
+    public void CollisionDetected(VirtualSceneObject aVirtualSceneObject) {
+        DoCollisionDetected(aVirtualSceneObject);
     }
 
 }
