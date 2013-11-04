@@ -9,7 +9,7 @@ public class GeometryObject {
     }
 
     public GeometryObject() {
-        FDimensions = 0;
+        FDimensions = 1;
     }
 
 

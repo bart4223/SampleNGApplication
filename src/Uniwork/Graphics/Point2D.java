@@ -3,7 +3,7 @@ package Uniwork.Graphics;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-public class Point2D extends GeometryObject{
+public class Point2D extends GeometryObject2D{
 
     protected double FX;
     protected double FY;
@@ -13,9 +13,9 @@ public class Point2D extends GeometryObject{
     }
 
     public Point2D(double aX, double aY) {
+        super();
         FX = aX;
         FY = aY;
-        FDimensions = 2;
     }
 
     public void setX(double aValue) {

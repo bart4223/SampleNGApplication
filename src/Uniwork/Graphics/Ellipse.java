@@ -1,7 +1,7 @@
 package Uniwork.Graphics;
 
 
-public class Ellipse extends GeometryObject{
+public class Ellipse extends GeometryObject2D{
 
     protected double FRadiusX;
     protected double FDiameterX;
