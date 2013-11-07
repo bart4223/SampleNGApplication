@@ -94,6 +94,22 @@ public class TickGenerator {
         lTickItem.addTickListener(aListener);
     }
 
+    public void SetAllEnabled(Boolean aValue) {
+        Iterator lItr = FItems.iterator();
+        while(lItr.hasNext())  {
+            TickItem lItem = (TickItem)lItr.next();
+            lItem.setEnabled(aValue);
+        }
+    }
+
+    public void ToggleAllEnabled( ) {
+        Iterator lItr = FItems.iterator();
+        while(lItr.hasNext())  {
+            TickItem lItem = (TickItem)lItr.next();
+            lItem.setEnabled(!lItem.getEnabled());
+        }
+    }
+
 }
 
 
