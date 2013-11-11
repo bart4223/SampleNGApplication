@@ -7,6 +7,7 @@ public class VirtualSceneObject {
     protected String FDescription;
     protected GeometryObject FHull;
     protected Object FCallback;
+    protected Boolean FSelected;
 
     protected Boolean DoDetectCollision(VirtualSceneObject aVirtualSceneObject) {
         return false;
@@ -26,6 +27,7 @@ public class VirtualSceneObject {
         FDescription = aDescription;
         FHull = null;
         FCallback = null;
+        FSelected = false;
     }
 
     public void setName(String aName) {
@@ -42,6 +44,14 @@ public class VirtualSceneObject {
 
     public Integer getID( ) {
         return FID;
+    }
+
+    public void setSelected(Boolean aValue) {
+        FSelected = aValue;
+    }
+
+    public Boolean getSelected( ) {
+        return FSelected;
     }
 
     public void setDescription(String aDescription) {
@@ -77,6 +87,10 @@ public class VirtualSceneObject {
 
     public void CollisionDetected(VirtualSceneObject aVirtualSceneObject) {
         DoCollisionDetected(aVirtualSceneObject);
+    }
+
+    public void ToggleSelected() {
+        setSelected(!getSelected());
     }
 
 }
