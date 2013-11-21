@@ -2,11 +2,12 @@ package Uniwork.Visuals;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import java.io.IOException;
 
-public class SevenSegmentDisplay extends Pane {
+public class SevenSegmentDisplay extends Control {
 
     protected Node FView;
     protected SevenSegmentDisplayController FController;
