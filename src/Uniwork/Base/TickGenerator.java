@@ -11,7 +11,7 @@ public class TickGenerator {
     protected ArrayList<TickItem> FItems;
     protected Integer FBaseInterval;
 
-    protected void DoTick() {
+    protected synchronized void DoTick() {
         Iterator lItr = FItems.iterator();
         while(lItr.hasNext())  {
             ((TickItem)lItr.next()).Tick();
