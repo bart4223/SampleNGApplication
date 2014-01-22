@@ -1,6 +1,7 @@
 package Uniwork.Graphics;
 
 import static java.lang.Math.pow;
+import static java.lang.Math.round;
 import static java.lang.Math.sqrt;
 
 public class Point2D extends GeometryObject2D{
@@ -27,7 +28,7 @@ public class Point2D extends GeometryObject2D{
     }
 
     public Integer getXAsInt() {
-        return (int)getX();
+        return (int)round(getX());
     }
 
     public void setY(double aValue) {
@@ -39,7 +40,7 @@ public class Point2D extends GeometryObject2D{
     }
 
     public Integer getYAsInt() {
-        return (int)getY();
+        return (int)round(getY());
     }
 
     public double getEuclidDistance(Point2D aPoint) {

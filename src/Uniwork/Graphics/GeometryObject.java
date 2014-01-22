@@ -3,6 +3,7 @@ package Uniwork.Graphics;
 public class GeometryObject {
 
     protected Integer FDimensions;
+    protected String FID;
 
     protected void InternalUpdate() {
         // NOP
@@ -12,6 +13,12 @@ public class GeometryObject {
         FDimensions = 1;
     }
 
+    public void setID(String aID) {
+        FID = aID;
+    }
 
+    public String getID() {
+        return FID;
+    }
 
 }
