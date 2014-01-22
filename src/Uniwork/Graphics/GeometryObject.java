@@ -11,6 +11,7 @@ public class GeometryObject {
 
     public GeometryObject() {
         FDimensions = 1;
+        FID = "";
     }
 
     public void setID(String aID) {
