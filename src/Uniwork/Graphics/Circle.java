@@ -7,7 +7,12 @@ public class Circle extends Ellipse {
     }
 
     public Circle(double aRadius) {
-        super(aRadius, aRadius);
+        this(0.0, 0.0, aRadius);
+        InternalUpdate();
+    }
+
+    public Circle(double aX, double aY, double aRadius) {
+        super(aX, aY, aRadius, aRadius);
         InternalUpdate();
     }
 
@@ -18,6 +23,10 @@ public class Circle extends Ellipse {
 
     public double getRadius() {
         return getRadiusX();
+    }
+
+    public int getRadiusAsInt() {
+        return getRadiusXAsInt();
     }
 
     public double getDiameter() {
