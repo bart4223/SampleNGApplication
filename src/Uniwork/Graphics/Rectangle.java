@@ -4,13 +4,15 @@ public class Rectangle extends GeometryObject2D{
 
     protected double FA;
     protected double FB;
+    protected Point2D FMiddlePoint;
 
     public Rectangle() {
-        this(0.0, 0.0);
+        this(0.0, 0.0, 0.0, 0.0);
     }
 
-    public Rectangle(double aA, double aB) {
+    public Rectangle(double aA, double aB, double aX, double aY) {
         super();
+        FMiddlePoint = new Point2D(aX, aY);
         FA = aA;
         FB = aB;
     }
@@ -23,12 +25,28 @@ public class Rectangle extends GeometryObject2D{
         return FA;
     }
 
+    public int getAAsInt( ) { return (int)FA; }
+
     public void setB(double aB) {
         FB = aB;
     }
 
     public double getB( ) {
         return FB;
+    }
+
+    public int getBAsInt( ) { return (int)FB; }
+
+    public void setMiddlePointX(double aValue) {
+        FMiddlePoint.setX(aValue);
+    }
+
+    public void setMiddlePointY(double aValue) {
+        FMiddlePoint.setY(aValue);
+    }
+
+    public Point2D getMiddlePoint() {
+        return FMiddlePoint;
     }
 
 }

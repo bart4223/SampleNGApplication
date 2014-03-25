@@ -3,11 +3,11 @@ package Uniwork.Graphics;
 public class Quadrat extends Rectangle {
 
     public Quadrat() {
-        this(0.0);
+        this(0.0, 0.0, 0.0);
     }
 
-    public Quadrat(double aA) {
-        super(aA, aA);
+    public Quadrat(double aA, double aX, double aY) {
+        super(aA, aA, aX, aY);
     }
 
     public void setA(double aA) {

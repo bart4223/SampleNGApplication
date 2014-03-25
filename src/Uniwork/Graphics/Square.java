@@ -8,7 +8,7 @@ public class Square extends StaticVSObject2D {
 
     public Square(Point2D aPosition, double aSideA, double aSideB) {
         super(aPosition);
-        FHull = new Rectangle(aSideA, aSideB);
+        FHull = new Rectangle(aSideA, aSideB, aPosition.getX(), aPosition.getY());
     }
 
     @Override
