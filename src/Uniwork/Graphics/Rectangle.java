@@ -37,12 +37,9 @@ public class Rectangle extends GeometryObject2D{
 
     public int getBAsInt( ) { return (int)FB; }
 
-    public void setMiddlePointX(double aValue) {
-        FMiddlePoint.setX(aValue);
-    }
-
-    public void setMiddlePointY(double aValue) {
-        FMiddlePoint.setY(aValue);
+    public void setMiddlePoint(double aX, double aY) {
+        FMiddlePoint.setX(aX);
+        FMiddlePoint.setY(aY);
     }
 
     public Point2D getMiddlePoint() {
