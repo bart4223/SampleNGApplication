@@ -46,4 +46,20 @@ public class Rectangle extends GeometryObject2D{
         return FMiddlePoint;
     }
 
+    public void setMiddlePointX(double value) {
+        FMiddlePoint.setX(value);
+    }
+
+    public double getMiddlePointX() {
+        return FMiddlePoint.getX();
+    }
+
+    public void setMiddlePointY(double value) {
+        FMiddlePoint.setY(value);
+    }
+
+    public double getMiddlePointY() {
+        return FMiddlePoint.getY();
+    }
+
 }

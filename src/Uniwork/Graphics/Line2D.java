@@ -35,6 +35,38 @@ public class Line2D extends GeometryObject2D {
         FB.setY(aY);
     }
 
+    public double getAX() {
+        return FA.getX();
+    }
+
+    public void setAX(double value) {
+        FA.setX(value);
+    }
+
+    public double getAY() {
+        return FA.getY();
+    }
+
+    public void setAY(double value) {
+        FA.setY(value);
+    }
+
+    public double getBX() {
+        return FB.getX();
+    }
+
+    public void setBX(double value) {
+        FB.setX(value);
+    }
+
+    public double getBY() {
+        return FB.getY();
+    }
+
+    public void setBY(double value) {
+        FB.setY(value);
+    }
+
     public double getAmount() {
         double dx = FA.getX() - FB.getX();
         double dy = FA.getY() - FB.getY();

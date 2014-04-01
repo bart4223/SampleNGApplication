@@ -77,4 +77,20 @@ public class Ellipse extends GeometryObject2D{
         FMiddlePoint.setY(aY);
     }
 
+    public void setMiddlePointX(double value) {
+        FMiddlePoint.setX(value);
+    }
+
+    public double getMiddlePointX() {
+        return FMiddlePoint.getX();
+    }
+
+    public void setMiddlePointY(double value) {
+        FMiddlePoint.setY(value);
+    }
+
+    public double getMiddlePointY() {
+        return FMiddlePoint.getY();
+    }
+
 }
