@@ -53,7 +53,7 @@ public class LogManager {
         addLog(lLogEntry);
     }
 
-    public void ClearLog() {
+    public void clearLog() {
         FItems.clear();
         raiseClearLogEvent();
     }
