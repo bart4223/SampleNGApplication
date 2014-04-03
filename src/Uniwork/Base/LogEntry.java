@@ -37,4 +37,8 @@ public class LogEntry {
         return formatter.format(FDate);
     }
 
+    public String GetFullAsString() {
+        return GetDateAsString() + " " + GetText();
+    }
+
 }
