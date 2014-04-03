@@ -10,6 +10,14 @@ public class LogEntry {
     protected Date FDate;
     protected String FText;
 
+    public LogEntry() {
+        this("");
+    }
+
+    public LogEntry(String aText) {
+        this(new Date(), aText);
+    }
+
     public LogEntry(Date aDate, String aText) {
         FDate = aDate;
         FText = aText;
