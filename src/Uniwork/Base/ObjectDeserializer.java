@@ -10,8 +10,20 @@ public class ObjectDeserializer {
     protected Object FObject;
     protected Object FXMLObject;
 
-    protected void DoDeserialize() {
+    protected void Open() {
 
+    }
+
+    protected void Close() {
+        FDecoder.close();
+    }
+
+    protected void DoTransform() {
+
+    }
+
+    protected void DoReadObject() {
+        FXMLObject = FDecoder.readObject();
     }
 
     public ObjectDeserializer(String aFilename, Object aObject) throws Exception {
@@ -22,9 +34,10 @@ public class ObjectDeserializer {
     }
 
     public void Deserialize() throws Exception {
-        FXMLObject = FDecoder.readObject();
-        DoDeserialize();
-        FDecoder.close();
+        Open();
+        DoReadObject();
+        DoTransform();
+        Close();
     }
 
 }

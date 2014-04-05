@@ -10,7 +10,20 @@ public class ObjectSerializer {
     protected Object FObject;
     protected Object FXMLObject;
 
-    protected void DoSerialize() {
+    protected void Open() {
+
+    }
+
+    protected void Close() {
+        FEncoder.flush();
+        FEncoder.close();
+    }
+
+    protected void DoWriteObject() {
+        FEncoder.writeObject(FXMLObject);
+    }
+
+    protected void DoTransform() {
 
     }
 
@@ -26,10 +39,10 @@ public class ObjectSerializer {
     }
 
     public void Serialize() throws Exception {
-        DoSerialize();
-        FEncoder.writeObject(FXMLObject);
-        FEncoder.flush();
-        FEncoder.close();
+        Open();
+        DoTransform();
+        DoWriteObject();
+        Close();
     }
 
 }
