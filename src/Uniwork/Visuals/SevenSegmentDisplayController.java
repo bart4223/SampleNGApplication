@@ -14,11 +14,12 @@ public class SevenSegmentDisplayController {
     protected int FHeight;
 
     public SevenSegmentDisplayController(Canvas aCanvas) {
-        this(aCanvas,new Point2D(0,0),10,14);
+        this(aCanvas, new Point2D(0, 0), 10, 14);
     }
 
     public SevenSegmentDisplayController(Canvas aCanvas, Point2D aPosition, int aWidth, int aHeight) {
         FCanvas = aCanvas;
+        FPosition = aPosition;
         FWidth = aWidth;
         FHeight = aHeight;
     }
