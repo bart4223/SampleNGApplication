@@ -8,7 +8,6 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
     private static final byte[] CSYMBOLS = new byte[] { (byte)0X3F, (byte)0X06, (byte)0X5B, (byte)0X4F, (byte)0X66,
             (byte)0X6D, (byte)0X7D, (byte)0X07, (byte)0X7F, (byte)0X6F };
 
-    protected Color FSegmentColor;
     protected boolean FDecimalPoint;
 
     @Override
@@ -33,7 +32,7 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
             int res = symbol&i;
             Color color = FBackgroundColor;
             if (res != 0)
-                color = FSegmentColor;
+                color = NumberColor;
             switch (i) {
                 case 1:
                     drawLine(x + 2, y + 1, x + 5, y + 1, color);
@@ -60,7 +59,7 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
             }
         }
         if (FDecimalPoint) {
-            drawPixel(x + 8, y + 11, FSegmentColor);
+            drawPixel(x + 8, y + 11, NumberColor);
         }
     }
 
@@ -70,21 +69,13 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
 
     public SevenSegmentDisplayController(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
-        FSegmentColor = Color.BLACK;
         Number = 0;
-        FPixelSize = 1;
+        NumberColor = Color.BLACK;
         FDecimalPoint = false;
     }
 
     public int Number;
-
-    public void setSegmentColor(Color aValue) {
-        FSegmentColor = aValue;
-    }
-
-    public Color getSegmentColor() {
-        return FSegmentColor;
-    }
+    public Color NumberColor;
 
     public boolean getDecimalPoint() {
         return FDecimalPoint;

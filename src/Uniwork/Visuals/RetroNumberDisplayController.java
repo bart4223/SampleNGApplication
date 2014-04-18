@@ -18,8 +18,6 @@ public class RetroNumberDisplayController extends ShapeDisplayController{
             (byte)0X7C, (byte)0XCE, (byte)0XCE, (byte)0XCE, (byte)0X7C, (byte)0X0C, (byte)0X18, (byte)0X70,  // 9
     };
 
-    protected Color FNumberColor;
-
     @Override
     protected void RecalculateDimensions() {
         FWidth = 8 * FPixelSize;
@@ -29,23 +27,16 @@ public class RetroNumberDisplayController extends ShapeDisplayController{
     @Override
     protected void DoRender() {
         byte[] number = getSubByteArrayFrom(CNUMBERS, 1, 8, Number%10);
-        drawByteArray(number, 1, FNumberColor);
+        drawByteArray(number, 1, NumberColor);
     }
 
     public RetroNumberDisplayController(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
-        FNumberColor = Color.BLACK;
         Number = 0;
+        NumberColor = Color.BLACK;
     }
 
     public int Number;
-
-    public void setNumberColor(Color aValue) {
-        FNumberColor = aValue;
-    }
-
-    public Color getNumberColor() {
-        return FNumberColor;
-    }
+    public Color NumberColor;
 
 }

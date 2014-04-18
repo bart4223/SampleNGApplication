@@ -14,7 +14,6 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
         for (int i = 0; i < FDigitCount; i++) {
             try {
                 DisplayController dc = (DisplayController)DisplayController.class.getClassLoader().loadClass(FDCClassname).getConstructor(Canvas.class, String.class).newInstance(FCanvas, "DIGIT" + (FDigitCount - i - 1));
-                //RetroNumberDisplayController rnd = new RetroNumberDisplayController(FCanvas, "DIGIT" + (FDigitCount - i - 1));
                 dc.setPosition(FPosition.getXAsInt() + i * 8, FPosition.getYAsInt());
                 dc.setBackgroundColor(FBackgroundColor);
                 dc.setPixelSize(FPixelSize);
