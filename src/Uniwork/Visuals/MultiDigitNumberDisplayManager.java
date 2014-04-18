@@ -1,6 +1,7 @@
 package Uniwork.Visuals;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.Color;
 
 public class MultiDigitNumberDisplayManager extends DisplayManager{
 
@@ -8,6 +9,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
     protected int FMaxCount;
     protected int FCount;
     protected String FDCClassname;
+    protected Color FNumberColor;
 
     @Override
     protected void DoInitialize() {
@@ -37,6 +39,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
                 number = count % 10;
             DisplayController dc = getController("DIGIT" + (FDigitCount - i - 1));
             dc.setProperty(dc, "Number", number);
+            dc.setProperty(dc, "NumberColor", FNumberColor);
             maxcount = maxcount / 10;
         }
         super.DoRender();
@@ -51,6 +54,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
             FMaxCount = FMaxCount * 10;
         }
         FCount = 0;
+        FNumberColor = Color.BLACK;
     }
 
     public int getDigitCount() {
@@ -63,6 +67,14 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
 
     public int getCount() {
         return FCount;
+    }
+
+    public void setNumberColor(Color aValue) {
+        FNumberColor = aValue;
+    }
+
+    public Color getNumberColor() {
+        return FNumberColor;
     }
 
 }
