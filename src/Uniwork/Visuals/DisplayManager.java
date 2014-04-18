@@ -1,19 +1,38 @@
 package Uniwork.Visuals;
 
+import javafx.scene.canvas.Canvas;
+
 import java.util.ArrayList;
 
-public class DisplayManager {
+public class DisplayManager extends DisplayController{
 
     protected ArrayList<DisplayController> FControllers;
+    protected Canvas FCanvas;
 
-    public DisplayManager() {
-        FControllers = new ArrayList<DisplayController>();
-    }
-
-    public void Initialize() {
+    protected void DoInitialize() {
         for (DisplayController Controller : FControllers) {
             Controller.Initialize();
         }
+    }
+
+    protected void DoRender() {
+        for (DisplayController Controller : FControllers) {
+            Controller.Render();
+        }
+    }
+
+    public DisplayManager() {
+        this(null);
+    }
+
+    public DisplayManager(Canvas aCanvas) {
+        super(aCanvas);
+        FControllers = new ArrayList<DisplayController>();
+        FCanvas = aCanvas;
+    }
+
+    public void Initialize() {
+        DoInitialize();
     }
 
     public void addController(DisplayController aController) {
@@ -25,9 +44,7 @@ public class DisplayManager {
     }
 
     public void Render() {
-        for (DisplayController Controller : FControllers) {
-            Controller.Render();
-        }
+        DoRender();
     }
 
     public DisplayController getController(String aName) {

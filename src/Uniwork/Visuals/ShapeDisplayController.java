@@ -1,18 +1,11 @@
 package Uniwork.Visuals;
 
-import Uniwork.Graphics.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import static java.lang.Math.abs;
 
 public class ShapeDisplayController extends DisplayController {
-
-    protected double FWidth;
-    protected double FHeight;
-    protected Point2D FPosition;
-    protected Color FBackgroundColor;
-    protected int FPixelSize;
 
     protected byte[] getSubByteArrayFrom(byte[] aArray, int aSizeX, int aSizeY, int aPosition) {
         byte[] array = new byte[aSizeX * aSizeY];
@@ -56,6 +49,9 @@ public class ShapeDisplayController extends DisplayController {
                     if (res != 0) {
                         drawPixel(x + i + FPosition.getXAsInt(), y + FPosition.getYAsInt(), aColor);
                     }
+                    else {
+                        drawPixel(x + i + FPosition.getXAsInt(), y + FPosition.getYAsInt(), FBackgroundColor);
+                    }
                     ii>>=1;
                 }
             }
@@ -63,52 +59,12 @@ public class ShapeDisplayController extends DisplayController {
         }
     }
 
-    @Override
-    protected void DoBeforeRender() {
-        FGC.setFill(FBackgroundColor);
-        FGC.fillRect(0, 0, FWidth, FHeight);
-    }
-
     public ShapeDisplayController(Canvas aCanvas) {
-        this(aCanvas, "");
+        super(aCanvas);
     }
 
     public ShapeDisplayController(Canvas aCanvas, String aName) {
-        this(aCanvas, aName, new Point2D(0, 0));
-    }
-
-    public ShapeDisplayController(Canvas aCanvas, String aName, Point2D aPosition) {
         super(aCanvas, aName);
-        FWidth = aCanvas.getWidth();
-        FHeight = aCanvas.getHeight();
-        FPosition = aPosition;
-        FBackgroundColor = Color.WHITE;
-        FPixelSize = 1;
-    }
-
-    public void setBackgroundColor(Color aValue) {
-        FBackgroundColor = aValue;
-    }
-
-    public Color getBackgroundColor() {
-        return FBackgroundColor;
-    }
-
-    public void setPixelSize(int aValue) {
-        FPixelSize = aValue;
-    }
-
-    public int getPixelSize() {
-        return FPixelSize;
-    }
-
-    public Point2D getPosition() {
-        return FPosition;
-    }
-
-    public void setPosition(double aX, double aY) {
-        FPosition.setX(aX);
-        FPosition.setY(aY);
     }
 
 }
