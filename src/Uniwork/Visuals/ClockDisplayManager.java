@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class ClockDisplayManager extends DisplayManager {
 
@@ -58,6 +59,7 @@ public class ClockDisplayManager extends DisplayManager {
     protected void DoRender() {
         Calendar calender = Calendar.getInstance();
         calender.setTime(Date);
+        calender.setTimeZone(TimeZone);
         DisplayController dc = getController("HOURS");
         dc.setProperty(dc, "Count", calender.get(Calendar.HOUR_OF_DAY));
         dc.setProperty(dc, "NumberColor", NumberColor);
@@ -77,11 +79,13 @@ public class ClockDisplayManager extends DisplayManager {
     public ClockDisplayManager(String aDCClassname, Canvas aCanvas) {
         super(aCanvas);
         FDCClassname = aDCClassname;
-        Date = new Date();
         NumberColor = Color.BLACK;
+        Date = new Date();
+        TimeZone = TimeZone.getTimeZone("UTC");
     }
 
     public Date Date;
+    public TimeZone TimeZone;
     public Color NumberColor;
 
 }
