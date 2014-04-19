@@ -12,8 +12,8 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
 
     @Override
     protected void RecalculateDimensions() {
-        FWidth = 9 * FPixelSize;
-        FHeight = 13 * FPixelSize;
+        FWidth = BaseWidth * FPixelSize;
+        FHeight = BaseHeight * FPixelSize;
     }
 
     @Override
@@ -72,6 +72,8 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
         Number = 0;
         NumberColor = Color.BLACK;
         FDecimalPoint = false;
+        BaseWidth = 9;
+        BaseHeight = 13;
     }
 
     public int Number;

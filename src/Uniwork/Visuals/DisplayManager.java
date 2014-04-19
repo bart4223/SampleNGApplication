@@ -9,13 +9,17 @@ public class DisplayManager extends DisplayController{
     protected ArrayList<DisplayController> FControllers;
     protected Canvas FCanvas;
 
+    @Override
     protected void DoInitialize() {
+        super.DoInitialize();
         for (DisplayController Controller : FControllers) {
             Controller.Initialize();
         }
     }
 
+    @Override
     protected void DoRender() {
+        super.DoRender();
         for (DisplayController Controller : FControllers) {
             Controller.Render();
         }
@@ -31,20 +35,12 @@ public class DisplayManager extends DisplayController{
         FCanvas = aCanvas;
     }
 
-    public void Initialize() {
-        DoInitialize();
-    }
-
     public void addController(DisplayController aController) {
         FControllers.add(aController);
     }
 
     public void removeController(DisplayController aController) {
         FControllers.remove(aController);
-    }
-
-    public void Render() {
-        DoRender();
     }
 
     public DisplayController getController(String aName) {

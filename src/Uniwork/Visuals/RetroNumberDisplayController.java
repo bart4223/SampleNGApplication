@@ -20,8 +20,8 @@ public class RetroNumberDisplayController extends ShapeDisplayController{
 
     @Override
     protected void RecalculateDimensions() {
-        FWidth = 8 * FPixelSize;
-        FHeight = 8 * FPixelSize;
+        FWidth = BaseWidth * FPixelSize;
+        FHeight = BaseHeight * FPixelSize;
     }
 
     @Override
@@ -34,6 +34,8 @@ public class RetroNumberDisplayController extends ShapeDisplayController{
         super(aCanvas, aName);
         Number = 0;
         NumberColor = Color.BLACK;
+        BaseWidth = 8;
+        BaseHeight = 8;
     }
 
     public int Number;
