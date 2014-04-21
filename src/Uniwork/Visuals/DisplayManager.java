@@ -25,12 +25,41 @@ public class DisplayManager extends DisplayController{
         }
     }
 
+    @Override
+    public java.lang.Object getProperty(java.lang.Object aObject, String aName) {
+        int index = aName.indexOf(".");
+        if (index >= 0) {
+            String name = aName.substring(0, index);
+            DisplayController dc = getController(name);
+            return dc.getProperty(dc, aName.substring(index + 1, aName.length()));
+        }
+        else
+            return super.getProperty(aObject, aName);
+    }
+
+
+    @Override
+    public void setProperty(java.lang.Object aObject, String aName, java.lang.Object aValue) {
+        int index = aName.indexOf(".");
+        if (index >= 0) {
+            String name = aName.substring(0, index);
+            DisplayController dc = getController(name);
+            dc.setProperty(dc, aName.substring(index + 1, aName.length()), aValue);
+        }
+        else
+            super.setProperty(aObject, aName, aValue);
+    }
+
     public DisplayManager() {
         this(null);
     }
 
     public DisplayManager(Canvas aCanvas) {
-        super(aCanvas);
+        this(aCanvas, "");
+    }
+
+    public DisplayManager(Canvas aCanvas, String aName) {
+        super(aCanvas, aName);
         FControllers = new ArrayList<DisplayController>();
         FCanvas = aCanvas;
     }

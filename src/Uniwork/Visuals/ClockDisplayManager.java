@@ -18,74 +18,81 @@ public class ClockDisplayManager extends DisplayManager {
     }
 
     @Override
-    protected void DoBeforeRender() {
-        super.DoBeforeRender();
-        FGC.setFill(FBackgroundColor);
-        FGC.fillRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
-    }
-
-    @Override
-    protected void DoInitialize() {
-        DisplayController dc;
+    protected void DoBeforeInitialize() {
+        super.DoBeforeInitialize();
         try {
-            dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2);
-            dc.setName("HOURS");
-            dc.setPosition(FPosition.getXAsInt(), FPosition.getYAsInt());
-            dc.setBackgroundColor(FBackgroundColor);
-            dc.setPixelSize(FPixelSize);
-            dc.Initialize();
-            BaseWidth = dc.BaseWidth * 2;
-            BaseHeight = dc.BaseHeight;
+            DisplayController dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "HOURS");
             addController(dc);
-            dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2);
-            dc.setName("MINUTES");
-            dc.setPosition(FPosition.getXAsInt() + BaseWidth + FPixelSize, FPosition.getYAsInt());
-            dc.setBackgroundColor(FBackgroundColor);
-            dc.setPixelSize(FPixelSize);
+            dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "MINUTES");
             addController(dc);
-            dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2);
-            dc.setName("SECONDS");
-            dc.setPosition(FPosition.getXAsInt() + 2 * BaseWidth + 2 * FPixelSize, FPosition.getYAsInt());
-            dc.setBackgroundColor(FBackgroundColor);
-            dc.setPixelSize(FPixelSize);
+            dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "SECONDS");
             addController(dc);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        super.DoInitialize();
     }
 
     @Override
-    protected void DoRender() {
+    protected void DoAfterInitialize() {
+        DisplayController dc = getController("HOURS");
+        BaseWidth = dc.BaseWidth * 2;
+        BaseHeight = dc.BaseHeight;
+        super.DoAfterInitialize();
+    }
+
+    @Override
+    protected void DoBeforeRender() {
+        super.DoBeforeRender();
         Calendar calender = Calendar.getInstance();
         calender.setTime(Date);
         calender.setTimeZone(TimeZone);
         DisplayController dc = getController("HOURS");
+        dc.setPosition(FPosition.getXAsInt(), FPosition.getYAsInt());
+        dc.setBackgroundColor(FBackgroundColor);
+        dc.setPixelSize(FPixelSize);
+        dc.setProperty(dc, "NumberColor", HoursColor);
         dc.setProperty(dc, "Count", calender.get(Calendar.HOUR_OF_DAY));
-        dc.setProperty(dc, "NumberColor", NumberColor);
         dc = getController("MINUTES");
+        dc.setPosition(FPosition.getXAsInt() + BaseWidth + FPixelSize, FPosition.getYAsInt());
+        dc.setBackgroundColor(FBackgroundColor);
+        dc.setPixelSize(FPixelSize);
+        dc.setProperty(dc, "NumberColor", MinutesColor);
         dc.setProperty(dc, "Count", calender.get(Calendar.MINUTE));
-        dc.setProperty(dc, "NumberColor", NumberColor);
         dc = getController("SECONDS");
+        dc.setPosition(FPosition.getXAsInt() + 2 * BaseWidth + 2 * FPixelSize, FPosition.getYAsInt());
+        dc.setBackgroundColor(FBackgroundColor);
+        dc.setPixelSize(FPixelSize);
+        dc.setProperty(dc, "NumberColor", SecondsColor);
         dc.setProperty(dc, "Count", calender.get(Calendar.SECOND));
-        dc.setProperty(dc, "NumberColor", NumberColor);
-        drawPixel(FPosition.getXAsInt() + BaseWidth + FPixelSize / 2 - 1, FPosition.getYAsInt() + BaseHeight / 3, NumberColor);
-        drawPixel(FPosition.getXAsInt() + BaseWidth + FPixelSize / 2 - 1, FPosition.getYAsInt() + BaseHeight * 2 / 3, NumberColor);
-        drawPixel(FPosition.getXAsInt() + 2 * BaseWidth + FPixelSize * 3 / 2 - 1, FPosition.getYAsInt() + BaseHeight / 3, NumberColor);
-        drawPixel(FPosition.getXAsInt() + 2 * BaseWidth + FPixelSize * 3 / 2 - 1, FPosition.getYAsInt() + BaseHeight * 2 / 3, NumberColor);
+    }
+
+    @Override
+    protected void DoRender() {
+        FGC.setFill(FBackgroundColor);
+        FGC.fillRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
         super.DoRender();
+        drawPixel(FPosition.getXAsInt() + BaseWidth + FPixelSize / 2 - 1, FPosition.getYAsInt() + BaseHeight / 3, SeparatorColor);
+        drawPixel(FPosition.getXAsInt() + BaseWidth + FPixelSize / 2 - 1, FPosition.getYAsInt() + BaseHeight * 2 / 3, SeparatorColor);
+        drawPixel(FPosition.getXAsInt() + 2 * BaseWidth + FPixelSize * 3 / 2 - 1, FPosition.getYAsInt() + BaseHeight / 3, SeparatorColor);
+        drawPixel(FPosition.getXAsInt() + 2 * BaseWidth + FPixelSize * 3 / 2 - 1, FPosition.getYAsInt() + BaseHeight * 2 / 3, SeparatorColor);
     }
 
     public ClockDisplayManager(String aDCClassname, Canvas aCanvas) {
         super(aCanvas);
         FDCClassname = aDCClassname;
-        NumberColor = Color.BLACK;
+        HoursColor = Color.BLACK;
+        MinutesColor = Color.BLACK;
+        SecondsColor = Color.BLACK;
+        SeparatorColor = Color.BLACK;
         Date = new Date();
         TimeZone = TimeZone.getTimeZone("UTC");
     }
 
     public Date Date;
     public TimeZone TimeZone;
-    public Color NumberColor;
+    public Color HoursColor;
+    public Color MinutesColor;
+    public Color SecondsColor;
+    public Color SeparatorColor;
 
 }

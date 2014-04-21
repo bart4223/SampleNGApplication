@@ -53,6 +53,10 @@ public class DisplayController extends Uniwork.Base.Object {
 
     }
 
+    protected void BeforeRender() {
+        DoBeforeRender();
+    }
+
     protected void DoRender() {
 
     }
@@ -61,8 +65,29 @@ public class DisplayController extends Uniwork.Base.Object {
 
     }
 
+    protected void AfterRender() {
+        DoAfterRender();
+    }
+
     protected void DoInitialize() {
 
+    }
+
+    protected void DoAfterInitialize() {
+
+    }
+
+    protected void AfterInitialize() {
+        DoAfterInitialize();
+        InternalUpdate();
+    }
+
+    protected void DoBeforeInitialize() {
+
+    }
+
+    protected void BeforeInitialize() {
+        DoBeforeInitialize();
     }
 
     public DisplayController(Canvas aCanvas) {
@@ -100,22 +125,19 @@ public class DisplayController extends Uniwork.Base.Object {
         if (!FInitialized) {
             if (FCanvas != null)
                 FGC = FCanvas.getGraphicsContext2D();
+            BeforeInitialize();
             DoInitialize();
-            InternalUpdate();
+            AfterInitialize();
             FInitialized = true;
         }
     }
 
     public void Render() {
         if (FInitialized) {
-            DoBeforeRender();
+            BeforeRender();
             DoRender();
-            DoAfterRender();
+            AfterRender();
         }
-    }
-
-    public void setName(String aValue) {
-        FName = aValue;
     }
 
     public String getName() {

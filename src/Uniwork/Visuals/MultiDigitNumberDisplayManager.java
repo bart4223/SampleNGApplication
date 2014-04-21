@@ -16,25 +16,31 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
     }
 
     @Override
-    protected void DoInitialize() {
+    protected void DoBeforeInitialize() {
+        super.DoBeforeInitialize();
         for (int i = 0; i < FDigitCount; i++) {
             try {
                 DisplayController dc = (DisplayController)DisplayController.class.getClassLoader().loadClass(FDCClassname).getConstructor(Canvas.class, String.class).newInstance(FCanvas, "DIGIT" + (FDigitCount - i - 1));
-                BaseWidth = (Integer)dc.getProperty(dc, "BaseWidth");
-                BaseHeight = (Integer)dc.getProperty(dc, "BaseHeight");
-                dc.setPosition(FPosition.getXAsInt() + i * BaseWidth, FPosition.getYAsInt());
-                dc.setBackgroundColor(FBackgroundColor);
-                dc.setPixelSize(FPixelSize);
                 addController(dc);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        super.DoInitialize();
     }
 
     @Override
-    protected void DoRender() {
+    protected void DoAfterInitialize() {
+        for (int i = 0; i < FDigitCount; i++) {
+            DisplayController dc = getController("DIGIT" + (FDigitCount - i - 1));
+            BaseWidth = (Integer)dc.getProperty(dc, "BaseWidth");
+            BaseHeight = (Integer)dc.getProperty(dc, "BaseHeight");
+        }
+        super.DoAfterInitialize();
+    }
+
+    @Override
+    protected void DoBeforeRender() {
+        super.DoBeforeRender();
         int number;
         int count = Count % (FMaxCount * 10);
         int maxcount = FMaxCount;
@@ -45,14 +51,20 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
                 number = count % 10;
             DisplayController dc = getController("DIGIT" + (FDigitCount - i - 1));
             dc.setProperty(dc, "Number", number);
+            dc.setPosition(FPosition.getXAsInt() + i * BaseWidth, FPosition.getYAsInt());
+            dc.setBackgroundColor(FBackgroundColor);
+            dc.setPixelSize(FPixelSize);
             dc.setProperty(dc, "NumberColor", NumberColor);
             maxcount = maxcount / 10;
         }
-        super.DoRender();
     }
 
     public MultiDigitNumberDisplayManager(String aDCClassname, Canvas aCanvas, int aDigitCount) {
-        super(aCanvas);
+        this(aDCClassname, aCanvas, aDigitCount, "");
+    }
+
+    public MultiDigitNumberDisplayManager(String aDCClassname, Canvas aCanvas, int aDigitCount, String aName) {
+        super(aCanvas, aName);
         FDCClassname = aDCClassname;
         FDigitCount = aDigitCount;
         FMaxCount = 1;
