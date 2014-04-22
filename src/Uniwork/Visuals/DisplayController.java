@@ -146,6 +146,12 @@ public class DisplayController extends Uniwork.Base.Object {
         DoBeforeInitialize();
     }
 
+    @Override
+    public void setProperty(java.lang.Object aObject, String aName, java.lang.Object aValue) {
+        super.setProperty(aObject, aName, aValue);
+        InternalUpdate();
+    }
+
     public DisplayController(Canvas aCanvas) {
         this(aCanvas, "");
     }
