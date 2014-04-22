@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class ClockDisplayManager extends DisplayManager {
+public class DigitalClockDisplayManager extends DisplayManager {
 
     protected String FDCClassname;
 
@@ -92,7 +92,7 @@ public class ClockDisplayManager extends DisplayManager {
         }
     }
 
-    public ClockDisplayManager(String aDCClassname, Canvas aCanvas) {
+    public DigitalClockDisplayManager(String aDCClassname, Canvas aCanvas) {
         super(aCanvas);
         FDCClassname = aDCClassname;
         HoursColor = Color.BLACK;
