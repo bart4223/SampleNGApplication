@@ -9,15 +9,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
     protected int FMaxCount;
     protected String FDCClassname;
 
-    @Override
-    protected void RecalculateDimensions() {
-        FWidth = BaseWidth * FPixelSize * FDigitCount;
-        FHeight = BaseHeight * FPixelSize;
-    }
-
-    @Override
-    protected void DoBeforeInitialize() {
-        super.DoBeforeInitialize();
+    protected void CreateDigits() {
         for (int i = 0; i < FDigitCount; i++) {
             try {
                 DisplayController dc = (DisplayController)DisplayController.class.getClassLoader().loadClass(FDCClassname).getConstructor(Canvas.class, String.class).newInstance(FCanvas, "DIGIT" + (FDigitCount - i - 1));
@@ -26,6 +18,12 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    protected void RecalculateDimensions() {
+        FWidth = BaseWidth * FPixelSize * FDigitCount;
+        FHeight = BaseHeight * FPixelSize;
     }
 
     @Override
@@ -73,6 +71,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
         }
         Count = 0;
         NumberColor = Color.BLACK;
+        CreateDigits();
     }
 
     public int Count;

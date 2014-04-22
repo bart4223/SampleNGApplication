@@ -8,8 +8,6 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
     private static final byte[] CSYMBOLS = new byte[] { (byte)0X3F, (byte)0X06, (byte)0X5B, (byte)0X4F, (byte)0X66,
             (byte)0X6D, (byte)0X7D, (byte)0X07, (byte)0X7F, (byte)0X6F };
 
-    protected boolean FDecimalPoint;
-
     @Override
     protected void RecalculateDimensions() {
         FWidth = BaseWidth * FPixelSize;
@@ -55,10 +53,9 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
                 case 64:
                     drawLine(x + 2, y + 6, x + 5, y + 6, color);
                     break;
-
             }
         }
-        if (FDecimalPoint) {
+        if (DecimalPoint) {
             drawPixel(x + 8, y + 11, NumberColor);
         }
     }
@@ -71,20 +68,13 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
         super(aCanvas, aName);
         Number = 0;
         NumberColor = Color.BLACK;
-        FDecimalPoint = false;
+        DecimalPoint = false;
         BaseWidth = 9;
         BaseHeight = 13;
     }
 
     public int Number;
     public Color NumberColor;
-
-    public boolean getDecimalPoint() {
-        return FDecimalPoint;
-    }
-
-    public void setDecimalPoint(boolean aValue) {
-        FDecimalPoint = aValue;
-    }
+    public Boolean DecimalPoint;
 
 }

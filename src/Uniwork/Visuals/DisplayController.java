@@ -27,18 +27,74 @@ public class DisplayController extends Uniwork.Base.Object {
     }
 
     protected void drawLine(int aX0, int aY0, int aX1, int aY1, Color aColor) {
+        int dx =  abs(aX1 - aX0), sx = aX0 < aX1 ? 1 : -1;
+        int dy = -abs(aY1 - aY0), sy = aY0 < aY1 ? 1 : -1;
+        int err = dx + dy, e2;
+        for(;;){
+            drawPixel(aX0, aY0, aColor);
+            if (aX0 == aX1 && aY0 == aY1)
+                break;
+            e2 = 2 * err;
+            if (e2 > dy) { err += dy; aX0 += sx; }
+            if (e2 < dx) { err += dx; aY0 += sy; }
+        }
+    }
+
+    protected void drawCircle(int aX, int aY, int aRadius, Color aColor) {
+        int f = 1 - aRadius;
+        int ddF_x = 0;
+        int ddF_y = -2 * aRadius;
+        int x = 0;
+        int y = aRadius;
+        drawPixel(aX, aY + aRadius, aColor);
+        drawPixel(aX, aY - aRadius, aColor);
+        drawPixel(aX + aRadius, aY, aColor);
+        drawPixel(aX - aRadius, aY, aColor);
+        while(x < y)
         {
-            int dx =  abs(aX1 - aX0), sx = aX0 < aX1 ? 1 : -1;
-            int dy = -abs(aY1 - aY0), sy = aY0 < aY1 ? 1 : -1;
-            int err = dx + dy, e2;
-            for(;;){
-                drawPixel(aX0, aY0, aColor);
-                if (aX0 == aX1 && aY0 == aY1)
-                    break;
-                e2 = 2 * err;
-                if (e2 > dy) { err += dy; aX0 += sx; }
-                if (e2 < dx) { err += dx; aY0 += sy; }
+            if(f >= 0)
+            {
+                y--;
+                ddF_y += 2;
+                f += ddF_y;
             }
+            x++;
+            ddF_x += 2;
+            f += ddF_x + 1;
+            drawPixel(aX + x, aY + y, aColor);
+            drawPixel(aX - x, aY + y, aColor);
+            drawPixel(aX + x, aY - y, aColor);
+            drawPixel(aX - x, aY - y, aColor);
+            drawPixel(aX + y, aY + x, aColor);
+            drawPixel(aX - y, aY + x, aColor);
+            drawPixel(aX + y, aY - x, aColor);
+            drawPixel(aX - y, aY - x, aColor);
+        }
+    }
+
+    protected void fillCircle(int aX, int aY, int aRadius, Color aColor) {
+        int f = 1 - aRadius;
+        int ddF_x = 0;
+        int ddF_y = -2 * aRadius;
+        int x = 0;
+        int y = aRadius;
+        drawLine(aX, aY + aRadius, aX, aY - aRadius, aColor);
+        drawLine(aX + aRadius, aY, aX - aRadius, aY, aColor);
+        while(x < y)
+        {
+            if(f >= 0)
+            {
+                y--;
+                ddF_y += 2;
+                f += ddF_y;
+            }
+            x++;
+            ddF_x += 2;
+            f += ddF_x + 1;
+            drawLine(aX + x, aY + y, aX - x, aY + y, aColor);
+            drawLine(aX + x, aY - y, aX - x, aY - y, aColor);
+            drawLine(aX + y, aY + x, aX - y, aY + x, aColor);
+            drawLine(aX + y, aY - x, aX - y, aY - x, aColor);
         }
     }
 
