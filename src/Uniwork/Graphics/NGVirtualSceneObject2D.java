@@ -1,14 +1,14 @@
 package Uniwork.Graphics;
 
-public class VirtualSceneObject2D extends VirtualSceneObject{
+public class NGVirtualSceneObject2D extends NGVirtualSceneObject {
 
     protected NGPoint2D FPosition;
 
-    public VirtualSceneObject2D() {
+    public NGVirtualSceneObject2D() {
         this(new NGPoint2D(0, 0));
     }
 
-    public VirtualSceneObject2D(NGPoint2D aPosition) {
+    public NGVirtualSceneObject2D(NGPoint2D aPosition) {
         super();
         FPosition = aPosition;
     }

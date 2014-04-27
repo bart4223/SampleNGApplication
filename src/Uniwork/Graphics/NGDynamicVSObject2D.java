@@ -1,18 +1,18 @@
 package Uniwork.Graphics;
 
-public class DynamicVSObject2D extends VirtualSceneObject2D {
+public class NGDynamicVSObject2D extends NGVirtualSceneObject2D {
 
     protected Integer FMoveDelaying;
-    protected Vector2D FDirection;
+    protected NGVector2D FDirection;
     protected double FVelocity;
-    protected CollisionDetectionCallback FCollisionDetectionCallback;
+    protected NGCollisionDetectionCallback FCollisionDetectionCallback;
 
     protected Integer getMoveDelaying() {
         return (int)(1 / FVelocity*FDirection.getAmount() * 10);
     }
 
     @Override
-    protected void DoCollisionDetected(VirtualSceneObject aVirtualSceneObject) {
+    protected void DoCollisionDetected(NGVirtualSceneObject aVirtualSceneObject) {
         super.DoCollisionDetected(aVirtualSceneObject);
         if (DoCalcNewDirection(aVirtualSceneObject)) {
             DoMoving();
@@ -30,31 +30,31 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
             getPosition().setY(getPosition().getY() + getDirection().getGradient());
     }
 
-    protected Boolean DoCalcNewDirection(VirtualSceneObject aVirtualSceneObject) {
+    protected Boolean DoCalcNewDirection(NGVirtualSceneObject aVirtualSceneObject) {
         return false;
     }
 
-    protected CollisionDetectionCallback getCollisionDetectionCallback() {
+    protected NGCollisionDetectionCallback getCollisionDetectionCallback() {
         if (FCollisionDetectionCallback == null && FCallback != null) {
-            if (FCallback instanceof CollisionDetectionCallback) {
-                FCollisionDetectionCallback = (CollisionDetectionCallback)FCallback;
+            if (FCallback instanceof NGCollisionDetectionCallback) {
+                FCollisionDetectionCallback = (NGCollisionDetectionCallback)FCallback;
             }
         }
         return FCollisionDetectionCallback;
     }
 
     protected void CallCollisionDetectionCallback() {
-        CollisionDetectionCallback lCollisionDetectionCallback = getCollisionDetectionCallback();
+        NGCollisionDetectionCallback lCollisionDetectionCallback = getCollisionDetectionCallback();
         if (lCollisionDetectionCallback != null) {
             lCollisionDetectionCallback.DetectCollision(this);
         }
     }
 
-    public DynamicVSObject2D() {
-        this(new NGPoint2D(0, 0), new Vector2D(0, 0), 0);
+    public NGDynamicVSObject2D() {
+        this(new NGPoint2D(0, 0), new NGVector2D(0, 0), 0);
     }
 
-    public DynamicVSObject2D(NGPoint2D aPoint, Vector2D aDirection, double aVelocity) {
+    public NGDynamicVSObject2D(NGPoint2D aPoint, NGVector2D aDirection, double aVelocity) {
         super(aPoint);
         FDirection = aDirection;
         FVelocity = aVelocity;
@@ -73,11 +73,11 @@ public class DynamicVSObject2D extends VirtualSceneObject2D {
         }
     }
 
-    public Vector2D getDirection() {
+    public NGVector2D getDirection() {
         return FDirection;
     }
 
-    public void setDirection(Vector2D aValue) {
+    public void setDirection(NGVector2D aValue) {
         FDirection = aValue;
     }
 

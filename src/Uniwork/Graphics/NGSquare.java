@@ -1,12 +1,12 @@
 package Uniwork.Graphics;
 
-public class Square extends StaticVSObject2D {
+public class NGSquare extends NGStaticVSObject2D {
 
-    public Square() {
+    public NGSquare() {
         this(new NGPoint2D(0.0, 0.0), 0.0, 0.0);
     }
 
-    public Square(NGPoint2D aPosition, double aSideA, double aSideB) {
+    public NGSquare(NGPoint2D aPosition, double aSideA, double aSideB) {
         super(aPosition);
         FHull = new NGRectangle(aSideA, aSideB, aPosition.getX(), aPosition.getY());
     }

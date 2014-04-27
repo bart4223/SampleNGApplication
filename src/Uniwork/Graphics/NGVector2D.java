@@ -4,7 +4,7 @@ import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-public class Vector2D {
+public class NGVector2D {
 
     protected double FX;
     protected double FY;
@@ -18,11 +18,11 @@ public class Vector2D {
             FGradient = abs(FY/FX);
     }
 
-    public Vector2D() {
+    public NGVector2D() {
         this(0.0, 0.0);
     }
 
-    public Vector2D(double aX, double aY) {
+    public NGVector2D(double aX, double aY) {
         FX = aX;
         FY = aY;
         InternalUpdate();
@@ -54,12 +54,12 @@ public class Vector2D {
         return FGradient;
     }
 
-    public Vector2D Add(Vector2D aVector) {
-        return new Vector2D(getX()+aVector.getX(), getY()+aVector.getY());
+    public NGVector2D Add(NGVector2D aVector) {
+        return new NGVector2D(getX()+aVector.getX(), getY()+aVector.getY());
     }
 
-    public Vector2D Sub(Vector2D aVector) {
-        return new Vector2D(getX()-aVector.getX(), getY()-aVector.getY());
+    public NGVector2D Sub(NGVector2D aVector) {
+        return new NGVector2D(getX()-aVector.getX(), getY()-aVector.getY());
     }
 
     public void Invert() {
@@ -67,7 +67,7 @@ public class Vector2D {
         setY(-getY());
     }
 
-    public Boolean Equals(Vector2D aVector) {
+    public Boolean Equals(NGVector2D aVector) {
         return (getX() == aVector.getX() && getY() == aVector.getY());
     }
 

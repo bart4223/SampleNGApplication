@@ -1,6 +1,6 @@
 package Uniwork.Graphics;
 
-public class VirtualSceneObject {
+public class NGVirtualSceneObject {
 
     protected Integer FID;
     protected String FName;
@@ -9,19 +9,19 @@ public class VirtualSceneObject {
     protected Object FCallback;
     protected Boolean FSelected;
 
-    protected Boolean DoDetectCollision(VirtualSceneObject aVirtualSceneObject) {
+    protected Boolean DoDetectCollision(NGVirtualSceneObject aVirtualSceneObject) {
         return false;
     }
 
-    protected void DoCollisionDetected(VirtualSceneObject aVirtualSceneObject) {
+    protected void DoCollisionDetected(NGVirtualSceneObject aVirtualSceneObject) {
 
     }
 
-    public VirtualSceneObject() {
+    public NGVirtualSceneObject() {
         this(0, "", "");
     }
 
-    public VirtualSceneObject(Integer aID, String aName, String aDescription) {
+    public NGVirtualSceneObject(Integer aID, String aName, String aDescription) {
         FID = aID;
         FName = aName;
         FDescription = aDescription;
@@ -74,7 +74,7 @@ public class VirtualSceneObject {
         return FCallback;
     }
 
-    public Boolean DetectCollision(VirtualSceneObject aVirtualSceneObject) {
+    public Boolean DetectCollision(NGVirtualSceneObject aVirtualSceneObject) {
         Boolean lResult = false;
         if (!aVirtualSceneObject.equals(this)) {
             lResult = DoDetectCollision(aVirtualSceneObject);
@@ -85,7 +85,7 @@ public class VirtualSceneObject {
         return lResult;
     }
 
-    public void CollisionDetected(VirtualSceneObject aVirtualSceneObject) {
+    public void CollisionDetected(NGVirtualSceneObject aVirtualSceneObject) {
         DoCollisionDetected(aVirtualSceneObject);
     }
 
