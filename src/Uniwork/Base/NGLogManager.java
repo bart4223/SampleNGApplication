@@ -5,51 +5,51 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class LogManager {
+public class NGLogManager {
 
-    protected ArrayList<LogEntry> FItems;
+    protected ArrayList<NGLogEntry> FItems;
     protected List FEventListeners;
 
-    protected void addLog(LogEntry aLogEntry) {
+    protected void addLog(NGLogEntry aLogEntry) {
         FItems.add(aLogEntry);
         raiseAddLogEvent(aLogEntry);
     }
 
-    protected synchronized void raiseAddLogEvent(LogEntry aLogEntry) {
-        LogEvent lEvent = new LogEvent(this, aLogEntry);
+    protected synchronized void raiseAddLogEvent(NGLogEntry aLogEntry) {
+        NGLogEvent lEvent = new NGLogEvent(this, aLogEntry);
         Iterator lItr = FEventListeners.iterator();
         while(lItr.hasNext())  {
-            ((LogEventListener)lItr.next()).handleAddLog(lEvent);
+            ((NGLogEventListener)lItr.next()).handleAddLog(lEvent);
         }
     }
 
     protected synchronized void raiseClearLogEvent() {
         Iterator lItr = FEventListeners.iterator();
         while(lItr.hasNext())  {
-            ((LogEventListener)lItr.next()).handleClearLog();
+            ((NGLogEventListener)lItr.next()).handleClearLog();
         }
     }
 
-    public LogManager() {
-        FItems = new ArrayList<LogEntry>();
+    public NGLogManager() {
+        FItems = new ArrayList<NGLogEntry>();
         FEventListeners= new ArrayList();
     }
 
-    public synchronized void addEventListener(LogEventListener aListener)  {
+    public synchronized void addEventListener(NGLogEventListener aListener)  {
         FEventListeners.add(aListener);
     }
 
-    public synchronized void removeEventListener(LogEventListener aListener)   {
+    public synchronized void removeEventListener(NGLogEventListener aListener)   {
         FEventListeners.remove(aListener);
     }
 
     public void writeLog(String aText) {
-        LogEntry lLogEntry = new LogEntry(aText);
+        NGLogEntry lLogEntry = new NGLogEntry(aText);
         addLog(lLogEntry);
     }
 
     public void writeLog(String aText, Date aDate) {
-        LogEntry lLogEntry = new LogEntry(aDate, aText);
+        NGLogEntry lLogEntry = new NGLogEntry(aDate, aText);
         addLog(lLogEntry);
     }
 

@@ -5,20 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class LogEntry {
+public class NGLogEntry {
 
     protected Date FDate;
     protected String FText;
 
-    public LogEntry() {
+    public NGLogEntry() {
         this("");
     }
 
-    public LogEntry(String aText) {
+    public NGLogEntry(String aText) {
         this(new Date(), aText);
     }
 
-    public LogEntry(Date aDate, String aText) {
+    public NGLogEntry(Date aDate, String aText) {
         FDate = aDate;
         FText = aText;
     }
