@@ -3,7 +3,7 @@ package Uniwork.Base;
 import java.beans.XMLDecoder;
 import java.io.FileInputStream;
 
-public class ObjectDeserializer {
+public class NGObjectDeserializer {
 
     protected FileInputStream FInput;
     protected XMLDecoder FDecoder;
@@ -26,7 +26,7 @@ public class ObjectDeserializer {
         FXMLObject = FDecoder.readObject();
     }
 
-    public ObjectDeserializer(String aFilename, NGObject aObject) throws Exception {
+    public NGObjectDeserializer(String aFilename, Object aObject) throws Exception {
         FInput = new FileInputStream(aFilename);
         FDecoder = new java.beans.XMLDecoder(FInput);
         FObject = aObject;

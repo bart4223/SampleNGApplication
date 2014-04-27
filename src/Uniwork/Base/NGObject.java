@@ -1,6 +1,6 @@
 package Uniwork.Base;
 
-public class NGObject implements QualityOfService {
+public class NGObject implements NGQualityOfService {
 
     public NGObject() {
 

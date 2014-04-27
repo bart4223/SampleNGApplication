@@ -3,12 +3,12 @@ package Uniwork.Base;
 import java.beans.XMLEncoder;
 import java.io.FileOutputStream;
 
-public class ObjectSerializer {
+public class NGObjectSerializer {
 
     protected FileOutputStream FOutput;
     protected XMLEncoder FEncoder;
-    protected NGObject FObject;
-    protected NGObject FXMLObject;
+    protected Object FObject;
+    protected Object FXMLObject;
 
     protected void Open() {
 
@@ -27,11 +27,11 @@ public class ObjectSerializer {
 
     }
 
-    protected void setXMLObject(NGObject aXMLObject) {
+    protected void setXMLObject(Object aXMLObject) {
         FXMLObject = aXMLObject;
     }
 
-    public ObjectSerializer(String aFilename, NGObject aObject) throws Exception {
+    public NGObjectSerializer(String aFilename, Object aObject) throws Exception {
         FOutput = new FileOutputStream(aFilename);
         FEncoder = new java.beans.XMLEncoder(FOutput);
         FObject = aObject;
