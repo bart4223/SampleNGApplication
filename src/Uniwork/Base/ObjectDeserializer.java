@@ -26,7 +26,7 @@ public class ObjectDeserializer {
         FXMLObject = FDecoder.readObject();
     }
 
-    public ObjectDeserializer(String aFilename, Object aObject) throws Exception {
+    public ObjectDeserializer(String aFilename, NGObject aObject) throws Exception {
         FInput = new FileInputStream(aFilename);
         FDecoder = new java.beans.XMLDecoder(FInput);
         FObject = aObject;

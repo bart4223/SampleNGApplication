@@ -4,15 +4,15 @@ import javafx.scene.canvas.Canvas;
 
 import java.util.ArrayList;
 
-public class DisplayManager extends DisplayController{
+public class NGDisplayManager extends NGDisplayController {
 
-    protected ArrayList<DisplayController> FControllers;
+    protected ArrayList<NGDisplayController> FControllers;
     protected Canvas FCanvas;
 
     @Override
     protected void DoInitialize() {
         super.DoInitialize();
-        for (DisplayController Controller : FControllers) {
+        for (NGDisplayController Controller : FControllers) {
             Controller.Initialize();
         }
     }
@@ -20,7 +20,7 @@ public class DisplayManager extends DisplayController{
     @Override
     protected void DoRender() {
         super.DoRender();
-        for (DisplayController Controller : FControllers) {
+        for (NGDisplayController Controller : FControllers) {
             Controller.Render();
         }
     }
@@ -30,7 +30,7 @@ public class DisplayManager extends DisplayController{
         int index = aName.indexOf(".");
         if (index >= 0) {
             String name = aName.substring(0, index);
-            DisplayController dc = getController(name);
+            NGDisplayController dc = getController(name);
             return dc.getProperty(dc, aName.substring(index + 1, aName.length()));
         }
         else
@@ -43,37 +43,37 @@ public class DisplayManager extends DisplayController{
         int index = aName.indexOf(".");
         if (index >= 0) {
             String name = aName.substring(0, index);
-            DisplayController dc = getController(name);
+            NGDisplayController dc = getController(name);
             dc.setProperty(dc, aName.substring(index + 1, aName.length()), aValue);
         }
         else
             super.setProperty(aObject, aName, aValue);
     }
 
-    public DisplayManager() {
+    public NGDisplayManager() {
         this(null);
     }
 
-    public DisplayManager(Canvas aCanvas) {
+    public NGDisplayManager(Canvas aCanvas) {
         this(aCanvas, "");
     }
 
-    public DisplayManager(Canvas aCanvas, String aName) {
+    public NGDisplayManager(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
-        FControllers = new ArrayList<DisplayController>();
+        FControllers = new ArrayList<NGDisplayController>();
         FCanvas = aCanvas;
     }
 
-    public void addController(DisplayController aController) {
+    public void addController(NGDisplayController aController) {
         FControllers.add(aController);
     }
 
-    public void removeController(DisplayController aController) {
+    public void removeController(NGDisplayController aController) {
         FControllers.remove(aController);
     }
 
-    public DisplayController getController(String aName) {
-        for (DisplayController Controller : FControllers) {
+    public NGDisplayController getController(String aName) {
+        for (NGDisplayController Controller : FControllers) {
             if (Controller.getName().equals(aName)) {
                 return Controller;
             }

@@ -3,7 +3,7 @@ package Uniwork.Visuals;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class SevenSegmentDisplayController extends ShapeDisplayController{
+public class NGSevenSegmentDisplayController extends NGShapeDisplayController {
 
     private static final byte[] CSYMBOLS = new byte[] { (byte)0X3F, (byte)0X06, (byte)0X5B, (byte)0X4F, (byte)0X66,
             (byte)0X6D, (byte)0X7D, (byte)0X07, (byte)0X7F, (byte)0X6F };
@@ -60,11 +60,11 @@ public class SevenSegmentDisplayController extends ShapeDisplayController{
         }
     }
 
-    public SevenSegmentDisplayController(Canvas aCanvas) {
+    public NGSevenSegmentDisplayController(Canvas aCanvas) {
         this(aCanvas, "");
     }
 
-    public SevenSegmentDisplayController(Canvas aCanvas, String aName) {
+    public NGSevenSegmentDisplayController(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
         Number = 0;
         NumberColor = Color.BLACK;

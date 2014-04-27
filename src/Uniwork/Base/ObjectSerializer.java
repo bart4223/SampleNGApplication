@@ -7,8 +7,8 @@ public class ObjectSerializer {
 
     protected FileOutputStream FOutput;
     protected XMLEncoder FEncoder;
-    protected Object FObject;
-    protected Object FXMLObject;
+    protected NGObject FObject;
+    protected NGObject FXMLObject;
 
     protected void Open() {
 
@@ -27,11 +27,11 @@ public class ObjectSerializer {
 
     }
 
-    protected void setXMLObject(Object aXMLObject) {
+    protected void setXMLObject(NGObject aXMLObject) {
         FXMLObject = aXMLObject;
     }
 
-    public ObjectSerializer(String aFilename, Object aObject) throws Exception {
+    public ObjectSerializer(String aFilename, NGObject aObject) throws Exception {
         FOutput = new FileOutputStream(aFilename);
         FEncoder = new java.beans.XMLEncoder(FOutput);
         FObject = aObject;

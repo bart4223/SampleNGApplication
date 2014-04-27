@@ -1,8 +1,8 @@
 package Uniwork.Base;
 
-public class Object implements QualityOfService {
+public class NGObject implements QualityOfService {
 
-    public Object() {
+    public NGObject() {
 
     }
 

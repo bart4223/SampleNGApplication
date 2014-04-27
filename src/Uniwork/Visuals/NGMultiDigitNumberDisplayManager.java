@@ -3,7 +3,7 @@ package Uniwork.Visuals;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class MultiDigitNumberDisplayManager extends DisplayManager{
+public class NGMultiDigitNumberDisplayManager extends NGDisplayManager {
 
     protected int FDigitCount;
     protected int FMaxCount;
@@ -12,7 +12,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
     protected void CreateDigits() {
         for (int i = 0; i < FDigitCount; i++) {
             try {
-                DisplayController dc = (DisplayController)DisplayController.class.getClassLoader().loadClass(FDCClassname).getConstructor(Canvas.class, String.class).newInstance(FCanvas, "DIGIT" + (FDigitCount - i - 1));
+                NGDisplayController dc = (NGDisplayController)NGDisplayController.class.getClassLoader().loadClass(FDCClassname).getConstructor(Canvas.class, String.class).newInstance(FCanvas, "DIGIT" + (FDigitCount - i - 1));
                 addController(dc);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -29,7 +29,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
     @Override
     protected void DoAfterInitialize() {
         for (int i = 0; i < FDigitCount; i++) {
-            DisplayController dc = getController("DIGIT" + (FDigitCount - i - 1));
+            NGDisplayController dc = getController("DIGIT" + (FDigitCount - i - 1));
             BaseWidth = (Integer)dc.getProperty(dc, "BaseWidth");
             BaseHeight = (Integer)dc.getProperty(dc, "BaseHeight");
         }
@@ -47,7 +47,7 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
                 number = count / maxcount;
             else
                 number = count % 10;
-            DisplayController dc = getController("DIGIT" + (FDigitCount - i - 1));
+            NGDisplayController dc = getController("DIGIT" + (FDigitCount - i - 1));
             dc.setProperty(dc, "Number", number);
             dc.setPosition(FPosition.getXAsInt() + i * BaseWidth, FPosition.getYAsInt());
             dc.setBackgroundColor(FBackgroundColor);
@@ -57,11 +57,11 @@ public class MultiDigitNumberDisplayManager extends DisplayManager{
         }
     }
 
-    public MultiDigitNumberDisplayManager(String aDCClassname, Canvas aCanvas, int aDigitCount) {
+    public NGMultiDigitNumberDisplayManager(String aDCClassname, Canvas aCanvas, int aDigitCount) {
         this(aDCClassname, aCanvas, aDigitCount, "");
     }
 
-    public MultiDigitNumberDisplayManager(String aDCClassname, Canvas aCanvas, int aDigitCount, String aName) {
+    public NGMultiDigitNumberDisplayManager(String aDCClassname, Canvas aCanvas, int aDigitCount, String aName) {
         super(aCanvas, aName);
         FDCClassname = aDCClassname;
         FDigitCount = aDigitCount;

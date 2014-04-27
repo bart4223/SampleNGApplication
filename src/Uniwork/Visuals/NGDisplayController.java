@@ -1,5 +1,6 @@
 package Uniwork.Visuals;
 
+import Uniwork.Base.NGObject;
 import Uniwork.Graphics.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,7 +8,7 @@ import javafx.scene.paint.Color;
 
 import static java.lang.Math.abs;
 
-public class DisplayController extends Uniwork.Base.Object {
+public class NGDisplayController extends NGObject {
 
     protected Boolean FInitialized;
     protected GraphicsContext FGC;
@@ -78,7 +79,6 @@ public class DisplayController extends Uniwork.Base.Object {
         int ddF_y = -2 * aRadius;
         int x = 0;
         int y = aRadius;
-        drawLine(aX, aY + aRadius, aX, aY - aRadius, aColor);
         drawLine(aX + aRadius, aY, aX - aRadius, aY, aColor);
         while(x < y)
         {
@@ -152,16 +152,16 @@ public class DisplayController extends Uniwork.Base.Object {
         InternalUpdate();
     }
 
-    public DisplayController(Canvas aCanvas) {
+    public NGDisplayController(Canvas aCanvas) {
         this(aCanvas, "");
     }
 
 
-    public DisplayController(Canvas aCanvas, String aName) {
+    public NGDisplayController(Canvas aCanvas, String aName) {
         this(aCanvas, aName, new Point2D(0, 0));
     }
 
-    public DisplayController(Canvas aCanvas, String aName, Point2D aPosition) {
+    public NGDisplayController(Canvas aCanvas, String aName, Point2D aPosition) {
         super();
         FInitialized = false;
         FCanvas = aCanvas;

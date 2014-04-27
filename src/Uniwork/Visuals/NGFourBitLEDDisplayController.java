@@ -3,7 +3,7 @@ package Uniwork.Visuals;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class FourBitLEDDisplayController extends DisplayController {
+public class NGFourBitLEDDisplayController extends NGDisplayController {
 
     @Override
     protected void RecalculateDimensions() {
@@ -48,11 +48,11 @@ public class FourBitLEDDisplayController extends DisplayController {
         }
     }
 
-    public FourBitLEDDisplayController(Canvas aCanvas) {
+    public NGFourBitLEDDisplayController(Canvas aCanvas) {
         this(aCanvas, "");
     }
 
-    public FourBitLEDDisplayController(Canvas aCanvas, String aName) {
+    public NGFourBitLEDDisplayController(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
         BaseWidth = 2;
         BaseHeight = 8;

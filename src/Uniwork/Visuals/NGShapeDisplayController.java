@@ -3,7 +3,7 @@ package Uniwork.Visuals;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class ShapeDisplayController extends DisplayController {
+public class NGShapeDisplayController extends NGDisplayController {
 
     protected byte[] getSubByteArrayFrom(byte[] aArray, int aSizeX, int aSizeY, int aPosition) {
         byte[] array = new byte[aSizeX * aSizeY];
@@ -34,11 +34,11 @@ public class ShapeDisplayController extends DisplayController {
         }
     }
 
-    public ShapeDisplayController(Canvas aCanvas) {
+    public NGShapeDisplayController(Canvas aCanvas) {
         super(aCanvas);
     }
 
-    public ShapeDisplayController(Canvas aCanvas, String aName) {
+    public NGShapeDisplayController(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
     }
 

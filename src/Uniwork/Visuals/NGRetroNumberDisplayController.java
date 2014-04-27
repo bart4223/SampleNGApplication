@@ -3,7 +3,7 @@ package Uniwork.Visuals;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class RetroNumberDisplayController extends ShapeDisplayController{
+public class NGRetroNumberDisplayController extends NGShapeDisplayController {
 
     private static final byte[] CNUMBERS = new byte[] {
             (byte)0X7C, (byte)0XCE, (byte)0XCE, (byte)0XCE, (byte)0XCE, (byte)0XCE, (byte)0XCE, (byte)0X7C,  // 0
@@ -30,7 +30,7 @@ public class RetroNumberDisplayController extends ShapeDisplayController{
         drawByteArray(number, 1, NumberColor);
     }
 
-    public RetroNumberDisplayController(Canvas aCanvas, String aName) {
+    public NGRetroNumberDisplayController(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
         Number = 0;
         NumberColor = Color.BLACK;

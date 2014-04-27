@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class DigitalClockDisplayManager extends DisplayManager {
+public class NGDigitalClockDisplayManager extends NGDisplayManager {
 
     protected String FDCClassname;
 
@@ -24,11 +24,11 @@ public class DigitalClockDisplayManager extends DisplayManager {
 
     protected void CreateParts() {
         try {
-            DisplayController dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "HOURS");
+            NGDisplayController dc = new NGMultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "HOURS");
             addController(dc);
-            dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "MINUTES");
+            dc = new NGMultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "MINUTES");
             addController(dc);
-            dc = new MultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "SECONDS");
+            dc = new NGMultiDigitNumberDisplayManager(FDCClassname, FCanvas, 2, "SECONDS");
             addController(dc);
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,7 +37,7 @@ public class DigitalClockDisplayManager extends DisplayManager {
 
     @Override
     protected void DoAfterInitialize() {
-        DisplayController dc = getController("HOURS");
+        NGDisplayController dc = getController("HOURS");
         BaseWidth = dc.BaseWidth * 2;
         BaseHeight = dc.BaseHeight;
         super.DoAfterInitialize();
@@ -49,7 +49,7 @@ public class DigitalClockDisplayManager extends DisplayManager {
         Calendar calender = Calendar.getInstance();
         calender.setTime(Date);
         calender.setTimeZone(TimeZone);
-        DisplayController dc = getController("HOURS");
+        NGDisplayController dc = getController("HOURS");
         dc.setPosition(FPosition.getXAsInt(), FPosition.getYAsInt());
         dc.setBackgroundColor(FBackgroundColor);
         dc.setPixelSize(FPixelSize);
@@ -92,7 +92,7 @@ public class DigitalClockDisplayManager extends DisplayManager {
         }
     }
 
-    public DigitalClockDisplayManager(String aDCClassname, Canvas aCanvas) {
+    public NGDigitalClockDisplayManager(String aDCClassname, Canvas aCanvas) {
         super(aCanvas);
         FDCClassname = aDCClassname;
         HoursColor = Color.BLACK;
