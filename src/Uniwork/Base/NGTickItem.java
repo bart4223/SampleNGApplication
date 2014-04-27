@@ -2,7 +2,7 @@ package Uniwork.Base;
 
 import java.util.*;
 
-public class TickItem {
+public class NGTickItem {
 
     protected Integer FTicks;
     protected Integer FInterval;
@@ -19,15 +19,15 @@ public class TickItem {
     }
 
     protected synchronized void RaiseTickEvent() {
-        TickEvent lEvent = new TickEvent(this);
+        NGTickEvent lEvent = new NGTickEvent(this);
         lEvent.Name = FName;
         Iterator lItr = FEventListeners.iterator();
         while(lItr.hasNext())  {
-            ((TickListener)lItr.next()).handleTick(lEvent);
+            ((NGTickListener)lItr.next()).handleTick(lEvent);
         }
     }
 
-    public TickItem(String aName, Integer aInterval) {
+    public NGTickItem(String aName, Integer aInterval) {
         FEventListeners= new ArrayList();
         FName = aName;
         FTicks = 0;
@@ -63,11 +63,11 @@ public class TickItem {
         return FInterval;
     }
 
-    public synchronized void addTickListener(TickListener aListener)  {
+    public synchronized void addTickListener(NGTickListener aListener)  {
         FEventListeners.add(aListener);
     }
 
-    public synchronized void removeTickListener(TickListener aListener)   {
+    public synchronized void removeTickListener(NGTickListener aListener)   {
         FEventListeners.remove(aListener);
     }
 

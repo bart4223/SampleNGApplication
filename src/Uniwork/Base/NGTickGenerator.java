@@ -5,24 +5,24 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TickGenerator {
+public class NGTickGenerator {
 
     protected Timer FTimer;
-    protected ArrayList<TickItem> FItems;
+    protected ArrayList<NGTickItem> FItems;
     protected Integer FBaseInterval;
 
     protected synchronized void DoTick() {
         Iterator lItr = FItems.iterator();
         while(lItr.hasNext())  {
-            ((TickItem)lItr.next()).Tick();
+            ((NGTickItem)lItr.next()).Tick();
         }
     }
 
-    protected TickItem GetItem(String aName) {
-        TickItem lResult = null;
+    protected NGTickItem GetItem(String aName) {
+        NGTickItem lResult = null;
         Iterator lItr = FItems.iterator();
         while(lItr.hasNext())  {
-            lResult = (TickItem)lItr.next();
+            lResult = (NGTickItem)lItr.next();
             if (lResult.getName().equals(aName))
                 break;
             else
@@ -31,14 +31,14 @@ public class TickGenerator {
         return lResult;
     }
 
-    public TickGenerator() {
-        FItems = new ArrayList<TickItem>();
+    public NGTickGenerator() {
+        FItems = new ArrayList<NGTickItem>();
         FTimer = new Timer();
         FBaseInterval = 10;
     }
 
-    public TickGenerator(Integer aBaseInterval) {
-        FItems = new ArrayList<TickItem>();
+    public NGTickGenerator(Integer aBaseInterval) {
+        FItems = new ArrayList<NGTickItem>();
         FTimer = new Timer();
         FBaseInterval = aBaseInterval;
     }
@@ -60,44 +60,44 @@ public class TickGenerator {
     }
 
     public void NewItem(String aName, Integer aInterval) {
-        TickItem lTickItem = new TickItem(aName, aInterval);
+        NGTickItem lTickItem = new NGTickItem(aName, aInterval);
         FItems.add(lTickItem);
     }
 
     public void SetItemEnabled(String aName, Boolean aValue) {
-        TickItem lTickItem = GetItem(aName);
+        NGTickItem lTickItem = GetItem(aName);
         lTickItem.setEnabled(aValue);
     }
 
     public Boolean GetItemEnabled(String aName) {
-        TickItem lTickItem = GetItem(aName);
+        NGTickItem lTickItem = GetItem(aName);
         return lTickItem.getEnabled();
     }
 
     public void SetItemInterval(String aName, Integer aValue) {
-        TickItem lTickItem = GetItem(aName);
+        NGTickItem lTickItem = GetItem(aName);
         lTickItem.setInterval(aValue);
     }
 
     public Integer GetItemInterval(String aName) {
-        TickItem lTickItem = GetItem(aName);
+        NGTickItem lTickItem = GetItem(aName);
         return lTickItem.getInterval();
     }
 
-    public synchronized void addListener(String aName, TickListener aListener)  {
-        TickItem lTickItem = GetItem(aName);
+    public synchronized void addListener(String aName, NGTickListener aListener)  {
+        NGTickItem lTickItem = GetItem(aName);
         lTickItem.addTickListener(aListener);
     }
 
-    public synchronized void removeListener(String aName, TickListener aListener)   {
-        TickItem lTickItem = GetItem(aName);
+    public synchronized void removeListener(String aName, NGTickListener aListener)   {
+        NGTickItem lTickItem = GetItem(aName);
         lTickItem.addTickListener(aListener);
     }
 
     public void SetAllEnabled(Boolean aValue) {
         Iterator lItr = FItems.iterator();
         while(lItr.hasNext())  {
-            TickItem lItem = (TickItem)lItr.next();
+            NGTickItem lItem = (NGTickItem)lItr.next();
             lItem.setEnabled(aValue);
         }
     }
@@ -105,7 +105,7 @@ public class TickGenerator {
     public void ToggleAllEnabled( ) {
         Iterator lItr = FItems.iterator();
         while(lItr.hasNext())  {
-            TickItem lItem = (TickItem)lItr.next();
+            NGTickItem lItem = (NGTickItem)lItr.next();
             lItem.setEnabled(!lItem.getEnabled());
         }
     }
