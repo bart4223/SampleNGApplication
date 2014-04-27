@@ -1,7 +1,7 @@
 package Uniwork.Visuals;
 
 import Uniwork.Base.NGObject;
-import Uniwork.Graphics.Point2D;
+import Uniwork.Graphics.NGPoint2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -14,7 +14,7 @@ public class NGDisplayController extends NGObject {
     protected GraphicsContext FGC;
     protected Canvas FCanvas;
     protected String FName;
-    protected Point2D FPosition;
+    protected NGPoint2D FPosition;
     protected int FPixelSize;
     protected Color FBackgroundColor;
     protected double FWidth;
@@ -158,10 +158,10 @@ public class NGDisplayController extends NGObject {
 
 
     public NGDisplayController(Canvas aCanvas, String aName) {
-        this(aCanvas, aName, new Point2D(0, 0));
+        this(aCanvas, aName, new NGPoint2D(0, 0));
     }
 
-    public NGDisplayController(Canvas aCanvas, String aName, Point2D aPosition) {
+    public NGDisplayController(Canvas aCanvas, String aName, NGPoint2D aPosition) {
         super();
         FInitialized = false;
         FCanvas = aCanvas;
@@ -215,7 +215,7 @@ public class NGDisplayController extends NGObject {
         return FPixelSize;
     }
 
-    public Point2D getPosition() {
+    public NGPoint2D getPosition() {
         return FPosition;
     }
 

@@ -1,17 +1,17 @@
 package Uniwork.Graphics;
 
-public class Circle extends Ellipse {
+public class NGCircle extends NGEllipse {
 
-    public Circle() {
+    public NGCircle() {
         this(0.0);
     }
 
-    public Circle(double aRadius) {
+    public NGCircle(double aRadius) {
         this(0.0, 0.0, aRadius);
         InternalUpdate();
     }
 
-    public Circle(double aX, double aY, double aRadius) {
+    public NGCircle(double aX, double aY, double aRadius) {
         super(aX, aY, aRadius, aRadius);
         InternalUpdate();
     }

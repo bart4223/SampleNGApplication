@@ -1,6 +1,6 @@
 package Uniwork.Graphics;
 
-public class GeometryObject {
+public class NGGeometryObject {
 
     protected Integer FDimensions;
     protected String FID;
@@ -9,7 +9,7 @@ public class GeometryObject {
         // NOP
     }
 
-    public GeometryObject() {
+    public NGGeometryObject() {
         FDimensions = 1;
         FID = "";
     }

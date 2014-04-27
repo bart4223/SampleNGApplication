@@ -1,12 +1,12 @@
 package Uniwork.Graphics;
 
-public class Quadrat extends Rectangle {
+public class NGQuadrat extends NGRectangle {
 
-    public Quadrat() {
+    public NGQuadrat() {
         this(0.0, 0.0, 0.0);
     }
 
-    public Quadrat(double aA, double aX, double aY) {
+    public NGQuadrat(double aA, double aX, double aY) {
         super(aA, aA, aX, aY);
     }
 

@@ -3,17 +3,17 @@ package Uniwork.Graphics;
 public class Square extends StaticVSObject2D {
 
     public Square() {
-        this(new Point2D(0.0, 0.0), 0.0, 0.0);
+        this(new NGPoint2D(0.0, 0.0), 0.0, 0.0);
     }
 
-    public Square(Point2D aPosition, double aSideA, double aSideB) {
+    public Square(NGPoint2D aPosition, double aSideA, double aSideB) {
         super(aPosition);
-        FHull = new Rectangle(aSideA, aSideB, aPosition.getX(), aPosition.getY());
+        FHull = new NGRectangle(aSideA, aSideB, aPosition.getX(), aPosition.getY());
     }
 
     @Override
-    public Rectangle getHull() {
-        return (Rectangle)FHull;
+    public NGRectangle getHull() {
+        return (NGRectangle)FHull;
     }
 
     public double getSideA() {
@@ -24,19 +24,19 @@ public class Square extends StaticVSObject2D {
         return getHull().getB();
     }
 
-    public Point2D getTopLeft() {
-        return new Point2D(getPosition().getX() - getSideA() / 2, getPosition().getY() + getSideB() / 2);
+    public NGPoint2D getTopLeft() {
+        return new NGPoint2D(getPosition().getX() - getSideA() / 2, getPosition().getY() + getSideB() / 2);
     }
 
-    public Point2D getBottomRight() {
-        return new Point2D(getPosition().getX() + getSideA() / 2, getPosition().getY() - getSideB() / 2);
+    public NGPoint2D getBottomRight() {
+        return new NGPoint2D(getPosition().getX() + getSideA() / 2, getPosition().getY() - getSideB() / 2);
     }
 
-    public Boolean IsPointInside(Point2D aPoint, double aOffset) {
-        Point2D lTL = getTopLeft();
+    public Boolean IsPointInside(NGPoint2D aPoint, double aOffset) {
+        NGPoint2D lTL = getTopLeft();
         lTL.setX(lTL.getX()-aOffset);
         lTL.setY(lTL.getY()+aOffset);
-        Point2D lBR = getBottomRight();
+        NGPoint2D lBR = getBottomRight();
         lBR.setX(lBR.getX()+aOffset);
         lBR.setY(lBR.getY()-aOffset);
         return (aPoint.getX() >= lTL.getX() && aPoint.getX() <= lBR.getX() && aPoint.getY() <= lTL.getY() && aPoint.getY() >= lBR.getY());

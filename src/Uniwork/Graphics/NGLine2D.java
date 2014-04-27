@@ -3,25 +3,25 @@ package Uniwork.Graphics;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-public class Line2D extends GeometryObject2D {
+public class NGLine2D extends NGGeometryObject2D {
 
-    protected Point2D FA;
-    protected Point2D FB;
+    protected NGPoint2D FA;
+    protected NGPoint2D FB;
 
-    public Line2D() {
+    public NGLine2D() {
         this(0.0, 0.0, 0.0, 0.0);
     }
 
-    public Line2D(double aAX, double aAY, double aBX, double aBY) {
-        FA = new Point2D(aAX, aAY);
-        FB = new Point2D(aBX, aBY);
+    public NGLine2D(double aAX, double aAY, double aBX, double aBY) {
+        FA = new NGPoint2D(aAX, aAY);
+        FB = new NGPoint2D(aBX, aBY);
     }
 
-    public Point2D getA() {
+    public NGPoint2D getA() {
         return FA;
     }
 
-    public Point2D getB() {
+    public NGPoint2D getB() {
         return FB;
     }
 

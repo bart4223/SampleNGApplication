@@ -1,18 +1,18 @@
 package Uniwork.Graphics;
 
-public class Rectangle extends GeometryObject2D{
+public class NGRectangle extends NGGeometryObject2D {
 
     protected double FA;
     protected double FB;
-    protected Point2D FMiddlePoint;
+    protected NGPoint2D FMiddlePoint;
 
-    public Rectangle() {
+    public NGRectangle() {
         this(0.0, 0.0, 0.0, 0.0);
     }
 
-    public Rectangle(double aA, double aB, double aX, double aY) {
+    public NGRectangle(double aA, double aB, double aX, double aY) {
         super();
-        FMiddlePoint = new Point2D(aX, aY);
+        FMiddlePoint = new NGPoint2D(aX, aY);
         FA = aA;
         FB = aB;
     }
@@ -42,7 +42,7 @@ public class Rectangle extends GeometryObject2D{
         FMiddlePoint.setY(aY);
     }
 
-    public Point2D getMiddlePoint() {
+    public NGPoint2D getMiddlePoint() {
         return FMiddlePoint;
     }
 

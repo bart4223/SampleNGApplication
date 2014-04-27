@@ -5,7 +5,7 @@ public class VirtualSceneObject {
     protected Integer FID;
     protected String FName;
     protected String FDescription;
-    protected GeometryObject FHull;
+    protected NGGeometryObject FHull;
     protected Object FCallback;
     protected Boolean FSelected;
 
@@ -62,7 +62,7 @@ public class VirtualSceneObject {
         return FDescription;
     }
 
-    public GeometryObject getHull() {
+    public NGGeometryObject getHull() {
         return FHull;
     }
 

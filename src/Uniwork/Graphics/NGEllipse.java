@@ -1,12 +1,12 @@
 package Uniwork.Graphics;
 
-public class Ellipse extends GeometryObject2D{
+public class NGEllipse extends NGGeometryObject2D {
 
     protected double FRadiusX;
     protected double FDiameterX;
     protected double FRadiusY;
     protected double FDiameterY;
-    protected Point2D FMiddlePoint;
+    protected NGPoint2D FMiddlePoint;
 
     @Override
     protected void InternalUpdate() {
@@ -15,14 +15,14 @@ public class Ellipse extends GeometryObject2D{
         FDiameterY = FRadiusY * 2;
     }
 
-    public Ellipse() {
+    public NGEllipse() {
         this(0.0, 0.0, 0.0, 0.0);
     }
 
-    public Ellipse(double aX, double aY, double aRadiusX, double aRadiusY) {
+    public NGEllipse(double aX, double aY, double aRadiusX, double aRadiusY) {
         FRadiusX = aRadiusX;
         FRadiusY = aRadiusY;
-        FMiddlePoint = new Point2D(aX, aY);
+        FMiddlePoint = new NGPoint2D(aX, aY);
         InternalUpdate();
     }
 
@@ -68,7 +68,7 @@ public class Ellipse extends GeometryObject2D{
         return (int)getDiameterY();
     }
 
-    public Point2D getMiddlePoint() {
+    public NGPoint2D getMiddlePoint() {
         return FMiddlePoint;
     }
 
