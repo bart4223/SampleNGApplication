@@ -8,6 +8,7 @@ public class NGDisplayManager extends NGDisplayController {
 
     protected ArrayList<NGDisplayController> FControllers;
     protected Canvas FCanvas;
+    protected NGDisplayController FCurrentController;
 
     @Override
     protected void DoInitialize() {
@@ -20,13 +21,18 @@ public class NGDisplayManager extends NGDisplayController {
     @Override
     protected void DoRender() {
         super.DoRender();
-        for (NGDisplayController Controller : FControllers) {
-            Controller.Render();
+        if (FCurrentController == null) {
+            for (NGDisplayController Controller : FControllers) {
+                Controller.Render();
+            }
+        }
+        else {
+            FCurrentController.Render();
         }
     }
 
     @Override
-    public java.lang.Object getProperty(java.lang.Object aObject, String aName) {
+    public Object getProperty(Object aObject, String aName) {
         int index = aName.indexOf(".");
         if (index >= 0) {
             String name = aName.substring(0, index);
@@ -39,7 +45,7 @@ public class NGDisplayManager extends NGDisplayController {
 
 
     @Override
-    public void setProperty(java.lang.Object aObject, String aName, java.lang.Object aValue) {
+    public void setProperty(Object aObject, String aName, Object aValue) {
         int index = aName.indexOf(".");
         if (index >= 0) {
             String name = aName.substring(0, index);
@@ -62,6 +68,7 @@ public class NGDisplayManager extends NGDisplayController {
         super(aCanvas, aName);
         FControllers = new ArrayList<NGDisplayController>();
         FCanvas = aCanvas;
+        FCurrentController = null;
     }
 
     public void addController(NGDisplayController aController) {
@@ -79,6 +86,19 @@ public class NGDisplayManager extends NGDisplayController {
             }
         }
         return null;
+    }
+
+    public NGDisplayController getCurrentController() {
+        return FCurrentController;
+    }
+
+    public boolean setCurrentController(String aName) {
+        return setCurrentController(getController(aName));
+    }
+
+    public boolean setCurrentController(NGDisplayController aController) {
+        FCurrentController = aController;
+        return FCurrentController != null;
     }
 
 }

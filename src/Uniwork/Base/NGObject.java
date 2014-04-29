@@ -7,7 +7,7 @@ public class NGObject implements NGQualityOfService {
     }
 
     @Override
-    public void setProperty(java.lang.Object aObject, String aName, java.lang.Object aValue) {
+    public void setProperty(Object aObject, String aName, Object aValue) {
         try {
             aObject.getClass().getField(aName).set(aObject, aValue);
         }
@@ -17,7 +17,7 @@ public class NGObject implements NGQualityOfService {
     }
 
     @Override
-    public java.lang.Object getProperty(java.lang.Object aObject, String aName) {
+    public Object getProperty(Object aObject, String aName) {
         try {
             return aObject.getClass().getField(aName).get(aObject);
         }

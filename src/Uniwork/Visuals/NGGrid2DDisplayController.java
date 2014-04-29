@@ -3,13 +3,12 @@ package Uniwork.Visuals;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class NGGridDisplayController extends NGDisplayController {
+public class NGGrid2DDisplayController extends NGDisplayController {
 
     @Override
     protected void DoBeforeRender() {
         super.DoBeforeRender();
-        FGC.setFill(FBackgroundColor);
-        FGC.fillRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
+        FGC.clearRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
     }
 
     @Override
@@ -48,11 +47,11 @@ public class NGGridDisplayController extends NGDisplayController {
         }
     }
 
-    public NGGridDisplayController(Canvas aCanvas) {
+    public NGGrid2DDisplayController(Canvas aCanvas) {
         this(aCanvas, "");
     }
 
-    public NGGridDisplayController(Canvas aCanvas, String aName)  {
+    public NGGrid2DDisplayController(Canvas aCanvas, String aName)  {
         super(aCanvas, aName);
         GridDistance = 1;
         GridColor = Color.BLACK;

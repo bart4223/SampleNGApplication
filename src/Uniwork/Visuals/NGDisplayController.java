@@ -41,6 +41,40 @@ public class NGDisplayController extends NGObject {
         }
     }
 
+    protected void drawRectangle(int aX, int aY, int aA, int aB, Color aColor) {
+        int dx = aA/2;
+        int dy = aB/2;
+        int TLX = aX-dx;
+        int TLY = aY-dy;
+        int BRX = aX+aA-dx;
+        int BRY = aY+aB-dy;
+        drawLine(TLX, TLY, BRX, TLY, aColor);
+        drawLine(BRX, TLY, BRX, BRY, aColor);
+        drawLine(TLX, TLY, TLX, BRY, aColor);
+        drawLine(TLX, BRY, BRX, BRY, aColor);
+    }
+
+    protected void drawEllipse(int aX, int aY, int aRadiusX, int aRadiusY, Color aColor) {
+        int dx = 0, dy = aRadiusY;
+        long a2 = aRadiusX*aRadiusX, b2 = aRadiusY*aRadiusY;
+        long err = b2-(2*aRadiusY-1)*a2, e2;
+        do {
+            drawPixel(aX + dx, aY + dy, aColor);
+            drawPixel(aX - dx, aY + dy, aColor);
+            drawPixel(aX - dx, aY - dy, aColor);
+            drawPixel(aX + dx, aY - dy, aColor);
+
+            e2 = 2*err;
+            if (e2 <  (2*dx+1)*b2) { dx++; err += (2*dx+1)*b2; }
+            if (e2 > -(2*dy-1)*a2) { dy--; err -= (2*dy-1)*a2; }
+        } while (dy > 0);
+        dx--;
+        while (dx++ < aRadiusX) {
+            drawPixel(aX + dx, aY, aColor);
+            drawPixel(aX - dx, aY, aColor);
+        }
+    }
+
     protected void drawCircle(int aX, int aY, int aRadius, Color aColor) {
         int f = 1 - aRadius;
         int ddF_x = 0;
@@ -147,7 +181,7 @@ public class NGDisplayController extends NGObject {
     }
 
     @Override
-    public void setProperty(java.lang.Object aObject, String aName, java.lang.Object aValue) {
+    public void setProperty(Object aObject, String aName, java.lang.Object aValue) {
         super.setProperty(aObject, aName, aValue);
         InternalUpdate();
     }
