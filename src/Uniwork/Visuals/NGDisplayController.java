@@ -139,6 +139,12 @@ public class NGDisplayController extends NGObject {
         RecalculateDimensions();
     }
 
+    protected void InternalRender() {
+        BeforeRender();
+        DoRender();
+        AfterRender();
+    }
+
     protected void DoBeforeRender() {
 
     }
@@ -157,6 +163,13 @@ public class NGDisplayController extends NGObject {
 
     protected void AfterRender() {
         DoAfterRender();
+    }
+
+
+    protected void InternalInitialize() {
+        BeforeInitialize();
+        DoInitialize();
+        AfterInitialize();
     }
 
     protected void DoInitialize() {
@@ -221,18 +234,14 @@ public class NGDisplayController extends NGObject {
         if (!FInitialized) {
             if (FCanvas != null)
                 FGC = FCanvas.getGraphicsContext2D();
-            BeforeInitialize();
-            DoInitialize();
-            AfterInitialize();
+            InternalInitialize();
             FInitialized = true;
         }
     }
 
     public void Render() {
         if (FInitialized) {
-            BeforeRender();
-            DoRender();
-            AfterRender();
+            InternalRender();
         }
     }
 
