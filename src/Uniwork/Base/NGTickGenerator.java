@@ -10,6 +10,7 @@ public class NGTickGenerator {
     protected Timer FTimer;
     protected ArrayList<NGTickItem> FItems;
     protected Integer FBaseInterval;
+    protected NGLogManager FLogManager;
 
     protected synchronized void DoTick() {
         Iterator lItr = FItems.iterator();
@@ -31,10 +32,17 @@ public class NGTickGenerator {
         return lResult;
     }
 
+    protected void writeLog(String aText) {
+        if (FLogManager != null) {
+            FLogManager.writeLog(aText);
+        }
+    }
+
     public NGTickGenerator() {
         FItems = new ArrayList<NGTickItem>();
         FTimer = new Timer();
         FBaseInterval = 10;
+        FLogManager = null;
     }
 
     public NGTickGenerator(Integer aBaseInterval) {
@@ -52,10 +60,12 @@ public class NGTickGenerator {
             }
         };
         FTimer.schedule(lTimerTask,100,FBaseInterval);
+        writeLog("TickGenerator initialized!");
     }
 
     public void Finalize() {
         FTimer.cancel();
+        writeLog("TickGenerator stopped!");
         FTimer = null;
     }
 
@@ -100,6 +110,12 @@ public class NGTickGenerator {
             NGTickItem lItem = (NGTickItem)lItr.next();
             lItem.setEnabled(aValue);
         }
+        if (aValue) {
+            writeLog("All TickGenerator items running...");
+        }
+        else {
+            writeLog("All TickGenerator items stopped!");
+        }
     }
 
     public void ToggleAllEnabled( ) {
@@ -109,6 +125,15 @@ public class NGTickGenerator {
             lItem.setEnabled(!lItem.getEnabled());
         }
     }
+
+    public void setLogManager(NGLogManager aLogManager) {
+        FLogManager = aLogManager;
+    }
+
+    public NGLogManager getLogManager() {
+        return FLogManager;
+    }
+
 
 }
 
