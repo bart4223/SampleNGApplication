@@ -31,14 +31,18 @@ public class NGLogEntry {
         return FText;
     }
 
-    public String GetDateAsString() {
-        DateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+    public String GetDateAsString(String aFormat) {
+        DateFormat formatter = new SimpleDateFormat(aFormat);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT+2:00"));
         return formatter.format(FDate);
     }
 
     public String GetFullAsString() {
-        return GetDateAsString() + " " + GetText();
+        return GetFullAsString("HH:mm:ss");
+    }
+
+    public String GetFullAsString(String aFormat) {
+        return GetDateAsString(aFormat) + " " + GetText();
     }
 
 }
