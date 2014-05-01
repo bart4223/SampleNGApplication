@@ -44,12 +44,19 @@ public class NGLogManager {
     }
 
     public void writeLog(String aText) {
-        NGLogEntry lLogEntry = new NGLogEntry(aText);
-        addLog(lLogEntry);
+        writeLog(aText, new Date(), "");
+    }
+
+    public void writeLog(String aText, String aSource) {
+        writeLog(aText, new Date(), aSource);
     }
 
     public void writeLog(String aText, Date aDate) {
-        NGLogEntry lLogEntry = new NGLogEntry(aDate, aText);
+        writeLog(aText, aDate, "");
+    }
+
+    public void writeLog(String aText, Date aDate, String aSource) {
+        NGLogEntry lLogEntry = new NGLogEntry(aDate, aText, aSource);
         addLog(lLogEntry);
     }
 

@@ -34,7 +34,7 @@ public class NGTickGenerator {
 
     protected void writeLog(String aText) {
         if (FLogManager != null) {
-            FLogManager.writeLog(aText);
+            FLogManager.writeLog(aText, getClass().getSimpleName());
         }
     }
 
