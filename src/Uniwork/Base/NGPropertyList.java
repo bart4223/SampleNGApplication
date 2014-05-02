@@ -40,4 +40,8 @@ public class NGPropertyList extends NGObject {
         return item.getValue();
     }
 
+    public void clear() {
+        FItems.clear();
+    }
+
 }
