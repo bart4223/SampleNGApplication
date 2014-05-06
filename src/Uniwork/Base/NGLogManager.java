@@ -9,6 +9,7 @@ public class NGLogManager {
 
     protected ArrayList<NGLogEntry> FItems;
     protected List FEventListeners;
+    protected int FLogLevel;
 
     protected void addLog(NGLogEntry aLogEntry) {
         FItems.add(aLogEntry);
@@ -33,6 +34,7 @@ public class NGLogManager {
     public NGLogManager() {
         FItems = new ArrayList<NGLogEntry>();
         FEventListeners= new ArrayList();
+        FLogLevel = 0;
     }
 
     public synchronized void addEventListener(NGLogEventListener aListener)  {
@@ -60,9 +62,36 @@ public class NGLogManager {
         addLog(lLogEntry);
     }
 
+    public void writeLog(int aLogLevel, String aText) {
+        writeLog(aLogLevel, aText, new Date(), "");
+    }
+
+    public void writeLog(int aLogLevel, String aText, String aSource) {
+        writeLog(aLogLevel, aText, new Date(), aSource);
+    }
+
+    public void writeLog(int aLogLevel, String aText, Date aDate) {
+        writeLog(aLogLevel, aText, aDate, "");
+    }
+
+    public void writeLog(int aLogLevel, String aText, Date aDate, String aSource) {
+        if (aLogLevel >= FLogLevel) {
+            NGLogEntry lLogEntry = new NGLogEntry(aDate, aText, aSource);
+            addLog(lLogEntry);
+        }
+    }
+
     public void clearLog() {
         FItems.clear();
         raiseClearLogEvent();
+    }
+
+    public void setLogLevel(int aLogLevel) {
+        FLogLevel = aLogLevel;
+    }
+
+    public int getLogLevel() {
+        return FLogLevel;
     }
 
 }
