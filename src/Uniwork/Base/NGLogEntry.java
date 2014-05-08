@@ -7,9 +7,12 @@ import java.util.TimeZone;
 
 public class NGLogEntry {
 
+    public enum LogType{Info, Warning, Error};
+
     protected Date FDate;
     protected String FText;
     protected String FSource;
+    protected LogType FType;
 
     public NGLogEntry() {
         this("");
@@ -19,14 +22,23 @@ public class NGLogEntry {
         this(new Date(), aText);
     }
 
-    public NGLogEntry(Date aDate, String aText) {
-        this(aDate, aText, "");
+    public NGLogEntry(String aText, LogType aType) {
+        this(new Date(), aText, aType);
     }
 
-    public NGLogEntry(Date aDate, String aText, String aSource) {
+    public NGLogEntry(Date aDate, String aText) {
+        this(aDate, aText, LogType.Info);
+    }
+
+    public NGLogEntry(Date aDate, String aText, LogType aType) {
+        this(aDate, aText, "", aType);
+    }
+
+    public NGLogEntry(Date aDate, String aText, String aSource, LogType aType) {
         FDate = aDate;
         FText = aText;
         FSource = aSource;
+        FType = aType;
     }
 
     public Date GetDate() {
@@ -35,6 +47,10 @@ public class NGLogEntry {
 
     public String GetText() {
         return FText;
+    }
+
+    public LogType GetType() {
+        return FType;
     }
 
     public String GetSource() {
