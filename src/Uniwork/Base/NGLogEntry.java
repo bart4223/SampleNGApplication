@@ -34,6 +34,10 @@ public class NGLogEntry {
         this(aDate, aText, "", aType);
     }
 
+    public NGLogEntry(Date aDate, String aText, String aSource) {
+        this(aDate, aText, aSource, LogType.Info);
+    }
+
     public NGLogEntry(Date aDate, String aText, String aSource, LogType aType) {
         FDate = aDate;
         FText = aText;
