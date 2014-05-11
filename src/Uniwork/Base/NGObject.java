@@ -1,6 +1,13 @@
 package Uniwork.Base;
 
-public class NGObject implements NGQualityOfService {
+public abstract class NGObject implements NGQualityOfService, NGObjectResolver {
+
+    protected Object DoResolveObject(String aName, Class aClass) {
+        if (aName.length() == 0 && aClass.isAssignableFrom(this.getClass())) {
+            return this;
+        }
+        return null;
+    }
 
     public NGObject() {
 
@@ -25,6 +32,16 @@ public class NGObject implements NGQualityOfService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public Object ResolveObject(Class aClass) {
+        return ResolveObject("", aClass);
+    }
+
+    @Override
+    public Object ResolveObject(String aName, Class aClass) {
+        return DoResolveObject(aName, aClass);
     }
 
 }
