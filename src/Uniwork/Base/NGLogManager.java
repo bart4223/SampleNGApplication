@@ -75,7 +75,7 @@ public class NGLogManager {
     }
 
     public void writeLog(int aLogLevel, String aText, Date aDate, String aSource) {
-        if (aLogLevel >= FLogLevel) {
+        if (aLogLevel <= FLogLevel) {
             NGLogEntry lLogEntry = new NGLogEntry(aDate, aText, aSource);
             addLog(lLogEntry);
         }

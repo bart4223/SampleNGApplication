@@ -33,8 +33,12 @@ public class NGTickGenerator {
     }
 
     protected void writeLog(String aText) {
+        writeLog(0, aText);
+    }
+
+    protected void writeLog(int aLogLevel, String aText) {
         if (FLogManager != null) {
-            FLogManager.writeLog(aText, getClass().getSimpleName());
+            FLogManager.writeLog(aLogLevel, aText, getClass().getName());
         }
     }
 
