@@ -3,7 +3,11 @@ package Uniwork.Base;
 public abstract class NGObject implements NGQualityOfService, NGObjectResolver {
 
     protected Object DoResolveObject(String aName, Class aClass) {
-        if (aName.length() == 0 && aClass.isAssignableFrom(this.getClass())) {
+        Object obj = this;
+        if (aName.length() > 0) {
+            obj = getProperty(obj, aName);
+        }
+        if (aClass.isAssignableFrom(obj.getClass())) {
             return this;
         }
         return null;
