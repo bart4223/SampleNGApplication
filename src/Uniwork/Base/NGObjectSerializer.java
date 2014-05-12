@@ -3,12 +3,13 @@ package Uniwork.Base;
 import java.beans.XMLEncoder;
 import java.io.FileOutputStream;
 
-public class NGObjectSerializer {
+public class NGObjectSerializer extends NGObject {
 
     protected FileOutputStream FOutput;
     protected XMLEncoder FEncoder;
     protected Object FObject;
     protected Object FXMLObject;
+    protected NGLogManager FLogManager;
 
     protected void Open() {
 
@@ -31,6 +32,16 @@ public class NGObjectSerializer {
         FXMLObject = aXMLObject;
     }
 
+    protected void writeLog(String aText) {
+        writeLog(0, aText);
+    }
+
+    protected void writeLog(int aLogLevel, String aText) {
+        if (FLogManager != null) {
+            FLogManager.writeLog(aLogLevel, aText, getClass().getName());
+        }
+    }
+
     public NGObjectSerializer(String aFilename, Object aObject) throws Exception {
         FOutput = new FileOutputStream(aFilename);
         FEncoder = new java.beans.XMLEncoder(FOutput);
@@ -43,6 +54,14 @@ public class NGObjectSerializer {
         DoTransform();
         DoWriteObject();
         Close();
+    }
+
+    public void setLogManager(NGLogManager aLogManager) {
+        FLogManager = aLogManager;
+    }
+
+    public NGLogManager getLogManager() {
+        return FLogManager;
     }
 
 }
