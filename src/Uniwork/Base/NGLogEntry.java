@@ -7,6 +7,8 @@ import java.util.TimeZone;
 
 public class NGLogEntry {
 
+    public final static String FMT_STD_DATE = "HH:mm:ss";
+
     public enum LogType{Info, Warning, Error};
 
     protected Date FDate;
@@ -61,6 +63,10 @@ public class NGLogEntry {
         return FSource;
     }
 
+    public String GetDateAsString() {
+        return GetDateAsString(FMT_STD_DATE);
+    }
+
     public String GetDateAsString(String aFormat) {
         DateFormat formatter = new SimpleDateFormat(aFormat);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT+2:00"));
@@ -68,15 +74,15 @@ public class NGLogEntry {
     }
 
     public String GetFullAsString() {
-        return GetFullAsString("HH:mm:ss", true);
+        return GetFullAsString(FMT_STD_DATE, true);
     }
 
     public String GetFullAsString(String aFormat) {
-        return GetFullAsString("HH:mm:ss", true);
+        return GetFullAsString(FMT_STD_DATE, true);
     }
 
     public String GetFullAsString(Boolean aWithSource) {
-        return GetFullAsString("HH:mm:ss", aWithSource);
+        return GetFullAsString(FMT_STD_DATE, aWithSource);
     }
 
     public String GetFullAsString(String aFormat, Boolean aWithSource) {
