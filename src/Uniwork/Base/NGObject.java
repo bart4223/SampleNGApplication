@@ -13,6 +13,14 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
         return null;
     }
 
+    protected NGObject DoAssignTo() {
+        return null;
+    }
+
+    protected void DoAssignFrom(NGObject aObject) {
+
+    }
+
     public NGObject() {
 
     }
@@ -49,6 +57,11 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
     }
 
     @Override
+    public NGObject AssignTo() {
+        return DoAssignTo();
+    }
+
+    @Override
     public void WriteObject() {
 
     }
@@ -56,6 +69,11 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
     @Override
     public void ReadObject() {
 
+    }
+
+    @Override
+    public void AssignFrom(NGObject aObject) {
+        DoAssignFrom(aObject);
     }
 
 }

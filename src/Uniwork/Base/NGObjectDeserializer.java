@@ -7,8 +7,8 @@ public class NGObjectDeserializer extends NGObject{
 
     protected FileInputStream FInput;
     protected XMLDecoder FDecoder;
-    protected Object FObject;
-    protected Object FXMLObject;
+    protected NGObject FObject;
+    protected NGObject FXMLObject;
     protected NGLogManager FLogManager;
 
     protected void Open() {
@@ -20,11 +20,11 @@ public class NGObjectDeserializer extends NGObject{
     }
 
     protected void DoTransform() {
-
+        FObject.AssignFrom(FXMLObject);
     }
 
     protected void DoReadObject() {
-        FXMLObject = FDecoder.readObject();
+        FXMLObject = (NGObject)FDecoder.readObject();
     }
 
     protected void writeLog(String aText) {
@@ -37,7 +37,7 @@ public class NGObjectDeserializer extends NGObject{
         }
     }
 
-    public NGObjectDeserializer(String aFilename, Object aObject) throws Exception {
+    public NGObjectDeserializer(String aFilename, NGObject aObject) throws Exception {
         FInput = new FileInputStream(aFilename);
         FDecoder = new java.beans.XMLDecoder(FInput);
         FObject = aObject;

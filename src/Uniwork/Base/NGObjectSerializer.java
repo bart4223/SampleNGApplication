@@ -7,8 +7,8 @@ public class NGObjectSerializer extends NGObject {
 
     protected FileOutputStream FOutput;
     protected XMLEncoder FEncoder;
-    protected Object FObject;
-    protected Object FXMLObject;
+    protected NGObject FObject;
+    protected NGObject FXMLObject;
     protected NGLogManager FLogManager;
 
     protected void Open() {
@@ -25,11 +25,7 @@ public class NGObjectSerializer extends NGObject {
     }
 
     protected void DoTransform() {
-
-    }
-
-    protected void setXMLObject(Object aXMLObject) {
-        FXMLObject = aXMLObject;
+        FXMLObject = FObject.AssignTo();
     }
 
     protected void writeLog(String aText) {
@@ -42,7 +38,7 @@ public class NGObjectSerializer extends NGObject {
         }
     }
 
-    public NGObjectSerializer(String aFilename, Object aObject) throws Exception {
+    public NGObjectSerializer(String aFilename, NGObject aObject) throws Exception {
         FOutput = new FileOutputStream(aFilename);
         FEncoder = new java.beans.XMLEncoder(FOutput);
         FObject = aObject;
