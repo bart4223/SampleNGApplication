@@ -1,4 +1,4 @@
-package Uniwork.Base;
+package Uniwork.Misc;
 
 public class NGTickEvent extends java.util.EventObject {
 

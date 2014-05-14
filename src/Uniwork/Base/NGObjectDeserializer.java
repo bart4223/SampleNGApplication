@@ -1,5 +1,7 @@
 package Uniwork.Base;
 
+import Uniwork.Misc.NGLogManager;
+
 import java.beans.XMLDecoder;
 import java.io.FileInputStream;
 
