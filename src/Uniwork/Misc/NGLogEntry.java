@@ -74,7 +74,7 @@ public class NGLogEntry {
     }
 
     public String GetFullAsString() {
-        return GetFullAsString(FMT_STD_DATE, true);
+        return GetFullAsString(FMT_STD_DATE, false);
     }
 
     public String GetFullAsString(String aFormat) {

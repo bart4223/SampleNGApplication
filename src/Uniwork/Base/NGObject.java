@@ -1,6 +1,6 @@
 package Uniwork.Base;
 
-public abstract class NGObject implements NGQualityOfService, NGObjectResolver, NGObjectSerialization {
+public abstract class NGObject implements NGQualityOfService, NGObjectResolver {
 
     protected Object DoResolveObject(String aName, Class aClass) {
         Object obj = this;
@@ -56,22 +56,10 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
         return DoResolveObject(aName, aClass);
     }
 
-    @Override
     public NGObject AssignTo() {
         return DoAssignTo();
     }
 
-    @Override
-    public void WriteObject() {
-
-    }
-
-    @Override
-    public void ReadObject() {
-
-    }
-
-    @Override
     public void AssignFrom(NGObject aObject) {
         DoAssignFrom(aObject);
     }
