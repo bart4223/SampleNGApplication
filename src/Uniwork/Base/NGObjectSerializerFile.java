@@ -1,8 +1,5 @@
 package Uniwork.Base;
 
-import Uniwork.Base.NGObject;
-import Uniwork.Base.NGObjectSerializer;
-
 import java.io.FileOutputStream;
 
 public class NGObjectSerializerFile extends NGObjectSerializer {
