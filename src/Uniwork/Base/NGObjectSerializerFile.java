@@ -17,8 +17,15 @@ public class NGObjectSerializerFile extends NGObjectSerializer {
     @Override
     protected void Close() {
         super.Close();
-        writeLog(String.format("Saving file %s successfully...", FFilename));
+        writeLog(String.format("Saving file %s successfully.", FFilename));
+    }
 
+    public NGObjectSerializerFile() {
+        this(null);
+    }
+
+    public NGObjectSerializerFile(NGObject aObject) {
+        this(aObject, "");
     }
 
     public NGObjectSerializerFile(NGObject aObject, String aFilename) {

@@ -35,26 +35,39 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
         FXMLObject = FObject.AssignTo();
     }
 
-    protected void writeLog(String aText) {
-        writeLog(0, aText);
+    protected void DoSerialize() {
+        DoTransform();
+        DoWriteObject();
     }
 
-    protected void DoSerialize() {
-        try {
-            Open();
-            DoTransform();
-            DoWriteObject();
-            Close();
-        }
-        catch (Exception e) {
-            writeLog(e.getMessage());
-        }
+    protected void writeLog(String aText) {
+        writeLog(0, aText);
     }
 
     protected void writeLog(int aLogLevel, String aText) {
         if (FLogManager != null) {
             FLogManager.writeLog(aLogLevel, aText, getClass().getName());
         }
+    }
+
+    protected void InternalSerialize() {
+        try {
+            Open();
+            try {
+                DoSerialize();
+                writeLog(5, String.format("Object [%s] successfully serialized.", FObject.getClass().getName()));
+            }
+            finally {
+                Close();
+            }
+        }
+        catch (Exception e) {
+            writeLog(e.getMessage());
+        }
+    }
+
+    public NGObjectSerializer() {
+        this(null);
     }
 
     public NGObjectSerializer(NGObject aObject) {
@@ -82,7 +95,7 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
 
     @Override
     public void Serialize() {
-        DoSerialize();
+        InternalSerialize();
     }
 
 }
