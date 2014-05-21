@@ -5,7 +5,7 @@ import Uniwork.Misc.NGLogManager;
 import java.beans.XMLDecoder;
 import java.io.InputStream;
 
-public class NGObjectDeserializer extends NGObject implements NGObjectDeserialization {
+public abstract class NGObjectDeserializer extends NGObject implements NGObjectDeserialization {
 
     protected XMLDecoder FDecoder;
     protected NGObject FObject;
@@ -93,7 +93,7 @@ public class NGObjectDeserializer extends NGObject implements NGObjectDeserializ
     }
 
     @Override
-    public void Deserialize() {
+    public void deserializeObject() {
         InternalDeserialize();
     }
 

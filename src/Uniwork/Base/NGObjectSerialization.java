@@ -2,6 +2,6 @@ package Uniwork.Base;
 
 public interface NGObjectSerialization {
 
-    public void Serialize();
+    public void serializeObject();
 
 }

@@ -94,7 +94,7 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
     }
 
     @Override
-    public void Serialize() {
+    public void serializeObject() {
         InternalSerialize();
     }
 
