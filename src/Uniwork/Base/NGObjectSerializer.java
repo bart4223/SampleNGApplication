@@ -5,7 +5,7 @@ import Uniwork.Misc.NGLogManager;
 import java.beans.XMLEncoder;
 import java.io.OutputStream;
 
-public abstract class NGObjectSerializer extends NGObject implements NGObjectSerialization{
+public abstract class NGObjectSerializer extends NGObject implements NGObjectSerialization {
 
     protected XMLEncoder FEncoder;
     protected NGObject FObject;
@@ -27,27 +27,17 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
         FEncoder.close();
     }
 
-    protected void DoWriteObject() {
-        FEncoder.writeObject(FXMLObject);
-    }
-
     protected void DoTransform() {
         FXMLObject = FObject.AssignTo();
+    }
+
+    protected void DoWriteObject() {
+        FEncoder.writeObject(FXMLObject);
     }
 
     protected void DoSerialize() {
         DoTransform();
         DoWriteObject();
-    }
-
-    protected void writeLog(String aText) {
-        writeLog(0, aText);
-    }
-
-    protected void writeLog(int aLogLevel, String aText) {
-        if (FLogManager != null) {
-            FLogManager.writeLog(aLogLevel, aText, getClass().getName());
-        }
     }
 
     protected void InternalSerialize() {
@@ -63,6 +53,16 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
         }
         catch (Exception e) {
             writeLog(e.getMessage());
+        }
+    }
+
+    protected void writeLog(String aText) {
+        writeLog(0, aText);
+    }
+
+    protected void writeLog(int aLogLevel, String aText) {
+        if (FLogManager != null) {
+            FLogManager.writeLog(aLogLevel, aText, getClass().getName());
         }
     }
 

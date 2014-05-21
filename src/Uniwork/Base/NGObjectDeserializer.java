@@ -3,18 +3,23 @@ package Uniwork.Base;
 import Uniwork.Misc.NGLogManager;
 
 import java.beans.XMLDecoder;
-import java.io.FileInputStream;
+import java.io.InputStream;
 
-public class NGObjectDeserializer extends NGObject{
+public class NGObjectDeserializer extends NGObject implements NGObjectDeserialization {
 
-    protected FileInputStream FInput;
     protected XMLDecoder FDecoder;
     protected NGObject FObject;
     protected NGObject FXMLObject;
     protected NGLogManager FLogManager;
+    protected InputStream FInputStream;
 
-    protected void Open() {
+    protected void CreateInputStream() throws Exception{
 
+    }
+
+    protected void Open() throws Exception{
+        CreateInputStream();
+        FDecoder = new java.beans.XMLDecoder(FInputStream);
     }
 
     protected void Close() {
@@ -29,6 +34,27 @@ public class NGObjectDeserializer extends NGObject{
         FXMLObject = (NGObject)FDecoder.readObject();
     }
 
+    protected void DoDeserialize() {
+        DoReadObject();
+        DoTransform();
+    }
+
+    protected void InternalDeserialize() {
+        try {
+            Open();
+            try {
+                DoDeserialize();
+                writeLog(5, String.format("Object [%s] successfully deserialized.", FObject.getClass().getName()));
+            }
+            finally {
+                Close();
+            }
+        }
+        catch (Exception e) {
+            writeLog(e.getMessage());
+        }
+    }
+
     protected void writeLog(String aText) {
         writeLog(0, aText);
     }
@@ -39,19 +65,15 @@ public class NGObjectDeserializer extends NGObject{
         }
     }
 
-    public NGObjectDeserializer(String aFilename, NGObject aObject) throws Exception {
-        FInput = new FileInputStream(aFilename);
-        FDecoder = new java.beans.XMLDecoder(FInput);
-        FObject = aObject;
-        FXMLObject = null;
-        FLogManager = null;
+    public NGObjectDeserializer() {
+        this(null);
     }
 
-    public void Deserialize() throws Exception {
-        Open();
-        DoReadObject();
-        DoTransform();
-        Close();
+    public NGObjectDeserializer(NGObject aObject) {
+        FObject = aObject;
+        FXMLObject = null;
+        FInputStream = null;
+        FLogManager = null;
     }
 
     public void setLogManager(NGLogManager aLogManager) {
@@ -60,6 +82,19 @@ public class NGObjectDeserializer extends NGObject{
 
     public NGLogManager getLogManager() {
         return FLogManager;
+    }
+
+    public void setObject(NGObject aObject) {
+        FObject = aObject;
+    }
+
+    public NGObject getObject() {
+        return FObject;
+    }
+
+    @Override
+    public void Deserialize() {
+        InternalDeserialize();
     }
 
 }
