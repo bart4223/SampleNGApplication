@@ -1,6 +1,6 @@
 package Uniwork.Base;
 
-public abstract class NGObject implements NGQualityOfService, NGObjectResolver {
+public abstract class NGObject implements NGQualityOfService, NGObjectResolver, NGObjectTransformation {
 
     protected Object DoResolveObject(String aName, Class aClass) {
         Object obj = this;
@@ -13,11 +13,11 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver {
         return null;
     }
 
-    protected NGObject DoAssignTo() {
-        return null;
+    protected void DoAssignTo(Object aObject) {
+
     }
 
-    protected void DoAssignFrom(NGObject aObject) {
+    protected void DoAssignFrom(Object aObject) {
 
     }
 
@@ -56,11 +56,13 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver {
         return DoResolveObject(aName, aClass);
     }
 
-    public NGObject AssignTo() {
-        return DoAssignTo();
+    @Override
+    public void AssignTo(Object aObject) {
+        DoAssignTo(aObject);
     }
 
-    public void AssignFrom(NGObject aObject) {
+    @Override
+    public void AssignFrom(Object aObject) {
         DoAssignFrom(aObject);
     }
 

@@ -2,7 +2,7 @@ package Uniwork.Base;
 
 import java.io.FileOutputStream;
 
-public class NGObjectSerializerFile extends NGObjectSerializer {
+public class NGObjectXMLSerializerFile extends NGObjectXMLSerializer {
 
     protected String FFilename;
 
@@ -17,21 +17,21 @@ public class NGObjectSerializerFile extends NGObjectSerializer {
         writeLog(String.format("Save file %s successfully.", FFilename));
     }
 
-    public NGObjectSerializerFile() {
-        this(null);
+    public NGObjectXMLSerializerFile(Object aObject, Class aTargetClass) {
+        this(aObject, aTargetClass, "");
     }
 
-    public NGObjectSerializerFile(NGObject aObject) {
-        this(aObject, "");
-    }
-
-    public NGObjectSerializerFile(NGObject aObject, String aFilename) {
-        super(aObject);
+    public NGObjectXMLSerializerFile(Object aObject, Class aTargetClass, String aFilename) {
+        super(aObject, aTargetClass);
         FFilename = aFilename;
     }
 
     public void setFilename(String aFilename) {
         FFilename = aFilename;
+    }
+
+    public String getFilename() {
+        return FFilename;
     }
 
 }

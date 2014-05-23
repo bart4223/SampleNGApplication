@@ -2,36 +2,39 @@ package Uniwork.Base;
 
 import Uniwork.Misc.NGLogManager;
 
-import java.beans.XMLDecoder;
 import java.io.InputStream;
 
 public abstract class NGObjectDeserializer extends NGObject implements NGObjectDeserialization {
 
-    protected XMLDecoder FDecoder;
-    protected NGObject FObject;
-    protected NGObject FXMLObject;
+    protected Object FTarget;
+    protected Object FSource;
     protected NGLogManager FLogManager;
     protected InputStream FInputStream;
 
-    protected void CreateInputStream() throws Exception{
+    protected void CreateInputStream() throws Exception {
+
+    }
+
+    protected void CreateDecoder() throws Exception {
 
     }
 
     protected void Open() throws Exception{
         CreateInputStream();
-        FDecoder = new java.beans.XMLDecoder(FInputStream);
+        CreateDecoder();
     }
 
     protected void Close() {
-        FDecoder.close();
+
     }
 
     protected void DoTransform() {
-        FObject.AssignFrom(FXMLObject);
+        NGObjectTransformation transform = (NGObjectTransformation)FTarget;
+        transform.AssignFrom(FSource);
     }
 
     protected void DoReadObject() {
-        FXMLObject = (NGObject)FDecoder.readObject();
+
     }
 
     protected void DoDeserialize() {
@@ -44,7 +47,8 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
             Open();
             try {
                 DoDeserialize();
-                writeLog(5, String.format("Object [%s] successfully deserialized.", FObject.getClass().getName()));
+                System.out.println("OK");
+                writeLog(5, String.format("Object [%s] successfully deserialized.", FSource.getClass().getName()));
             }
             finally {
                 Close();
@@ -65,13 +69,9 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
         }
     }
 
-    public NGObjectDeserializer() {
-        this(null);
-    }
-
-    public NGObjectDeserializer(NGObject aObject) {
-        FObject = aObject;
-        FXMLObject = null;
+    public NGObjectDeserializer(Object aTarget) {
+        FTarget = aTarget;
+        FSource = null;
         FInputStream = null;
         FLogManager = null;
     }
@@ -84,12 +84,12 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
         return FLogManager;
     }
 
-    public void setObject(NGObject aObject) {
-        FObject = aObject;
+    public void setTarget(Object aObject) {
+        FTarget = aObject;
     }
 
-    public NGObject getObject() {
-        return FObject;
+    public Object getTarget() {
+        return FTarget;
     }
 
     @Override

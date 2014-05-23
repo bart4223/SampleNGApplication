@@ -2,37 +2,45 @@ package Uniwork.Base;
 
 import Uniwork.Misc.NGLogManager;
 
-import java.beans.XMLEncoder;
 import java.io.OutputStream;
 
 public abstract class NGObjectSerializer extends NGObject implements NGObjectSerialization {
 
-    protected XMLEncoder FEncoder;
-    protected NGObject FObject;
-    protected NGObject FXMLObject;
+    protected Object FSource;
+    protected Object FTarget;
     protected NGLogManager FLogManager;
     protected OutputStream FOutputStream;
+    protected Class FTargetClass;
 
-    protected void CreateOutputStream() throws Exception{
+    protected void CreateEncoder() throws Exception {
 
+    }
+
+    protected void CreateOutputStream() throws Exception {
+
+    }
+
+    protected void CreateTarget() throws Exception {
+        FTarget = FTargetClass.getConstructor().newInstance();
     }
 
     protected void Open() throws Exception{
         CreateOutputStream();
-        FEncoder = new java.beans.XMLEncoder(FOutputStream);
+        CreateEncoder();
+        CreateTarget();
     }
 
     protected void Close() {
-        FEncoder.flush();
-        FEncoder.close();
+
     }
 
     protected void DoTransform() {
-        FXMLObject = FObject.AssignTo();
+        NGObjectTransformation transform = (NGObjectTransformation)FSource;
+        transform.AssignTo(FTarget);
     }
 
     protected void DoWriteObject() {
-        FEncoder.writeObject(FXMLObject);
+
     }
 
     protected void DoSerialize() {
@@ -45,7 +53,7 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
             Open();
             try {
                 DoSerialize();
-                writeLog(5, String.format("Object [%s] successfully serialized.", FObject.getClass().getName()));
+                writeLog(5, String.format("Object [%s] successfully serialized.", FSource.getClass().getName()));
             }
             finally {
                 Close();
@@ -66,15 +74,12 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
         }
     }
 
-    public NGObjectSerializer() {
-        this(null);
-    }
-
-    public NGObjectSerializer(NGObject aObject) {
-        FObject = aObject;
-        FXMLObject = null;
+    public NGObjectSerializer(Object aSource, Class aTargetClass) {
+        FSource = aSource;
+        FTarget = null;
         FOutputStream = null;
         FLogManager = null;
+        FTargetClass = aTargetClass;
     }
 
     public void setLogManager(NGLogManager aLogManager) {
@@ -85,12 +90,16 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
         return FLogManager;
     }
 
-    public void setObject(NGObject aObject) {
-        FObject = aObject;
+    public void setSource(Object aSource) {
+        FSource = aSource;
     }
 
-    public NGObject getObject() {
-        return FObject;
+    public Object getSource() {
+        return FSource;
+    }
+
+    public Class getTragetClass() {
+        return FTargetClass;
     }
 
     @Override

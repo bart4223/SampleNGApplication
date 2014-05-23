@@ -2,7 +2,7 @@ package Uniwork.Base;
 
 import java.io.FileInputStream;
 
-public class NGObjectDeserializerFile extends NGObjectDeserializer {
+public class NGObjectXMLDeserializerFile extends NGObjectXMLDeserializer {
 
     protected String FFilename;
 
@@ -17,21 +17,21 @@ public class NGObjectDeserializerFile extends NGObjectDeserializer {
         writeLog(String.format("Load file %s successfully.", FFilename));
     }
 
-    public NGObjectDeserializerFile() {
-        this(null);
-    }
-
-    public NGObjectDeserializerFile(NGObject aObject) {
+    public NGObjectXMLDeserializerFile(Object aObject) {
         this(aObject, "");
     }
 
-    public NGObjectDeserializerFile(NGObject aObject, String aFilename) {
+    public NGObjectXMLDeserializerFile(Object aObject, String aFilename) {
         super(aObject);
         FFilename = aFilename;
     }
 
     public void setFilename(String aFilename) {
         FFilename = aFilename;
+    }
+
+    public String getFilename() {
+        return FFilename;
     }
 
 }
