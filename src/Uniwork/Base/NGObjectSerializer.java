@@ -27,7 +27,12 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
     protected void Open() throws Exception{
         CreateOutputStream();
         CreateEncoder();
-        CreateTarget();
+        if (FTargetClass != null) {
+            CreateTarget();
+        }
+        else {
+            FTarget = FSource;
+        }
     }
 
     protected void Close() {
@@ -44,7 +49,9 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
     }
 
     protected void DoSerialize() {
-        DoTransform();
+        if (FTargetClass != null) {
+            DoTransform();
+        }
         DoWriteObject();
     }
 
