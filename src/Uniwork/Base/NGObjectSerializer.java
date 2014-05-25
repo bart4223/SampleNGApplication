@@ -105,6 +105,10 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
         return FSource;
     }
 
+    public void setTargetClass(Class aClass) {
+        FTargetClass = aClass;
+    }
+
     public Class getTragetClass() {
         return FTargetClass;
     }

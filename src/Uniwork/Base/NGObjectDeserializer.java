@@ -47,7 +47,6 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
             Open();
             try {
                 DoDeserialize();
-                System.out.println("OK");
                 writeLog(5, String.format("Object [%s] successfully deserialized.", FSource.getClass().getName()));
             }
             finally {
