@@ -43,7 +43,6 @@ public class NGDisplayManager extends NGDisplayController {
             return super.getProperty(aObject, aName);
     }
 
-
     @Override
     public void setProperty(Object aObject, String aName, Object aValue) {
         int index = aName.indexOf(".");
