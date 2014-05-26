@@ -29,8 +29,13 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
     }
 
     protected void DoTransform() {
-        NGObjectTransformation transform = (NGObjectTransformation)FTarget;
-        transform.AssignFrom(FSource);
+        if (FTarget != null) {
+            NGObjectTransformation transform = (NGObjectTransformation)FTarget;
+            transform.AssignFrom(FSource);
+        }
+        else {
+            FTarget = FSource;
+        }
     }
 
     protected void DoReadObject() {

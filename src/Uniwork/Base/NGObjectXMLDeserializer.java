@@ -21,8 +21,8 @@ public class NGObjectXMLDeserializer extends NGObjectDeserializer {
         FSource = (Object)FDecoder.readObject();
     }
 
-    public NGObjectXMLDeserializer(Object aObject) {
-        super(aObject);
+    public NGObjectXMLDeserializer(Object aTarget) {
+        super(aTarget);
     }
 
 }
