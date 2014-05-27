@@ -68,9 +68,7 @@ public class NGLogEntry {
     }
 
     public String GetDateAsString(String aFormat) {
-        DateFormat formatter = new SimpleDateFormat(aFormat);
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT+2:00"));
-        return formatter.format(FDate);
+        return NGStrings.getDateAsString(FDate, aFormat);
     }
 
     public String GetFullAsString() {
