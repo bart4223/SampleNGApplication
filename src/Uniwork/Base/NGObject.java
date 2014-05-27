@@ -7,8 +7,11 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
         if (aName.length() > 0) {
             obj = getProperty(obj, aName);
         }
+        if (obj == null) {
+            obj = this;
+        }
         if (aClass.isAssignableFrom(obj.getClass())) {
-            return this;
+            return obj;
         }
         return null;
     }
@@ -31,7 +34,6 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
             aObject.getClass().getField(aName).set(aObject, aValue);
         }
         catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -41,7 +43,6 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
             return aObject.getClass().getField(aName).get(aObject);
         }
         catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
