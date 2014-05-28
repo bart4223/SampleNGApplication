@@ -2,9 +2,15 @@ package Uniwork.Visuals;
 
 import Uniwork.Base.NGObject;
 import Uniwork.Graphics.NGPoint2D;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.VolatileImage;
 
 import static java.lang.Math.abs;
 
@@ -232,8 +238,9 @@ public class NGDisplayController extends NGObject {
 
     public void Initialize() {
         if (!FInitialized) {
-            if (FCanvas != null)
+            if (FCanvas != null) {
                 FGC = FCanvas.getGraphicsContext2D();
+            }
             InternalInitialize();
             FInitialized = true;
         }
