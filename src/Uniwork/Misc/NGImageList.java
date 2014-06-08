@@ -3,6 +3,8 @@ package Uniwork.Misc;
 import Uniwork.Base.NGObject;
 import javafx.scene.image.Image;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class NGImageList extends NGObject {
@@ -62,7 +64,19 @@ public class NGImageList extends NGObject {
     }
 
     public static Image getGlobalImage(String aFilename) {
-        return GlobalImages.getImage(aFilename);
+        NGImageListItem item = GlobalImages.getItem(aFilename);
+        if (item == null) {
+            try {
+                InputStream instream = new FileInputStream(aFilename);
+                Image img = new Image(instream);
+                GlobalImages.addImage(aFilename, img);
+            }
+            catch (Exception e) {
+                GlobalImages.addImage(aFilename, null);
+            }
+            item = GlobalImages.getItem(aFilename);
+        }
+        return item.getImage();
     }
 
 }

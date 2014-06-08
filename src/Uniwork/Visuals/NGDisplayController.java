@@ -2,8 +2,10 @@ package Uniwork.Visuals;
 
 import Uniwork.Base.NGObject;
 import Uniwork.Graphics.NGPoint2D;
+import Uniwork.Misc.NGImageList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import static java.lang.Math.abs;
@@ -19,12 +21,24 @@ public class NGDisplayController extends NGObject {
     protected Color FBackgroundColor;
     protected double FWidth;
     protected double FHeight;
+    protected String FImageName;
+    protected Image FImage;
 
     protected void drawPixel(int aX, int aY, Color aColor) {
         int x = aX * FPixelSize;
         int y = aY * FPixelSize;
-        FGC.setFill(aColor);
-        FGC.fillRect(x, y, FPixelSize, FPixelSize);
+        if (FImageName.length() == 0) {
+            FGC.setFill(aColor);
+            FGC.fillRect(x, y, FPixelSize, FPixelSize);
+        }
+        else {
+            if (FImage == null) {
+                FImage = NGImageList.getGlobalImage(FImageName);
+            }
+            if (FImage != null) {
+                FGC.drawImage(FImage, x, y, FPixelSize, FPixelSize);
+            }
+        }
     }
 
     protected void drawLine(int aX0, int aY0, int aX1, int aY1, Color aColor) {
@@ -225,6 +239,8 @@ public class NGDisplayController extends NGObject {
         BaseWidth = 0;
         BaseHeight = 0;
         FGC = null;
+        FImageName = "";
+        FImage = null;
     }
 
     public int BaseWidth;
