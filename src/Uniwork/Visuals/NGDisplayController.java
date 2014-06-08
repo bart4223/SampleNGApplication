@@ -302,4 +302,12 @@ public class NGDisplayController extends NGObject {
         return FHeight;
     }
 
+    public void setImageName(String aImageName) {
+        FImageName = aImageName;
+    }
+
+    public String getImageName() {
+        return FImageName;
+    }
+
 }

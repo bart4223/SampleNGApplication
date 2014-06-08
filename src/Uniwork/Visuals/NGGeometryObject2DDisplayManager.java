@@ -24,6 +24,7 @@ public class NGGeometryObject2DDisplayManager extends NGDisplayManager {
                 }
             }
             FCurrentController.setPixelSize(getPixelSize());
+            FCurrentController.setImageName(getImageName());
             setProperty(FCurrentController, "Selected", Selected );
             setProperty(FCurrentController, "GeometryObject", GeometryObject);
             setProperty(FCurrentController, "GeometryObjectColor", GeometryObjectColor);
