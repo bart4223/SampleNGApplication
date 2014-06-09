@@ -14,11 +14,13 @@ public class NGGrid2DDisplayController extends NGDisplayController {
     @Override
     protected void DoRender() {
         if (!DrawGrid) return;
+        double x = 0 - getViewPositionX();
+        double y = 0 - getViewPositionY();
         Integer index = 0;
         Color color;
-        for(int i = 0; i <= FWidth; i = i + GridDistance) {
+        for(double i = x; i <= x + FWidth; i = i + GridDistance) {
             FGC.beginPath();
-            FGC.moveTo(i, 0);
+            FGC.moveTo(i, y);
             FGC.lineTo(i, FWidth);
             if (index%2 == 0)
                 color = GridColor.darker();
@@ -31,9 +33,9 @@ public class NGGrid2DDisplayController extends NGDisplayController {
             index = index + 1;
         }
         index = 0;
-        for(int i = 0; i < FHeight; i = i + GridDistance) {
+        for(double i = y; i < y + FHeight; i = i + GridDistance) {
             FGC.beginPath();
-            FGC.moveTo(0, i);
+            FGC.moveTo(x, i);
             FGC.lineTo(FWidth, i);
             if (index%2 == 0)
                 color = GridColor.darker();

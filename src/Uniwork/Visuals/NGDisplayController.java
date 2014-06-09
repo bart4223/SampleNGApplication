@@ -23,10 +23,11 @@ public class NGDisplayController extends NGObject {
     protected double FHeight;
     protected String FImageName;
     protected Image FImage;
+    protected NGDisplayView FView;
 
     protected void drawPixel(int aX, int aY, Color aColor) {
-        int x = aX * FPixelSize;
-        int y = aY * FPixelSize;
+        double x = aX * FPixelSize - getViewPositionX();
+        double y = aY * FPixelSize - getViewPositionY();
         if (FImageName.length() == 0) {
             FGC.setFill(aColor);
             FGC.fillRect(x, y, FPixelSize, FPixelSize);
@@ -241,6 +242,7 @@ public class NGDisplayController extends NGObject {
         FGC = null;
         FImageName = "";
         FImage = null;
+        FView = null;
     }
 
     public int BaseWidth;
@@ -275,8 +277,12 @@ public class NGDisplayController extends NGObject {
         return FPixelSize;
     }
 
-    public NGPoint2D getPosition() {
-        return FPosition;
+    public double getPositionX() {
+        return FPosition.getX();
+    }
+
+    public double getPositionY() {
+        return FPosition.getY();
     }
 
     public void setPosition(double aX, double aY) {
@@ -294,20 +300,48 @@ public class NGDisplayController extends NGObject {
         return FBackgroundColor;
     }
 
-    public double getWidth() {
-        return FWidth;
-    }
-
-    public double getHeight() {
-        return FHeight;
-    }
-
     public void setImageName(String aImageName) {
         FImageName = aImageName;
     }
 
     public String getImageName() {
         return FImageName;
+    }
+
+    public void setView(NGDisplayView aView) {
+        FView = aView;
+    }
+
+    public NGDisplayView getView() {
+        return FView;
+    }
+
+    public double getViewPositionX() {
+        if (FView != null) {
+            return FView.getPositionX();
+        }
+        return 0;
+    }
+
+    public double getViewPositionY() {
+        if (FView != null) {
+            return FView.getPositionY();
+        }
+        return 0;
+    }
+
+    public double getViewWidth() {
+        if (FView != null) {
+            return FView.getWidth();
+        }
+        return FWidth;
+    }
+
+    public double getViewHeight() {
+        if (FView != null) {
+            return FView.getHeight();
+        }
+        return FHeight;
     }
 
 }

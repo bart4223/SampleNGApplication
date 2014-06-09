@@ -71,6 +71,7 @@ public class NGDisplayManager extends NGDisplayController {
     }
 
     public void addController(NGDisplayController aController) {
+        aController.setView(getView());
         FControllers.add(aController);
     }
 
@@ -98,6 +99,14 @@ public class NGDisplayManager extends NGDisplayController {
     public boolean setCurrentController(NGDisplayController aController) {
         FCurrentController = aController;
         return FCurrentController != null;
+    }
+
+    @Override
+    public void setView(NGDisplayView aView) {
+        super.setView(aView);
+        for (NGDisplayController Controller : FControllers) {
+            Controller.setView(aView);
+        }
     }
 
 }
