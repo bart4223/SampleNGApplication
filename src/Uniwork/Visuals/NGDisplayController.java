@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 import static java.lang.Math.abs;
 
-public class NGDisplayController extends NGObject {
+public abstract class NGDisplayController extends NGObject {
 
     protected Boolean FInitialized;
     protected GraphicsContext FGC;
@@ -25,20 +25,30 @@ public class NGDisplayController extends NGObject {
     protected Image FImage;
     protected NGDisplayView FView;
 
+    protected Image obtainImage() {
+        if (FImageName.length() > 0) {
+            FImage = NGImageList.getGlobalImage(FImageName);
+            InternalUpdate();
+        }
+        return FImage;
+    }
+
+    protected void drawImage(double aX, double aY, double aSizeX, double aSizeY) {
+        Image img = obtainImage();
+        if (img != null) {
+            FGC.drawImage(img, aX, aY, aSizeX, aSizeY);
+        }
+    }
+
     protected void drawPixel(int aX, int aY, Color aColor) {
-        double x = aX * FPixelSize - getViewPositionX();
-        double y = aY * FPixelSize - getViewPositionY();
+        int x = (int)(aX * FPixelSize - getViewPositionX());
+        int y = (int)(aY * FPixelSize - getViewPositionY());
         if (FImageName.length() == 0) {
             FGC.setFill(aColor);
             FGC.fillRect(x, y, FPixelSize, FPixelSize);
         }
         else {
-            if (FImage == null) {
-                FImage = NGImageList.getGlobalImage(FImageName);
-            }
-            if (FImage != null) {
-                FGC.drawImage(FImage, x, y, FPixelSize, FPixelSize);
-            }
+            drawImage(x, y, FPixelSize, FPixelSize);
         }
     }
 
