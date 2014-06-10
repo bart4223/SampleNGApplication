@@ -41,8 +41,8 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     protected void drawPixel(int aX, int aY, Color aColor) {
-        int x = (int)(aX * FPixelSize - getViewPositionX());
-        int y = (int)(aY * FPixelSize - getViewPositionY());
+        double x = aX * FPixelSize - getViewPositionX();
+        double y = aY * FPixelSize - getViewPositionY();
         if (FImageName.length() == 0) {
             FGC.setFill(aColor);
             FGC.fillRect(x, y, FPixelSize, FPixelSize);
