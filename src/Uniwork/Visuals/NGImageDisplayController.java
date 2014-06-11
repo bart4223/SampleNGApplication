@@ -6,6 +6,12 @@ public class NGImageDisplayController extends NGDisplayController{
 
     protected String FSaveImageName;
 
+    protected Boolean IsClipRect() {
+        double x = getPositionX() - getViewPositionX();
+        double y = getPositionY() - getViewPositionY();
+        return (x > FCanvas.getWidth()) || (y > FCanvas.getHeight()) || (x + FWidth < 0) || (y + FHeight < 0);
+    }
+
     @Override
     public void setImageName(String aImageName) {
         super.setImageName(aImageName);
@@ -18,8 +24,10 @@ public class NGImageDisplayController extends NGDisplayController{
         if (ImageNumber >= 0) {
             FImageName = String.format(FSaveImageName, ImageNumber%MaxImageNumber);
         }
+        double x = getPositionX() - getViewPositionX() + 1;
+        double y = getPositionY() - getViewPositionY() + 1;
+        FGC.clearRect(x, y, FWidth, FHeight);
         obtainImage();
-        FGC.clearRect(FPosition.getX(), FPosition.getY(), FWidth, FHeight);
     }
 
     @Override
@@ -32,9 +40,11 @@ public class NGImageDisplayController extends NGDisplayController{
 
     @Override
     protected void DoRender() {
-        double x = getPositionX() - getViewPositionX();
-        double y = getPositionY() - getViewPositionY();
-        drawImage(x, y, FWidth, FHeight);
+        if (!IsClipRect()) {
+            double x = getPositionX() - getViewPositionX();
+            double y = getPositionY() - getViewPositionY();
+            drawImage(x, y, FWidth, FHeight);
+        }
     }
 
     public NGImageDisplayController(Canvas aCanvas, String aName) {
@@ -45,7 +55,7 @@ public class NGImageDisplayController extends NGDisplayController{
         super(aCanvas, aName);
         setImageName(aImagename);
         FSaveImageName = "";
-        ImageScale = 1;
+        ImageScale = 1.0;
         ImageNumber = -1;
         MaxImageNumber = 10;
     }
