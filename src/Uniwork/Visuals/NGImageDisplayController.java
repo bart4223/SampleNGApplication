@@ -57,7 +57,7 @@ public class NGImageDisplayController extends NGDisplayController{
         FSaveImageName = "";
         ImageScale = 1.0;
         ImageNumber = -1;
-        MaxImageNumber = 10;
+        MaxImageNumber = 16;
     }
 
     public double ImageScale;
