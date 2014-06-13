@@ -47,12 +47,12 @@ public class NGImageList extends NGObject {
         GlobalImages.removeImage(aFilename);
     }
 
-    public void clear() {
+    public void reset() {
         FItems.clear();
     }
 
-    public static void clearGlobal() {
-        GlobalImages.clear();
+    public static void resetGlobal() {
+        GlobalImages.reset();
     }
 
     public Image getImage(String aFilename) {
