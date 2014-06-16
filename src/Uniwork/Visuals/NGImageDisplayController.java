@@ -9,7 +9,7 @@ public class NGImageDisplayController extends NGDisplayController{
     protected Boolean IsClipRect() {
         double x = getPositionX() - getViewPositionX();
         double y = getPositionY() - getViewPositionY();
-        return (x > FCanvas.getWidth()) || (y > FCanvas.getHeight()) || (x + FWidth < 0) || (y + FHeight < 0);
+        return (x > getViewWidth()) || (y > getViewHeight()) || (x + FWidth < 0) || (y + FHeight < 0);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class NGImageDisplayController extends NGDisplayController{
         FSaveImageName = "";
         ImageScale = 1.0;
         ImageNumber = -1;
-        MaxImageNumber = 18;
+        MaxImageNumber = 10;
     }
 
     public double ImageScale;

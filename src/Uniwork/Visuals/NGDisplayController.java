@@ -340,18 +340,27 @@ public abstract class NGDisplayController extends NGObject {
         return 0;
     }
 
+    public double getWidth() {
+        return FWidth;
+    }
+
+
     public double getViewWidth() {
         if (FView != null) {
             return FView.getWidth();
         }
-        return FWidth;
+        return FCanvas.getWidth();
+    }
+
+    public double getHeight() {
+        return FHeight;
     }
 
     public double getViewHeight() {
         if (FView != null) {
             return FView.getHeight();
         }
-        return FHeight;
+        return FCanvas.getHeight();
     }
 
 }
