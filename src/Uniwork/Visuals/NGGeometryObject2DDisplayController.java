@@ -7,11 +7,11 @@ import javafx.scene.paint.Color;
 public class NGGeometryObject2DDisplayController extends NGDisplayController {
 
     protected void drawPixelFrame(int aX, int aY) {
-        int PX = aX * getPixelSize();
-        int PY = aY * getPixelSize();
+        double x = aX * FPixelSize - getViewPositionX();
+        double y = aY * FPixelSize - getViewPositionY();
         FGC.setLineWidth(2);
         FGC.setStroke(Color.MAGENTA);
-        FGC.strokeRect(PX, PY, getPixelSize(), getPixelSize());
+        FGC.strokeRect(x, y, getPixelSize(), getPixelSize());
     }
 
     @Override
