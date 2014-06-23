@@ -1,11 +1,13 @@
 package Uniwork.Misc;
 
+import Uniwork.Base.NGObject;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class NGTickGenerator {
+public class NGTickGenerator extends NGObject{
 
     protected Timer FTimer;
     protected ArrayList<NGTickItem> FItems;
@@ -43,6 +45,7 @@ public class NGTickGenerator {
     }
 
     public NGTickGenerator() {
+        super();
         FItems = new ArrayList<NGTickItem>();
         FTimer = new Timer();
         FBaseInterval = 10;
