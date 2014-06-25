@@ -22,5 +22,4 @@ public final class NGStrings {
         return formatter.format(aDate);
     }
 
-
 }

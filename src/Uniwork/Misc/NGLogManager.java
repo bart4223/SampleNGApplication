@@ -1,11 +1,13 @@
 package Uniwork.Misc;
 
+import Uniwork.Base.NGObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class NGLogManager {
+public class NGLogManager extends NGObject{
 
     protected ArrayList<NGLogEntry> FItems;
     protected List FEventListeners;
@@ -32,6 +34,7 @@ public class NGLogManager {
     }
 
     public NGLogManager() {
+        super();
         FItems = new ArrayList<NGLogEntry>();
         FEventListeners= new ArrayList();
         FLogLevel = 0;
