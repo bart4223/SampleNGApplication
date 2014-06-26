@@ -22,16 +22,24 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     protected void writeError(String aMethodName, String aErrorText) {
-        writeLog(0, String.format("<<<ERROR>>> at [%s.%s] with exception [%s]!", getClass().getName(), aMethodName, aErrorText));
+        writeLog(String.format("<<<ERROR>>> at [%s.%s] with exception [%s]!", getClass().getName(), aMethodName, aErrorText));
     }
 
     protected void DoInvoke(NGObjectRequestItem aItem) {
-        NGObjectRequestObject obj = getObject(aItem.getObject());
-        try {
-            Method method = obj.getObject().getClass().getMethod(aItem.getMethod());
-            method.invoke(obj);
-        } catch (Exception e) {
-            writeError("DoInvoke", e.getMessage());
+        NGObjectRequestObject oro = getObject(aItem.getObject());
+        if (oro != null) {
+            try {
+                NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
+                Method method = oro.getObject().getClass().getMethod(orm.getObjectMethod());
+                method.invoke(oro.getObject());
+                writeLog(5, String.format("ORB invoked [%s->%s]", aItem.getObject(), aItem.getMethod()));
+                writeLog(10, String.format("ORB invoked [%s.%s]", oro.getObject().toString(), orm.getObjectMethod()));
+            } catch (Exception e) {
+                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s", aItem.getObject(), aItem.getMethod(), e.getMessage()));
+            }
+        }
+        else {
+            writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s]", aItem.getObject(), aItem.getMethod()));
         }
     }
 

@@ -15,8 +15,8 @@ public class NGObjectRequestObject extends NGObject {
         FMethods = new ArrayList<NGObjectRequestMethod>();
     }
 
-    public NGObjectRequestMethod addMethod(String aName) {
-        NGObjectRequestMethod method = new NGObjectRequestMethod(aName);
+    public NGObjectRequestMethod addMethod(String aName, String aObjectMethod) {
+        NGObjectRequestMethod method = new NGObjectRequestMethod(aName, aObjectMethod);
         addMethod(method);
         return method;
     }
@@ -31,6 +31,15 @@ public class NGObjectRequestObject extends NGObject {
 
     public Object getObject() {
         return FObject;
+    }
+
+    public NGObjectRequestMethod getMethod(String aName) {
+        for (NGObjectRequestMethod method : FMethods) {
+            if (method.getName().equals(aName)) {
+                return method;
+            }
+        }
+        return null;
     }
 
 }
