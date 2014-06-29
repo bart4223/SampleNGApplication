@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class NGLogManager extends NGObject{
+public class NGLogManager extends NGObject {
 
     protected ArrayList<NGLogEntry> FItems;
     protected List FEventListeners;
@@ -84,17 +84,17 @@ public class NGLogManager extends NGObject{
         }
     }
 
-    public void clearLog() {
-        FItems.clear();
-        raiseClearLogEvent();
-    }
-
     public void setLogLevel(int aLogLevel) {
         FLogLevel = aLogLevel;
     }
 
     public int getLogLevel() {
         return FLogLevel;
+    }
+
+    public void clearLog() {
+        FItems.clear();
+        raiseClearLogEvent();
     }
 
     public String getCompleteLog() {
