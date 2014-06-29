@@ -97,4 +97,24 @@ public class NGLogManager extends NGObject{
         return FLogLevel;
     }
 
+    public String getCompleteLog() {
+        return getCompleteLog(false);
+    }
+
+    public String getCompleteLog(String aFormat) {
+        return getCompleteLog(aFormat, false);
+    }
+
+    public String getCompleteLog(Boolean aWithSource) {
+        return getCompleteLog(NGLogEntry.FMT_STD_DATE, aWithSource);
+    }
+
+    public String getCompleteLog(String aFormat, Boolean aWithSource) {
+        String res = "";
+        for (NGLogEntry entry : FItems) {
+            res = NGStrings.addString(res, entry.GetFullAsString(aFormat, aWithSource), "\n");
+        }
+        return res;
+    }
+
 }
