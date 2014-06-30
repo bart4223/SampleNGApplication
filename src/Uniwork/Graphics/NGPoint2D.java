@@ -4,7 +4,7 @@ import static java.lang.Math.pow;
 import static java.lang.Math.round;
 import static java.lang.Math.sqrt;
 
-public class NGPoint2D extends NGGeometryObject2D {
+public class NGPoint2D extends NGGeometryObject2D implements Comparable<NGPoint2D> {
 
     protected double FX;
     protected double FY;
@@ -45,6 +45,20 @@ public class NGPoint2D extends NGGeometryObject2D {
 
     public double getEuclidDistance(NGPoint2D aPoint) {
         return sqrt(pow(getX() - aPoint.getX(), 2.0) + pow(getY() - aPoint.getY(), 2.0));
+    }
+
+    @Override
+    public int compareTo(NGPoint2D o) {
+        if (o.getY() < getY())
+            return 1;
+        else if (o.getY() > getY())
+            return -1;
+        else if (o.getX() < getX())
+            return 1;
+        else if (o.getX() > getX())
+            return -1;
+        else
+            return 0;
     }
 
 }
