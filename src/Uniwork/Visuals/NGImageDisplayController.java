@@ -21,8 +21,12 @@ public class NGImageDisplayController extends NGDisplayController{
     @Override
     protected void BeforeRender() {
         super.BeforeRender();
-        if (ImageNumber >= 0) {
+        FImageName = FSaveImageName;
+        if (MaxImageNumber > 0) {
             FImageName = String.format(FSaveImageName, ImageNumber%MaxImageNumber);
+        }
+        else if (ImageNumber >= 0) {
+            FImageName = String.format(FSaveImageName, ImageNumber);
         }
         double x = getPositionX() - getViewPositionX() + 1;
         double y = getPositionY() - getViewPositionY() + 1;

@@ -59,8 +59,12 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
             }
         }
         catch (Exception e) {
-            writeLog(e.getMessage());
+            writeError("InternalDeserialize", e.getMessage());
         }
+    }
+
+    protected void writeError(String aMethodName, String aErrorText) {
+        writeLog(0, String.format("<<<ERROR>>> at [%s.%s] with exception [%s]!", getClass().getName(), aMethodName, aErrorText));
     }
 
     protected void writeLog(String aText) {
