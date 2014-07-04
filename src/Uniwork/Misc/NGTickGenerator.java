@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class NGTickGenerator extends NGObject{
+public class NGTickGenerator extends NGObject {
 
     protected Timer FTimer;
     protected ArrayList<NGTickItem> FItems;
@@ -66,7 +66,7 @@ public class NGTickGenerator extends NGObject{
                 }
             }
         };
-        FTimer.schedule(lTimerTask,100,FBaseInterval);
+        FTimer.schedule(lTimerTask, 100, FBaseInterval);
         writeLog("TickGenerator initialized!");
     }
 
@@ -82,8 +82,12 @@ public class NGTickGenerator extends NGObject{
     }
 
     public void SetItemEnabled(String aName, Boolean aValue) {
+        SetItemEnabled(aName, aValue, 0);
+    }
+
+    public void SetItemEnabled(String aName, Boolean aValue, Integer aDelay) {
         NGTickItem lTickItem = GetItem(aName);
-        lTickItem.setEnabled(aValue);
+        lTickItem.setEnabled(aValue, aDelay);
     }
 
     public Boolean GetItemEnabled(String aName) {

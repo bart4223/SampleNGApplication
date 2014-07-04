@@ -46,8 +46,15 @@ public class NGTickItem {
     }
 
     public void setEnabled(Boolean aValue) {
+        setEnabled(aValue, 0);
+    }
+
+    public void setEnabled(Boolean aValue, Integer aDelay) {
         FEnabled = aValue;
-        FTicks = 0;
+        if (aValue)
+            FTicks = FTicks - aDelay;
+        else
+            FTicks = 0;
     }
 
     public Boolean getEnabled() {
