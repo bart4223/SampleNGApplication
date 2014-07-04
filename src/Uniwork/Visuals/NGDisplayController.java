@@ -166,8 +166,12 @@ public abstract class NGDisplayController extends NGObject {
 
     protected void InternalRender() {
         BeforeRender();
-        DoRender();
-        AfterRender();
+        try {
+            DoRender();
+        }
+        finally {
+            AfterRender();
+        }
     }
 
     protected void DoBeforeRender() {
@@ -193,8 +197,12 @@ public abstract class NGDisplayController extends NGObject {
 
     protected void InternalInitialize() {
         BeforeInitialize();
-        DoInitialize();
-        AfterInitialize();
+        try {
+            DoInitialize();
+        }
+        finally {
+            AfterInitialize();
+        }
     }
 
     protected void DoInitialize() {
@@ -216,6 +224,10 @@ public abstract class NGDisplayController extends NGObject {
 
     protected void BeforeInitialize() {
         DoBeforeInitialize();
+    }
+
+    protected Boolean canRender() {
+        return FInitialized;
     }
 
     @Override
@@ -269,7 +281,7 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     public void Render() {
-        if (FInitialized) {
+        if (canRender()) {
             InternalRender();
         }
     }
