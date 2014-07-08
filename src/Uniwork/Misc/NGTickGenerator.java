@@ -81,6 +81,11 @@ public class NGTickGenerator extends NGObject {
         FItems.add(lTickItem);
     }
 
+    public void DeleteItem(String aName) {
+        NGTickItem lTickitem = GetItem(aName);
+        FItems.remove(lTickitem);
+    }
+
     public void SetItemEnabled(String aName, Boolean aValue) {
         SetItemEnabled(aName, aValue, 0);
     }

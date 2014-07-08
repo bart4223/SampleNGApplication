@@ -60,10 +60,6 @@ public class NGStageController extends NGObject implements Initializable {
         DoAfterInitialize();
     }
 
-    protected void registerDisplayController(NGDisplayController aController) {
-        FDCItems.add(aController);
-    }
-
     public NGStageController() {
         super();
         FDCItems = new ArrayList<NGDisplayController>();
@@ -89,6 +85,10 @@ public class NGStageController extends NGObject implements Initializable {
         finally {
             AfterRenderScene();
         }
+    }
+
+    public void registerDisplayController(NGDisplayController aController) {
+        FDCItems.add(aController);
     }
 
 }

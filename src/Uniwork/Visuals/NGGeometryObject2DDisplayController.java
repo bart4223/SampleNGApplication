@@ -4,7 +4,7 @@ import Uniwork.Graphics.NGGeometryObject2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-public class NGGeometryObject2DDisplayController extends NGDisplayController {
+public abstract class NGGeometryObject2DDisplayController extends NGDisplayController {
 
     protected void drawPixelFrame(int aX, int aY) {
         double x = aX * FPixelSize - getViewPositionX();
