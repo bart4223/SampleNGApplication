@@ -22,4 +22,13 @@ public final class NGStrings {
         return formatter.format(aDate);
     }
 
+    public static String getStringPos(String aValue, String aSeparator, Integer aPosition) {
+        String[] strs = aValue.split(aSeparator);
+        if (strs.length > aPosition - 1) {
+            return strs[aPosition - 1];
+        }
+        else
+            return "";
+    }
+
 }

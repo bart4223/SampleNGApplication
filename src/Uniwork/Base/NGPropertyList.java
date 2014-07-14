@@ -44,4 +44,28 @@ public class NGPropertyList extends NGObject {
         FItems.clear();
     }
 
+    public void AssignFrom(ArrayList<NGSerializePropertyItem> aItems) {
+        clear();
+        for (NGSerializePropertyItem item : aItems) {
+            set(item.getName(), item.getValue());
+        }
+    }
+
+    public void AssignTo(ArrayList<NGSerializePropertyItem> aItems) {
+        aItems.clear();
+        for (NGPropertyItem item : FItems) {
+            NGSerializePropertyItem seritem = new NGSerializePropertyItem();
+            seritem.setName(item.getName());
+            seritem.setValue(item.getValue());
+        }
+    }
+
+    public Integer size() {
+        return FItems.size();
+    }
+
+    public ArrayList<NGPropertyItem> getItems() {
+        return FItems;
+    }
+
 }
