@@ -1,13 +1,10 @@
 package Uniwork.Visuals;
 
 import Uniwork.Base.NGObject;
-import javafx.fxml.Initializable;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-public class NGStageController extends NGObject implements Initializable {
+public class NGStageController extends NGObject {
 
     protected ArrayList<NGDisplayController> FDCItems;
 
@@ -65,8 +62,7 @@ public class NGStageController extends NGObject implements Initializable {
         FDCItems = new ArrayList<NGDisplayController>();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void Initialize() {
         BeforeInitialize();
         try
         {
