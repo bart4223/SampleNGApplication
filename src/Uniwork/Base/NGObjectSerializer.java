@@ -55,7 +55,8 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
         DoWriteObject();
     }
 
-    protected void InternalSerialize() {
+    protected Boolean InternalSerialize() {
+        Boolean result = true;
         try {
             Open();
             try {
@@ -67,8 +68,10 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
             }
         }
         catch (Exception e) {
+            result = false;
             writeError("InternalSerialize", e.getMessage());
         }
+        return result;
     }
 
     protected void writeError(String aMethodName, String aErrorText) {
@@ -118,8 +121,8 @@ public abstract class NGObjectSerializer extends NGObject implements NGObjectSer
     }
 
     @Override
-    public void serializeObject() {
-        InternalSerialize();
+    public Boolean serializeObject() {
+        return InternalSerialize();
     }
 
 }

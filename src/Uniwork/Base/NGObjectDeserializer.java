@@ -47,7 +47,8 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
         DoTransform();
     }
 
-    protected void InternalDeserialize() {
+    protected Boolean InternalDeserialize() {
+        Boolean result = true;
         try {
             Open();
             try {
@@ -59,8 +60,10 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
             }
         }
         catch (Exception e) {
+            result = false;
             writeError("InternalDeserialize", e.getMessage());
         }
+        return result;
     }
 
     protected void writeError(String aMethodName, String aErrorText) {
@@ -92,8 +95,8 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
         return FLogManager;
     }
 
-    public void setTarget(Object aObject) {
-        FTarget = aObject;
+    public void setTarget(Object aTarget) {
+        FTarget = aTarget;
     }
 
     public Object getTarget() {
@@ -101,8 +104,8 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
     }
 
     @Override
-    public void deserializeObject() {
-        InternalDeserialize();
+    public Boolean deserializeObject() {
+        return InternalDeserialize();
     }
 
 }

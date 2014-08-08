@@ -17,12 +17,12 @@ public class NGObjectXMLDeserializerFile extends NGObjectXMLDeserializer {
         writeLog(String.format("Load file %s successfully.", FFilename));
     }
 
-    public NGObjectXMLDeserializerFile(Object aObject) {
-        this(aObject, "");
+    public NGObjectXMLDeserializerFile(Object aTarget) {
+        this(aTarget, "");
     }
 
-    public NGObjectXMLDeserializerFile(Object aObject, String aFilename) {
-        super(aObject);
+    public NGObjectXMLDeserializerFile(Object aTarget, String aFilename) {
+        super(aTarget);
         FFilename = aFilename;
     }
 
