@@ -65,7 +65,7 @@ public class NGImageDisplayController extends NGDisplayController{
     }
 
     public double ImageScale;
-    public int ImageNumber;
-    public int MaxImageNumber;
+    public Integer ImageNumber;
+    public Integer MaxImageNumber;
 
 }

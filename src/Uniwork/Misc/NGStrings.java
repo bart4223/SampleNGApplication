@@ -22,8 +22,11 @@ public final class NGStrings {
         return formatter.format(aDate);
     }
 
-    public static String getStringPos(String aValue, String aSeparator, Integer aPosition) {
-        String[] strs = aValue.split(aSeparator);
+    public static String getStringPos(String aValue, String aRegex, Integer aPosition) {
+        // Regex Examples
+        // "." use "\\."
+        // Position from 1..
+        String[] strs = aValue.split(aRegex);
         if (strs.length > aPosition - 1) {
             return strs[aPosition - 1];
         }
