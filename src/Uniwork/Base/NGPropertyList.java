@@ -57,6 +57,7 @@ public class NGPropertyList extends NGObject {
             NGSerializePropertyItem seritem = new NGSerializePropertyItem();
             seritem.setName(item.getName());
             seritem.setValue(item.getValue());
+            aItems.add(seritem);
         }
     }
 
