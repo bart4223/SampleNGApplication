@@ -30,7 +30,7 @@ public class NGImageDisplayController extends NGDisplayController{
         }
         double x = getPositionX() - getViewPositionX() + 1;
         double y = getPositionY() - getViewPositionY() + 1;
-        FGC.clearRect(x, y, FWidth, FHeight);
+        FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
         obtainImage();
     }
 
