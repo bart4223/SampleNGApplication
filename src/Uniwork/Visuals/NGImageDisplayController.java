@@ -68,4 +68,9 @@ public class NGImageDisplayController extends NGDisplayController{
     public Integer ImageNumber;
     public Integer MaxImageNumber;
 
+    @Override
+    public Boolean getInitialized() {
+        return super.getInitialized() && FImage != null;
+    }
+
 }

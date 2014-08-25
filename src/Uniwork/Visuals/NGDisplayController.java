@@ -375,4 +375,8 @@ public abstract class NGDisplayController extends NGObject {
         return FCanvas.getHeight();
     }
 
+    public Boolean getInitialized() {
+        return FInitialized;
+    }
+
 }
