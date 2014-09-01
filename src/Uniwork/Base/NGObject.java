@@ -48,6 +48,13 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
     }
 
     @Override
+    public void setProperties(Object aObject, NGPropertyList aProps) {
+        for (NGPropertyItem item : aProps.getItems()) {
+            setProperty(aObject, item.getName(), item.getValue());
+        }
+    }
+
+    @Override
     public Object ResolveObject(Class aClass) {
         return ResolveObject("", aClass);
     }
