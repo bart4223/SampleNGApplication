@@ -7,12 +7,14 @@ public class NGObjectRequestMethod extends NGObject {
     protected String FName;
     protected String FObjectMethod;
     protected ArrayList<NGObjectRequestParameter> FParams;
+    protected Boolean FActive;
 
     public NGObjectRequestMethod(String aName, String aObjectMethod) {
         super();
         FName = aName;
         FObjectMethod = aObjectMethod;
         FParams = new ArrayList<NGObjectRequestParameter>();
+        FActive = true;
     }
 
     public String getName() {
@@ -31,6 +33,18 @@ public class NGObjectRequestMethod extends NGObject {
 
     public void addParam(NGObjectRequestParameter aParam) {
         FParams.add(aParam);
+    }
+
+    public void Activate() {
+        FActive = true;
+    }
+
+    public void Deactivate() {
+        FActive = false;
+    }
+
+    public Boolean IsActive() {
+        return FActive;
     }
 
 }
