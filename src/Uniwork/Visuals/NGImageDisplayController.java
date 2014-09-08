@@ -2,9 +2,13 @@ package Uniwork.Visuals;
 
 import javafx.scene.canvas.Canvas;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class NGImageDisplayController extends NGDisplayController{
 
-    protected String FSaveImageName;
+    protected ArrayList<NGImageDisplayControllerLayerItem> FLayers;
+    protected NGImageDisplayControllerLayerItem FCurrentLayer;
 
     protected Boolean IsClipRect() {
         double x = getPositionX() - getViewPositionX();
@@ -13,24 +17,20 @@ public class NGImageDisplayController extends NGDisplayController{
     }
 
     @Override
-    public void setImageName(String aImageName) {
-        super.setImageName(aImageName);
-        FSaveImageName = aImageName;
-    }
-
-    @Override
     protected void BeforeRender() {
         super.BeforeRender();
-        FImageName = FSaveImageName;
+        FImageName = FCurrentLayer.getImageName();
         if (MaxImageNumber > 0) {
-            FImageName = String.format(FSaveImageName, ImageNumber%MaxImageNumber);
+            FImageName = String.format(FCurrentLayer.getImageName(), ImageNumber%MaxImageNumber);
         }
         else if (ImageNumber >= 0) {
-            FImageName = String.format(FSaveImageName, ImageNumber);
+            FImageName = String.format(FCurrentLayer.getImageName(), ImageNumber);
         }
-        double x = getPositionX() - getViewPositionX() + 1;
-        double y = getPositionY() - getViewPositionY() + 1;
-        FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
+        if (FCurrentLayer.equals(FLayers.get(0))) {
+            double x = getPositionX() - getViewPositionX() + 1;
+            double y = getPositionY() - getViewPositionY() + 1;
+            FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
+        }
         obtainImage();
     }
 
@@ -51,13 +51,27 @@ public class NGImageDisplayController extends NGDisplayController{
         }
     }
 
+    @Override
+    protected void InternalRender() {
+        for (NGImageDisplayControllerLayerItem item : FLayers) {
+            try {
+                FCurrentLayer = item;
+                super.InternalRender();
+            }
+            finally {
+                FCurrentLayer = null;
+            }
+        }
+    }
+
     public NGImageDisplayController(Canvas aCanvas, String aName) {
         this(aCanvas, aName, "");
     }
 
     public NGImageDisplayController(Canvas aCanvas, String aName, String aImagename) {
         super(aCanvas, aName);
-        setImageName(aImagename);
+        FLayers = new ArrayList<NGImageDisplayControllerLayerItem>();
+        addLayer(aImagename, 0);
         ImageScale = 1.0;
         ImageNumber = -1;
         MaxImageNumber = 1;
@@ -70,6 +84,16 @@ public class NGImageDisplayController extends NGDisplayController{
     @Override
     public Boolean getInitialized() {
         return super.getInitialized() && FImage != null;
+    }
+
+    public void addLayer(String aImageName) {
+        addLayer(aImageName, 0);
+    }
+
+    public void addLayer(String aImageName, Integer aZOrder) {
+        NGImageDisplayControllerLayerItem item = new NGImageDisplayControllerLayerItem(aImageName, aZOrder);
+        FLayers.add(item);
+        Collections.sort(FLayers);
     }
 
 }
