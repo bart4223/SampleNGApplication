@@ -5,7 +5,7 @@ import javafx.scene.canvas.Canvas;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class NGImageDisplayController extends NGDisplayController{
+public class NGImageDisplayController extends NGDisplayController {
 
     protected ArrayList<NGImageDisplayControllerLayerItem> FLayers;
     protected NGImageDisplayControllerLayerItem FCurrentLayer;
@@ -64,6 +64,13 @@ public class NGImageDisplayController extends NGDisplayController{
         }
     }
 
+    @Override
+    public void setImageName(String aImageName) {
+        super.setImageName(aImageName);
+        removeAllLayer();
+        addLayer(aImageName);
+    }
+
     public NGImageDisplayController(Canvas aCanvas, String aName) {
         this(aCanvas, aName, "");
     }
@@ -94,6 +101,10 @@ public class NGImageDisplayController extends NGDisplayController{
         NGImageDisplayControllerLayerItem item = new NGImageDisplayControllerLayerItem(aImageName, aZOrder);
         FLayers.add(item);
         Collections.sort(FLayers);
+    }
+
+    public void removeAllLayer() {
+        FLayers.clear();
     }
 
 }
