@@ -28,7 +28,6 @@ public class NGImageDisplayController extends NGDisplayController{
         else if (ImageNumber >= 0) {
             FImageName = String.format(FSaveImageName, ImageNumber);
         }
-        System.out.println(FImageName);
         double x = getPositionX() - getViewPositionX() + 1;
         double y = getPositionY() - getViewPositionY() + 1;
         FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
