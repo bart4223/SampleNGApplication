@@ -28,6 +28,7 @@ public class NGImageDisplayController extends NGDisplayController{
         else if (ImageNumber >= 0) {
             FImageName = String.format(FSaveImageName, ImageNumber);
         }
+        System.out.println(FImageName);
         double x = getPositionX() - getViewPositionX() + 1;
         double y = getPositionY() - getViewPositionY() + 1;
         FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
@@ -58,10 +59,9 @@ public class NGImageDisplayController extends NGDisplayController{
     public NGImageDisplayController(Canvas aCanvas, String aName, String aImagename) {
         super(aCanvas, aName);
         setImageName(aImagename);
-        FSaveImageName = "";
         ImageScale = 1.0;
         ImageNumber = -1;
-        MaxImageNumber = 10;
+        MaxImageNumber = 1;
     }
 
     public double ImageScale;
