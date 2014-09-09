@@ -6,11 +6,17 @@ public class NGImageDisplayControllerLayerItem extends NGObject implements Compa
 
     protected String FImageName;
     protected Integer FZOrder;
+    protected String FName;
 
-    public NGImageDisplayControllerLayerItem(String aImageName, Integer aZOrder) {
+    public NGImageDisplayControllerLayerItem(String aName, String aImageName, Integer aZOrder) {
         super();
+        FName = aName;
         FImageName = aImageName;
         FZOrder = aZOrder;
+    }
+
+    public String getName() {
+        return FName;
     }
 
     public String getImageName() {
@@ -31,4 +37,5 @@ public class NGImageDisplayControllerLayerItem extends NGObject implements Compa
         else
             return 0;
     }
+
 }

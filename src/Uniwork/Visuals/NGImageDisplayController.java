@@ -64,6 +64,15 @@ public class NGImageDisplayController extends NGDisplayController {
         }
     }
 
+    protected NGImageDisplayControllerLayerItem getLayer(String aName) {
+        for (NGImageDisplayControllerLayerItem layer : FLayers) {
+            if (layer.getName().equals(aName)) {
+                return layer;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void setImageName(String aImageName) {
         super.setImageName(aImageName);
@@ -78,7 +87,7 @@ public class NGImageDisplayController extends NGDisplayController {
     public NGImageDisplayController(Canvas aCanvas, String aName, String aImagename) {
         super(aCanvas, aName);
         FLayers = new ArrayList<NGImageDisplayControllerLayerItem>();
-        addLayer(aImagename, 0);
+        addLayer(aImagename);
         ImageScale = 1.0;
         ImageNumber = -1;
         MaxImageNumber = 1;
@@ -94,13 +103,22 @@ public class NGImageDisplayController extends NGDisplayController {
     }
 
     public void addLayer(String aImageName) {
-        addLayer(aImageName, 0);
+        addLayer("", aImageName);
     }
 
-    public void addLayer(String aImageName, Integer aZOrder) {
-        NGImageDisplayControllerLayerItem item = new NGImageDisplayControllerLayerItem(aImageName, aZOrder);
+    public void addLayer(String aName, String aImageName) {
+        addLayer(aName, aImageName, 0);
+    }
+
+    public void addLayer(String aName, String aImageName, Integer aZOrder) {
+        NGImageDisplayControllerLayerItem item = new NGImageDisplayControllerLayerItem(aName, aImageName, aZOrder);
         FLayers.add(item);
         Collections.sort(FLayers);
+    }
+
+    public void removeLayer(String aName) {
+        NGImageDisplayControllerLayerItem layer = getLayer(aName);
+        FLayers.remove(layer);
     }
 
     public void removeAllLayer() {
