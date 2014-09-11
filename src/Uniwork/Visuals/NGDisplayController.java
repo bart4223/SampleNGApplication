@@ -410,12 +410,12 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     public void setImageName(String aImageName) {
-        NGDisplayControllerLayerItem layer = getLayer(CLAYERBACKGROUND);
+        NGDisplayControllerLayerItem layer = getBackgroundLayer();
         layer.setImageName(aImageName);
     }
 
     public String getBackgroundImageName() {
-        NGDisplayControllerLayerItem layer = getLayer(CLAYERBACKGROUND);
+        NGDisplayControllerLayerItem layer = getBackgroundLayer();
         return layer.getImageName();
     }
 
@@ -491,5 +491,14 @@ public abstract class NGDisplayController extends NGObject {
         FLayers.clear();
     }
 
+    protected NGDisplayControllerLayerItem getBackgroundLayer() {
+        return getLayer(CLAYERBACKGROUND);
+    }
+
+    public void removeAllLayerWithoutBackground() {
+        NGDisplayControllerLayerItem layer = getBackgroundLayer();
+        removeAllLayer();
+        FLayers.add(layer);
+    }
 
 }
