@@ -13,6 +13,7 @@ public class NGGrid2DDisplayController extends NGDisplayController {
 
     @Override
     protected void DoRender() {
+        super.DoRender();
         if (!DrawGrid) return;
         double x = 0 - getViewPositionX();
         double y = 0 - getViewPositionY();

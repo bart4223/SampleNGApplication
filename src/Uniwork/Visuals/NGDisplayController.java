@@ -3,14 +3,20 @@ package Uniwork.Visuals;
 import Uniwork.Base.NGObject;
 import Uniwork.Graphics.NGPoint2D;
 import Uniwork.Misc.NGImageList;
+import Uniwork.Misc.NGStrings;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import static java.lang.Math.abs;
 
 public abstract class NGDisplayController extends NGObject {
+
+    public static String CLAYERBACKGROUND = "Background";
 
     protected Boolean FInitialized;
     protected GraphicsContext FGC;
@@ -21,9 +27,15 @@ public abstract class NGDisplayController extends NGObject {
     protected Color FBackgroundColor;
     protected double FWidth;
     protected double FHeight;
-    protected String FImageName;
     protected Image FImage;
     protected NGDisplayView FView;
+
+    protected ArrayList<NGDisplayControllerLayerItem> FLayers;
+    protected NGDisplayControllerLayerItem FCurrentLayer;
+
+    protected String getCurrentImageName() {
+        return FCurrentLayer.getImageName();
+    }
 
     protected Image getImage(String aImageName) {
         if (aImageName.length() > 0) {
@@ -32,23 +44,28 @@ public abstract class NGDisplayController extends NGObject {
         return null;
     }
 
-    protected Image obtainImage() {
-        FImage = getImage(FImageName);
+    protected Boolean IsClipRect() {
+        double x = getPositionX() - getViewPositionX();
+        double y = getPositionY() - getViewPositionY();
+        return (x > getViewWidth()) || (y > getViewHeight()) || (x + FWidth < 0) || (y + FHeight < 0);
+    }
+
+    protected void obtainImage(String aImageName) {
+        FImage = getImage(aImageName);
         InternalUpdate();
-        return FImage;
     }
 
     protected void drawImage(double aX, double aY, double aSizeX, double aSizeY) {
-        Image img = obtainImage();
-        if (img != null) {
-            FGC.drawImage(img, aX, aY, aSizeX, aSizeY);
+        obtainImage(getCurrentImageName());
+        if (FImage != null) {
+            FGC.drawImage(FImage, aX, aY, aSizeX, aSizeY);
         }
     }
 
     protected void drawPixel(int aX, int aY, Color aColor) {
         double x = aX * FPixelSize - getViewPositionX();
         double y = aY * FPixelSize - getViewPositionY();
-        if (FImageName.length() == 0) {
+        if (getCurrentImageName().length() == 0) {
             FGC.setFill(aColor);
             FGC.fillRect(x, y, FPixelSize, FPixelSize);
         }
@@ -163,6 +180,25 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     protected void RecalculateDimensions() {
+        Boolean initimage = false;
+        for (NGDisplayControllerLayerItem layer : FLayers) {
+            Image img = getImage(layer.getImageName());
+            if (img != null) {
+                if (!initimage) {
+                    FWidth = 0;
+                    FHeight = 0;
+                    initimage = true;
+                }
+                double width = img.getWidth() * layer.ImageScale;
+                if (width > FWidth) {
+                    FWidth = width;
+                }
+                double height = img.getHeight() * layer.ImageScale;
+                if (height > FHeight) {
+                    FHeight = height;
+                }
+            }
+        }
     }
 
     protected void InternalUpdate() {
@@ -180,7 +216,13 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     protected void DoBeforeRender() {
-
+        String CurrentImagename = getCurrentImageName();
+        obtainImage(CurrentImagename);
+        if (CurrentImagename.length() > 0 && FCurrentLayer.equals(FLayers.get(0))) {
+            double x = getPositionX() - getViewPositionX() + 1;
+            double y = getPositionY() - getViewPositionY() + 1;
+            FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
+        }
     }
 
     protected void BeforeRender() {
@@ -188,7 +230,6 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     protected void DoRender() {
-
     }
 
     protected void DoAfterRender() {
@@ -235,10 +276,42 @@ public abstract class NGDisplayController extends NGObject {
         return FInitialized;
     }
 
+    protected NGDisplayControllerLayerItem getLayer(String aName) {
+        for (NGDisplayControllerLayerItem layer : FLayers) {
+            if (layer.getName().equals(aName)) {
+                return layer;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void setProperty(Object aObject, String aName, java.lang.Object aValue) {
-        super.setProperty(aObject, aName, aValue);
+        if (aName.contains(".")) {
+            NGDisplayControllerLayerItem layer = getLayer(NGStrings.getStringPos(aName, "\\.", 1));
+            if (layer != null) {
+                layer.setProperty(layer, NGStrings.getStringPos(aName, "\\.", 2), aValue);
+            }
+            else
+                super.setProperty(aObject, aName, aValue);
+        }
+        else
+            super.setProperty(aObject, aName, aValue);
         InternalUpdate();
+    }
+
+    @Override
+    public Object getProperty(Object aObject, String aName) {
+        if (aName.contains(".")) {
+            NGDisplayControllerLayerItem layer = getLayer(NGStrings.getStringPos(aName, "\\.", 1));
+            if (layer != null) {
+                return layer.getProperty(layer, NGStrings.getStringPos(aName, "\\.", 2));
+            }
+            else
+                return super.getProperty(aObject, aName);
+        }
+        else
+            return super.getProperty(aObject, aName);
     }
 
     public NGDisplayController(Canvas aCanvas) {
@@ -267,9 +340,10 @@ public abstract class NGDisplayController extends NGObject {
         BaseWidth = 0;
         BaseHeight = 0;
         FGC = null;
-        FImageName = "";
         FImage = null;
         FView = null;
+        FLayers = new ArrayList<NGDisplayControllerLayerItem>();
+        addLayer(CLAYERBACKGROUND, "");
     }
 
     public int BaseWidth;
@@ -287,7 +361,15 @@ public abstract class NGDisplayController extends NGObject {
 
     public void Render() {
         if (canRender()) {
-            InternalRender();
+            for (NGDisplayControllerLayerItem layer : FLayers) {
+                try {
+                    FCurrentLayer = layer;
+                    InternalRender();
+                }
+                finally {
+                    FCurrentLayer = null;
+                }
+            }
         }
     }
 
@@ -328,11 +410,17 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     public void setImageName(String aImageName) {
-        FImageName = aImageName;
+        NGDisplayControllerLayerItem layer = getLayer(CLAYERBACKGROUND);
+        layer.setImageName(aImageName);
+    }
+
+    public String getBackgroundImageName() {
+        NGDisplayControllerLayerItem layer = getLayer(CLAYERBACKGROUND);
+        return layer.getImageName();
     }
 
     public String getImageName() {
-        return FImageName;
+        return getBackgroundImageName();
     }
 
     public void setView(NGDisplayView aView) {
@@ -381,7 +469,27 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     public Boolean getInitialized() {
-        return FInitialized;
+        return FInitialized && FImage != null;
     }
+
+    public void addLayer(String aName, String aImageName) {
+        addLayer(aName, aImageName, 0);
+    }
+
+    public void addLayer(String aName, String aImageName, Integer aZOrder) {
+        NGDisplayControllerLayerItem item = new NGDisplayControllerLayerItem(aName, aImageName, aZOrder);
+        FLayers.add(item);
+        Collections.sort(FLayers);
+    }
+
+    public void removeLayer(String aName) {
+        NGDisplayControllerLayerItem layer = getLayer(aName);
+        FLayers.remove(layer);
+    }
+
+    public void removeAllLayer() {
+        FLayers.clear();
+    }
+
 
 }

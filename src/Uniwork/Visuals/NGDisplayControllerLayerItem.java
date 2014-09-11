@@ -2,13 +2,13 @@ package Uniwork.Visuals;
 
 import Uniwork.Base.NGObject;
 
-public class NGImageDisplayControllerLayerItem extends NGObject implements Comparable {
+public class NGDisplayControllerLayerItem extends NGObject implements Comparable {
 
     protected String FImageName;
     protected Integer FZOrder;
     protected String FName;
 
-    public NGImageDisplayControllerLayerItem(String aName, String aImageName, Integer aZOrder) {
+    public NGDisplayControllerLayerItem(String aName, String aImageName, Integer aZOrder) {
         super();
         FName = aName;
         FImageName = aImageName;
@@ -36,13 +36,17 @@ public class NGImageDisplayControllerLayerItem extends NGObject implements Compa
         return result;
     }
 
+    public void setImageName(String aImageName) {
+        FImageName = aImageName;
+    }
+
     public Integer getZOrder() {
         return FZOrder;
     }
 
     @Override
     public int compareTo(Object o) {
-        NGImageDisplayControllerLayerItem item = (NGImageDisplayControllerLayerItem)o;
+        NGDisplayControllerLayerItem item = (NGDisplayControllerLayerItem)o;
         if (item.getZOrder() < getZOrder())
             return 1;
         else if (item.getZOrder() > getZOrder())
