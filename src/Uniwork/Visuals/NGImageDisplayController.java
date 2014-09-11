@@ -1,11 +1,15 @@
 package Uniwork.Visuals;
 
+import Uniwork.Misc.NGStrings;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class NGImageDisplayController extends NGDisplayController {
+
+    public static String CLAYERBACKGROUND = "Background";
 
     protected ArrayList<NGImageDisplayControllerLayerItem> FLayers;
     protected NGImageDisplayControllerLayerItem FCurrentLayer;
@@ -19,26 +23,31 @@ public class NGImageDisplayController extends NGDisplayController {
     @Override
     protected void BeforeRender() {
         super.BeforeRender();
-        FImageName = FCurrentLayer.getImageName();
-        if (MaxImageNumber > 0) {
-            FImageName = String.format(FCurrentLayer.getImageName(), ImageNumber%MaxImageNumber);
-        }
-        else if (ImageNumber >= 0) {
-            FImageName = String.format(FCurrentLayer.getImageName(), ImageNumber);
-        }
         if (FCurrentLayer.equals(FLayers.get(0))) {
             double x = getPositionX() - getViewPositionX() + 1;
             double y = getPositionY() - getViewPositionY() + 1;
             FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
         }
+        FImageName = FCurrentLayer.getImageName();
         obtainImage();
     }
 
     @Override
     protected void RecalculateDimensions() {
-        if (FImage != null) {
-            FWidth = FImage.getWidth() * ImageScale;
-            FHeight = FImage.getHeight() * ImageScale;
+        FWidth = 0;
+        FHeight = 0;
+        for (NGImageDisplayControllerLayerItem layer : FLayers) {
+            Image img = getImage(layer.getImageName());
+            if (img != null) {
+                double width = img.getWidth() * layer.ImageScale;
+                if (width > FWidth) {
+                    FWidth = width;
+                }
+                double height = img.getHeight() * layer.ImageScale;
+                if (height > FHeight) {
+                    FHeight = height;
+                }
+            }
         }
     }
 
@@ -53,9 +62,9 @@ public class NGImageDisplayController extends NGDisplayController {
 
     @Override
     protected void InternalRender() {
-        for (NGImageDisplayControllerLayerItem item : FLayers) {
+        for (NGImageDisplayControllerLayerItem layer : FLayers) {
             try {
-                FCurrentLayer = item;
+                FCurrentLayer = layer;
                 super.InternalRender();
             }
             finally {
@@ -76,8 +85,8 @@ public class NGImageDisplayController extends NGDisplayController {
     @Override
     public void setImageName(String aImageName) {
         super.setImageName(aImageName);
-        removeAllLayer();
-        addLayer(aImageName);
+        removeLayer(CLAYERBACKGROUND);
+        addLayer(CLAYERBACKGROUND, aImageName);
     }
 
     public NGImageDisplayController(Canvas aCanvas, String aName) {
@@ -87,23 +96,40 @@ public class NGImageDisplayController extends NGDisplayController {
     public NGImageDisplayController(Canvas aCanvas, String aName, String aImagename) {
         super(aCanvas, aName);
         FLayers = new ArrayList<NGImageDisplayControllerLayerItem>();
-        addLayer(aImagename);
-        ImageScale = 1.0;
-        ImageNumber = -1;
-        MaxImageNumber = 1;
+        addLayer(CLAYERBACKGROUND, aImagename);
     }
-
-    public double ImageScale;
-    public Integer ImageNumber;
-    public Integer MaxImageNumber;
 
     @Override
     public Boolean getInitialized() {
         return super.getInitialized() && FImage != null;
     }
 
-    public void addLayer(String aImageName) {
-        addLayer("", aImageName);
+    @Override
+    public void setProperty(Object aObject, String aName, Object aValue) {
+        if (aName.contains(".")) {
+            NGImageDisplayControllerLayerItem layer = getLayer(NGStrings.getStringPos(aName, "\\.", 1));
+            if (layer != null) {
+                layer.setProperty(layer, NGStrings.getStringPos(aName, "\\.", 2), aValue);
+            }
+            else
+                super.setProperty(aObject, aName, aValue);
+        }
+        else
+            super.setProperty(aObject, aName, aValue);
+    }
+
+    @Override
+    public Object getProperty(Object aObject, String aName) {
+        if (aName.contains(".")) {
+            NGImageDisplayControllerLayerItem layer = getLayer(NGStrings.getStringPos(aName, "\\.", 1));
+            if (layer != null) {
+                return layer.getProperty(layer, NGStrings.getStringPos(aName, "\\.", 2));
+            }
+            else
+                return super.getProperty(aObject, aName);
+        }
+        else
+            return super.getProperty(aObject, aName);
     }
 
     public void addLayer(String aName, String aImageName) {

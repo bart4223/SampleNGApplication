@@ -25,11 +25,16 @@ public abstract class NGDisplayController extends NGObject {
     protected Image FImage;
     protected NGDisplayView FView;
 
-    protected Image obtainImage() {
-        if (FImageName.length() > 0) {
-            FImage = NGImageList.getGlobalImage(FImageName);
-            InternalUpdate();
+    protected Image getImage(String aImageName) {
+        if (aImageName.length() > 0) {
+            return NGImageList.getGlobalImage(aImageName);
         }
+        return null;
+    }
+
+    protected Image obtainImage() {
+        FImage = getImage(FImageName);
+        InternalUpdate();
         return FImage;
     }
 
