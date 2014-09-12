@@ -37,7 +37,10 @@ public class NGPropertyList extends NGObject {
 
     public Object get(String aName) {
         NGPropertyItem item = getItem(aName);
-        return item.getValue();
+        if (item != null) {
+            return item.getValue();
+        }
+        return null;
     }
 
     public void clear() {
