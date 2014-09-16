@@ -24,6 +24,7 @@ public final class NGStrings {
 
     public static String getStringPos(String aValue, String aRegex, Integer aPosition) {
         // Regex Examples
+        // "," use ","
         // "." use "\\."
         // Position from 1..
         String[] strs = aValue.split(aRegex);
@@ -36,6 +37,9 @@ public final class NGStrings {
     }
 
     public static Boolean IsStringInString(String aValue, String aStrings, String aRegex) {
+        // Regex Examples
+        // "," use ","
+        // "." use "\\."
         String[] strs = aStrings.split(aRegex);
         for (int i = 0; i < strs.length; i++) {
             if (strs[i].equals(aValue)) {
