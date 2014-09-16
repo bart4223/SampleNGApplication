@@ -286,18 +286,20 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     @Override
-    public void setProperty(Object aObject, String aName, java.lang.Object aValue) {
+    public Boolean setProperty(Object aObject, String aName, java.lang.Object aValue) {
+        Boolean res;
         if (aName.contains(".")) {
             NGDisplayControllerLayerItem layer = getLayer(NGStrings.getStringPos(aName, "\\.", 1));
             if (layer != null) {
-                layer.setProperty(layer, NGStrings.getStringPos(aName, "\\.", 2), aValue);
+                res = layer.setProperty(layer, NGStrings.getStringPos(aName, "\\.", 2), aValue);
             }
             else
-                super.setProperty(aObject, aName, aValue);
+                res = super.setProperty(aObject, aName, aValue);
         }
         else
-            super.setProperty(aObject, aName, aValue);
+            res = super.setProperty(aObject, aName, aValue);
         InternalUpdate();
+        return res;
     }
 
     @Override

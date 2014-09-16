@@ -29,12 +29,16 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
     }
 
     @Override
-    public void setProperty(Object aObject, String aName, Object aValue) {
+    public Boolean setProperty(Object aObject, String aName, Object aValue) {
+        Boolean res;
         try {
             aObject.getClass().getField(aName).set(aObject, aValue);
+            res = true;
         }
         catch (Exception e) {
+            res = false;
         }
+        return res;
     }
 
     @Override

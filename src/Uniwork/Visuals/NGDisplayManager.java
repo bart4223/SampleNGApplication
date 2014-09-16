@@ -44,15 +44,18 @@ public class NGDisplayManager extends NGDisplayController {
     }
 
     @Override
-    public void setProperty(Object aObject, String aName, Object aValue) {
-        int index = aName.indexOf(".");
+    public Boolean setProperty(Object aObject, String aName, Object aValue) {
+        Boolean res;
+        Integer index = aName.indexOf(".");
         if (index >= 0) {
             String name = aName.substring(0, index);
             NGDisplayController dc = getController(name);
-            dc.setProperty(dc, aName.substring(index + 1, aName.length()), aValue);
+            res = dc.setProperty(dc, aName.substring(index + 1, aName.length()), aValue);
         }
-        else
-            super.setProperty(aObject, aName, aValue);
+        else {
+            res = super.setProperty(aObject, aName, aValue);
+        }
+        return res;
     }
 
     public NGDisplayManager() {
