@@ -293,11 +293,13 @@ public abstract class NGDisplayController extends NGObject {
             if (layer != null) {
                 res = layer.setProperty(layer, NGStrings.getStringPos(aName, "\\.", 2), aValue);
             }
-            else
+            else {
                 res = super.setProperty(aObject, aName, aValue);
+            }
         }
-        else
+        else {
             res = super.setProperty(aObject, aName, aValue);
+        }
         InternalUpdate();
         return res;
     }
@@ -309,11 +311,13 @@ public abstract class NGDisplayController extends NGObject {
             if (layer != null) {
                 return layer.getProperty(layer, NGStrings.getStringPos(aName, "\\.", 2));
             }
-            else
+            else {
                 return super.getProperty(aObject, aName);
+            }
         }
-        else
+        else {
             return super.getProperty(aObject, aName);
+        }
     }
 
     public NGDisplayController(Canvas aCanvas) {
