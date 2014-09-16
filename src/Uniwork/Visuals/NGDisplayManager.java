@@ -92,6 +92,10 @@ public class NGDisplayManager extends NGDisplayController {
         return FCurrentController;
     }
 
+    public ArrayList<NGDisplayController> getControllers() {
+        return FControllers;
+    }
+
     public boolean setCurrentController(String aName) {
         return setCurrentController(getController(aName));
     }
