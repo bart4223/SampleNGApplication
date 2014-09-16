@@ -39,8 +39,9 @@ public class NGDisplayManager extends NGDisplayController {
             NGDisplayController dc = getController(name);
             return dc.getProperty(dc, aName.substring(index + 1, aName.length()));
         }
-        else
+        else {
             return super.getProperty(aObject, aName);
+        }
     }
 
     @Override
