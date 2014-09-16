@@ -215,13 +215,17 @@ public abstract class NGDisplayController extends NGObject {
         }
     }
 
+    protected void clearRect(double aX, double aY, double aWidth, double aHeight) {
+        FGC.clearRect(aX, aY, aWidth, aHeight);
+    }
+
     protected void DoBeforeRender() {
         String CurrentImagename = getCurrentImageName();
         obtainImage(CurrentImagename);
         if (CurrentImagename.length() > 0 && FCurrentLayer.equals(FLayers.get(0))) {
             double x = getPositionX() - getViewPositionX() + 1;
             double y = getPositionY() - getViewPositionY() + 1;
-            FGC.clearRect(x, y, FWidth - 1, FHeight - 1);
+            clearRect(x, y, FWidth - 1, FHeight - 1);
         }
     }
 
