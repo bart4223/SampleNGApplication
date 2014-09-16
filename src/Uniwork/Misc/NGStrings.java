@@ -30,8 +30,19 @@ public final class NGStrings {
         if (strs.length > aPosition - 1) {
             return strs[aPosition - 1];
         }
-        else
+        else {
             return "";
+        }
+    }
+
+    public static Boolean IsStringInString(String aValue, String aStrings, String aRegex) {
+        String[] strs = aStrings.split(aRegex);
+        for (int i = 0; i < strs.length; i++) {
+            if (strs[i].equals(aValue)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
