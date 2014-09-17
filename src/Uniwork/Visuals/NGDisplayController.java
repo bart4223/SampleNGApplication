@@ -223,9 +223,14 @@ public abstract class NGDisplayController extends NGObject {
         String CurrentImagename = getCurrentImageName();
         obtainImage(CurrentImagename);
         if (CurrentImagename.length() > 0 && FCurrentLayer.equals(FLayers.get(0))) {
-            double x = getPositionX() - getViewPositionX() + 1;
-            double y = getPositionY() - getViewPositionY() + 1;
-            clearRect(x, y, FWidth - 1, FHeight - 1);
+            if (ClearComplete) {
+                clearRect(0, 0, FCanvas.getWidth(), FCanvas.getHeight());
+            }
+            else {
+                double x = getPositionX() - getViewPositionX() + 1;
+                double y = getPositionY() - getViewPositionY() + 1;
+                clearRect(x, y, FWidth - 1, FHeight - 1);
+            }
         }
     }
 
@@ -354,6 +359,7 @@ public abstract class NGDisplayController extends NGObject {
         FView = null;
         FLayers = new ArrayList<NGDisplayControllerLayerItem>();
         addLayer(CLAYERBACKGROUND, "");
+        ClearComplete = false;
     }
 
     public int BaseWidth;
@@ -510,5 +516,7 @@ public abstract class NGDisplayController extends NGObject {
         removeAllLayer();
         FLayers.add(layer);
     }
+
+    public Boolean ClearComplete;
 
 }
