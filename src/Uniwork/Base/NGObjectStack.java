@@ -40,4 +40,8 @@ public class NGObjectStack extends NGObject {
         return FItems.size() == 0;
     }
 
+    public Integer getSize() {
+        return FItems.size();
+    }
+
 }
