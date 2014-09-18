@@ -11,6 +11,10 @@ public class NGObjectStackManager extends NGObject {
         FStacks = new ArrayList<NGObjectStack>();
     }
 
+    public Integer getSize() {
+        return FStacks.size();
+    }
+
     public NGObjectStack getStack(String aName) {
         for (NGObjectStack stack : FStacks) {
             if (stack.getName().equals(aName)) {
@@ -66,8 +70,13 @@ public class NGObjectStackManager extends NGObject {
     }
 
     public Boolean isStackEmpty(String aName) {
-        NGObjectStack item = getStack(aName);
-        return item.isEmpty();
+        NGObjectStack stack = getStack(aName);
+        return stack.isEmpty();
+    }
+
+    public Integer getStackSize(String aName) {
+        NGObjectStack stack = getStack(aName);
+        return stack.getSize();
     }
 
 }

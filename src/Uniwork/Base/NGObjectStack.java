@@ -27,13 +27,20 @@ public class NGObjectStack extends NGObject {
     }
 
     public NGObjectStackItem popItem() {
-        NGObjectStackItem item = FItems.get(FItems.size() - 1);
-        FItems.remove(item);
+        NGObjectStackItem item = null;
+        if (FItems.size() > 0) {
+            item = FItems.get(FItems.size() - 1);
+            FItems.remove(item);
+        }
         return item;
     }
 
     public Object pop() {
-        return popItem().getObject();
+        NGObjectStackItem item = popItem();
+        if (item != null) {
+            return item.getObject();
+        }
+        return null;
     }
 
     public Boolean isEmpty() {
