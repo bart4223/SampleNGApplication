@@ -1,7 +1,5 @@
 package Uniwork.Base;
 
-import Uniwork.Base.NGObject;
-
 public class NGObjectStackItem extends NGObject {
 
     protected String FName;
