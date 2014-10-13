@@ -2,6 +2,8 @@ package Uniwork.Base;
 
 public abstract class NGObject implements NGQualityOfService, NGObjectResolver, NGObjectTransformation {
 
+    protected NGObject FResolver;
+
     protected Object DoResolveObject(String aName, Class aClass) {
         Object obj = this;
         if (aName.length() > 0) {
@@ -12,6 +14,9 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
         }
         if (aClass.isAssignableFrom(obj.getClass())) {
             return obj;
+        }
+        if (FResolver != null) {
+            return FResolver.ResolveObject(aName, aClass);
         }
         return null;
     }
@@ -25,7 +30,7 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
     }
 
     public NGObject() {
-
+        FResolver = null;
     }
 
     @Override
@@ -77,5 +82,14 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
     public void AssignFrom(Object aObject) {
         DoAssignFrom(aObject);
     }
+
+    public NGObject getResolver() {
+        return FResolver;
+    }
+
+    public void setResolver(NGObject aResolver) {
+        FResolver = aResolver;
+    }
+
 
 }
