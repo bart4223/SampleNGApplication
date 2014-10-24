@@ -294,6 +294,17 @@ public abstract class NGDisplayController extends NGObject {
         return null;
     }
 
+    protected String resolveImageName(NGDisplayControllerLayerItem aItem, String aImageName) {
+        String result = aImageName;
+        if (aItem.MaxImageNumber > 1) {
+            result = String.format(aImageName, aItem.ImageNumber%aItem.MaxImageNumber);
+        }
+        else if (aItem.MaxImageNumber == 1 && aItem.ImageNumber >= 0) {
+            result = String.format(aImageName, aItem.ImageNumber);
+        }
+        return result;
+    }
+
     @Override
     public Boolean setProperty(Object aObject, String aName, java.lang.Object aValue) {
         Boolean res;
@@ -493,7 +504,7 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     public void addLayer(String aName, String aImageName, Integer aZOrder) {
-        NGDisplayControllerLayerItem item = new NGDisplayControllerLayerItem(aName, aImageName, aZOrder);
+        NGDisplayControllerLayerItem item = new NGDisplayControllerLayerItem(this, aName, aImageName, aZOrder);
         FLayers.add(item);
         Collections.sort(FLayers);
     }

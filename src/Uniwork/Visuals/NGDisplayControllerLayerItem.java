@@ -4,12 +4,14 @@ import Uniwork.Base.NGObject;
 
 public class NGDisplayControllerLayerItem extends NGObject implements Comparable {
 
+    protected NGDisplayController FDisplayController;
     protected String FImageName;
     protected Integer FZOrder;
     protected String FName;
 
-    public NGDisplayControllerLayerItem(String aName, String aImageName, Integer aZOrder) {
+    public NGDisplayControllerLayerItem(NGDisplayController aDisplayController, String aName, String aImageName, Integer aZOrder) {
         super();
+        FDisplayController = aDisplayController;
         FName = aName;
         FImageName = aImageName;
         FZOrder = aZOrder;
@@ -21,19 +23,16 @@ public class NGDisplayControllerLayerItem extends NGObject implements Comparable
         MaxImageNumber = 1;
     }
 
+    public NGDisplayController getDisplayController() {
+        return FDisplayController;
+    }
+
     public String getName() {
         return FName;
     }
 
     public String getImageName() {
-        String result = FImageName;
-        if (MaxImageNumber > 1) {
-            result = String.format(FImageName, ImageNumber%MaxImageNumber);
-        }
-        else if (MaxImageNumber == 1 && ImageNumber >= 0) {
-            result = String.format(FImageName, ImageNumber);
-        }
-        return result;
+        return FDisplayController.resolveImageName(this, FImageName);
     }
 
     public void setImageName(String aImageName) {

@@ -1,10 +1,22 @@
 package Uniwork.Visuals;
 
 import Uniwork.Base.NGObject;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 
 public class NGStageController extends NGObject {
+
+    protected Boolean FOwnThread;
+
+    public static void renderThread(final NGStageController aStageController) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                aStageController.InternalRenderScene();
+            }
+        });
+    }
 
     protected ArrayList<NGDisplayController> FDCItems;
 
@@ -57,9 +69,20 @@ public class NGStageController extends NGObject {
         DoAfterInitialize();
     }
 
+    protected void InternalRenderScene() {
+        BeforeRenderScene();
+        try {
+            DoRenderScene();
+        }
+        finally {
+            AfterRenderScene();
+        }
+    }
+
     public NGStageController() {
         super();
         FDCItems = new ArrayList<NGDisplayController>();
+        FOwnThread = false;
     }
 
     public void Initialize() {
@@ -74,12 +97,11 @@ public class NGStageController extends NGObject {
     }
 
     public void RenderScene() {
-        BeforeRenderScene();
-        try {
-            DoRenderScene();
+        if (FOwnThread) {
+            renderThread(this);
         }
-        finally {
-            AfterRenderScene();
+        else {
+            InternalRenderScene();
         }
     }
 
