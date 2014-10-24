@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class NGStageController extends NGObject {
 
-    protected Boolean FOwnThread;
+    protected Boolean FOwnRenderThread;
 
     public static void renderThread(final NGStageController aStageController) {
         Platform.runLater(new Runnable() {
@@ -82,7 +82,7 @@ public class NGStageController extends NGObject {
     public NGStageController() {
         super();
         FDCItems = new ArrayList<NGDisplayController>();
-        FOwnThread = false;
+        FOwnRenderThread = false;
     }
 
     public void Initialize() {
@@ -97,7 +97,7 @@ public class NGStageController extends NGObject {
     }
 
     public void RenderScene() {
-        if (FOwnThread) {
+        if (FOwnRenderThread) {
             renderThread(this);
         }
         else {
