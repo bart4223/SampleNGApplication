@@ -1,13 +1,10 @@
 package Uniwork.Misc;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class NGLogEntry {
 
-    public final static String FMT_STD_DATE = "HH:mm:ss";
+    public final static String FMT_STD_DATE = "dd.MM.YYYY HH:mm:ss";
 
     public enum LogType{Info, Warning, Error};
 
