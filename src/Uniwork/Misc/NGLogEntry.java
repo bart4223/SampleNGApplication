@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class NGLogEntry {
 
-    public final static String FMT_STD_DATE = "dd/MM/YYYY HH:mm:ss";
+    public final static String FMT_STD_DATE = "dd.MM.YYYY HH:mm:ss";
 
     public enum LogType{Info, Warning, Error};
 
