@@ -9,6 +9,10 @@ public class NGAnimatedImageDisplayController extends NGImageDisplayController {
         return String.format(aImageName, aItem.ImageNumber, AnimationIndex);
     }
 
+    public NGAnimatedImageDisplayController(Canvas aCanvas, String aName) {
+        this(aCanvas, aName, "");
+    }
+
     public NGAnimatedImageDisplayController(Canvas aCanvas, String aName, String aImagename) {
         super(aCanvas, aName, aImagename);
         AnimationIndex = 0;
