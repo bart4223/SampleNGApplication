@@ -1,6 +1,9 @@
 package Uniwork.Base;
 
 import Uniwork.Misc.NGLogManager;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Method;
 
 import java.util.ArrayList;
@@ -37,7 +40,9 @@ public class NGObjectRequestBroker extends NGObject {
                     writeLog(10, String.format("ORB invoked [%s.%s]", oro.getObject().toString(), orm.getObjectMethod()));
                 }
             } catch (Exception e) {
-                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s", aItem.getObject(), aItem.getMethod(), e.getMessage()));
+                StringWriter sw = new StringWriter();
+                e.printStackTrace(new PrintWriter(sw));
+                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
             }
         }
         else {
