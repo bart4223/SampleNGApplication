@@ -30,7 +30,7 @@ public class NGImageIndicatorDisplayManager extends NGDisplayManager {
             else {
                 dc.setProperty(dc,String.format("%s.ImageNumber", CLAYERBACKGROUND), LowIndicatorIndex);
             }
-            dc.setPosition(getPositionX() + i * BaseWidth, getPositionY());
+            dc.setPosition(getPositionX() + (FIndicatorCount - i - 1) * BaseWidth, getPositionY());
         }
     }
 
