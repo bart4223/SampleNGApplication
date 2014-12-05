@@ -10,20 +10,28 @@ public class NGDisplayManager extends NGDisplayController {
     protected Canvas FCanvas;
     protected NGDisplayController FCurrentController;
 
+    protected void DoInitializeController(NGDisplayController aController) {
+       aController.Initialize();
+    }
+
     @Override
     protected void DoInitialize() {
         super.DoInitialize();
-        for (NGDisplayController Controller : FControllers) {
-            Controller.Initialize();
+        for (NGDisplayController controller : FControllers) {
+            DoInitializeController(controller);
         }
+    }
+
+    protected void DoRenderController(NGDisplayController aController) {
+       aController.Render();
     }
 
     @Override
     protected void DoRender() {
         super.DoRender();
         if (FCurrentController == null) {
-            for (NGDisplayController Controller : FControllers) {
-                Controller.Render();
+            for (NGDisplayController controller : FControllers) {
+                    DoRenderController(controller);
             }
         }
         else {
@@ -100,13 +108,18 @@ public class NGDisplayManager extends NGDisplayController {
         return FControllers;
     }
 
-    public boolean setCurrentController(String aName) {
-        return setCurrentController(getController(aName));
+    public Boolean setCurrentController(String aName) {
+        NGDisplayController dc = getController(aName);
+        setCurrentController(dc);
+        return dc != null;
     }
 
-    public boolean setCurrentController(NGDisplayController aController) {
+    public void setCurrentController(NGDisplayController aController) {
         FCurrentController = aController;
-        return FCurrentController != null;
+    }
+
+    public void resetCurrentController() {
+        FCurrentController = null;
     }
 
     @Override

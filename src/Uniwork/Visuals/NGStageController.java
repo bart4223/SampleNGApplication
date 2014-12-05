@@ -9,37 +9,46 @@ public class NGStageController extends NGObject {
 
     protected Boolean FOwnRenderThread;
 
-    public static void renderThread(final NGStageController aStageController) {
+    public static void renderThread(final NGStageController aStageController, final NGDisplayController aController) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                aStageController.InternalRenderScene();
+                aStageController.InternalRenderScene(aController);
             }
         });
     }
 
     protected ArrayList<NGDisplayController> FDCItems;
 
-    protected void DoBeforeRenderScene() {
+    protected void DoBeforeRenderScene(NGDisplayController aController) {
 
     }
 
-    protected void BeforeRenderScene() {
-        DoBeforeRenderScene();
+    protected void BeforeRenderScene(NGDisplayController aController) {
+        DoBeforeRenderScene(aController);
     }
 
-    protected void DoRenderScene() {
-        for (NGDisplayController controller : FDCItems) {
-            controller.Render();
+    protected void DoRenderSceneController(NGDisplayController aController) {
+        aController.Render();
+    }
+
+    protected void DoRenderScene(NGDisplayController aController) {
+        if (aController == null) {
+            for (NGDisplayController controller : FDCItems) {
+                DoRenderSceneController(controller);
+            }
+        }
+        else {
+            aController.Render();
         }
     }
 
-    protected void DoAfterRenderScene() {
+    protected void DoAfterRenderScene(NGDisplayController aController) {
 
     }
 
-    protected void AfterRenderScene() {
-        DoAfterRenderScene();
+    protected void AfterRenderScene(NGDisplayController aController) {
+        DoAfterRenderScene(aController);
     }
 
     protected void CreateDisplayController() {
@@ -55,9 +64,13 @@ public class NGStageController extends NGObject {
         DoBeforeInitialize();
     }
 
+    protected void DoInitializeController(NGDisplayController aController) {
+        aController.Initialize();
+    }
+
     protected void DoInitialize() {
         for (NGDisplayController controller : FDCItems) {
-            controller.Initialize();
+            DoInitializeController(controller);
         }
     }
 
@@ -69,13 +82,13 @@ public class NGStageController extends NGObject {
         DoAfterInitialize();
     }
 
-    protected void InternalRenderScene() {
-        BeforeRenderScene();
+    protected void InternalRenderScene(NGDisplayController aController) {
+        BeforeRenderScene(aController);
         try {
-            DoRenderScene();
+            DoRenderScene(aController);
         }
         finally {
-            AfterRenderScene();
+            AfterRenderScene(aController);
         }
     }
 
@@ -97,11 +110,15 @@ public class NGStageController extends NGObject {
     }
 
     public void RenderScene() {
+        RenderScene(null);
+    }
+
+    public void RenderScene(NGDisplayController aController) {
         if (FOwnRenderThread) {
-            renderThread(this);
+            renderThread(this, aController);
         }
         else {
-            InternalRenderScene();
+            InternalRenderScene(aController);
         }
     }
 
