@@ -110,6 +110,16 @@ public class NGTickGenerator extends NGObject {
         return lTickItem.getInterval();
     }
 
+    public void setItemProp(String aName, String aPropName, Object aValue) {
+        NGTickItem lTickItem = GetItem(aName);
+        lTickItem.setProp(aPropName, aValue);
+    }
+
+    public Object getItemProp(String aName, String aPropName) {
+        NGTickItem lTickItem = GetItem(aName);
+        return lTickItem.getProp(aPropName);
+    }
+
     public synchronized void addListener(String aName, NGTickListener aListener)  {
         NGTickItem lTickItem = GetItem(aName);
         lTickItem.addTickListener(aListener);
