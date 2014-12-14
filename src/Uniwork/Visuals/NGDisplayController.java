@@ -226,11 +226,6 @@ public abstract class NGDisplayController extends NGObject {
             if (ClearComplete) {
                 clearRect(0, 0, FCanvas.getWidth(), FCanvas.getHeight());
             }
-            else {
-                double x = getPositionX() - getViewPositionX() + 1;
-                double y = getPositionY() - getViewPositionY() + 1;
-                clearRect(x, y, FWidth - 1, FHeight - 1);
-            }
         }
     }
 
