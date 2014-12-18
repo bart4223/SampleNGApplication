@@ -13,11 +13,14 @@ public class NGTickGenerator extends NGObject {
     protected ArrayList<NGTickItem> FItems;
     protected Integer FBaseInterval;
     protected NGLogManager FLogManager;
+    protected Boolean FEnabled;
 
     protected synchronized void DoTick() {
-        Iterator lItr = FItems.iterator();
-        while(lItr.hasNext())  {
-            ((NGTickItem)lItr.next()).Tick();
+        if (FEnabled) {
+            Iterator lItr = FItems.iterator();
+            while (lItr.hasNext()) {
+                ((NGTickItem) lItr.next()).Tick();
+            }
         }
     }
 
@@ -50,12 +53,14 @@ public class NGTickGenerator extends NGObject {
         FTimer = new Timer();
         FBaseInterval = 10;
         FLogManager = null;
+        FEnabled = true;
     }
 
     public NGTickGenerator(Integer aBaseInterval) {
         FItems = new ArrayList<NGTickItem>();
         FTimer = new Timer();
         FBaseInterval = aBaseInterval;
+        FEnabled = true;
     }
 
     public void Initialize() {
@@ -72,7 +77,7 @@ public class NGTickGenerator extends NGObject {
 
     public void Finalize() {
         FTimer.cancel();
-        writeLog("TickGenerator stopped!");
+        writeLog("TickGenerator finalized!");
         FTimer = null;
     }
 
@@ -160,6 +165,23 @@ public class NGTickGenerator extends NGObject {
         return FLogManager;
     }
 
+    public void setEnabled(Boolean aValue) {
+        FEnabled = aValue;
+        if (aValue) {
+            writeLog("TickGenerator running...");
+        }
+        else {
+            writeLog("TickGenerator stopped!");
+        }
+    }
+
+    public Boolean getEnabled() {
+        return FEnabled;
+    }
+
+    public void ToggleEnabled() {
+        setEnabled(!getEnabled());
+    }
 
 }
 
