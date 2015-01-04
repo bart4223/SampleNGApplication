@@ -20,11 +20,25 @@ public class NGRandomGenerator extends NGObject {
     }
 
     public Integer getInteger(Integer aMaxValue) {
-        return FRandom.nextInt(aMaxValue);
+        return getInteger(0, aMaxValue);
+    }
+
+    public Integer getInteger(Integer aMinValue, Integer aMaxValue) {
+        Integer value = Math.abs(aMaxValue - aMinValue) + 1;
+        if (aMaxValue > aMinValue) {
+            return aMinValue + FRandom.nextInt(value);
+        }
+        else {
+            return aMaxValue + FRandom.nextInt(value);
+        }
     }
 
     public Integer getInteger() {
         return FRandom.nextInt();
+    }
+
+    public Double getDouble() {
+        return FRandom.nextDouble();
     }
 
 }

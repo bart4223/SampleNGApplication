@@ -92,6 +92,15 @@ public class NGStageController extends NGObject {
         }
     }
 
+    protected NGDisplayController getDisplayController(String aName) {
+        for (NGDisplayController dc : FDCItems) {
+            if (dc.getName().equals(aName)) {
+                return dc;
+            }
+        }
+        return null;
+    }
+
     public NGStageController() {
         super();
         FDCItems = new ArrayList<NGDisplayController>();
