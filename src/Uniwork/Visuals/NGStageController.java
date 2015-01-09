@@ -7,6 +7,26 @@ import java.util.ArrayList;
 
 public class NGStageController extends NGObject {
 
+    protected class DisplayControllerItem {
+
+        protected NGDisplayController FDisplayController;
+        protected Boolean FOwnRenderThread;
+
+        public DisplayControllerItem(NGDisplayController aDisplayController, Boolean aOwnRenderThread) {
+            FDisplayController = aDisplayController;
+            FOwnRenderThread = aOwnRenderThread;
+        }
+
+        public NGDisplayController getDisplayController() {
+            return FDisplayController;
+        }
+
+        public Boolean getOwnRenderThread() {
+            return FOwnRenderThread;
+        }
+
+    }
+
     protected Boolean FOwnRenderThread;
 
     public static void renderThread(final NGStageController aStageController, final NGDisplayController aController) {
@@ -18,7 +38,7 @@ public class NGStageController extends NGObject {
         });
     }
 
-    protected ArrayList<NGDisplayController> FDCItems;
+    protected ArrayList<DisplayControllerItem> FDCItems;
 
     protected void DoBeforeRenderScene(NGDisplayController aController) {
 
@@ -34,8 +54,8 @@ public class NGStageController extends NGObject {
 
     protected void DoRenderScene(NGDisplayController aController) {
         if (aController == null) {
-            for (NGDisplayController controller : FDCItems) {
-                DoRenderSceneController(controller);
+            for (DisplayControllerItem item : FDCItems) {
+                DoRenderSceneController(item.getDisplayController());
             }
         }
         else {
@@ -69,8 +89,8 @@ public class NGStageController extends NGObject {
     }
 
     protected void DoInitialize() {
-        for (NGDisplayController controller : FDCItems) {
-            DoInitializeController(controller);
+        for (DisplayControllerItem item : FDCItems) {
+            DoInitializeController(item.getDisplayController());
         }
     }
 
@@ -92,18 +112,23 @@ public class NGStageController extends NGObject {
         }
     }
 
-    protected NGDisplayController getDisplayController(String aName) {
-        for (NGDisplayController dc : FDCItems) {
-            if (dc.getName().equals(aName)) {
-                return dc;
+    protected DisplayControllerItem getDisplayControllerItem(String aName) {
+        for (DisplayControllerItem item : FDCItems) {
+            if (item.getDisplayController().getName().equals(aName)) {
+                return item;
             }
         }
         return null;
     }
 
+    protected NGDisplayController getDisplayController(String aName) {
+        DisplayControllerItem item = getDisplayControllerItem(aName);
+        return item.getDisplayController();
+    }
+
     public NGStageController() {
         super();
-        FDCItems = new ArrayList<NGDisplayController>();
+        FDCItems = new ArrayList<DisplayControllerItem>();
         FOwnRenderThread = false;
     }
 
@@ -119,20 +144,28 @@ public class NGStageController extends NGObject {
     }
 
     public void RenderScene() {
-        RenderScene(null);
+        RenderScene("");
     }
 
-    public void RenderScene(NGDisplayController aController) {
-        if (FOwnRenderThread) {
-            renderThread(this, aController);
+    public void RenderScene(String aName) {
+        DisplayControllerItem item = getDisplayControllerItem(aName);
+        Boolean ownrenderThread = FOwnRenderThread;
+        NGDisplayController dc = null;
+        if (item != null) {
+            ownrenderThread = item.getOwnRenderThread();
+            dc = item.getDisplayController();
+        }
+        if (ownrenderThread) {
+            renderThread(this, dc);
         }
         else {
-            InternalRenderScene(aController);
+            InternalRenderScene(dc);
         }
     }
 
     public void registerDisplayController(NGDisplayController aController) {
-        FDCItems.add(aController);
+        DisplayControllerItem item = new DisplayControllerItem(aController, FOwnRenderThread);
+        FDCItems.add(item);
     }
 
 }
