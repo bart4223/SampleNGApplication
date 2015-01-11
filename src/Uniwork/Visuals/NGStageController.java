@@ -164,7 +164,11 @@ public class NGStageController extends NGObject {
     }
 
     public void registerDisplayController(NGDisplayController aController) {
-        DisplayControllerItem item = new DisplayControllerItem(aController, FOwnRenderThread);
+        registerDisplayController(aController, FOwnRenderThread);
+    }
+
+    public void registerDisplayController(NGDisplayController aController, Boolean aOwnRenderThread) {
+        DisplayControllerItem item = new DisplayControllerItem(aController, aOwnRenderThread);
         FDCItems.add(item);
     }
 
