@@ -121,9 +121,33 @@ public class NGStageController extends NGObject {
         return null;
     }
 
+    protected DisplayControllerItem getDisplayControllerItem(NGDisplayController aController) {
+        for (DisplayControllerItem item : FDCItems) {
+            if (item.getDisplayController().equals(aController)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     protected NGDisplayController getDisplayController(String aName) {
         DisplayControllerItem item = getDisplayControllerItem(aName);
         return item.getDisplayController();
+    }
+
+    protected void RenderScene(DisplayControllerItem aItem) {
+        Boolean ownrenderThread = FOwnRenderThread;
+        NGDisplayController dc = null;
+        if (aItem != null) {
+            ownrenderThread = aItem.getOwnRenderThread();
+            dc = aItem.getDisplayController();
+        }
+        if (ownrenderThread) {
+            renderThread(this, dc);
+        }
+        else {
+            InternalRenderScene(dc);
+        }
     }
 
     public NGStageController() {
@@ -144,23 +168,18 @@ public class NGStageController extends NGObject {
     }
 
     public void RenderScene() {
-        RenderScene("");
+        DisplayControllerItem item = null;
+        RenderScene(item);
     }
 
     public void RenderScene(String aName) {
         DisplayControllerItem item = getDisplayControllerItem(aName);
-        Boolean ownrenderThread = FOwnRenderThread;
-        NGDisplayController dc = null;
-        if (item != null) {
-            ownrenderThread = item.getOwnRenderThread();
-            dc = item.getDisplayController();
-        }
-        if (ownrenderThread) {
-            renderThread(this, dc);
-        }
-        else {
-            InternalRenderScene(dc);
-        }
+        RenderScene(item);
+    }
+
+    public void RenderScene(NGDisplayController aDisplayController) {
+        DisplayControllerItem item = getDisplayControllerItem(aDisplayController);
+        RenderScene(item);
     }
 
     public void registerDisplayController(NGDisplayController aController) {
