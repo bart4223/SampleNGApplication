@@ -276,10 +276,6 @@ public abstract class NGDisplayController extends NGObject {
         DoBeforeInitialize();
     }
 
-    protected Boolean canRender() {
-        return FInitialized;
-    }
-
     protected NGDisplayControllerLayerItem getLayer(String aName) {
         for (NGDisplayControllerLayerItem layer : FLayers) {
             if (layer.getName().equals(aName)) {
@@ -524,5 +520,9 @@ public abstract class NGDisplayController extends NGObject {
     }
 
     public Boolean ClearComplete;
+
+    public Boolean canRender() {
+        return FInitialized;
+    }
 
 }
