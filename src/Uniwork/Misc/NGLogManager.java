@@ -65,6 +65,11 @@ public class NGLogManager extends NGObject {
         addLog(lLogEntry);
     }
 
+    public void writeLog(String aText, NGLogEntry.LogType aType) {
+        NGLogEntry lLogEntry = new NGLogEntry(aText, aType);
+        addLog(lLogEntry);
+    }
+
     public void writeLog(int aLogLevel, String aText) {
         writeLog(aLogLevel, aText, new Date(), "");
     }

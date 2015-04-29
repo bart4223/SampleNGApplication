@@ -91,5 +91,4 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
         FResolver = aResolver;
     }
 
-
 }
