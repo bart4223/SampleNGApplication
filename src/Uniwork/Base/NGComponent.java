@@ -3,7 +3,7 @@ package Uniwork.Base;
 import Uniwork.Misc.NGLogEntry;
 import Uniwork.Misc.NGLogManager;
 
-public class NGComponent extends NGObject implements NGInitializable{
+public class NGComponent extends NGObject implements NGInitializable {
 
     protected Boolean FInitialized;
     protected NGLogManager FLogManager;
