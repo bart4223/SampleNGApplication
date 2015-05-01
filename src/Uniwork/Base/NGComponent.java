@@ -7,6 +7,7 @@ public class NGComponent extends NGObject implements NGInitializable {
 
     protected Boolean FInitialized;
     protected NGLogManager FLogManager;
+    protected NGComponent FOwner;
 
     protected void DoBeforeInitialize() {
 
@@ -51,9 +52,18 @@ public class NGComponent extends NGObject implements NGInitializable {
     }
 
     public NGComponent() {
+        this(null);
+    }
+
+    public NGComponent(NGComponent aOwner) {
         super();
+        FOwner = aOwner;
         FLogManager = null;
         FInitialized = false;
+    }
+
+    public NGComponent getOwner() {
+        return FOwner;
     }
 
     public void setLogManager(NGLogManager aLogManager) {
