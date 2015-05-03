@@ -80,7 +80,6 @@ public class NGComponent extends NGObject implements NGInitializable {
         try {
             DoInitialize();
             FInitialized = true;
-            DoAfterInitialize();
         } finally {
             DoAfterInitialize();
         }
@@ -92,7 +91,6 @@ public class NGComponent extends NGObject implements NGInitializable {
         try {
             DoFinalize();
             FInitialized = false;
-            DoAfterFinalize();
         } finally {
             DoAfterFinalize();
         }
