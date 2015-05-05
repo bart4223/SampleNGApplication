@@ -19,6 +19,36 @@ public class NGPropertyList extends NGObject {
         return null;
     }
 
+    @Override
+    protected void DoAssignFrom(Object aObject) {
+        clear();
+        if (aObject instanceof NGPropertyList) {
+            NGPropertyList src = (NGPropertyList)aObject;
+            for (NGPropertyItem item : src.getItems()) {
+                set(item.getName(), item.getValue());
+            }
+        } else if (aObject instanceof ArrayList<?>) {
+            ArrayList<?> items = (ArrayList<?>)aObject;
+            for (Object item : items) {
+                if (item instanceof NGSerializePropertyItem) {
+                    NGSerializePropertyItem propitem = (NGSerializePropertyItem)item;
+                    set(propitem.getName(), propitem.getValue());
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void DoAssignTo(Object aObject) {
+        if (aObject instanceof NGPropertyList) {
+            NGPropertyList trg = (NGPropertyList)aObject;
+            trg.clear();
+            for (NGPropertyItem item : FItems) {
+                trg.set(item.getName(), item.getValue());
+            }
+        }
+    }
+
     public NGPropertyList() {
         super();
         FItems = new ArrayList<NGPropertyItem>();
@@ -45,13 +75,6 @@ public class NGPropertyList extends NGObject {
 
     public void clear() {
         FItems.clear();
-    }
-
-    public void AssignFrom(ArrayList<NGSerializePropertyItem> aItems) {
-        clear();
-        for (NGSerializePropertyItem item : aItems) {
-            set(item.getName(), item.getValue());
-        }
     }
 
     public void AssignTo(ArrayList<NGSerializePropertyItem> aItems) {
