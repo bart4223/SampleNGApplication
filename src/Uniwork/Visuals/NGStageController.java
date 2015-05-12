@@ -1,11 +1,14 @@
 package Uniwork.Visuals;
 
+import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Base.NGObject;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
 
 public class NGStageController extends NGObject {
+
+    protected NGCustomStageItem FStageItem;
 
     protected class DisplayControllerItem {
 
@@ -151,7 +154,12 @@ public class NGStageController extends NGObject {
     }
 
     public NGStageController() {
+        this(null);
+    }
+
+    public NGStageController(NGCustomStageItem aStageItem) {
         super();
+        FStageItem = aStageItem;
         FDCItems = new ArrayList<DisplayControllerItem>();
         FOwnRenderThread = false;
     }
@@ -189,6 +197,10 @@ public class NGStageController extends NGObject {
     public void registerDisplayController(NGDisplayController aController, Boolean aOwnRenderThread) {
         DisplayControllerItem item = new DisplayControllerItem(aController, aOwnRenderThread);
         FDCItems.add(item);
+    }
+
+    public NGCustomStageItem getStageItem() {
+        return FStageItem;
     }
 
 }
