@@ -22,7 +22,11 @@ public class NGLogEntry {
     }
 
     public NGLogEntry(String aText, LogType aType) {
-        this(new Date(), aText, aType);
+        this(aText, aType, "");
+    }
+
+    public NGLogEntry(String aText, LogType aType, String aSource) {
+        this(new Date(), aText, aSource, aType);
     }
 
     public NGLogEntry(Date aDate, String aText) {

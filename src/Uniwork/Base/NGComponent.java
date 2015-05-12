@@ -35,19 +35,19 @@ public class NGComponent extends NGObject implements NGInitializable {
 
     protected void writeInfo(String aInfo) {
         if (FLogManager != null) {
-            FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info);
+            FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
         }
     }
 
     protected void writeWarning(String aWarning) {
         if (FLogManager != null) {
-            FLogManager.writeLog(aWarning, NGLogEntry.LogType.Warning);
+            FLogManager.writeLog(aWarning, NGLogEntry.LogType.Warning, toString());
         }
     }
 
     protected void writeError(String aError) {
         if (FLogManager != null) {
-            FLogManager.writeLog(aError, NGLogEntry.LogType.Error);
+            FLogManager.writeLog(aError, NGLogEntry.LogType.Error, toString());
         }
     }
 
