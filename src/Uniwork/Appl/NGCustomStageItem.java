@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public abstract class NGCustomStageItem extends NGComponent implements NGLogEventListener {
 
+    protected String FName;
     protected NGLogManager FLogManager;
     protected Stage FStage;
 
@@ -28,11 +29,16 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         LoadStage();
     }
 
-    public NGCustomStageItem(NGComponent aOwner, Stage aStage) {
+    public NGCustomStageItem(NGComponent aOwner, String aName, Stage aStage) {
         super(aOwner);
+        FName = aName;
         FStage = aStage;
         FLogManager = new NGLogManager();
         FLogManager.addEventListener(this);
+    }
+
+    public String getName() {
+        return FName;
     }
 
     public NGLogManager getLogManager() {
