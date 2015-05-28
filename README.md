@@ -1,3 +1,6 @@
-# SampleNGApplication
+The Uniwork project represents the common framework to realize some java projects...
 
-This project is a template for implementation an NGApplication.
+Version History
+===============
+
+    Mai 2015    NGApplication support

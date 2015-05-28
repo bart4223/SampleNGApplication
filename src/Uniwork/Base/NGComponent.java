@@ -3,11 +3,12 @@ package Uniwork.Base;
 import Uniwork.Misc.NGLogEntry;
 import Uniwork.Misc.NGLogManager;
 
-public class NGComponent extends NGObject implements NGInitializable {
+public abstract class NGComponent extends NGObject implements NGInitializable {
 
     protected Boolean FInitialized;
     protected NGLogManager FLogManager;
     protected NGComponent FOwner;
+    protected String FName;
 
     protected void DoBeforeInitialize() {
 
@@ -56,10 +57,19 @@ public class NGComponent extends NGObject implements NGInitializable {
     }
 
     public NGComponent(NGComponent aOwner) {
+        this(aOwner, "");
+    }
+
+    public NGComponent(NGComponent aOwner, String aName) {
         super();
+        FName = aName;
         FOwner = aOwner;
         FLogManager = null;
         FInitialized = false;
+    }
+
+    public String getName() {
+        return FName;
     }
 
     public NGComponent getOwner() {

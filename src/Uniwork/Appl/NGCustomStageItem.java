@@ -11,6 +11,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected String FName;
     protected NGLogManager FLogManager;
     protected Stage FStage;
+    protected NGStageManager FStageManager;
 
     protected void CreateStage() {
 
@@ -29,8 +30,9 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         LoadStage();
     }
 
-    public NGCustomStageItem(NGComponent aOwner, String aName, Stage aStage) {
-        super(aOwner);
+    public NGCustomStageItem(NGStageManager aStageManager, String aName, Stage aStage) {
+        super(aStageManager);
+        FStageManager = aStageManager;
         FName = aName;
         FStage = aStage;
         FLogManager = new NGLogManager();
@@ -39,6 +41,10 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
 
     public String getName() {
         return FName;
+    }
+
+    public NGStageManager getStageManager() {
+        return FStageManager;
     }
 
     public NGLogManager getLogManager() {

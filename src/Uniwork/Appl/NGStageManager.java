@@ -70,7 +70,7 @@ public class NGStageManager extends NGComponent {
     public void addStageItem(String aName, Stage aStage) {
         NGStageItemClass itemclass = getItemClass(aName);
         try {
-            NGCustomStageItem item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGComponent.class, String.class, Stage.class).newInstance(this, aName, aStage);
+            NGCustomStageItem item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, aName, aStage);
             FItems.add(item);
             writeInfo(String.format("Stage item %s[%s] added.", aName, itemclass.getItemClass().getName()));
         }

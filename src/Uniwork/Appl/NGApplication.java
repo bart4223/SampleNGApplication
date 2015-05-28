@@ -16,25 +16,16 @@ import java.util.Properties;
 public class NGApplication extends Application implements NGInitializable, NGLogEventListener {
 
     protected String FName = "NGApplication";
+    protected String FDescription = "";
     protected Boolean FInitialized;
     protected NGLogManager FLogManager;
     protected Stage FPrimaryStage = null;
-    protected NGStageManager FStageManager;
+    protected NGApplicationModuleManager FModuleManager;
     protected String FConfigurationFilename = "";
     protected Properties FConfiguration;
     protected Boolean FConfigLoaded = false;
     protected Boolean FConsoleShowLogEntrySource = false;
     protected Boolean FConsoleShowLog = true;
-
-    public NGApplication() {
-        super();
-        Application = this;
-        FStageManager = new NGStageManager();
-        FLogManager = new NGLogManager();
-        FStageManager.setLogManager(FLogManager);
-        FLogManager.addEventListener(this);
-        FConfiguration = new Properties();
-    }
 
     protected void writeInfo(String aInfo) {
         FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
@@ -69,7 +60,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 writeError(String.format("Error in LoadConfiguration: %s", e.getMessage()));
             }
         }
-        writeInfo(String.format("Welcome to %s...", FName));
+        writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
     }
 
     protected String getConfigrationProperty(String aName) {
@@ -84,7 +75,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void DoInitialize() {
-        FStageManager.Initialize();
+        FModuleManager.Initialize();
     }
 
     protected void DoAfterInitialize() {
@@ -96,11 +87,21 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void DoFinalize() {
-        FStageManager.Finalize();
+        FModuleManager.Finalize();
     }
 
     protected void DoAfterFinalize() {
 
+    }
+
+    public NGApplication() {
+        super();
+        Application = this;
+        FLogManager = new NGLogManager();
+        FModuleManager = new NGApplicationModuleManager();
+        FModuleManager.setLogManager(FLogManager);
+        FLogManager.addEventListener(this);
+        FConfiguration = new Properties();
     }
 
     public NGLogManager getLogManager() {
@@ -157,6 +158,10 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     public String getName() {
         return FName;
+    }
+
+    public String getDescription() {
+        return FDescription;
     }
 
     public static NGApplication Application;
