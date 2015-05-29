@@ -40,4 +40,20 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
         return modules.iterator();
     }
 
+    public NGCustomApplicationModule addModule(Class<?> aModuleClass, String aName) {
+        return this.addModule(aModuleClass, aName, "");
+    }
+
+    public NGCustomApplicationModule addModule(Class<?> aModuleClass, String aName, String aDescription) {
+        try {
+            NGCustomApplicationModule res = (NGCustomApplicationModule)aModuleClass.getConstructor(NGComponent.class, String.class, String.class).newInstance(this, aName, aDescription);
+            registerModule(res);
+            return res;
+        }
+        catch (Exception e) {
+            writeError(e.getMessage());
+        }
+        return null;
+    }
+
 }

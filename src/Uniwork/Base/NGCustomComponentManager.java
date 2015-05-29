@@ -29,12 +29,12 @@ public abstract class NGCustomComponentManager extends NGComponent {
 
     protected void registerComponent(NGComponent aComponent) {
         FComponents.add(aComponent);
-        writeInfo(String.format("%s %s registered.", aComponent.getClass().getName(), aComponent.getName()));
+        writeInfo(String.format("%s [%s] registered.", aComponent.getClass().getName(), aComponent.getName()));
     }
 
     protected void unregisterComponent(NGComponent aComponent) {
         FComponents.remove(aComponent);
-        writeInfo(String.format("%s %s unregistered.", aComponent.getClass().getName(), aComponent.getName()));
+        writeInfo(String.format("%s [%s] unregistered.", aComponent.getClass().getName(), aComponent.getName()));
     }
 
     protected void unregisterComponent(String aName) {

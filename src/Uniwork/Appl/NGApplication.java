@@ -42,7 +42,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     @Override
     public void start(Stage stage) throws Exception {
         FPrimaryStage = stage;
+        writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
         Initialize();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        Finalize();
+        writeInfo("Bye, Bye...");
     }
 
     protected void LoadConfiguration() {
@@ -60,7 +67,6 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 writeError(String.format("Error in LoadConfiguration: %s", e.getMessage()));
             }
         }
-        writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
     }
 
     protected String getConfigrationProperty(String aName) {
