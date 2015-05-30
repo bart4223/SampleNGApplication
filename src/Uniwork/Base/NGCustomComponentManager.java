@@ -6,16 +6,16 @@ import java.util.Iterator;
 public abstract class NGCustomComponentManager extends NGComponent {
 
     @Override
-    protected void DoAfterInitialize() {
-        super.DoAfterInitialize();
+    protected void DoInitialize() {
+        super.DoInitialize();
         for (NGComponent component : FComponents) {
             component.Initialize();
         }
     }
 
     @Override
-    protected void DoBeforeFinalize() {
-        super.DoBeforeFinalize();
+    protected void DoFinalize() {
+        super.DoFinalize();
         for (NGComponent component : FComponents) {
             component.Finalize();
         }
