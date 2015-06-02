@@ -63,20 +63,22 @@ public class NGStageManager extends NGComponent {
         }
     }
 
-    public void addStageItem(String aName) {
-        addStageItem(aName, null);
+    public NGCustomStageItem addStageItem(String aName) {
+        return addStageItem(aName, null);
     }
 
-    public void addStageItem(String aName, Stage aStage) {
+    public NGCustomStageItem addStageItem(String aName, Stage aStage) {
+        NGCustomStageItem item = null;
         NGStageItemClass itemclass = getItemClass(aName);
         try {
-            NGCustomStageItem item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, aName, aStage);
+            item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, aName, aStage);
             FItems.add(item);
             writeInfo(String.format("Stage item %s[%s] added.", aName, itemclass.getItemClass().getName()));
         }
         catch (Exception e){
             writeError(String.format("Error %s in addStageItem with name %s", e.getMessage(), aName));
         }
+        return item;
     }
 
 }

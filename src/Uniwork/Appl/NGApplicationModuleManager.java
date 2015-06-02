@@ -40,6 +40,10 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
         return modules.iterator();
     }
 
+    public NGCustomApplicationModule addModule(Class<?> aModuleClass) {
+        return this.addModule(aModuleClass, String.format("%s",FComponents.size()), "");
+    }
+
     public NGCustomApplicationModule addModule(Class<?> aModuleClass, String aName) {
         return this.addModule(aModuleClass, aName, "");
     }
