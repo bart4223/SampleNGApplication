@@ -6,6 +6,10 @@ import Uniwork.Misc.NGLogEvent;
 import Uniwork.Misc.NGLogEventListener;
 import Uniwork.Misc.NGLogManager;
 import Uniwork.Visuals.NGStageController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public abstract class NGCustomStageItem extends NGComponent implements NGLogEventListener {
@@ -17,13 +21,31 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected NGStageController FStageController = null;
     protected String FCaption = "";
     protected NGPoint2D FPosition;
+    protected Integer FWidth = 0;
+    protected Integer FHeight = 0;
+    protected String FFXMLName = "";
+    protected Boolean FResizable = false;
+    protected Color FColor = Color.WHITE;
 
     protected void CreateStage() {
-
+        FStage = new Stage();
     }
 
     protected void LoadStage() {
-
+        FXMLLoader lXMLLoader;
+        lXMLLoader = new FXMLLoader(getClass().getResource(FFXMLName));
+        try {
+            lXMLLoader.load();
+            FStageController = lXMLLoader.getController();
+            Parent lRoot = lXMLLoader.getRoot();
+            FStage.setTitle(String.format("%s.%s", NGApplication.Application.getName(), getCaption()));
+            Scene Scene = new Scene(lRoot, FWidth, FHeight, FColor);
+            FStage.setScene(Scene);
+            FStage.setResizable(FResizable);
+        }
+        catch(Exception e) {
+            writeError(e.getMessage());
+        }
     }
 
     protected void ShowStage() {
