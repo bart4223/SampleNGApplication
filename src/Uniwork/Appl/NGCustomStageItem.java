@@ -37,6 +37,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         try {
             lXMLLoader.load();
             FStageController = lXMLLoader.getController();
+            FStageController.setStageItem(this);
             Parent lRoot = lXMLLoader.getRoot();
             FStage.setTitle(String.format("%s.%s", NGApplication.Application.getName(), getCaption()));
             Scene Scene = new Scene(lRoot, FWidth, FHeight, FColor);
@@ -52,6 +53,10 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage.setX(FPosition.getX());
         FStage.setY(FPosition.getY());
         FStage.show();
+    }
+
+    protected void RenderStage() {
+        FStageController.RenderScene();
     }
 
     protected void InitializeStageController() {
@@ -76,6 +81,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     @Override
     protected void DoAfterInitialize() {
         super.DoAfterInitialize();
+        RenderStage();
         ShowStage();
     }
 

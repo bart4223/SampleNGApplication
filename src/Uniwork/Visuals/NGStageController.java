@@ -203,4 +203,8 @@ public class NGStageController extends NGObject {
         return FStageItem;
     }
 
+    public void setStageItem(NGCustomStageItem aStageItem) {
+        FStageItem = aStageItem;
+    }
+
 }
