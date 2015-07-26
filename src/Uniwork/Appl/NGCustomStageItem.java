@@ -5,7 +5,7 @@ import Uniwork.Graphics.NGPoint2D;
 import Uniwork.Misc.NGLogEvent;
 import Uniwork.Misc.NGLogEventListener;
 import Uniwork.Misc.NGLogManager;
-import Uniwork.Visuals.NGStageController;
+import Uniwork.Visuals.NGCustomStageController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected NGLogManager FLogManager;
     protected Stage FStage;
     protected NGStageManager FStageManager;
-    protected NGStageController FStageController = null;
+    protected NGCustomStageController FStageController = null;
     protected String FCaption = "";
     protected NGPoint2D FPosition;
     protected Integer FWidth = 0;

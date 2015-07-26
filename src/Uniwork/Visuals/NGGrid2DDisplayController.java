@@ -23,10 +23,9 @@ public class NGGrid2DDisplayController extends NGDisplayController {
             FGC.beginPath();
             FGC.moveTo(i, y);
             FGC.lineTo(i, GridHeight);
-            if (index%2 == 0)
+            color = GridColor;
+            if (AlternateGridColor && index % 2 == 0)
                 color = GridColor.darker();
-            else
-                color = GridColor;
             FGC.setStroke(color);
             FGC.setLineWidth(GridLineWidth);
             FGC.stroke();
@@ -38,10 +37,9 @@ public class NGGrid2DDisplayController extends NGDisplayController {
             FGC.beginPath();
             FGC.moveTo(x, i);
             FGC.lineTo(GridWidth, i);
-            if (index%2 == 0)
+            color = GridColor;
+            if (AlternateGridColor && index % 2 == 0)
                 color = GridColor.darker();
-            else
-                color = GridColor;
             FGC.setStroke(color);
             FGC.setLineWidth(GridLineWidth);
             FGC.stroke();
@@ -62,6 +60,7 @@ public class NGGrid2DDisplayController extends NGDisplayController {
         GridHeight = FHeight;
         GridWidth = FWidth;
         GridLineWidth = 1;
+        AlternateGridColor = true;
     }
 
     public int GridDistance;
@@ -70,5 +69,6 @@ public class NGGrid2DDisplayController extends NGDisplayController {
     public double GridWidth;
     public double GridHeight;
     public int GridLineWidth;
+    public boolean AlternateGridColor;
 
 }
