@@ -1,6 +1,6 @@
 package Uniwork.Appl;
 
-import Uniwork.Base.NGInitializable;
+import Uniwork.Base.*;
 import Uniwork.Misc.NGLogEntry;
 import Uniwork.Misc.NGLogEvent;
 import Uniwork.Misc.NGLogEventListener;
@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class NGApplication extends Application implements NGInitializable, NGLogEventListener {
+public class NGApplication extends Application implements NGInitializable, NGLogEventListener, NGObjectResolver, NGObjectRequestRegistration, NGObjectRequestInvoker {
 
     protected String FName = "NGApplication";
     protected String FDescription = "";
@@ -26,6 +26,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected Boolean FConfigLoaded = false;
     protected Boolean FConsoleShowLogEntrySource = false;
     protected Boolean FConsoleShowLog = true;
+    protected NGObjectRequestBroker FORB;
 
     protected void writeInfo(String aInfo) {
         FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
@@ -85,7 +86,11 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void DoAfterInitialize() {
+        registerObjectRequests();
+    }
 
+    protected void registerObjectRequests() {
+        registerObjectRequest("Application", this, "Quit", "Terminate");
     }
 
     protected void DoBeforeFinalize() {
@@ -108,6 +113,8 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         FModuleManager.setLogManager(FLogManager);
         FLogManager.addEventListener(this);
         FConfiguration = new Properties();
+        FORB = new NGObjectRequestBroker(this);
+        FORB.setLogManager(FLogManager);
     }
 
     public NGLogManager getLogManager() {
@@ -182,6 +189,31 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     public NGCustomApplicationModule addModule(Class<?> aModuleClass) {
         return addModule(aModuleClass, false);
+    }
+
+    @Override
+    public Object ResolveObject(Class aClass) {
+        return null;
+    }
+
+    @Override
+    public Object ResolveObject(String aName, Class aClass) {
+        return null;
+    }
+
+    @Override
+    public void registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod) {
+        NGObjectRequestObject reqobj = FORB.addObject(aName, aObject);
+        reqobj.addMethod(aMethod, aObjectMethod);
+    }
+
+    @Override
+    public void Invoke(NGObjectRequestItem aRequest) {
+        FORB.Invoke(aRequest);
+    }
+
+    public void Invoke(String aObject, String aMethod) {
+        Invoke(new NGObjectRequestItem(aObject, aMethod));
     }
 
 }

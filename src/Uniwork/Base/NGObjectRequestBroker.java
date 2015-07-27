@@ -71,8 +71,13 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     public NGObjectRequestObject addObject(String aName, Object aObject) {
-        NGObjectRequestObject object = new NGObjectRequestObject(aName, aObject);
-        addObject(object);
+        NGObjectRequestObject object =  getObject(aName);
+        if (object == null) {
+            object = new NGObjectRequestObject(aName, aObject);
+            addObject(object);
+        }
+        else
+            object.FObject = aObject;
         return object;
     }
 

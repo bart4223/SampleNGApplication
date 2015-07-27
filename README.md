@@ -3,4 +3,5 @@ The Uniwork project represents the common framework to realize some java project
 Version History
 ===============
 
-    Mai 2015    NGApplication support
+      Mai 2015      NGApplication support
+    27.07.2015      ORB used in NGApplication
