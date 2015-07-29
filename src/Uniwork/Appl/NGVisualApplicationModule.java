@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 public abstract class NGVisualApplicationModule extends NGCustomApplicationModule {
 
     protected NGStageManager FStageManager;
-    protected Stage FPrimaryStage = null;
+    protected Stage FPrimaryStage;
 
     @Override
     protected void DoAfterInitialize() {
@@ -22,7 +22,8 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
 
     public NGVisualApplicationModule(NGComponent aOwner, String aName, String aDescription) {
         super(aOwner, aName, aDescription);
-        FStageManager = new NGStageManager();
+        FStageManager = new NGStageManager(this, "StageManager");
+        FPrimaryStage = null;
     }
 
     public Stage getPrimaryStage() {

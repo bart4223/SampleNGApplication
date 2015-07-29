@@ -33,12 +33,24 @@ public class NGStageManager extends NGComponent {
         return null;
     }
 
-    public NGStageManager() {
-        this(null);
+    protected NGCustomStageItem getItem(String aName) {
+        for (NGCustomStageItem item : FItems) {
+            if (item.getName().equals(aName))
+                return item;
+        }
+        return null;
     }
 
-    public NGStageManager(NGComponent aOwner) {
-        super(aOwner);
+    public NGStageManager() {
+        this("");
+    }
+
+    public NGStageManager(String aName) {
+        this(null, aName);
+    }
+
+    public NGStageManager(NGComponent aOwner, String aName) {
+        super(aOwner, aName);
         FItems = new ArrayList<NGCustomStageItem>();
         FItemClasses = new ArrayList<NGStageItemClass>();
     }
@@ -79,6 +91,17 @@ public class NGStageManager extends NGComponent {
             writeError(String.format("Error %s in addStageItem with name %s", e.getMessage(), aName));
         }
         return item;
+    }
+
+    public void RenderStage(String aName) {
+        NGCustomStageItem item = getItem(aName);
+        item.RenderStage();
+    }
+
+    public void RenderStages() {
+        for (NGCustomStageItem item : FItems) {
+            item.RenderStage();
+        }
     }
 
 }
