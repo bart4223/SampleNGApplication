@@ -45,15 +45,6 @@ public abstract class NGCustomComponentManager extends NGComponent {
         }
     }
 
-    protected NGComponent getComponent(String aName) {
-        for (NGComponent comp : FComponents) {
-            if (comp.getName().equals(aName)) {
-                return comp;
-            }
-        }
-        return null;
-    }
-
     public NGCustomComponentManager() {
         this(null);
     }
@@ -65,6 +56,15 @@ public abstract class NGCustomComponentManager extends NGComponent {
     public NGCustomComponentManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
         FComponents = new ArrayList<NGComponent>();
+    }
+
+    public NGComponent getComponent(String aName) {
+        for (NGComponent comp : FComponents) {
+            if (comp.getName().equals(aName)) {
+                return comp;
+            }
+        }
+        return null;
     }
 
 }

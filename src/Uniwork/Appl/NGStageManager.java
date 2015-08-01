@@ -18,10 +18,10 @@ public class NGStageManager extends NGComponent {
     }
 
     protected void DoFinalize() {
-        super.DoFinalize();
         for (NGCustomStageItem item : FItems) {
             item.Finalize();
         }
+        super.DoFinalize();
     }
 
     protected NGStageItemClass getItemClass(String aName) {

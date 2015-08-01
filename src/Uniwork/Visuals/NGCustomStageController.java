@@ -191,12 +191,19 @@ public abstract class NGCustomStageController extends NGObject {
     }
 
     public void registerDisplayController(NGDisplayController aController) {
-        registerDisplayController(aController, FOwnRenderThread);
+        registerDisplayController(aController, false);
     }
 
-    public void registerDisplayController(NGDisplayController aController, Boolean aOwnRenderThread) {
+    public void registerDisplayController(NGDisplayController aController, Boolean aInitialize) {
+        registerDisplayController(aController, FOwnRenderThread, aInitialize);
+    }
+
+    public void registerDisplayController(NGDisplayController aController, Boolean aOwnRenderThread, Boolean aInitialize) {
         DisplayControllerItem item = new DisplayControllerItem(aController, aOwnRenderThread);
         FDCItems.add(item);
+        if (aInitialize)
+            DoInitializeController(aController);
+
     }
 
     public NGCustomStageItem getStageItem() {

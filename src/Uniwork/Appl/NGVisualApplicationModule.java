@@ -9,15 +9,15 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
     protected Stage FPrimaryStage;
 
     @Override
-    protected void DoAfterInitialize() {
-        super.DoAfterInitialize();
+    protected void DoInitialize() {
+        super.DoInitialize();
         FStageManager.Initialize();
     }
 
     @Override
-    protected void DoBeforeFinalize() {
-        super.DoBeforeFinalize();
+    protected void DoFinalize() {
         FStageManager.Finalize();
+        super.DoFinalize();
     }
 
     public NGVisualApplicationModule(NGComponent aOwner, String aName, String aDescription) {
