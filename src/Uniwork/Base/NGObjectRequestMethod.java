@@ -47,4 +47,12 @@ public class NGObjectRequestMethod extends NGObject {
         return FActive;
     }
 
+    public Integer getParamCount() {
+        return FParams.size();
+    }
+
+    public NGObjectRequestParameter.ParamKind getParamKind(Integer aIndex) {
+        return FParams.get(aIndex).getKind();
+    }
+
 }

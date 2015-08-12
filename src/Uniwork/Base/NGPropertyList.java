@@ -73,6 +73,11 @@ public class NGPropertyList extends NGObject {
         return null;
     }
 
+    public Object get(Integer aIndex) {
+        NGPropertyItem item = FItems.get(aIndex);
+        return item.getValue();
+    }
+
     public void clear() {
         FItems.clear();
     }

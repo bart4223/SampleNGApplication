@@ -34,8 +34,27 @@ public class NGObjectRequestBroker extends NGObject {
             try {
                 NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
                 if (orm.IsActive()) {
-                    Method method = oro.getObject().getClass().getMethod(orm.getObjectMethod());
-                    method.invoke(oro.getObject());
+                    Method method = null;
+                    switch (orm.getParamCount()) {
+                        case 0:
+                            method = oro.getObject().getClass().getMethod(orm.getObjectMethod());
+                            method.invoke(oro.getObject());
+                            break;
+                        case 1:
+                            switch (orm.getParamKind(0)) {
+                                case Integer:
+                                    method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Integer.class);
+                                    break;
+                                case String:
+                                    method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), String.class);
+                                    break;
+                            }
+                            if (method != null)
+                                method.invoke(oro.getObject(), aItem.getParamValue(0));
+                            else
+                                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s]", aItem.getObject(), aItem.getMethod()));
+                            break;
+                    }
                     writeLog(5, String.format("ORB invoked [%s->%s]", aItem.getObject(), aItem.getMethod()));
                     writeLog(10, String.format("ORB invoked [%s.%s]", oro.getObject().toString(), orm.getObjectMethod()));
                 }
