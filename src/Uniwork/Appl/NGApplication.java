@@ -202,9 +202,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     @Override
-    public void registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod) {
+    public NGObjectRequestMethod registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod) {
         NGObjectRequestObject reqobj = FORB.addObject(aName, aObject);
-        reqobj.addMethod(aMethod, aObjectMethod);
+        return reqobj.addMethod(aMethod, aObjectMethod);
     }
 
     @Override

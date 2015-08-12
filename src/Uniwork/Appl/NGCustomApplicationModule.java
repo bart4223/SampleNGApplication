@@ -2,6 +2,7 @@ package Uniwork.Appl;
 
 import Uniwork.Base.NGComponent;
 import Uniwork.Base.NGComponentManager;
+import Uniwork.Base.NGObjectRequestMethod;
 import Uniwork.Misc.NGLogManager;
 
 public abstract class NGCustomApplicationModule extends NGComponent {
@@ -13,6 +14,20 @@ public abstract class NGCustomApplicationModule extends NGComponent {
     protected void DoInitialize() {
         super.DoInitialize();
         FComponentManager.Initialize();
+    }
+
+    @Override
+    protected void DoAfterInitialize() {
+        super.DoAfterInitialize();
+        registerObjectRequests();
+    }
+
+    protected void registerObjectRequests() {
+
+    }
+
+    protected NGObjectRequestMethod registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod) {
+        return NGApplication.Application.registerObjectRequest(aName, aObject, aMethod, aObjectMethod);
     }
 
     protected void DoFinalize() {
