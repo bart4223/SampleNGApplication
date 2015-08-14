@@ -61,4 +61,8 @@ public class NGPoint2D extends NGGeometryObject2D implements Comparable<NGPoint2
             return 0;
     }
 
+    public String AsString() {
+        return String.format("%.0f/%.0f",FX,FY);
+    }
+
 }
