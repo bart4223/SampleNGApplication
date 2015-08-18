@@ -35,8 +35,12 @@ public abstract class NGComponent extends NGObject implements NGInitializable {
     }
 
     protected void writeInfo(String aInfo) {
+        writeInfo(0, aInfo);
+    }
+
+    protected void writeInfo(Integer aLogLevel, String aInfo) {
         if (FLogManager != null) {
-            FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
+            FLogManager.writeLog(aLogLevel, aInfo, NGLogEntry.LogType.Info, toString());
         }
     }
 
