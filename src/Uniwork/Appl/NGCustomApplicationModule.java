@@ -1,11 +1,10 @@
 package Uniwork.Appl;
 
-import Uniwork.Base.NGComponent;
-import Uniwork.Base.NGComponentManager;
-import Uniwork.Base.NGObjectRequestMethod;
+import Uniwork.Base.*;
 import Uniwork.Misc.NGLogManager;
+import Uniwork.Misc.NGStrings;
 
-public abstract class NGCustomApplicationModule extends NGComponent {
+public class NGCustomApplicationModule extends NGComponent {
 
     protected String FDescription = "";
     protected NGComponentManager FComponentManager;
@@ -27,7 +26,8 @@ public abstract class NGCustomApplicationModule extends NGComponent {
     }
 
     protected NGObjectRequestMethod registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod) {
-        return NGApplication.Application.registerObjectRequest(aName, aObject, aMethod, aObjectMethod);
+        String name = NGStrings.addString(FName, aName, ".");
+        return NGApplication.Application.registerObjectRequest(name, aObject, aMethod, aObjectMethod);
     }
 
     protected void DoFinalize() {

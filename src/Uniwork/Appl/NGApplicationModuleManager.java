@@ -2,6 +2,7 @@ package Uniwork.Appl;
 
 import Uniwork.Base.NGComponent;
 import Uniwork.Base.NGCustomComponentManager;
+import Uniwork.Misc.NGStrings;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,7 +42,7 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
     }
 
     public NGCustomApplicationModule addModule(Class<?> aModuleClass) {
-        return this.addModule(aModuleClass, String.format("%s",FComponents.size()), "");
+        return this.addModule(aModuleClass, String.format("%s%d", NGStrings.getLastString(aModuleClass.getName(), "."), FComponents.size()), "");
     }
 
     public NGCustomApplicationModule addModule(Class<?> aModuleClass, String aName) {

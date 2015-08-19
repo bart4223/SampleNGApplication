@@ -1,6 +1,7 @@
 package Uniwork.Appl;
 
 import Uniwork.Base.NGComponent;
+import Uniwork.Misc.NGStrings;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -83,9 +84,10 @@ public class NGStageManager extends NGComponent {
         NGCustomStageItem item = null;
         NGStageItemClass itemclass = getItemClass(aName);
         try {
-            item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, aName, aStage);
+            String name = NGStrings.addString(NGStrings.getFirstString(FName, "."), aName, ".");
+            item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, name, aStage);
             FItems.add(item);
-            writeInfo(String.format("Stage item %s[%s] added.", aName, itemclass.getItemClass().getName()));
+            writeInfo(String.format("Stage item %s[%s] added.", item.getName(), itemclass.getItemClass().getName()));
         }
         catch (Exception e){
             writeError(String.format("Error %s in addStageItem with name %s", e.getMessage(), aName));

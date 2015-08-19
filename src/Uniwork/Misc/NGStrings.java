@@ -36,6 +36,22 @@ public final class NGStrings {
         }
     }
 
+    public static String getLastString(String aValue, String aSep) {
+        String res = aValue;
+        Integer i =  aValue.lastIndexOf(aSep);
+        if ((i > 0) && (i + 1 < aValue.length()))
+            res = aValue.substring(i + 1, aValue.length() - 1);
+        return res;
+    }
+
+    public static String getFirstString(String aValue, String aSep) {
+        String res = aValue;
+        Integer i =  aValue.indexOf(aSep);
+        if (i > 0)
+            res = aValue.substring(0, i);
+        return res;
+    }
+
     public static Boolean IsStringInString(String aValue, String aStrings, String aRegex) {
         // Regex Examples
         // "," use ","
