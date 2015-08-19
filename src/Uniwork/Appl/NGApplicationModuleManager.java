@@ -42,16 +42,12 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
     }
 
     public NGCustomApplicationModule addModule(Class<?> aModuleClass) {
-        return this.addModule(aModuleClass, String.format("%s%d", NGStrings.getLastString(aModuleClass.getName(), "."), FComponents.size()), "");
+        return this.addModule(aModuleClass, String.format("%s%d", NGStrings.getLastString(aModuleClass.getName(), "."), FComponents.size()));
     }
 
     public NGCustomApplicationModule addModule(Class<?> aModuleClass, String aName) {
-        return this.addModule(aModuleClass, aName, "");
-    }
-
-    public NGCustomApplicationModule addModule(Class<?> aModuleClass, String aName, String aDescription) {
         try {
-            NGCustomApplicationModule res = (NGCustomApplicationModule)aModuleClass.getConstructor(NGComponent.class, String.class, String.class).newInstance(this, aName, aDescription);
+            NGCustomApplicationModule res = (NGCustomApplicationModule)aModuleClass.getConstructor(NGComponent.class, String.class).newInstance(this, aName);
             res.setLogManager(FLogManager);
             registerModule(res);
             return res;
@@ -60,6 +56,10 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
             writeError(e.getMessage());
         }
         return null;
+    }
+
+    public Integer getModuleCount() {
+        return FComponents.size();
     }
 
 }

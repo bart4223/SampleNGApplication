@@ -23,8 +23,8 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
         super.DoFinalize();
     }
 
-    public NGVisualApplicationModule(NGComponent aOwner, String aName, String aDescription) {
-        super(aOwner, aName, aDescription);
+    public NGVisualApplicationModule(NGComponent aOwner, String aName) {
+        super(aOwner, aName);
         FStageManager = new NGStageManager(this, String.format("%s.%s", aName, "StageManager"));
         FToolboxManager = new NGToolboxManager(this, String.format("%s.%s", aName, "ToolboxManager"));
         FPrimaryStage = null;

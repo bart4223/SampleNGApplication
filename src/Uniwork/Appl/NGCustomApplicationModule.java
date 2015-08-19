@@ -36,14 +36,18 @@ public class NGCustomApplicationModule extends NGComponent {
     }
 
 
-    public NGCustomApplicationModule(NGComponent aOwner, String aName, String aDescription) {
+    public NGCustomApplicationModule(NGComponent aOwner, String aName) {
         super(aOwner, aName);
         FComponentManager = new NGComponentManager(this);
-        FDescription = aDescription;
+        FDescription = "";
     }
 
     public String getDescription() {
         return FDescription;
+    }
+
+    public void setDescription(String aDescription) {
+        FDescription = aDescription;
     }
 
     public void setLogManager(NGLogManager aLogManager) {

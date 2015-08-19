@@ -180,7 +180,12 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     public static NGApplication Application;
 
     public NGCustomApplicationModule addModule(Class<?> aModuleClass, Boolean aInitialize) {
+        return addModule(aModuleClass, aInitialize, "");
+    }
+
+    public NGCustomApplicationModule addModule(Class<?> aModuleClass, Boolean aInitialize, String aDescription) {
         NGCustomApplicationModule res = FModuleManager.addModule(aModuleClass);
+        res.setDescription(aDescription);
         if (aInitialize) {
             res.Initialize();
         }
