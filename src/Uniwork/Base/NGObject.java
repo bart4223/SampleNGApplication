@@ -91,4 +91,14 @@ public abstract class NGObject implements NGQualityOfService, NGObjectResolver, 
         FResolver = aResolver;
     }
 
+    public static Object createObjectByName(Object aObject, String aName) {
+        Object res = null;
+        try {
+            res = aObject.getClass().getClassLoader().loadClass(aName).getConstructor().newInstance();
+        }
+        catch (Exception e){
+        }
+        return res;
+    }
+
 }

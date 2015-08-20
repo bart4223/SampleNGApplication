@@ -65,4 +65,14 @@ public final class NGStrings {
         return false;
     }
 
+    public static String leftPad(String aValue, Integer aLength, String aChar) {
+        String res = aValue;
+        if (aValue.length() < aLength && aChar.length() == 1) {
+            while (res.length() < aLength) {
+                res = aChar + res;
+            }
+        }
+        return res;
+    }
+
 }
