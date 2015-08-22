@@ -27,6 +27,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected Boolean FConsoleShowLogEntrySource = false;
     protected Boolean FConsoleShowLog = true;
     protected NGObjectRequestBroker FORB;
+    protected String FResourcePath = "";
 
     protected void writeInfo(String aInfo) {
         FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
@@ -115,6 +116,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         FConfiguration = new Properties();
         FORB = new NGObjectRequestBroker(this);
         FORB.setLogManager(FLogManager);
+        FResourcePath = "resources/";
     }
 
     public NGLogManager getLogManager() {
@@ -219,6 +221,21 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     public void Invoke(String aObject, String aMethod) {
         Invoke(new NGObjectRequestItem(aObject, aMethod));
+    }
+
+    public String LoadResourceFileContent(String aFilename) {
+        String lResult = "";
+        try {
+            InputStream lFileStream = new FileInputStream(FResourcePath + aFilename);
+            if (lFileStream != null) {
+                int lContent;
+                while ((lContent = lFileStream.read()) != -1) {
+                    lResult = lResult + (char)lContent;
+                }
+            }
+        } catch (Exception e) {
+        }
+        return lResult;
     }
 
 }

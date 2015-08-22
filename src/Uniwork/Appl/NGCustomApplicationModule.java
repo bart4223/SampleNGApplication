@@ -38,6 +38,7 @@ public class NGCustomApplicationModule extends NGComponent {
 
     public NGCustomApplicationModule(NGComponent aOwner, String aName) {
         super(aOwner, aName);
+        Application = NGApplication.Application;
         FComponentManager = new NGComponentManager(this);
         FDescription = "";
     }
@@ -54,5 +55,7 @@ public class NGCustomApplicationModule extends NGComponent {
         super.setLogManager(aLogManager);
         FComponentManager.setLogManager(aLogManager);
     }
+
+    public NGApplication Application;
 
 }
