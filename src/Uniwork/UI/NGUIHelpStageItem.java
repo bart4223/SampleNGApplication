@@ -1,7 +1,6 @@
 package Uniwork.UI;
 
 import Uniwork.Appl.NGCustomStageItem;
-import Uniwork.Appl.NGHelpContext;
 import Uniwork.Appl.NGStageManager;
 import javafx.stage.Stage;
 
@@ -10,9 +9,9 @@ public class NGUIHelpStageItem extends NGCustomStageItem {
     @Override
     protected void setContextToController(Object aContext) {
         super.setContextToController(aContext);
-        if (aContext instanceof NGHelpContext) {
+        if (aContext instanceof NGUIHelpContext) {
             NGUIHelpStageController sc = (NGUIHelpStageController)FStageController;
-            sc.addHelp(((NGHelpContext)aContext).getText());
+            sc.addHelp(((NGUIHelpContext)aContext).getText());
         }
     }
 

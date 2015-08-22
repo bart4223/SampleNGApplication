@@ -1,12 +1,12 @@
-package Uniwork.Appl;
+package Uniwork.UI;
 
 import Uniwork.Base.NGObject;
 
-public class NGHelpContext extends NGObject {
+public class NGUIHelpContext extends NGObject {
 
     protected String FText;
 
-    public NGHelpContext(String aText) {
+    public NGUIHelpContext(String aText) {
         super();
         FText = aText;
     }
