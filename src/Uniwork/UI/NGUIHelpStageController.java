@@ -1,7 +1,6 @@
 package Uniwork.UI;
 
 import Uniwork.Appl.NGCustomStageItem;
-import Uniwork.Misc.NGStrings;
 import Uniwork.Visuals.NGStageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -11,11 +10,11 @@ public class NGUIHelpStageController extends NGStageController {
     @FXML
     private TextArea Help;
 
-    public void addHelp(String aText) {
-        Help.setText(NGStrings.addString(aText, Help.getText(), "\n"));
+    public void setHelpText(String aText) {
+        Help.setText(aText);
     }
 
-    public void clearHelp() {
+    public void clearHelpText() {
         Help.clear();
     }
 

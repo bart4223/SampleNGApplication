@@ -11,7 +11,7 @@ public class NGUIHelpStageItem extends NGCustomStageItem {
         super.setContextToController(aContext);
         if (aContext instanceof NGUIHelpContext) {
             NGUIHelpStageController sc = (NGUIHelpStageController)FStageController;
-            sc.addHelp(((NGUIHelpContext)aContext).getText());
+            sc.setHelpText(((NGUIHelpContext) aContext).getText());
         }
     }
 

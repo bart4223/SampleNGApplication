@@ -17,13 +17,19 @@ public class NGToolboxManager extends NGStageManager {
     }
 
     public void ShowToolbox(String aItemName, Object aContext) {
-        ShowToolbox(aItemName, aItemName, aContext);
+        ShowToolbox(aItemName, "", aContext);
     }
 
-    public void ShowToolbox(String aItemName, String aName, Object aContext) {
+    public void ShowToolbox(String aItemName, String aCaption, Object aContext) {
+        ShowToolbox(aItemName, aItemName, aCaption, aContext);
+    }
+
+    public void ShowToolbox(String aItemName, String aName, String aCaption, Object aContext) {
         NGCustomStageItem item = getItem(getFullname(aName));
         if (item == null) {
             item = addStageItem(aItemName, aName);
+            if (aCaption.length() > 0)
+                item.setCaption(aCaption);
             item.setContext(aContext);
             item.Initialize();
         }
