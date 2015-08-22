@@ -42,6 +42,10 @@ public class NGStageManager extends NGComponent {
         return null;
     }
 
+    protected String getFullname(String aName) {
+        return NGStrings.addString(NGStrings.getFirstString(FName, "."), aName, ".");
+    }
+
     public NGStageManager() {
         this("");
     }
@@ -76,16 +80,23 @@ public class NGStageManager extends NGComponent {
         }
     }
 
-    public NGCustomStageItem addStageItem(String aName) {
-        return addStageItem(aName, null);
+    public NGCustomStageItem addStageItem(String aItemName) {
+        return addStageItem(aItemName, aItemName);
     }
 
-    public NGCustomStageItem addStageItem(String aName, Stage aStage) {
+    public NGCustomStageItem addStageItem(String aItemName, String aName) {
+        return addStageItem(aItemName, aName, null);
+    }
+
+    public NGCustomStageItem addStageItem(String aItemName, Stage aStage) {
+        return addStageItem(aItemName, aItemName, aStage);
+    }
+
+    public NGCustomStageItem addStageItem(String aItemName, String aName, Stage aStage) {
         NGCustomStageItem item = null;
-        NGStageItemClass itemclass = getItemClass(aName);
+        NGStageItemClass itemclass = getItemClass(aItemName);
         try {
-            String name = NGStrings.addString(NGStrings.getFirstString(FName, "."), aName, ".");
-            item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, name, aStage);
+            item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, getFullname(aName), aStage);
             FItems.add(item);
             writeInfo(String.format("Stage item %s[%s] added.", item.getName(), itemclass.getItemClass().getName()));
         }

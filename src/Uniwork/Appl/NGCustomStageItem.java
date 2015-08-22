@@ -26,6 +26,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected String FFXMLName = "";
     protected Boolean FResizable = false;
     protected Color FColor = Color.WHITE;
+    protected Object FContext;
 
     protected void CreateStage() {
         FStage = new Stage();
@@ -55,8 +56,37 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage.show();
     }
 
-    protected void RenderStage() {
+    protected void setContextToController(Object aContext) {
+
+    }
+
+    protected void BeforeRenderStage() {
+        if (FContext != null) {
+            setContextToController(FContext);
+        }
+    }
+
+    protected void DoRenderStage() {
         FStageController.RenderScene();
+    }
+
+    protected void RenderStage() {
+        BeforeRenderStage();
+        try {
+            DoRenderStage();
+        }
+        finally {
+            AfterRenderStage();
+        }
+    }
+
+    protected void AfterRenderStage() {
+
+    }
+
+    protected void DoShow() {
+        RenderStage();
+        ShowStage();
     }
 
     protected void InitializeStageController() {
@@ -81,8 +111,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     @Override
     protected void DoAfterInitialize() {
         super.DoAfterInitialize();
-        RenderStage();
-        ShowStage();
+        Show();
     }
 
     public NGCustomStageItem(NGStageManager aStageManager, String aName, Stage aStage) {
@@ -93,6 +122,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FLogManager = new NGLogManager();
         FLogManager.addEventListener(this);
         FPosition = new NGPoint2D(0,0);
+        FContext = null;
     }
 
     public String getName() {
@@ -130,6 +160,18 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     public void setPosition(double aX, double aY) {
         FPosition.setX(aX);
         FPosition.setY(aY);
+    }
+
+    public void Show() {
+        DoShow();
+    }
+
+    public void setContext(Object aContext) {
+        FContext = aContext;
+    }
+
+    public Object getContext() {
+        return FContext;
     }
 
 }
