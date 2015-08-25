@@ -120,18 +120,29 @@ public class NGLogManager extends NGObject {
         return getCompleteLog(false);
     }
 
-    public String getCompleteLog(String aFormat) {
+    public String getCompletLog(String aFormat) {
         return getCompleteLog(aFormat, false);
     }
 
-    public String getCompleteLog(Boolean aWithSource) {
-        return getCompleteLog(NGLogEntry.FMT_STD_DATE, aWithSource);
+    public String getCompleteLog(String aFormat, Boolean aDescending) {
+        return getCompleteLog(aFormat, false, aDescending);
     }
 
-    public String getCompleteLog(String aFormat, Boolean aWithSource) {
+    public String getCompleteLog(Boolean aWithSource) {
+        return getCompleteLog(aWithSource, false);
+    }
+
+    public String getCompleteLog(Boolean aWithSource, Boolean aDescending) {
+        return getCompleteLog(NGLogEntry.FMT_STD_DATE, aWithSource, aDescending);
+    }
+
+    public String getCompleteLog(String aFormat, Boolean aWithSource, Boolean aDescending) {
         String res = "";
         for (NGLogEntry entry : FItems) {
-            res = NGStrings.addString(res, entry.GetFullAsString(aFormat, aWithSource), "\n");
+            if (aDescending)
+                res = NGStrings.addString(entry.GetFullAsString(aFormat, aWithSource), res, "\n");
+            else
+                res = NGStrings.addString(res, entry.GetFullAsString(aFormat, aWithSource), "\n");
         }
         return res;
     }

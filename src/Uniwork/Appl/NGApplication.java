@@ -44,7 +44,6 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     @Override
     public void start(Stage stage) throws Exception {
         FPrimaryStage = stage;
-        writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
         Initialize();
     }
 
@@ -80,6 +79,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected void DoBeforeInitialize() {
         LoadConfiguration();
+        writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
     }
 
     protected void DoInitialize() {
