@@ -227,10 +227,16 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         String lResult = "";
         try {
             InputStream lFileStream = new FileInputStream(FResourcePath + aFilename);
-            if (lFileStream != null) {
-                int lContent;
-                while ((lContent = lFileStream.read()) != -1) {
-                    lResult = lResult + (char)lContent;
+            try {
+                if (lFileStream != null) {
+                    int lContent;
+                    while ((lContent = lFileStream.read()) != -1) {
+                        lResult = lResult + (char)lContent;
+                    }
+                }
+            } finally {
+                if (lFileStream != null) {
+                    lFileStream.close();
                 }
             }
         } catch (Exception e) {

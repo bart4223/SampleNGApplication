@@ -162,6 +162,22 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FPosition.setY(aY);
     }
 
+    public void setWidth(Integer aWidth) {
+        FWidth = aWidth;
+    }
+
+    public Integer getWidth(Integer aWidth) {
+        return FWidth;
+    }
+
+    public void ssetHeight(Integer aHeight) {
+        FHeight = aHeight;
+    }
+
+    public Integer getHeight() {
+        return FHeight;
+    }
+
     public void Show() {
         DoShow();
     }
