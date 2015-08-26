@@ -53,6 +53,13 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         writeInfo("Bye, Bye...");
     }
 
+    protected String getConfigurationProperty(String aName) {
+        if (FConfigLoaded) {
+            return FConfiguration.getProperty(aName);
+        }
+        return "";
+    }
+
     protected void LoadConfiguration() {
         Boolean result = FConfigurationFilename.length() > 0;
         if (result) {
@@ -60,21 +67,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 InputStream is = new FileInputStream(FConfigurationFilename);
                 FConfiguration.load(is);
                 FConfigLoaded = true;
-                FConsoleShowLogEntrySource = Boolean.valueOf(getConfigrationProperty("ConsoleShowLogEntrySource"));
-                FConsoleShowLog = Boolean.valueOf(getConfigrationProperty("ConsoleShowLog"));
-                FLogManager.setLogLevel(Integer.parseInt(getConfigrationProperty("Debuglevel")));
+                FConsoleShowLogEntrySource = Boolean.valueOf(getConfigurationProperty("ConsoleShowLogEntrySource"));
+                FConsoleShowLog = Boolean.valueOf(getConfigurationProperty("ConsoleShowLog"));
+                FLogManager.setLogLevel(Integer.parseInt(getConfigurationProperty("Debuglevel")));
             }
             catch ( Exception e) {
                 writeError(String.format("Error in LoadConfiguration: %s", e.getMessage()));
             }
         }
-    }
-
-    protected String getConfigrationProperty(String aName) {
-        if (FConfigLoaded) {
-            return FConfiguration.getProperty(aName);
-        }
-        return "";
     }
 
     protected void DoBeforeInitialize() {
@@ -145,6 +145,21 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     public String getConfigurationFilename() {
         return FConfigurationFilename;
+    }
+
+    public Boolean getConfigurationPropertyAsBoolean(String aName, Boolean aDefault) {
+        Boolean res;
+        try {
+            String prop = getConfigurationProperty(aName);
+            if (prop.length() == 0)
+                res = aDefault;
+            else
+                res = Boolean.parseBoolean(prop);
+        }
+        catch(Exception e) {
+            res = aDefault;
+        }
+        return res;
     }
 
     public Boolean getConsoleShowLog() {

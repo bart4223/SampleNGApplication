@@ -24,6 +24,10 @@ public class NGStageController extends NGCustomStageController {
         NGApplication.Application.Invoke(getObjectRequestName(aObject), aMethod);
     }
 
+    protected Boolean getConfigurationPropertyAsBoolean(String aName, Boolean aDefault) {
+        return NGApplication.Application.getConfigurationPropertyAsBoolean(aName, aDefault);
+    }
+
     protected NGObjectRequestItem newObjectRequest(String aObject, String aMethod) {
         NGObjectRequestItem res = new NGObjectRequestItem(getObjectRequestName(aObject), aMethod);
         return res;
