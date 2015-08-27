@@ -2,11 +2,11 @@ package Uniwork.UI;
 
 import Uniwork.Base.NGObject;
 
-public class NGUIHelpContext extends NGObject {
+public class NGUIHelpToolboxContext extends NGObject {
 
     protected String FText;
 
-    public NGUIHelpContext(String aText) {
+    public NGUIHelpToolboxContext(String aText) {
         super();
         FText = aText;
     }

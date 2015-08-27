@@ -4,20 +4,20 @@ import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGStageManager;
 import javafx.stage.Stage;
 
-public class NGUIHelpStageItem extends NGCustomStageItem {
+public class NGUIHelpToolboxItem extends NGCustomStageItem {
 
     @Override
     protected void setContextToController(Object aContext) {
         super.setContextToController(aContext);
-        if (aContext instanceof NGUIHelpContext) {
-            NGUIHelpStageController sc = (NGUIHelpStageController)FStageController;
-            sc.setHelpText(((NGUIHelpContext) aContext).getText());
+        if (aContext instanceof NGUIHelpToolboxContext) {
+            NGUIHelpToolboxController sc = (NGUIHelpToolboxController)FStageController;
+            sc.setHelpText(((NGUIHelpToolboxContext) aContext).getText());
         }
     }
 
-    public NGUIHelpStageItem(NGStageManager aStageManager, String aName, Stage aStage) {
+    public NGUIHelpToolboxItem(NGStageManager aStageManager, String aName, Stage aStage) {
         super(aStageManager, aName, aStage);
-        FFXMLName = "NGUIHelpStage.fxml";
+        FFXMLName = "NGUIHelpToolbox.fxml";
         FWidth = 800;
         FHeight = 800;
         FCaption = "Help";

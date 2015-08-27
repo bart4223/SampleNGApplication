@@ -5,7 +5,7 @@ import Uniwork.Visuals.NGStageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-public class NGUIHelpStageController extends NGStageController {
+public class NGUIHelpToolboxController extends NGStageController {
 
     @FXML
     private TextArea Help;
@@ -18,11 +18,11 @@ public class NGUIHelpStageController extends NGStageController {
         Help.clear();
     }
 
-    public NGUIHelpStageController() {
+    public NGUIHelpToolboxController() {
         this(null);
     }
 
-    public NGUIHelpStageController(NGCustomStageItem aStageItem) {
+    public NGUIHelpToolboxController(NGCustomStageItem aStageItem) {
         super(aStageItem);
     }
 
