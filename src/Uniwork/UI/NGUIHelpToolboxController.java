@@ -2,10 +2,11 @@ package Uniwork.UI;
 
 import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Visuals.NGStageController;
+import Uniwork.Visuals.NGToolboxController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-public class NGUIHelpToolboxController extends NGStageController {
+public class NGUIHelpToolboxController extends NGToolboxController {
 
     @FXML
     private TextArea Help;
