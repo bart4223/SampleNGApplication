@@ -32,6 +32,10 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage = new Stage();
     }
 
+    protected String getStageTitle() {
+        return String.format("%s.%s", NGApplication.Application.getName(), getCaption());
+    }
+
     protected void LoadStage() {
         FXMLLoader lXMLLoader;
         lXMLLoader = new FXMLLoader(getClass().getResource(FFXMLName));
@@ -40,7 +44,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
             FStageController = lXMLLoader.getController();
             FStageController.setStageItem(this);
             Parent lRoot = lXMLLoader.getRoot();
-            FStage.setTitle(String.format("%s.%s", NGApplication.Application.getName(), getCaption()));
+            FStage.setTitle(getStageTitle());
             Scene Scene = new Scene(lRoot, FWidth, FHeight, FColor);
             FStage.setScene(Scene);
             FStage.setResizable(FResizable);
@@ -53,6 +57,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected void ShowStage() {
         FStage.setX(FPosition.getX());
         FStage.setY(FPosition.getY());
+        FStage.setTitle(getStageTitle());
         FStage.show();
     }
 

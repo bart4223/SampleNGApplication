@@ -16,6 +16,10 @@ public class NGToolboxManager extends NGStageManager {
         super(aOwner, aName);
     }
 
+    public void ShowToolbox(String aItemName) {
+        ShowToolbox(aItemName, null);
+    }
+
     public void ShowToolbox(String aItemName, Object aContext) {
         ShowToolbox(aItemName, "", aContext);
     }
