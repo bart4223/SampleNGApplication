@@ -110,4 +110,8 @@ public abstract class NGComponent extends NGObject implements NGInitializable {
         }
     }
 
+    public Boolean IsInitialized() {
+        return FInitialized;
+    }
+
 }

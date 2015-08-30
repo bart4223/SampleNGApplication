@@ -23,6 +23,7 @@ public class NGUIHelpToolboxItem extends NGCustomStageItem {
         FCaption = "Help";
         FPosition.setX(100);
         FPosition.setY(100);
+        FUnique = true;
     }
 
 }

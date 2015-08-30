@@ -16,31 +16,35 @@ public class NGToolboxManager extends NGStageManager {
         super(aOwner, aName);
     }
 
-    public void ShowToolbox(String aItemName) {
-        ShowToolbox(aItemName, null);
+    public NGCustomStageItem ShowToolbox(String aItemName) {
+        return ShowToolbox(aItemName, null);
     }
 
-    public void ShowToolbox(String aItemName, Object aContext) {
-        ShowToolbox(aItemName, "", aContext);
+    public NGCustomStageItem ShowToolbox(String aItemName, Object aContext) {
+        return ShowToolbox(aItemName, "", aContext);
     }
 
-    public void ShowToolbox(String aItemName, String aCaption, Object aContext) {
-        ShowToolbox(aItemName, aItemName, aCaption, aContext);
+    public NGCustomStageItem ShowToolbox(String aItemName, String aCaption, Object aContext) {
+        return ShowToolbox(aItemName, aItemName, aCaption, aContext);
     }
 
-    public void ShowToolbox(String aItemName, String aName, String aCaption, Object aContext) {
-        NGCustomStageItem item = getItem(getFullname(aName));
-        if (item == null) {
-            item = addStageItem(aItemName, aName);
-            if (aCaption.length() > 0)
-                item.setCaption(aCaption);
-            item.setContext(aContext);
-            item.Initialize();
+    public NGCustomStageItem ShowToolbox(String aItemName, String aName, String aCaption, Object aContext) {
+        NGCustomStageItem res = null;
+        for (NGCustomStageItem item : FItems) {
+            if (item.getName().equals(getFullname(aName)) && (!item.IsStageShowing() || item.getUnique())) {
+                res = item;
+                break;
+            }
         }
-        else {
-            item.setContext(aContext);
-            item.Show();
+        if (res == null) {
+            res = addStageItem(aItemName, aName);
+            res.Initialize();
         }
+        if (aCaption.length() > 0)
+            res.setCaption(aCaption);
+        res.setContext(aContext);
+        res.Show();
+        return res;
     }
 
 }
