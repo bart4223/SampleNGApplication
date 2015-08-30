@@ -7,6 +7,31 @@ import Uniwork.Misc.NGStrings;
 
 public class NGStageController extends NGCustomStageController {
 
+    protected class ComboboxText {
+
+        protected String FID;
+        protected String FName;
+
+        public ComboboxText(String aID, String aName) {
+            FID = aID;
+            FName = aName;
+        }
+
+        public String getId() {
+            return FID;
+        }
+
+        public String getName() {
+            return FName;
+        }
+
+        @Override
+        public String toString() {
+            return FName;
+        }
+
+    }
+
     protected String getObjectRequestName(String aObject) {
         String res = aObject;
         if (FStageItem != null && !aObject.equals("Application")) {
