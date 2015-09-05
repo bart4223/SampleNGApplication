@@ -38,4 +38,16 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
         FPrimaryStage =  aPrimaryStage;
     }
 
+    public void ShowStages() {
+        FStageManager.ShowStages();
+    }
+
+    public void HideStages() {
+        FStageManager.HideStages();
+    }
+
+    public void CloseStages() {
+        FStageManager.CloseStages();
+    }
+
 }

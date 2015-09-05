@@ -117,4 +117,22 @@ public class NGStageManager extends NGComponent {
         }
     }
 
+    public void ShowStages() {
+        for (NGCustomStageItem item : FItems) {
+            item.Show();
+        }
+    }
+
+    public void HideStages() {
+        for (NGCustomStageItem item : FItems) {
+            item.Hide();
+        }
+    }
+
+    public void CloseStages() {
+        for (NGCustomStageItem item : FItems) {
+            item.Close();
+        }
+    }
+
 }

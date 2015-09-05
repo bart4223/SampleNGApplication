@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.Properties;
 
 public class NGApplication extends Application implements NGInitializable, NGLogEventListener, NGObjectResolver, NGObjectRequestRegistration, NGObjectRequestInvoker {
@@ -92,6 +93,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected void registerObjectRequests() {
         registerObjectRequest("Application", this, "Quit", "Terminate");
+        registerObjectRequest("Application", this, "ShowStages", "ShowStages");
     }
 
     protected void DoBeforeFinalize() {
@@ -257,6 +259,39 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         } catch (Exception e) {
         }
         return lResult;
+    }
+
+    public void ShowStages() {
+        Iterator<NGCustomApplicationModule> itr = FModuleManager.getModules();
+        while (itr.hasNext()) {
+            NGCustomApplicationModule module = itr.next();
+            if ( module instanceof NGVisualApplicationModule) {
+                NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
+                visualModule.ShowStages();
+            }
+        }
+    }
+
+    public void HideStages() {
+        Iterator<NGCustomApplicationModule> itr = FModuleManager.getModules();
+        while (itr.hasNext()) {
+            NGCustomApplicationModule module = itr.next();
+            if ( module instanceof NGVisualApplicationModule) {
+                NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
+                visualModule.HideStages();
+            }
+        }
+    }
+
+    public void CloseStages() {
+        Iterator<NGCustomApplicationModule> itr = FModuleManager.getModules();
+        while (itr.hasNext()) {
+            NGCustomApplicationModule module = itr.next();
+            if ( module instanceof NGVisualApplicationModule) {
+                NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
+                visualModule.CloseStages();
+            }
+        }
     }
 
 }

@@ -62,11 +62,11 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage.show();
     }
 
-    protected void CloseStage() {
+    protected void DoCloseStage() {
         FStage.close();
     }
 
-    protected void HideStage() {
+    protected void DoHideStage() {
         FStage.hide();
     }
 
@@ -101,6 +101,14 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected void DoShow() {
         RenderStage();
         ShowStage();
+    }
+
+    protected void DoHide() {
+        DoHideStage();
+    }
+
+    protected void DoClose() {
+        DoCloseStage();
     }
 
     protected void InitializeStageController() {
@@ -185,7 +193,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         return FWidth;
     }
 
-    public void ssetHeight(Integer aHeight) {
+    public void setHeight(Integer aHeight) {
         FHeight = aHeight;
     }
 
@@ -195,6 +203,14 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
 
     public void Show() {
         DoShow();
+    }
+
+    public void Hide() {
+        DoHide();
+    }
+
+    public void Close() {
+        DoClose();
     }
 
     public void setContext(Object aContext) {

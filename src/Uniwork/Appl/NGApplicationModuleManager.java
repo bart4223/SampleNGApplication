@@ -41,6 +41,10 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
         return modules.iterator();
     }
 
+    public Integer getModuleCount() {
+        return FComponents.size();
+    }
+
     public NGCustomApplicationModule addModule(Class<?> aModuleClass) {
         return this.addModule(aModuleClass, String.format("%s%d", NGStrings.getLastString(aModuleClass.getName(), "."), FComponents.size()));
     }
@@ -56,10 +60,6 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
             writeError(e.getMessage());
         }
         return null;
-    }
-
-    public Integer getModuleCount() {
-        return FComponents.size();
     }
 
 }
