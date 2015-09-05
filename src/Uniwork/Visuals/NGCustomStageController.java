@@ -203,7 +203,10 @@ public abstract class NGCustomStageController extends NGObject {
         FDCItems.add(item);
         if (aInitialize)
             DoInitializeController(aController);
+    }
 
+    public void unregisterDisplayController(NGDisplayController aController) {
+        FDCItems.remove(aController);
     }
 
     public NGCustomStageItem getStageItem() {

@@ -62,6 +62,14 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage.show();
     }
 
+    protected void CloseStage() {
+        FStage.close();
+    }
+
+    protected void HideStage() {
+        FStage.hide();
+    }
+
     protected void setContextToController(Object aContext) {
 
     }

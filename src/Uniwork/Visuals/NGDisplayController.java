@@ -391,6 +391,10 @@ public abstract class NGDisplayController extends NGObject {
         }
     }
 
+    public Canvas getCanvas() {
+        return FCanvas;
+    }
+
     public String getName() {
         return FName;
     }
