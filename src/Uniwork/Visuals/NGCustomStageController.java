@@ -97,8 +97,12 @@ public abstract class NGCustomStageController extends NGObject {
         }
     }
 
-    protected void DoAfterInitialize() {
+    protected void UpdateSize() {
 
+    }
+
+    protected void DoAfterInitialize() {
+        UpdateSize();
     }
 
     protected void AfterInitialize() {

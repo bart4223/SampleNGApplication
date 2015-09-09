@@ -10,6 +10,13 @@ public class NGUIConsoleStageController extends NGStageController {
     @FXML
     private TextArea Log;
 
+    @Override
+    protected void UpdateSize() {
+        super.UpdateSize();
+        Log.setPrefWidth(FStageItem.getWidth());
+        Log.setPrefHeight(FStageItem.getHeight());
+    }
+
     public void addLog(String aLogText) {
         Log.setText(String.format("%s\n%s", aLogText, Log.getText()));
     }

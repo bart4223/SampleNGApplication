@@ -189,7 +189,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FWidth = aWidth;
     }
 
-    public Integer getWidth(Integer aWidth) {
+    public Integer getWidth() {
         return FWidth;
     }
 
