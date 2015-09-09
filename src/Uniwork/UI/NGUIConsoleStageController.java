@@ -11,8 +11,8 @@ public class NGUIConsoleStageController extends NGStageController {
     private TextArea Log;
 
     @Override
-    protected void UpdateSize() {
-        super.UpdateSize();
+    protected void UpdateControlSize() {
+        super.UpdateControlSize();
         Log.setPrefWidth(FStageItem.getWidth());
         Log.setPrefHeight(FStageItem.getHeight());
     }

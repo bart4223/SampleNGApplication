@@ -12,8 +12,8 @@ public class NGUIHelpToolboxController extends NGToolboxController {
     private TextArea Help;
 
     @Override
-    protected void UpdateSize() {
-        super.UpdateSize();
+    protected void UpdateControlSize() {
+        super.UpdateControlSize();
         Help.setPrefWidth(FStageItem.getWidth());
         Help.setPrefHeight(FStageItem.getHeight());
     }
