@@ -24,6 +24,10 @@ public class NGToolboxManager extends NGStageManager {
         return ShowToolbox(aItemName, "", aContext);
     }
 
+    public NGCustomStageItem ShowToolbox(String aItemName, String aCaption) {
+        return ShowToolbox(aItemName, aCaption, null);
+    }
+
     public NGCustomStageItem ShowToolbox(String aItemName, String aCaption, Object aContext) {
         return ShowToolbox(aItemName, aItemName, aCaption, aContext);
     }
