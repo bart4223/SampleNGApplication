@@ -11,8 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.concurrent.SynchronousQueue;
 
 public class NGApplication extends Application implements NGInitializable, NGLogEventListener, NGObjectResolver, NGObjectRequestRegistration, NGObjectRequestInvoker {
 
@@ -23,12 +25,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected Stage FPrimaryStage = null;
     protected NGApplicationModuleManager FModuleManager;
     protected String FConfigurationFilename = "";
+    protected String FDefinitionFilename = "";
     protected Properties FConfiguration;
     protected Boolean FConfigLoaded = false;
     protected Boolean FConsoleShowLogEntrySource = false;
     protected Boolean FConsoleShowLog = true;
     protected NGObjectRequestBroker FORB;
     protected String FResourcePath = "";
+    protected NGApplicationDefinition FDefinition;
 
     protected void writeInfo(String aInfo) {
         FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
@@ -61,9 +65,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         return "";
     }
 
-    protected void LoadConfiguration() {
-        Boolean result = FConfigurationFilename.length() > 0;
-        if (result) {
+    protected Boolean LoadConfiguration() {
+        Boolean res = FConfigurationFilename.length() > 0;
+        if (res) {
             try {
                 InputStream is = new FileInputStream(FConfigurationFilename);
                 FConfiguration.load(is);
@@ -71,16 +75,40 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 FConsoleShowLogEntrySource = Boolean.valueOf(getConfigurationProperty("ConsoleShowLogEntrySource"));
                 FConsoleShowLog = Boolean.valueOf(getConfigurationProperty("ConsoleShowLog"));
                 FLogManager.setLogLevel(Integer.parseInt(getConfigurationProperty("Debuglevel")));
+                FDefinitionFilename = getConfigurationProperty("DefinitionFilename");
             }
             catch ( Exception e) {
                 writeError(String.format("Error in LoadConfiguration: %s", e.getMessage()));
             }
+        }
+        return res;
+    }
+
+    protected void LoadDefinition() {
+        Boolean res = FDefinitionFilename.length() > 0;
+        if (res) {
+            writeInfo(String.format("Load definition file from %s ...", FDefinitionFilename));
+            NGObjectXMLDeserializerFile loader = new NGObjectXMLDeserializerFile(null, FDefinitionFilename);
+            loader.deserializeObject();
+            FDefinition = (NGApplicationDefinition)loader.getTarget();
+            for (NGApplicationModuleItemDefinition item : FDefinition.getModules()) {
+                try {
+                    String name = item.getName();
+                    if (name.length() == 0)
+                        name = String.format("%d",FModuleManager.getModuleCount() + 1);
+                    addModule(getClass().getClassLoader().loadClass(item.getClassName()), false, name);
+                }
+                catch (Exception e){
+                }
+            }
+            writeInfo(String.format("Definition file from %s loaded", FDefinitionFilename));
         }
     }
 
     protected void DoBeforeInitialize() {
         LoadConfiguration();
         writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
+        LoadDefinition();
     }
 
     protected void DoInitialize() {
@@ -119,6 +147,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         FORB = new NGObjectRequestBroker(this);
         FORB.setLogManager(FLogManager);
         FResourcePath = "resources/";
+        FDefinition = null;
     }
 
     public NGLogManager getLogManager() {
