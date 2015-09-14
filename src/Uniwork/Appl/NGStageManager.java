@@ -34,14 +34,6 @@ public class NGStageManager extends NGComponent {
         return null;
     }
 
-    protected NGCustomStageItem getItem(String aName) {
-        for (NGCustomStageItem item : FItems) {
-            if (item.getName().equals(aName))
-                return item;
-        }
-        return null;
-    }
-
     protected String getFullname(String aName) {
         return NGStrings.addString(NGStrings.getFirstString(FName, "."), aName, ".");
     }
@@ -133,6 +125,15 @@ public class NGStageManager extends NGComponent {
         for (NGCustomStageItem item : FItems) {
             item.Close();
         }
+    }
+
+    public NGCustomStageItem getItem(String aName) {
+        String name = getFullname(aName);
+        for (NGCustomStageItem item : FItems) {
+            if (item.getName().equals(name))
+                return item;
+        }
+        return null;
     }
 
 }
