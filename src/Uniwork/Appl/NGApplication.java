@@ -60,7 +60,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected String getConfigurationProperty(String aName) {
         if (FConfigLoaded) {
-            return FConfiguration.getProperty(aName);
+            String res = FConfiguration.getProperty(aName);
+            if (res != null)
+                return res;
         }
         return "";
     }
@@ -78,7 +80,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 FDefinitionFilename = getConfigurationProperty("DefinitionFilename");
             }
             catch ( Exception e) {
-                writeError(String.format("Error in LoadConfiguration: %s", e.getMessage()));
+                writeError(String.format("Error at Application.LoadConfiguration: %s", e.getMessage()));
             }
         }
         return res;
@@ -87,7 +89,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected void LoadDefinition() {
         Boolean res = FDefinitionFilename.length() > 0;
         if (res) {
-            writeInfo(String.format("Load definition file from %s ...", FDefinitionFilename));
+            writeInfo(String.format("Load application definition file %s ...", FDefinitionFilename));
             NGObjectXMLDeserializerFile loader = new NGObjectXMLDeserializerFile(null, FDefinitionFilename);
             loader.deserializeObject();
             FDefinition = (NGApplicationDefinition)loader.getTarget();
@@ -96,18 +98,21 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                     String name = item.getName();
                     if (name.length() == 0)
                         name = String.format("%d",FModuleManager.getModuleCount() + 1);
-                    addModule(getClass().getClassLoader().loadClass(item.getClassName()), false, name);
+                    NGCustomApplicationModule module = addModule(getClass().getClassLoader().loadClass(item.getClassName()), false, name);
+                    module.setConfigurationFilename(item.getConfigurationFilename());
                 }
                 catch (Exception e){
                 }
             }
-            writeInfo(String.format("Definition file from %s loaded", FDefinitionFilename));
+            writeInfo(String.format("Application definition file %s loaded", FDefinitionFilename));
         }
     }
 
     protected void DoBeforeInitialize() {
         LoadConfiguration();
         writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
+        if (FConfigLoaded)
+            writeInfo(String.format("Application configuration file %s loaded", FConfigurationFilename));
         LoadDefinition();
     }
 
