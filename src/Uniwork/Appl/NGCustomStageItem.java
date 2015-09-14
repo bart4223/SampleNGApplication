@@ -232,7 +232,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         return FUnique;
     }
 
-    public void ToogleShow() {
+    public void ToggleShow() {
         if (IsStageShowing())
             Hide();
         else

@@ -2,9 +2,10 @@ package Uniwork.UI;
 
 import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGStageManager;
+import Uniwork.Appl.NGToolboxItem;
 import javafx.stage.Stage;
 
-public class NGUIHelpToolboxItem extends NGCustomStageItem {
+public class NGUIHelpToolboxItem extends NGToolboxItem {
 
     @Override
     protected void setContextToController(Object aContext) {
