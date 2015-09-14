@@ -62,4 +62,14 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
         return null;
     }
 
+    public NGCustomApplicationModule getModuleByClassname(String Classname) {
+        Iterator<NGCustomApplicationModule> itr = getModules();
+        while (itr.hasNext()) {
+            NGCustomApplicationModule module = itr.next();
+            if (NGStrings.getLastString(module.getClass().getName(), ".").equals(Classname))
+                return module;
+        }
+        return null;
+    }
+
 }

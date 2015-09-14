@@ -40,7 +40,7 @@ public final class NGStrings {
         String res = aValue;
         Integer i =  aValue.lastIndexOf(aSep);
         if ((i > 0) && (i + 1 < aValue.length()))
-            res = aValue.substring(i + 1, aValue.length() - 1);
+            res = aValue.substring(i + 1, aValue.length());
         return res;
     }
 

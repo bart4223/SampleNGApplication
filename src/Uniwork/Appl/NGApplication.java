@@ -1,10 +1,7 @@
 package Uniwork.Appl;
 
 import Uniwork.Base.*;
-import Uniwork.Misc.NGLogEntry;
-import Uniwork.Misc.NGLogEvent;
-import Uniwork.Misc.NGLogEventListener;
-import Uniwork.Misc.NGLogManager;
+import Uniwork.Misc.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -186,7 +183,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     public Boolean getConfigurationPropertyAsBoolean(String aName, Boolean aDefault) {
         Boolean res;
         try {
-            String prop = getConfigurationProperty(aName);
+            String prop;
+            String name = NGStrings.getFirstString(aName, ".");
+            if (name == "Application" )
+                prop = getConfigurationProperty(aName);
+            else {
+                NGCustomApplicationModule module = FModuleManager.getModuleByClassname(name);
+                prop = module.getConfigurationProperty(NGStrings.getLastString(aName, "."));
+            }
             if (prop.length() == 0)
                 res = aDefault;
             else
@@ -208,9 +212,8 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     @Override
     public void handleAddLog(NGLogEvent e) {
-        if (FConsoleShowLog) {
+        if (FConsoleShowLog)
             System.out.println(e.LogEntry.GetFullAsString(FConsoleShowLogEntrySource));
-        }
     }
 
     @Override
