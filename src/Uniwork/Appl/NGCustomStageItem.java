@@ -28,6 +28,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected Color FColor = Color.WHITE;
     protected Object FContext;
     protected Boolean FUnique;
+    protected Boolean FShowAfterInitialize = true;
 
     protected void CreateStage() {
         FStage = new Stage();
@@ -133,7 +134,8 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     @Override
     protected void DoAfterInitialize() {
         super.DoAfterInitialize();
-        Show();
+        if (FShowAfterInitialize)
+            Show();
     }
 
     public NGCustomStageItem(NGStageManager aStageManager, String aName, Stage aStage) {
@@ -146,6 +148,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FPosition = new NGPoint2D(0,0);
         FContext = null;
         FUnique = false;
+        FShowAfterInitialize = true;
     }
 
     public String getName() {
@@ -227,6 +230,13 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
 
     public Boolean getUnique() {
         return FUnique;
+    }
+
+    public void ToogleShow() {
+        if (IsStageShowing())
+            Hide();
+        else
+            Show();
     }
 
 }

@@ -33,6 +33,24 @@ public class NGToolboxManager extends NGStageManager {
     }
 
     public NGCustomStageItem ShowToolbox(String aItemName, String aName, String aCaption, Object aContext) {
+        NGCustomStageItem res = CreateToolbox(aItemName, aName, aCaption, aContext);
+        res.Show();
+        return res;
+    }
+
+    public NGCustomStageItem CreateToolbox(String aItemName) {
+        return CreateToolbox(aItemName, "");
+    }
+
+    public NGCustomStageItem CreateToolbox(String aItemName, String aCaption) {
+        return CreateToolbox(aItemName, aCaption, null);
+    }
+
+    public NGCustomStageItem CreateToolbox(String aItemName, String aCaption, Object aContext) {
+        return CreateToolbox(aItemName, aItemName, aCaption, aContext);
+    }
+
+    public NGCustomStageItem CreateToolbox(String aItemName, String aName, String aCaption, Object aContext) {
         NGCustomStageItem res = null;
         for (NGCustomStageItem item : FItems) {
             if (item.getName().equals(getFullname(aName)) && (!item.IsStageShowing() || item.getUnique())) {
@@ -47,7 +65,6 @@ public class NGToolboxManager extends NGStageManager {
         if (aCaption.length() > 0)
             res.setCaption(aCaption);
         res.setContext(aContext);
-        res.Show();
         return res;
     }
 
