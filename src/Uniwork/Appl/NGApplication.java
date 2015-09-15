@@ -56,12 +56,16 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected String getConfigurationProperty(String aName) {
+        return getConfigurationProperty(aName, "");
+    }
+
+    protected String getConfigurationProperty(String aName, String aDefault) {
         if (FConfigLoaded) {
             String res = FConfiguration.getProperty(aName);
             if (res != null)
                 return res;
         }
-        return "";
+        return aDefault;
     }
 
     protected Boolean LoadConfiguration() {
@@ -71,9 +75,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 InputStream is = new FileInputStream(FConfigurationFilename);
                 FConfiguration.load(is);
                 FConfigLoaded = true;
-                FConsoleShowLogEntrySource = Boolean.valueOf(getConfigurationProperty("ConsoleShowLogEntrySource"));
-                FConsoleShowLog = Boolean.valueOf(getConfigurationProperty("ConsoleShowLog"));
-                FLogManager.setLogLevel(Integer.parseInt(getConfigurationProperty("Debuglevel")));
+                FConsoleShowLogEntrySource = Boolean.valueOf(getConfigurationProperty("ConsoleShowLogEntrySource", "false"));
+                FConsoleShowLog = Boolean.valueOf(getConfigurationProperty("ConsoleShowLog", "true"));
+                FLogManager.setLogLevel(Integer.parseInt(getConfigurationProperty("Debuglevel", "0")));
                 FDefinitionFilename = getConfigurationProperty("DefinitionFilename");
             }
             catch ( Exception e) {
