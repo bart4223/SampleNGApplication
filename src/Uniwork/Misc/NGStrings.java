@@ -9,7 +9,10 @@ public final class NGStrings {
 
     public static String addString(String aString1, String aString2, String aSeparator) {
         if (aString1.length() > 0) {
-            return aString1 + aSeparator + aString2;
+            if (aString2.length() > 0)
+                return aString1 + aSeparator + aString2;
+            else
+                return aString1;
         }
         else {
             return aString2;

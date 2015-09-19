@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="uniwork" default="all">
+  
+  
+  <property file="uniwork.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.tox/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
+  <path id="jdk.classpath.1.7">
+    <fileset dir="${jdk.home.1.7}">
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-doclet.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/htmlconverter.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/JObjC.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.7}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.7}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.7"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.ant.classpath">
+    <pathelement location="${idea.home}/lib/ant/lib/ant.jar"/>
+  </path>
+  
+  <path id="library.hamcrest-core-1.3.classpath">
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+  </path>
+  
+  <path id="library.junit-4.11.classpath">
+    <pathelement location="${idea.home}/lib/junit-4.11.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Uniwork -->
+  
+  <dirname property="module.uniwork.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.uniwork" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.uniwork" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.uniwork" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.uniwork" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="uniwork.output.dir" value="${module.uniwork.basedir}/out/production/Uniwork"/>
+  <property name="uniwork.testoutput.dir" value="${module.uniwork.basedir}/out/test/Uniwork"/>
+  
+  <path id="uniwork.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="uniwork.module.production.classpath">
+    <path refid="${module.jdk.classpath.uniwork}"/>
+    <path refid="library.junit-4.11.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  <path id="uniwork.runtime.production.module.classpath">
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.junit-4.11.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  <path id="uniwork.module.classpath">
+    <path refid="${module.jdk.classpath.uniwork}"/>
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.junit-4.11.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  <path id="uniwork.runtime.module.classpath">
+    <pathelement location="${uniwork.testoutput.dir}"/>
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.junit-4.11.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.uniwork">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.uniwork">
+    <patternset refid="excluded.from.module.uniwork"/>
+  </patternset>
+  
+  <path id="uniwork.module.sourcepath">
+    <dirset dir="${module.uniwork.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.uniwork" depends="compile.module.uniwork.production,compile.module.uniwork.tests" description="Compile module Uniwork"/>
+  
+  <target name="compile.module.uniwork.production" depends="register.custom.compilers" description="Compile module Uniwork; production classes">
+    <mkdir dir="${uniwork.output.dir}"/>
+    <javac2 destdir="${uniwork.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.uniwork}/javac">
+      <compilerarg line="${compiler.args.uniwork}"/>
+      <bootclasspath refid="uniwork.module.bootclasspath"/>
+      <classpath refid="uniwork.module.production.classpath"/>
+      <src refid="uniwork.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.uniwork"/>
+    </javac2>
+    
+    <copy todir="${uniwork.output.dir}">
+      <fileset dir="${module.uniwork.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.uniwork.tests" depends="register.custom.compilers,compile.module.uniwork.production" description="compile module Uniwork; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.uniwork" description="cleanup module">
+    <delete dir="${uniwork.output.dir}"/>
+    <delete dir="${uniwork.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.uniwork" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.uniwork" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.uniwork:jar" value="${basedir}/out/artifacts/Uniwork_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.Uniwork.jar" value="${artifacts.temp.dir}/Uniwork.jar"/>
+  </target>
+  
+  <target name="artifact.uniwork:jar" depends="init.artifacts, compile.module.uniwork" description="Build &#39;Uniwork:jar&#39; artifact">
+    <property name="artifact.temp.output.uniwork:jar" value="${artifacts.temp.dir}/Uniwork_jar"/>
+    <mkdir dir="${artifact.temp.output.uniwork:jar}"/>
+    <jar destfile="${temp.jar.path.Uniwork.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${uniwork.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.Uniwork.jar}" tofile="${artifact.temp.output.uniwork:jar}/Uniwork.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.uniwork:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.uniwork:jar}"/>
+    <copy todir="${artifact.output.uniwork:jar}">
+      <fileset dir="${artifact.temp.output.uniwork:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
