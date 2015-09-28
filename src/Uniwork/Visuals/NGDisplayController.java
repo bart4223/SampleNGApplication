@@ -101,6 +101,17 @@ public abstract class NGDisplayController extends NGObject {
         drawLine(TLX, BRY, BRX, BRY, aColor);
     }
 
+    protected void fillRectangle(int aX, int aY, int aA, int aB, Color aColor) {
+        int dx = aA/2;
+        int dy = aB/2;
+        int TLX = aX-dx;
+        int TLY = aY-dy;
+        int BRX = aX+aA-dx;
+        int BRY = aY+aB-dy;
+        for (int y = TLY; y <= BRY; y++)
+            drawLine(TLX, y, BRX, y, aColor);
+    }
+
     protected void drawEllipse(int aX, int aY, int aRadiusX, int aRadiusY, Color aColor) {
         int dx = 0, dy = aRadiusY;
         long a2 = aRadiusX*aRadiusX, b2 = aRadiusY*aRadiusY;
