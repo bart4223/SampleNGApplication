@@ -263,12 +263,18 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     @Override
     public Object ResolveObject(Class aClass) {
-        return null;
+        return ResolveObject("", aClass);
     }
 
     @Override
     public Object ResolveObject(String aName, Class aClass) {
-        return null;
+        Object res = null;
+        if (aClass.isAssignableFrom(getClass())) {
+            res = this;
+        } else {
+            res = FModuleManager.ResolveObject(aName, aClass);
+        }
+        return res;
     }
 
     @Override

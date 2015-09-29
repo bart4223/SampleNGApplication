@@ -9,6 +9,24 @@ import java.util.Iterator;
 
 public class NGApplicationModuleManager extends NGCustomComponentManager {
 
+    @Override
+    protected Object DoResolveObject(String aName, Class aClass) {
+        Object res = null;
+        Iterator<NGCustomApplicationModule> itr = getModules();
+        while (itr.hasNext()) {
+            NGCustomApplicationModule module = itr.next();
+            if ((aName.length() > 0 && module.getName().equals(aName) && aClass.isAssignableFrom(module.getClass())
+                || (aName.length() == 0 && aClass.isAssignableFrom(module.getClass())
+                    ))) {
+                res = module;
+                break;
+            }
+        }
+        if (res == null)
+            res = super.DoResolveObject(aName, aClass);
+        return res;
+    }
+
     NGApplicationModuleManager() {
         this(null);
     }
