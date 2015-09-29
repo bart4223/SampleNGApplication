@@ -17,3 +17,4 @@ Version History
     22.08.2015      UI package and first toolbox implementation
     30.08.2015      Multi toolbox managing
     10.09.2015      Application definition
+    30.09.2015      Application object resolving
