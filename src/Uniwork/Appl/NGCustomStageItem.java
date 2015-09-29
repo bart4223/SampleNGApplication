@@ -5,6 +5,7 @@ import Uniwork.Graphics.NGPoint2D;
 import Uniwork.Misc.NGLogEvent;
 import Uniwork.Misc.NGLogEventListener;
 import Uniwork.Misc.NGLogManager;
+import Uniwork.Misc.NGStrings;
 import Uniwork.Visuals.NGCustomStageController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,7 +36,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     }
 
     protected String getStageTitle() {
-        return String.format("%s.%s", NGApplication.Application.getName(), getCaption());
+        return NGStrings.addString(NGApplication.Application.getName(), getCaption(), ".");
     }
 
     protected void LoadStage() {

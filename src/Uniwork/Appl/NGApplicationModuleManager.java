@@ -54,6 +54,7 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
             NGCustomApplicationModule res = (NGCustomApplicationModule)aModuleClass.getConstructor(NGComponent.class, String.class).newInstance(this, aName);
             res.setLogManager(FLogManager);
             registerModule(res);
+            writeInfo(String.format("Application module [%s] added", res.getName()));
             return res;
         }
         catch (Exception e) {

@@ -90,7 +90,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected void LoadDefinition() {
         Boolean res = FDefinitionFilename.length() > 0;
         if (res) {
-            writeInfo(String.format("Load application definition file %s ...", FDefinitionFilename));
+            writeInfo(String.format("Load application definition file %s...", FDefinitionFilename));
             NGObjectXMLDeserializerFile loader = new NGObjectXMLDeserializerFile(null, FDefinitionFilename);
             loader.deserializeObject();
             FDefinition = (NGApplicationDefinition)loader.getTarget();
@@ -98,11 +98,12 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 try {
                     String name = item.getName();
                     if (name.length() == 0)
-                        name = String.format("%d",FModuleManager.getModuleCount() + 1);
+                        name = String.format("%d", FModuleManager.getModuleCount() + 1);
                     NGCustomApplicationModule module = addModule(getClass().getClassLoader().loadClass(item.getClassName()), false, name);
-                    module.setConfigurationFilename(item.getConfigurationFilename());
+                    //module.setConfigurationFilename(item.getConfigurationFilename());
                 }
                 catch (Exception e){
+                    writeError(String.format("Error: %s", e.getMessage()));
                 }
             }
             writeInfo(String.format("Application definition file %s loaded", FDefinitionFilename));
@@ -243,8 +244,12 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         return addModule(aModuleClass, aInitialize, "");
     }
 
-    public NGCustomApplicationModule addModule(Class<?> aModuleClass, Boolean aInitialize, String aDescription) {
-        NGCustomApplicationModule res = FModuleManager.addModule(aModuleClass);
+    public NGCustomApplicationModule addModule(Class<?> aModuleClass, Boolean aInitialize, String aName) {
+        return addModule(aModuleClass, aInitialize, aName, "");
+    }
+
+    public NGCustomApplicationModule addModule(Class<?> aModuleClass, Boolean aInitialize, String aName, String aDescription) {
+        NGCustomApplicationModule res = FModuleManager.addModule(aModuleClass, aName);
         res.setDescription(aDescription);
         if (aInitialize) {
             res.Initialize();
