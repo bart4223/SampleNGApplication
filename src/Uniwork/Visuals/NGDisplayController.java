@@ -108,7 +108,7 @@ public abstract class NGDisplayController extends NGObject {
         int TLY = aY-dy;
         int BRX = aX+aA-dx;
         int BRY = aY+aB-dy;
-        for (int y = TLY; y <= BRY; y++)
+        for (int y = TLY; y <= BRY; y = y + FPixelSize)
             drawLine(TLX, y, BRX, y, aColor);
     }
 
