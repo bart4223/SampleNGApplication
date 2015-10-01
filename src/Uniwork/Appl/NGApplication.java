@@ -100,7 +100,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                     if (name.length() == 0)
                         name = String.format("%d", FModuleManager.getModuleCount() + 1);
                     NGCustomApplicationModule module = addModule(getClass().getClassLoader().loadClass(item.getClassName()), false, name);
-                    //module.setConfigurationFilename(item.getConfigurationFilename());
+                    module.setConfigurationFilename(item.getConfigurationFilename());
                 }
                 catch (Exception e){
                     writeError(String.format("Error: %s", e.getMessage()));
