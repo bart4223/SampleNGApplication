@@ -55,4 +55,36 @@ public class NGMiscTest {
         assertEquals(42.0, max, 0.0);
     }
 
+    @Test
+    public void testCombine01() throws Exception {
+        String aPath1 = "";
+        String aPath2 = "";
+        String res = NGMisc.combinePath(aPath1, aPath2);
+        assertEquals("", res);
+    }
+
+    @Test
+    public void testCombine02() throws Exception {
+        String aPath1 = "A";
+        String aPath2 = "";
+        String res = NGMisc.combinePath(aPath1, aPath2);
+        assertEquals("A", res);
+    }
+
+    @Test
+    public void testCombine03() throws Exception {
+        String aPath1 = "";
+        String aPath2 = "B";
+        String res = NGMisc.combinePath(aPath1, aPath2);
+        assertEquals("B", res);
+    }
+
+    @Test
+    public void testCombine04() throws Exception {
+        String aPath1 = "A";
+        String aPath2 = "B";
+        String res = NGMisc.combinePath(aPath1, aPath2);
+        assertEquals("A/B", res);
+    }
+
 }
