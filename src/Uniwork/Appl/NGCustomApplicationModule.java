@@ -35,7 +35,7 @@ public class NGCustomApplicationModule extends NGComponent {
                 FConfiguration.load(is);
                 FConfigLoaded = true;
                 FDefinitionFilename = getConfigurationProperty("DefinitionFilename");
-                writeInfo(String.format("Module [%s] configuration file %s loaded", getName(), FConfigurationFilename));
+                writeInfo(String.format("Module [%s] configuration file %s loaded.", getName(), FConfigurationFilename));
             }
             catch ( Exception e) {
                 writeError(String.format("Error at module %s.LoadConfiguration: %s", getName(), e.getMessage()));
@@ -51,7 +51,7 @@ public class NGCustomApplicationModule extends NGComponent {
             NGObjectXMLDeserializerFile loader = new NGObjectXMLDeserializerFile(null, FDefinitionFilename);
             loader.deserializeObject();
             FDefinition = (NGApplicationModuleDefinition)loader.getTarget();
-            writeInfo(String.format("Module [%s] definition file %s loaded", getName(), FDefinitionFilename));
+            writeInfo(String.format("Module [%s] definition file %s loaded.", getName(), FDefinitionFilename));
         }
     }
 

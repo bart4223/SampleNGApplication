@@ -106,15 +106,15 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                     writeError(String.format("Error: %s", e.getMessage()));
                 }
             }
-            writeInfo(String.format("Application definition file %s loaded", FDefinitionFilename));
+            writeInfo(String.format("Application definition file %s loaded.", FDefinitionFilename));
         }
     }
 
     protected void DoBeforeInitialize() {
         LoadConfiguration();
-        writeInfo(String.format("Welcome to %s...%s", FName, FDescription));
+        writeInfo(String.format("Welcome to %s - %s...", FName, FDescription));
         if (FConfigLoaded)
-            writeInfo(String.format("Application configuration file %s loaded", FConfigurationFilename));
+            writeInfo(String.format("Application configuration file %s loaded.", FConfigurationFilename));
         LoadDefinition();
     }
 
