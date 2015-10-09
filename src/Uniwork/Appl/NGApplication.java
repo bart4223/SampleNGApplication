@@ -293,24 +293,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     public String LoadResourceFileContent(String aFilename) {
-        String lResult = "";
-        try {
-            InputStream lFileStream = new FileInputStream(FResourcePath + aFilename);
-            try {
-                if (lFileStream != null) {
-                    int lContent;
-                    while ((lContent = lFileStream.read()) != -1) {
-                        lResult = lResult + (char)lContent;
-                    }
-                }
-            } finally {
-                if (lFileStream != null) {
-                    lFileStream.close();
-                }
-            }
-        } catch (Exception e) {
-        }
-        return lResult;
+        return NGMisc.LoadFileContent(NGMisc.combinePath(FResourcePath, aFilename));
     }
 
     public void ShowStages() {
