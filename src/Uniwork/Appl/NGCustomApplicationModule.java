@@ -103,10 +103,6 @@ public class NGCustomApplicationModule extends NGComponent {
         return FDescription;
     }
 
-    public void setDescription(String aDescription) {
-        FDescription = aDescription;
-    }
-
     public void setConfigurationFilename(String aFilename) {
         FConfigurationFilename = aFilename;
     }

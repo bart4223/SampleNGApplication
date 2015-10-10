@@ -30,13 +30,17 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected Object FContext;
     protected Boolean FUnique;
     protected Boolean FShowAfterInitialize = true;
+    protected Boolean FOnlyCaption = false;
 
     protected void CreateStage() {
         FStage = new Stage();
     }
 
     protected String getStageTitle() {
-        return NGStrings.addString(NGApplication.Application.getName(), getCaption(), ".");
+        String res = getCaption();
+        if (!FOnlyCaption)
+            res = NGStrings.addString(NGApplication.Application.getName(), res, ".");
+        return res;
     }
 
     protected void LoadStage() {
@@ -150,6 +154,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FContext = null;
         FUnique = false;
         FShowAfterInitialize = true;
+        FOnlyCaption = false;
     }
 
     public String getName() {
