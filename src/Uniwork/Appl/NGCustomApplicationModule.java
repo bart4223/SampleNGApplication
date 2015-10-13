@@ -69,7 +69,7 @@ public class NGCustomApplicationModule extends NGComponent {
     }
 
     @Override
-        protected void DoAfterInitialize () {
+    protected void DoAfterInitialize () {
         super.DoAfterInitialize();
         registerObjectRequests();
     }

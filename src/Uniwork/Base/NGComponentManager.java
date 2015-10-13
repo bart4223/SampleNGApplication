@@ -1,5 +1,7 @@
 package Uniwork.Base;
 
+import Uniwork.Misc.NGLogManager;
+
 public class NGComponentManager extends NGCustomComponentManager {
 
     public NGComponentManager() {
@@ -20,6 +22,14 @@ public class NGComponentManager extends NGCustomComponentManager {
 
     public void unregisterComponent(NGComponent aComponent) {
         super.registerComponent(aComponent);
+    }
+
+    @Override
+    public void setLogManager(NGLogManager aLogManager) {
+        super.setLogManager(aLogManager);
+        for (NGComponent component : FComponents) {
+            component.setLogManager(aLogManager);
+        }
     }
 
 }
