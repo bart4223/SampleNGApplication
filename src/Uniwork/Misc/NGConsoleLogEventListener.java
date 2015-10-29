@@ -4,30 +4,26 @@ import Uniwork.Base.NGObject;
 
 public class NGConsoleLogEventListener extends NGObject implements NGLogEventListener {
 
-    public enum mode {full, teamcity}
+    protected void writeConsole(String aText) {
+        System.out.println(aText);
+    }
 
-    protected mode FMode;
+    protected void writeLog(NGLogEntry aLogEntry) {
+        writeConsole(aLogEntry.GetFullAsString());
+    }
 
-    public NGConsoleLogEventListener(mode aMode) {
+    public NGConsoleLogEventListener() {
         super();
-        FMode = aMode;
     }
 
     @Override
     public void handleAddLog(NGLogEvent e) {
-        NGLogEntry log = e.LogEntry;
-        switch (FMode) {
-            case full:
-                System.out.println(log.GetFullAsString());
-                break;
-            case teamcity:
-                System.out.println(String.format("##teamcity[%s]", log.GetText()));
-                break;
-        }
+        writeLog(e.LogEntry);
     }
 
     @Override
     public void handleClearLog() {
 
     }
+
 }

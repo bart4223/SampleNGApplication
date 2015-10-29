@@ -1,11 +1,11 @@
-package Uniwork.Test;
+package Uniwork.Test.Units;
 
 import Uniwork.Misc.NGMisc;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class NGMiscTest {
+public class NGMiscTestUnit {
 
     @Test
     public void testMin01() throws Exception {

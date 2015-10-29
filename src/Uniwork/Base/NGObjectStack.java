@@ -7,6 +7,10 @@ public class NGObjectStack extends NGObject {
     protected ArrayList<NGObjectStackItem> FItems;
     protected String FName;
 
+    public NGObjectStack() {
+        this("");
+    }
+
     public NGObjectStack(String aName) {
         super();
         FItems = new ArrayList<NGObjectStackItem>();
@@ -49,6 +53,10 @@ public class NGObjectStack extends NGObject {
 
     public Integer getSize() {
         return FItems.size();
+    }
+
+    public Object Top() {
+        return FItems.get(getSize() - 1).getObject();
     }
 
 }

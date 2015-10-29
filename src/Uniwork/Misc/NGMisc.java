@@ -46,4 +46,30 @@ public final class NGMisc {
         return lResult;
     }
 
+    public static StackTraceElement getCallStackElementByIndex(int aIndex) {
+        int i = aIndex;
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            if (i == 0)
+                return element;
+            i--;
+        }
+        return null;
+    }
+
+    public static StackTraceElement getCurrentCallStackElement() {
+        return getCallStackElementByIndex(3);
+    }
+
+    public static StackTraceElement getPrevCallStackElement() {
+        return getCallStackElementByIndex(4);
+    }
+
+    public static StackTraceElement getLastCallStackElement() {
+        return getCallStackElementByIndex(0);
+    }
+
+    public static StackTraceElement getFirstCallStackElement() {
+        return getCallStackElementByIndex(Thread.currentThread().getStackTrace().length);
+    }
+
 }
