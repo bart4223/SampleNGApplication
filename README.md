@@ -18,3 +18,4 @@ Version History
     30.08.2015      Multi toolbox managing
     10.09.2015      Application definition
     30.09.2015      Application object resolving
+    29.10.2015      First Test's in Teamcity are running

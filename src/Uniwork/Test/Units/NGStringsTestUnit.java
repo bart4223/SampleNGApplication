@@ -2,11 +2,23 @@ package Uniwork.Test.Units;
 
 import Uniwork.Misc.NGStrings;
 import Uniwork.Test.NGCustomTestUnit;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class NGStringsTestUnit extends NGCustomTestUnit {
+
+    @BeforeClass
+    public static void beforeSuite() {
+        StartTestSuite();
+    }
+
+    @AfterClass
+    public static void afterSuite() {
+        FinishTestSuite();
+    }
 
     @Test
     public void testAddString01() throws Exception {

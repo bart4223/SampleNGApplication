@@ -9,8 +9,16 @@ public abstract class NGCustomTestUnit {
 
     protected NGObjectStack FTests;
 
-    protected void writeLog(String aText) {
+    protected static void writeLog(String aText) {
         NGTestRunner.Logger.writeLog(aText);
+    }
+
+    protected static void DoStartTestSuite() {
+        writeLog(String.format("testSuiteStarted name='%s'", NGMisc.getCallStackElementByIndex(FStackIndex).getClassName()));
+    }
+
+    protected static void DoFinishTestSuite() {
+        writeLog(String.format("testSuiteFinished name='%s'", NGMisc.getCallStackElementByIndex(FStackIndex).getClassName()));
     }
 
     protected void DoStartTest() throws Exception {
@@ -27,16 +35,24 @@ public abstract class NGCustomTestUnit {
         writeLog(String.format("testFinished name='%s'", method));
     }
 
-    public NGCustomTestUnit() {
-        FTests = new NGObjectStack();
-    }
-
-    public void StartTest() throws Exception {
+    protected void StartTest() throws Exception {
         DoStartTest();
     }
 
-    public void FinishTest() throws Exception {
+    protected void FinishTest() throws Exception {
         DoFinishTest();
+    }
+
+    protected static void StartTestSuite() {
+        DoStartTestSuite();
+    }
+
+    protected static void FinishTestSuite() {
+        DoFinishTestSuite();
+    }
+
+    public NGCustomTestUnit() {
+        FTests = new NGObjectStack();
     }
 
 }
