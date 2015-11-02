@@ -10,7 +10,7 @@ public abstract class NGCustomTestUnit {
     protected NGObjectStack FTests;
 
     protected static void writeLog(String aText) {
-        NGTestRunner.Logger.writeLog(aText);
+        NGCustomTestRunner.TestRunner.getLogger().writeLog(aText);
     }
 
     protected static void DoStartTestSuite() {
