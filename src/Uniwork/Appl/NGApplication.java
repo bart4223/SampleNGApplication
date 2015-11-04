@@ -207,6 +207,28 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         return res;
     }
 
+    public Integer getConfigurationPropertyAsInteger(String aName, Integer aDefault) {
+        Integer res;
+        try {
+            String prop;
+            String name = NGStrings.getFirstString(aName, ".");
+            if (name == "Application" )
+                prop = getConfigurationProperty(aName);
+            else {
+                NGCustomApplicationModule module = FModuleManager.getModuleByClassname(name);
+                prop = module.getConfigurationProperty(NGStrings.getLastString(aName, "."));
+            }
+            if (prop.length() == 0)
+                res = aDefault;
+            else
+                res = Integer.parseInt(prop);
+        }
+        catch(Exception e) {
+            res = aDefault;
+        }
+        return res;
+    }
+
     public Boolean getConsoleShowLog() {
         return FConsoleShowLog;
     }

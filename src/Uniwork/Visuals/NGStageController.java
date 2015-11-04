@@ -53,6 +53,10 @@ public class NGStageController extends NGCustomStageController {
         return NGApplication.Application.getConfigurationPropertyAsBoolean(aName, aDefault);
     }
 
+    protected Integer getConfigurationPropertyAsInteger(String aName, Integer aDefault) {
+        return NGApplication.Application.getConfigurationPropertyAsInteger(aName, aDefault);
+    }
+
     protected NGObjectRequestItem newObjectRequest(String aObject, String aMethod) {
         NGObjectRequestItem res = new NGObjectRequestItem(getObjectRequestName(aObject), aMethod);
         return res;
