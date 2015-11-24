@@ -99,6 +99,10 @@ public class NGCustomApplicationModule extends NGComponent {
         FDefinition = null;
     }
 
+    public void setDescription(String aDescription) {
+        FDescription = aDescription;
+    }
+
     public String getDescription() {
         return FDescription;
     }

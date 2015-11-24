@@ -7,6 +7,7 @@ public class NGApplicationModuleItemDefinition extends NGObject {
     protected String Name = "";
     protected String ClassName = "";
     protected String ConfigurationFilename = "";
+    protected String Description = "";
 
     public NGApplicationModuleItemDefinition() {
         super();
@@ -24,6 +25,13 @@ public class NGApplicationModuleItemDefinition extends NGObject {
     }
     public String getName() {
         return Name;
+    }
+
+    public void setDescription(String value) {
+        Description = value;
+    }
+    public String getDescription() {
+        return Description;
     }
 
     public void setConfigurationFilename(String value) {
