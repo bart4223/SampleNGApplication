@@ -20,3 +20,4 @@ Version History
     30.09.2015      Application object resolving
     29.10.2015      First Test's in Teamcity are running
     28.11.2015      Animation Manager
+    30.11.2015      StageSceneGraph

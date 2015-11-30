@@ -8,7 +8,7 @@ public abstract class NGCustomAnimation2DItem extends NGCustomAnimationItem {
     protected NGPoint2D FPositionFrom;
     protected NGPoint2D FPositionTo;
 
-    public NGCustomAnimation2DItem(String aName, Node aNode, Double aDuration) {
+    public NGCustomAnimation2DItem(String aName, Node aNode, Integer aDuration) {
         super(aName, aNode, aDuration);
         FPositionFrom = new NGPoint2D(0, 0);
         FPositionTo = new NGPoint2D(0, 0);

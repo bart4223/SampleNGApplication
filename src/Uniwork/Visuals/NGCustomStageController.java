@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public abstract class NGCustomStageController extends NGObject {
 
     protected NGCustomStageItem FStageItem;
+    protected NGStageSceneGraph FSceneGraph;
 
     protected class DisplayControllerItem {
 
@@ -165,6 +166,7 @@ public abstract class NGCustomStageController extends NGObject {
         super();
         FStageItem = aStageItem;
         FDCItems = new ArrayList<DisplayControllerItem>();
+        FSceneGraph = new NGStageSceneGraph();
         FOwnRenderThread = false;
     }
 

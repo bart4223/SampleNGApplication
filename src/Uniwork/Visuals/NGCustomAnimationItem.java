@@ -9,7 +9,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
     protected String FName;
     protected Animation FAnimation;
     protected Node FNode;
-    protected Double FDuration;
+    protected Integer FDuration;
     protected Boolean FCyclic;
 
     protected void DoAnimationFinished() {
@@ -39,7 +39,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
         FAnimation.stop();
     }
 
-    public NGCustomAnimationItem(String aName, Node aNode, Double aDuration) {
+    public NGCustomAnimationItem(String aName, Node aNode, Integer aDuration) {
         super();
         FName = aName;
         FNode = aNode;
@@ -56,7 +56,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
         return FName;
     }
 
-    public Double getDuration() {
+    public Integer getDuration() {
         return FDuration;
     }
 

@@ -16,7 +16,7 @@ public abstract class NGCustomTransitionAnimation2DItem extends NGCustomAnimatio
                 .toX(FPositionTo.getX())
                 .fromY(FPositionFrom.getY())
                 .toY(FPositionTo.getY())
-                .duration(Duration.seconds(FDuration))
+                .duration(Duration.millis(FDuration))
                 .onFinished(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -25,7 +25,7 @@ public abstract class NGCustomTransitionAnimation2DItem extends NGCustomAnimatio
                 }).build();
     }
 
-    public NGCustomTransitionAnimation2DItem(String aName, Node aNode, Double aDuration) {
+    public NGCustomTransitionAnimation2DItem(String aName, Node aNode, Integer aDuration) {
         super(aName, aNode, aDuration);
     }
 
