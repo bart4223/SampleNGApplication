@@ -64,6 +64,11 @@ public class NGApplication extends Application implements NGInitializable, NGLog
             String res = FConfiguration.getProperty(aName);
             if (res != null)
                 return res;
+            else {
+                res = FConfiguration.getProperty(NGStrings.getLastString(aName, "."));
+                if (res != null)
+                    return res;
+            }
         }
         return aDefault;
     }
