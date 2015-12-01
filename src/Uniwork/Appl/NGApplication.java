@@ -193,7 +193,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         try {
             String prop;
             String name = NGStrings.getFirstString(aName, ".");
-            if (name == "Application" )
+            if (name.equals("Application"))
                 prop = getConfigurationProperty(aName);
             else {
                 NGCustomApplicationModule module = FModuleManager.getModuleByClassname(name);
@@ -215,9 +215,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         try {
             String prop;
             String name = NGStrings.getFirstString(aName, ".");
-            if (name == "Application" )
+            if (name.equals("Application")) {
                 prop = getConfigurationProperty(aName);
-            else {
+            } else {
                 NGCustomApplicationModule module = FModuleManager.getModuleByClassname(name);
                 prop = module.getConfigurationProperty(NGStrings.getLastString(aName, "."));
             }
