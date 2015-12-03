@@ -48,4 +48,19 @@ public class NGAnimationManager extends NGComponent {
             DoStopItem(item);
     }
 
+    public Boolean IsPlaying() {
+        for (NGCustomAnimationItem item : FItems) {
+            if (item.IsPlaying())
+                return true;
+        }
+        return false;
+    }
+
+    public void TogglePlayAll() {
+        if (IsPlaying())
+            StopAll();
+        else
+            PlayAll();
+    }
+
 }

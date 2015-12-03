@@ -29,8 +29,7 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     protected void DoInvoke(NGObjectRequestItem aItem) {
-        NGObjectRequestObject oro = getObject(aItem.getObject());
-        if (oro != null) {
+        for (NGObjectRequestObject oro : FObjects) {
             try {
                 NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
                 if (orm.IsActive()) {
@@ -55,7 +54,7 @@ public class NGObjectRequestBroker extends NGObject {
                             if (method != null)
                                 method.invoke(oro.getObject(), aItem.getParamValue(0));
                             else
-                                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s]", aItem.getObject(), aItem.getMethod()));
+                                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (1)", aItem.getObject(), aItem.getMethod()));
                             break;
                         case 2:
                             switch (orm.getParamKind(0)) {
@@ -70,7 +69,7 @@ public class NGObjectRequestBroker extends NGObject {
                             if (method != null)
                                 method.invoke(oro.getObject(), aItem.getParamValue(0), aItem.getParamValue(1));
                             else
-                                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s]", aItem.getObject(), aItem.getMethod()));
+                                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (2)", aItem.getObject(), aItem.getMethod()));
                             break;
                     }
                     writeLog(5, String.format("ORB invoked [%s->%s]", aItem.getObject(), aItem.getMethod()));
@@ -81,9 +80,6 @@ public class NGObjectRequestBroker extends NGObject {
                 e.printStackTrace(new PrintWriter(sw));
                 writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
             }
-        }
-        else {
-            writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s]", aItem.getObject(), aItem.getMethod()));
         }
     }
 
@@ -109,12 +105,8 @@ public class NGObjectRequestBroker extends NGObject {
 
     public NGObjectRequestObject addObject(String aName, Object aObject) {
         NGObjectRequestObject object =  getObject(aName);
-        if (object == null) {
-            object = new NGObjectRequestObject(aName, aObject);
-            addObject(object);
-        }
-        else
-            object.FObject = aObject;
+        object = new NGObjectRequestObject(aName, aObject);
+        addObject(object);
         return object;
     }
 

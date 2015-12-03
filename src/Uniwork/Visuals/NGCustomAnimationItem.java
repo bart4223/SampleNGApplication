@@ -11,6 +11,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
     protected Node FNode;
     protected Integer FDuration;
     protected Boolean FCyclic;
+    protected Boolean FPlaying;
 
     protected void DoAnimationFinished() {
 
@@ -18,7 +19,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
 
     protected void AnimationFinished() {
         DoAnimationFinished();
-        if (FCyclic)
+        if (FCyclic && FPlaying)
             DoPlay();
     }
 
@@ -46,6 +47,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
         FDuration = aDuration;
         FAnimation = null;
         FCyclic = false;
+        FPlaying = false;
     }
 
     public Node getNode() {
@@ -65,15 +67,21 @@ public abstract class NGCustomAnimationItem extends NGObject {
     }
 
     public void Play() {
+        FPlaying = true;
         DoPlay();
     }
 
     public void Stop() {
+        FPlaying = false;
         DoStop();
     }
 
     public Boolean getCyclic() {
         return FCyclic;
+    }
+
+    public Boolean IsPlaying() {
+        return FPlaying;
     }
 
 }
