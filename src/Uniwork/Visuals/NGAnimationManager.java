@@ -35,7 +35,18 @@ public class NGAnimationManager extends NGComponent {
     }
 
     public void addItem(NGCustomAnimationItem aItem) {
+        addItem(aItem, false);
+    }
+
+    public void addItem(NGCustomAnimationItem aItem, Boolean aPlay) {
         FItems.add(aItem);
+        if (aPlay)
+            aItem.Play();
+    }
+
+    public void removeItem(NGCustomAnimationItem aItem) {
+        aItem.Stop();
+        FItems.remove(aItem);
     }
 
     public void PlayAll() {

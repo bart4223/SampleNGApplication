@@ -4,6 +4,8 @@ import Uniwork.Base.NGObject;
 import javafx.animation.Animation;
 import javafx.scene.Node;
 
+import java.util.ArrayList;
+
 public abstract class NGCustomAnimationItem extends NGObject {
 
     protected String FName;
@@ -12,13 +14,14 @@ public abstract class NGCustomAnimationItem extends NGObject {
     protected Integer FDuration;
     protected Boolean FCyclic;
     protected Boolean FPlaying;
+    protected ArrayList<NGAnimationItemEventListener> FEventListeners;
 
     protected void DoAnimationFinished() {
-
     }
 
     protected void AnimationFinished() {
         DoAnimationFinished();
+        raiseFinishedEvent();
         if (FCyclic && FPlaying)
             DoPlay();
     }
@@ -40,8 +43,15 @@ public abstract class NGCustomAnimationItem extends NGObject {
         FAnimation.stop();
     }
 
+    protected void raiseFinishedEvent() {
+        NGAnimationItemFinishedEvent event = new NGAnimationItemFinishedEvent(this);
+        for (NGAnimationItemEventListener listener : FEventListeners)
+            listener.handleItemFinished(event);
+    }
+
     public NGCustomAnimationItem(String aName, Node aNode, Integer aDuration) {
         super();
+        FEventListeners = new ArrayList<NGAnimationItemEventListener>();
         FName = aName;
         FNode = aNode;
         FDuration = aDuration;
@@ -82,6 +92,14 @@ public abstract class NGCustomAnimationItem extends NGObject {
 
     public Boolean IsPlaying() {
         return FPlaying;
+    }
+
+    public synchronized void addEventListener(NGAnimationItemEventListener aListener)  {
+        FEventListeners.add(aListener);
+    }
+
+    public synchronized void removeEventListener(NGAnimationItemEventListener aListener)   {
+        FEventListeners.remove(aListener);
     }
 
 }

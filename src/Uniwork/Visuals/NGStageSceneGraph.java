@@ -6,6 +6,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class NGStageSceneGraph extends NGComponent {
 
     protected AnchorPane FRoot;
@@ -40,16 +43,30 @@ public class NGStageSceneGraph extends NGComponent {
         return null;
     }
 
+    public Iterator<Node> getChildNodes(Parent aParent, String aID) {
+        ArrayList<Node> res = new ArrayList<Node>();
+        for (Node child : aParent.getChildrenUnmodifiable()) {
+            if (child.getId().equals(aID)) {
+                res.add(child);
+            }
+        }
+        return res.iterator();
+    }
+
     public Group addGroup() {
-        return this.addGroup(null);
+        return addGroup(null);
     }
 
     public Group addGroup(Node aNode) {
-        Group group;
+        return addGroup(aNode, 0.0, 0.0);
+    }
+
+    public Group addGroup(Node aNode, Double aX, Double aY) {
+        Group group = new Group();
+        group.setTranslateX(aX);
+        group.setTranslateY(aY);
         if (aNode != null)
-            group = new Group(aNode);
-        else
-            group = new Group();
+            group.getChildren().add(aNode);
         FRoot.getChildren().add(group);
         return group;
     }
