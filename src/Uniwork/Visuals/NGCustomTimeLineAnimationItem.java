@@ -11,8 +11,7 @@ import javafx.util.Duration;
 public abstract class NGCustomTimeLineAnimationItem extends NGCustomAnimationItem {
 
     @Override
-    protected void CreateAnimation() {
-        super.CreateAnimation();
+    protected void DoCreateAnimation() {
         FAnimation = TimelineBuilder.create()
                 .cycleCount(Animation.INDEFINITE)
                 .keyFrames(

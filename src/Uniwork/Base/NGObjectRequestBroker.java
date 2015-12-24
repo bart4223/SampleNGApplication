@@ -32,7 +32,7 @@ public class NGObjectRequestBroker extends NGObject {
         for (NGObjectRequestObject oro : FObjects) {
             try {
                 NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
-                if (orm.IsActive()) {
+                if (orm != null && orm.IsActive()) {
                     Method method = null;
                     switch (orm.getParamCount()) {
                         case 0:

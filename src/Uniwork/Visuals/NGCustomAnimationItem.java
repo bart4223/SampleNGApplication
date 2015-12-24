@@ -26,16 +26,35 @@ public abstract class NGCustomAnimationItem extends NGObject {
             DoPlay();
     }
 
-    protected void CreateAnimation() {
+    protected void DoCreateAnimation() {
+
+    }
+
+    protected void DoBeforePrepare() {
+
+    }
+
+    protected void DoAfterPrepare() {
 
     }
 
     protected void DoPrepare() {
-        CreateAnimation();
+        DoCreateAnimation();
+    }
+
+
+    protected void InternalPrepare() {
+        DoBeforePrepare();
+        try {
+            DoPrepare();
+        }
+        finally {
+            DoAfterPrepare();
+        }
     }
 
     protected void DoPlay() {
-        DoPrepare();
+        InternalPrepare();
         FAnimation.play();
     }
 
@@ -73,7 +92,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
     }
 
     public void Prepare() {
-        DoPrepare();
+        InternalPrepare();
     }
 
     public void Play() {
