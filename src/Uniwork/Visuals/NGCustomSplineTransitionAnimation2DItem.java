@@ -16,6 +16,7 @@ public class NGCustomSplineTransitionAnimation2DItem extends NGCustomTransitionA
     protected void DoBeforePrepare() {
         super.DoBeforePrepare();
         FSplineInterpolator = (SplineInterpolator)Interpolator.SPLINE(0.3, 0.3, 0.6, 0.6);
+        // ToDo
         //FInterpolator.curve()
     }
 
