@@ -2,6 +2,7 @@ package Uniwork.Appl;
 
 import Uniwork.Base.*;
 import Uniwork.Misc.*;
+import Uniwork.Visuals.NGCommonDialogs;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -151,6 +152,10 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     }
 
+    protected void DoTerminate() {
+        Platform.exit();
+    }
+
     public NGApplication() {
         super();
         Application = this;
@@ -257,7 +262,8 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     public void Terminate() {
-        Platform.exit();
+        if (NGCommonDialogs.showConfirmDialog(FPrimaryStage, "Quit", String.format("Do you really want to leave %s?", FName)) == NGCommonDialogs.Response.Yes)
+            DoTerminate();
     }
 
     public String getName() {
