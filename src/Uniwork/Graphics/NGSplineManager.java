@@ -9,6 +9,12 @@ public class NGSplineManager extends NGComponent {
 
     protected ArrayList<NGCustomSpline> FSplines;
 
+    protected void DoCalculate() {
+        for (NGCustomSpline spline: FSplines ) {
+            spline.Calculate();
+        }
+    }
+
     public NGSplineManager() {
         this(null);
     }
@@ -28,6 +34,10 @@ public class NGSplineManager extends NGComponent {
 
     public void addSpline(NGCustomSpline aSpline) {
         FSplines.add(aSpline);
+    }
+
+    public void Calculate() {
+        DoCalculate();
     }
 
 }

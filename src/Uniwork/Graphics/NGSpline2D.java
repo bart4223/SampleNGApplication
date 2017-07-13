@@ -1,15 +1,46 @@
 package Uniwork.Graphics;
 
+import com.sun.scenario.animation.SplineInterpolator;
+import javafx.animation.Interpolator;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class NGSpline2D extends NGCustomSpline {
 
     protected ArrayList<NGPoint2D> FControlPoints;
+    protected ArrayList<SplineInterpolator> FSegments;
+
+    @Override
+    protected void DoCalculate() {
+        super.DoCalculate();
+        NGPoint2D cp0 = null;
+        for (NGPoint2D cp: FControlPoints) {
+            if (cp0 != null) {
+                SplineInterpolator segment = (SplineInterpolator)Interpolator.SPLINE(cp0.getX(), cp0.getY(), cp.getX(), cp.getY());
+                FSegments.add(segment);
+                cp0 = null;
+            }
+            else {
+                cp0 = cp;
+            }
+        }
+        dumpSegments();
+    }
+
+    protected void dumpSegments() {
+        for (SplineInterpolator segment : FSegments) {
+            for (double x = 0.0; x <= 1.0; x = x + 0.1) {
+                double y = segment.curve(x);
+                System.out.println(String.format("x:%.2f,y:%.2f",x, y));
+            }
+        }
+    }
 
     public NGSpline2D(String aName) {
         super(aName);
         FControlPoints = new ArrayList<NGPoint2D>();
+        FSegments = new ArrayList<SplineInterpolator>();
     }
 
     public Iterator<NGPoint2D> getControlPoints() {
@@ -17,8 +48,8 @@ public class NGSpline2D extends NGCustomSpline {
     }
 
     public void addControlPoint(Double aX, Double aY) {
-        NGPoint2D controlpoint = new NGPoint2D(aX, aY);
-        FControlPoints.add(controlpoint);
+        NGPoint2D cp = new NGPoint2D(aX, aY);
+        FControlPoints.add(cp);
     }
 
 }
