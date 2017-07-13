@@ -2,11 +2,11 @@ package Uniwork.Visuals;
 
 import javafx.scene.canvas.Canvas;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGDisplayManager extends NGDisplayController {
 
-    protected ArrayList<NGDisplayController> FControllers;
+    protected CopyOnWriteArrayList<NGDisplayController> FControllers;
     protected Canvas FCanvas;
     protected NGDisplayController FCurrentController;
 
@@ -77,7 +77,7 @@ public class NGDisplayManager extends NGDisplayController {
 
     public NGDisplayManager(Canvas aCanvas, String aName) {
         super(aCanvas, aName);
-        FControllers = new ArrayList<NGDisplayController>();
+        FControllers = new CopyOnWriteArrayList<NGDisplayController>();
         FCanvas = aCanvas;
         FCurrentController = null;
     }
@@ -104,7 +104,7 @@ public class NGDisplayManager extends NGDisplayController {
         return FCurrentController;
     }
 
-    public ArrayList<NGDisplayController> getControllers() {
+    public CopyOnWriteArrayList<NGDisplayController> getControllers() {
         return FControllers;
     }
 

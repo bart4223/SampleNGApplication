@@ -5,11 +5,11 @@ import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGImageList extends NGObject {
 
-    protected ArrayList<NGImageListItem> FItems;
+    protected CopyOnWriteArrayList<NGImageListItem> FItems;
 
     protected NGImageListItem getItem(String aFilename) {
         for (NGImageListItem item : FItems) {
@@ -24,7 +24,7 @@ public class NGImageList extends NGObject {
 
     public NGImageList() {
         super();
-        FItems = new ArrayList<NGImageListItem>();
+        FItems = new CopyOnWriteArrayList<NGImageListItem>();
     }
 
     public void addImage(String aFilename, Image aImage) {

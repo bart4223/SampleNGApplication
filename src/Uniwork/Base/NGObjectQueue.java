@@ -1,16 +1,16 @@
 package Uniwork.Base;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectQueue extends NGObject {
 
-    protected ArrayList<NGObjectQueueItem> FItems;
+    protected CopyOnWriteArrayList<NGObjectQueueItem> FItems;
     protected String FName;
 
     public NGObjectQueue(String aName) {
         super();
         FName = aName;
-        FItems = new ArrayList<NGObjectQueueItem>();
+        FItems = new CopyOnWriteArrayList<NGObjectQueueItem>();
     }
 
     public String getName() {

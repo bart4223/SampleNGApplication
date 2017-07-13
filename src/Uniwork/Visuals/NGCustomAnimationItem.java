@@ -4,7 +4,7 @@ import Uniwork.Base.NGObject;
 import javafx.animation.Animation;
 import javafx.scene.Node;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class NGCustomAnimationItem extends NGObject {
 
@@ -14,7 +14,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
     protected Integer FDuration;
     protected Boolean FCyclic;
     protected Boolean FPlaying;
-    protected ArrayList<NGAnimationItemEventListener> FEventListeners;
+    protected CopyOnWriteArrayList<NGAnimationItemEventListener> FEventListeners;
 
     protected void DoAnimationFinished() {
     }
@@ -70,7 +70,7 @@ public abstract class NGCustomAnimationItem extends NGObject {
 
     public NGCustomAnimationItem(String aName, Node aNode, Integer aDuration) {
         super();
-        FEventListeners = new ArrayList<NGAnimationItemEventListener>();
+        FEventListeners = new CopyOnWriteArrayList<NGAnimationItemEventListener>();
         FName = aName;
         FNode = aNode;
         FDuration = aDuration;

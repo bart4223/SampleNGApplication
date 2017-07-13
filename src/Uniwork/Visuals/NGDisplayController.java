@@ -9,8 +9,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static java.lang.Math.abs;
 
@@ -30,7 +30,7 @@ public abstract class NGDisplayController extends NGObject {
     protected Image FImage;
     protected NGDisplayView FView;
 
-    protected ArrayList<NGDisplayControllerLayerItem> FLayers;
+    protected CopyOnWriteArrayList<NGDisplayControllerLayerItem> FLayers;
     protected NGDisplayControllerLayerItem FCurrentLayer;
 
     protected String getCurrentImageName() {
@@ -370,7 +370,7 @@ public abstract class NGDisplayController extends NGObject {
         FGC = null;
         FImage = null;
         FView = null;
-        FLayers = new ArrayList<NGDisplayControllerLayerItem>();
+        FLayers = new CopyOnWriteArrayList<NGDisplayControllerLayerItem>();
         addLayer(CLAYERBACKGROUND, "");
         ClearComplete = false;
     }

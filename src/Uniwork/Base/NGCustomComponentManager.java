@@ -1,7 +1,7 @@
 package Uniwork.Base;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class NGCustomComponentManager extends NGComponent {
 
@@ -21,7 +21,7 @@ public abstract class NGCustomComponentManager extends NGComponent {
         }
     }
 
-    protected ArrayList<NGComponent> FComponents;
+    protected CopyOnWriteArrayList<NGComponent> FComponents;
 
     protected Iterator<NGComponent> getComponents() {
         return FComponents.iterator();
@@ -55,7 +55,7 @@ public abstract class NGCustomComponentManager extends NGComponent {
 
     public NGCustomComponentManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
-        FComponents = new ArrayList<NGComponent>();
+        FComponents = new CopyOnWriteArrayList<NGComponent>();
     }
 
     public NGComponent getComponent(String aName) {

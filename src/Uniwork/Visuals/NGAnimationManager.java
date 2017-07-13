@@ -2,12 +2,12 @@ package Uniwork.Visuals;
 
 import Uniwork.Base.NGComponent;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGAnimationManager extends NGComponent {
 
-    protected ArrayList<NGCustomAnimationItem> FItems;
+    protected CopyOnWriteArrayList<NGCustomAnimationItem> FItems;
 
     protected void DoPlayItem(NGCustomAnimationItem aItem) {
         aItem.Play();
@@ -27,7 +27,7 @@ public class NGAnimationManager extends NGComponent {
 
     public NGAnimationManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
-        FItems = new ArrayList<NGCustomAnimationItem>();
+        FItems = new CopyOnWriteArrayList<NGCustomAnimationItem>();
     }
 
     public Iterator<NGCustomAnimationItem> getItems() {

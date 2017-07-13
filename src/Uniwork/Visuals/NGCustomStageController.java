@@ -4,7 +4,7 @@ import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Base.NGObject;
 import javafx.application.Platform;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class NGCustomStageController extends NGObject {
 
@@ -42,7 +42,7 @@ public abstract class NGCustomStageController extends NGObject {
         });
     }
 
-    protected ArrayList<DisplayControllerItem> FDCItems;
+    protected CopyOnWriteArrayList<DisplayControllerItem> FDCItems;
 
     protected void DoBeforeRenderScene(NGDisplayController aController) {
 
@@ -165,7 +165,7 @@ public abstract class NGCustomStageController extends NGObject {
     public NGCustomStageController(NGCustomStageItem aStageItem) {
         super();
         FStageItem = aStageItem;
-        FDCItems = new ArrayList<DisplayControllerItem>();
+        FDCItems = new CopyOnWriteArrayList<DisplayControllerItem>();
         FSceneGraph = new NGStageSceneGraph();
         FOwnRenderThread = false;
     }

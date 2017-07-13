@@ -1,14 +1,14 @@
 package Uniwork.Base;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectStackManager extends NGObject {
 
-    protected ArrayList<NGObjectStack> FStacks;
+    protected CopyOnWriteArrayList<NGObjectStack> FStacks;
 
     public NGObjectStackManager() {
         super();
-        FStacks = new ArrayList<NGObjectStack>();
+        FStacks = new CopyOnWriteArrayList<NGObjectStack>();
     }
 
     public Integer getSize() {

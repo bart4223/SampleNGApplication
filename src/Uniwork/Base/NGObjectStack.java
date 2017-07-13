@@ -1,10 +1,10 @@
 package Uniwork.Base;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectStack extends NGObject {
 
-    protected ArrayList<NGObjectStackItem> FItems;
+    protected CopyOnWriteArrayList<NGObjectStackItem> FItems;
     protected String FName;
 
     public NGObjectStack() {
@@ -13,7 +13,7 @@ public class NGObjectStack extends NGObject {
 
     public NGObjectStack(String aName) {
         super();
-        FItems = new ArrayList<NGObjectStackItem>();
+        FItems = new CopyOnWriteArrayList<NGObjectStackItem>();
         FName = aName;
     }
 

@@ -2,17 +2,17 @@ package Uniwork.Appl;
 
 import Uniwork.Base.NGObject;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGApplicationDefinition extends NGObject {
 
-    protected ArrayList<NGApplicationModuleItemDefinition> Modules;
+    protected CopyOnWriteArrayList<NGApplicationModuleItemDefinition> Modules;
 
     public NGApplicationDefinition() {
         super();
     }
 
-    public void setModules(ArrayList<NGApplicationModuleItemDefinition> value) { Modules = value;}
-    public ArrayList<NGApplicationModuleItemDefinition> getModules() { return Modules; }
+    public void setModules(CopyOnWriteArrayList<NGApplicationModuleItemDefinition> value) { Modules = value;}
+    public CopyOnWriteArrayList<NGApplicationModuleItemDefinition> getModules() { return Modules; }
 
 }

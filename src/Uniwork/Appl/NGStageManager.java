@@ -4,12 +4,12 @@ import Uniwork.Base.NGComponent;
 import Uniwork.Misc.NGStrings;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGStageManager extends NGComponent {
 
-    protected ArrayList<NGCustomStageItem> FItems;
-    protected ArrayList<NGStageItemClass> FItemClasses;
+    protected CopyOnWriteArrayList<NGCustomStageItem> FItems;
+    protected CopyOnWriteArrayList<NGStageItemClass> FItemClasses;
 
     protected void DoInitialize() {
         super.DoInitialize();
@@ -48,8 +48,8 @@ public class NGStageManager extends NGComponent {
 
     public NGStageManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
-        FItems = new ArrayList<NGCustomStageItem>();
-        FItemClasses = new ArrayList<NGStageItemClass>();
+        FItems = new CopyOnWriteArrayList<NGCustomStageItem>();
+        FItemClasses = new CopyOnWriteArrayList<NGStageItemClass>();
     }
 
     public void registerItemClass(String aName, String aClassname) {

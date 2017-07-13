@@ -2,15 +2,15 @@ package Uniwork.Misc;
 
 import Uniwork.Base.NGObject;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGTickGenerator extends NGObject {
 
     protected Timer FTimer;
-    protected ArrayList<NGTickItem> FItems;
+    protected CopyOnWriteArrayList<NGTickItem> FItems;
     protected Integer FBaseInterval;
     protected NGLogManager FLogManager;
     protected Boolean FEnabled;
@@ -49,7 +49,7 @@ public class NGTickGenerator extends NGObject {
 
     public NGTickGenerator() {
         super();
-        FItems = new ArrayList<NGTickItem>();
+        FItems = new CopyOnWriteArrayList<NGTickItem>();
         FTimer = new Timer();
         FBaseInterval = 10;
         FLogManager = null;
@@ -57,7 +57,7 @@ public class NGTickGenerator extends NGObject {
     }
 
     public NGTickGenerator(Integer aBaseInterval) {
-        FItems = new ArrayList<NGTickItem>();
+        FItems = new CopyOnWriteArrayList<NGTickItem>();
         FTimer = new Timer();
         FBaseInterval = aBaseInterval;
         FEnabled = true;

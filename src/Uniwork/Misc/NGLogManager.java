@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGLogManager extends NGObject {
 
-    protected ArrayList<NGLogEntry> FItems;
+    protected CopyOnWriteArrayList<NGLogEntry> FItems;
     protected List FEventListeners;
     protected int FLogLevel;
 
@@ -35,7 +36,7 @@ public class NGLogManager extends NGObject {
 
     public NGLogManager() {
         super();
-        FItems = new ArrayList<NGLogEntry>();
+        FItems = new CopyOnWriteArrayList<NGLogEntry>();
         FEventListeners= new ArrayList();
         FLogLevel = 0;
     }

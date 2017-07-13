@@ -2,12 +2,12 @@ package Uniwork.Graphics;
 
 import Uniwork.Base.NGComponent;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGSplineManager extends NGComponent {
 
-    protected ArrayList<NGCustomSpline> FSplines;
+    protected CopyOnWriteArrayList<NGCustomSpline> FSplines;
 
     protected void DoCalculate() {
         for (NGCustomSpline spline: FSplines ) {
@@ -25,7 +25,7 @@ public class NGSplineManager extends NGComponent {
 
     public NGSplineManager(NGComponent aOwner, String aName) {
         super(aOwner, aName);
-        FSplines = new ArrayList<NGCustomSpline>();
+        FSplines = new CopyOnWriteArrayList<NGCustomSpline>();
     }
 
     public Iterator<NGCustomSpline> getSplines() {

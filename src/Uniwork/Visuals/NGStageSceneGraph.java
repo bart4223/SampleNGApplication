@@ -6,8 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGStageSceneGraph extends NGComponent {
 
@@ -44,7 +44,7 @@ public class NGStageSceneGraph extends NGComponent {
     }
 
     public Iterator<Node> getChildNodes(Parent aParent, String aID) {
-        ArrayList<Node> res = new ArrayList<Node>();
+        CopyOnWriteArrayList<Node> res = new CopyOnWriteArrayList<Node>();
         for (Node child : aParent.getChildrenUnmodifiable()) {
             if (child.getId().equals(aID)) {
                 res.add(child);

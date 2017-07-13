@@ -1,10 +1,10 @@
 package Uniwork.Base;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGPropertyList extends NGObject {
 
-    protected ArrayList<NGPropertyItem> FItems;
+    protected CopyOnWriteArrayList<NGPropertyItem> FItems;
 
     protected void add(NGPropertyItem aItem) {
         FItems.add(aItem);
@@ -27,8 +27,8 @@ public class NGPropertyList extends NGObject {
             for (NGPropertyItem item : src.getItems()) {
                 set(item.getName(), item.getValue());
             }
-        } else if (aObject instanceof ArrayList<?>) {
-            ArrayList<?> items = (ArrayList<?>)aObject;
+        } else if (aObject instanceof CopyOnWriteArrayList<?>) {
+            CopyOnWriteArrayList<?> items = (CopyOnWriteArrayList<?>)aObject;
             for (Object item : items) {
                 if (item instanceof NGSerializePropertyItem) {
                     NGSerializePropertyItem propitem = (NGSerializePropertyItem)item;
@@ -51,7 +51,7 @@ public class NGPropertyList extends NGObject {
 
     public NGPropertyList() {
         super();
-        FItems = new ArrayList<NGPropertyItem>();
+        FItems = new CopyOnWriteArrayList<NGPropertyItem>();
     }
 
     public NGPropertyItem set(String aName, Object aValue) {
@@ -82,7 +82,7 @@ public class NGPropertyList extends NGObject {
         FItems.clear();
     }
 
-    public void AssignTo(ArrayList<NGSerializePropertyItem> aItems) {
+    public void AssignTo(CopyOnWriteArrayList<NGSerializePropertyItem> aItems) {
         aItems.clear();
         for (NGPropertyItem item : FItems) {
             NGSerializePropertyItem seritem = new NGSerializePropertyItem();
@@ -96,7 +96,7 @@ public class NGPropertyList extends NGObject {
         return FItems.size();
     }
 
-    public ArrayList<NGPropertyItem> getItems() {
+    public CopyOnWriteArrayList<NGPropertyItem> getItems() {
         return FItems;
     }
 

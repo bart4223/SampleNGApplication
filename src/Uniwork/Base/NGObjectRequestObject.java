@@ -1,18 +1,18 @@
 package Uniwork.Base;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectRequestObject extends NGObject {
 
     protected String FName;
-    protected ArrayList<NGObjectRequestMethod> FMethods;
+    protected CopyOnWriteArrayList<NGObjectRequestMethod> FMethods;
     protected Object FObject;
 
     public NGObjectRequestObject(String aName, Object aObject) {
         super();
         FName = aName;
         FObject = aObject;
-        FMethods = new ArrayList<NGObjectRequestMethod>();
+        FMethods = new CopyOnWriteArrayList<NGObjectRequestMethod>();
     }
 
     public NGObjectRequestMethod addMethod(String aName, String aObjectMethod) {

@@ -1,14 +1,14 @@
 package Uniwork.Base;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectQueueManager extends NGObject {
 
-    protected ArrayList<NGObjectQueue> FQueues;
+    protected CopyOnWriteArrayList<NGObjectQueue> FQueues;
 
     public NGObjectQueueManager() {
         super();
-        FQueues = new ArrayList<NGObjectQueue>();
+        FQueues = new CopyOnWriteArrayList<NGObjectQueue>();
     }
 
     public Integer getSize() {

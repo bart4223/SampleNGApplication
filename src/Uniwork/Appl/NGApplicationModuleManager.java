@@ -4,8 +4,8 @@ import Uniwork.Base.NGComponent;
 import Uniwork.Base.NGCustomComponentManager;
 import Uniwork.Misc.NGStrings;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGApplicationModuleManager extends NGCustomComponentManager {
 
@@ -52,7 +52,7 @@ public class NGApplicationModuleManager extends NGCustomComponentManager {
     }
 
     public Iterator<NGCustomApplicationModule> getModules() {
-        ArrayList<NGCustomApplicationModule> modules = new ArrayList<NGCustomApplicationModule>();
+        CopyOnWriteArrayList<NGCustomApplicationModule> modules = new CopyOnWriteArrayList<NGCustomApplicationModule>();
         for (NGComponent comp : FComponents) {
             modules.add((NGCustomApplicationModule)comp);
         }

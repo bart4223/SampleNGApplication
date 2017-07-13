@@ -3,13 +3,13 @@ package Uniwork.Graphics;
 import com.sun.scenario.animation.SplineInterpolator;
 import javafx.animation.Interpolator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGSpline2D extends NGCustomSpline {
 
-    protected ArrayList<NGPoint2D> FControlPoints;
-    protected ArrayList<SplineInterpolator> FSegments;
+    protected CopyOnWriteArrayList<NGPoint2D> FControlPoints;
+    protected CopyOnWriteArrayList<SplineInterpolator> FSegments;
 
     @Override
     protected void DoCalculate() {
@@ -39,8 +39,8 @@ public class NGSpline2D extends NGCustomSpline {
 
     public NGSpline2D(String aName) {
         super(aName);
-        FControlPoints = new ArrayList<NGPoint2D>();
-        FSegments = new ArrayList<SplineInterpolator>();
+        FControlPoints = new CopyOnWriteArrayList<NGPoint2D>();
+        FSegments = new CopyOnWriteArrayList<SplineInterpolator>();
     }
 
     public Iterator<NGPoint2D> getControlPoints() {
