@@ -51,9 +51,45 @@
     <exclude name="**/?*.clj"/>
   </patternset>
   
-  <property name="project.jdk.home" value=""/>
-  <property name="project.jdk.bin" value=""/>
-  <property name="project.jdk.classpath" value=""/>
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/packager.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
   
   
   <!-- Project Libraries -->
@@ -104,6 +140,7 @@
   </path>
   
   <path id="uniwork.module.production.classpath">
+    <path refid="${module.jdk.classpath.uniwork}"/>
     <path refid="library.ant.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.junit-4.12.classpath"/>
@@ -117,6 +154,7 @@
   </path>
   
   <path id="uniwork.module.classpath">
+    <path refid="${module.jdk.classpath.uniwork}"/>
     <pathelement location="${uniwork.output.dir}"/>
     <path refid="library.ant.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
