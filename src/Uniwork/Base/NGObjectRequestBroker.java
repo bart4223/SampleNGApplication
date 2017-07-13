@@ -6,12 +6,12 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectRequestBroker extends NGObject {
 
     protected Object FOwner;
-    protected ArrayList<NGObjectRequestObject> FObjects;
+    protected CopyOnWriteArrayList<NGObjectRequestObject> FObjects;
     protected NGLogManager FLogManager;
 
     protected void writeLog(String aText) {
@@ -95,7 +95,7 @@ public class NGObjectRequestBroker extends NGObject {
     public NGObjectRequestBroker(Object aOwner) {
         super();
         FOwner = aOwner;
-        FObjects = new ArrayList<NGObjectRequestObject>();
+        FObjects = new CopyOnWriteArrayList<NGObjectRequestObject>();
         FLogManager = null;
     }
 
