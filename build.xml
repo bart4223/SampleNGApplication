@@ -19,27 +19,24 @@
     <exclude name="**/*.pyc/**"/>
     <exclude name="**/*.pyo/**"/>
     <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
     <exclude name="**/*~/**"/>
     <exclude name="**/.DS_Store/**"/>
     <exclude name="**/.git/**"/>
     <exclude name="**/.hg/**"/>
     <exclude name="**/.svn/**"/>
     <exclude name="**/CVS/**"/>
-    <exclude name="**/RCS/**"/>
-    <exclude name="**/SCCS/**"/>
     <exclude name="**/__pycache__/**"/>
     <exclude name="**/_svn/**"/>
-    <exclude name="**/rcs/**"/>
     <exclude name="**/vssver.scc/**"/>
     <exclude name="**/vssver2.scc/**"/>
   </patternset>
   <patternset id="library.patterns">
     <include name="*.war"/>
     <include name="*.swc"/>
-    <include name="*.apk"/>
+    <include name="*.ane"/>
     <include name="*.zip"/>
     <include name="*.egg"/>
-    <include name="*.ane"/>
     <include name="*.jar"/>
     <include name="*.ear"/>
   </patternset>
@@ -54,43 +51,9 @@
     <exclude name="**/?*.clj"/>
   </patternset>
   
-  <!-- JDK definitions -->
-  
-  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
-  <path id="jdk.classpath.1.7">
-    <fileset dir="${jdk.home.1.7}">
-      <include name="lib/ant-javafx.jar"/>
-      <include name="lib/dt.jar"/>
-      <include name="lib/javafx-doclet.jar"/>
-      <include name="lib/javafx-mx.jar"/>
-      <include name="lib/jconsole.jar"/>
-      <include name="lib/sa-jdi.jar"/>
-      <include name="lib/tools.jar"/>
-      <include name="jre/lib/charsets.jar"/>
-      <include name="jre/lib/deploy.jar"/>
-      <include name="jre/lib/htmlconverter.jar"/>
-      <include name="jre/lib/javaws.jar"/>
-      <include name="jre/lib/jce.jar"/>
-      <include name="jre/lib/jfr.jar"/>
-      <include name="jre/lib/jfxrt.jar"/>
-      <include name="jre/lib/JObjC.jar"/>
-      <include name="jre/lib/jsse.jar"/>
-      <include name="jre/lib/management-agent.jar"/>
-      <include name="jre/lib/plugin.jar"/>
-      <include name="jre/lib/resources.jar"/>
-      <include name="jre/lib/rt.jar"/>
-      <include name="jre/lib/ext/dnsns.jar"/>
-      <include name="jre/lib/ext/localedata.jar"/>
-      <include name="jre/lib/ext/sunec.jar"/>
-      <include name="jre/lib/ext/sunjce_provider.jar"/>
-      <include name="jre/lib/ext/sunpkcs11.jar"/>
-      <include name="jre/lib/ext/zipfs.jar"/>
-    </fileset>
-  </path>
-  
-  <property name="project.jdk.home" value="${jdk.home.1.7}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.7}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.7"/>
+  <property name="project.jdk.home" value=""/>
+  <property name="project.jdk.bin" value=""/>
+  <property name="project.jdk.classpath" value=""/>
   
   
   <!-- Project Libraries -->
@@ -141,7 +104,6 @@
   </path>
   
   <path id="uniwork.module.production.classpath">
-    <path refid="${module.jdk.classpath.uniwork}"/>
     <path refid="library.ant.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.junit-4.12.classpath"/>
@@ -155,7 +117,6 @@
   </path>
   
   <path id="uniwork.module.classpath">
-    <path refid="${module.jdk.classpath.uniwork}"/>
     <pathelement location="${uniwork.output.dir}"/>
     <path refid="library.ant.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
@@ -246,16 +207,6 @@
     <!-- Delete temporary files -->
     <delete dir="${artifacts.temp.dir}"/>
   </target>
-
-  <target name="testall" depends="artifact.uniwork:jar" description="Perform Tests">
-    <java fork="true" classname="Uniwork.Test.NGTestRunner">
-      <classpath>
-        <path refid="library.junit-4.12.classpath"/>
-        <path refid="library.hamcrest-core-1.3.classpath"/>
-        <path location="${basedir}/out/artifacts/Uniwork_jar/Uniwork.jar"/>
-      </classpath>
-    </java>
-  </target>
   
-  <target name="all" depends="build.modules, build.all.artifacts, testall" description="build all"/>
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 </project>
