@@ -16,7 +16,7 @@ public abstract class NGCustomTestRunner {
         Result result = JUnitCore.runClasses(FTestClass);
         Integer i = 1;
         for (Failure failure : result.getFailures())
-            FLogger.writeLog(String.format("message text='Error %d' errorDetails='%s'", i, failure.toString()));
+            FLogger.writeLog(String.format("message text='Error %d' errorDetails='%s' status='ERROR'", i, failure.toString()));
             i++;
     }
 

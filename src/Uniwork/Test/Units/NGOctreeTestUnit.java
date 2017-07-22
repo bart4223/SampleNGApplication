@@ -68,4 +68,52 @@ public class NGOctreeTestUnit extends NGCustomTestUnit {
         FinishTest();
     }
 
+    @Test
+    public void testQuantize01() throws Exception {
+        StartTest();
+        NGColorOctree ot = new NGColorOctree();
+        for (int i = 0; i < 10; i++) {
+            ot.addColor(1, 1, 1);
+        }
+        ot.Quantize(1);
+        assertEquals(1, (int)ot.getLeafCount());
+        FinishTest();
+    }
+
+    @Test
+    public void testQuantize02() throws Exception {
+        StartTest();
+        NGColorOctree ot = new NGColorOctree();
+        for (int i = 0; i < 10; i++) {
+            ot.addColor(i, i, i);
+        }
+        ot.Quantize(10);
+        assertEquals(10, (int)ot.getLeafCount());
+        FinishTest();
+    }
+
+    @Test
+    public void testQuantize03() throws Exception {
+        StartTest();
+        NGColorOctree ot = new NGColorOctree();
+        for (int i = 0; i < 10; i++) {
+            ot.addColor(i, i, i);
+        }
+        ot.Quantize(5);
+        assertEquals(5, (int)ot.getLeafCount());
+        FinishTest();
+    }
+
+    @Test
+    public void testQuantize04() throws Exception {
+        StartTest();
+        NGColorOctree ot = new NGColorOctree();
+        for (int i = 0; i < 10; i++) {
+            ot.addColor(i, i, i);
+        }
+        ot.Quantize(1);
+        assertEquals(1, (int)ot.getLeafCount());
+        FinishTest();
+    }
+
 }
