@@ -43,7 +43,7 @@ public class NGOctreeTestUnit extends NGCustomTestUnit {
     }
 
     @Test
-    public void testAddColor03() throws Exception {
+    public void testBuildPalette01() throws Exception {
         StartTest();
         NGColorOctree ot = new NGColorOctree();
         for (int i = 0; i < 10; i++) {
@@ -56,7 +56,7 @@ public class NGOctreeTestUnit extends NGCustomTestUnit {
     }
 
     @Test
-    public void testAddColor04() throws Exception {
+    public void testBuildPalette02() throws Exception {
         StartTest();
         NGColorOctree ot = new NGColorOctree();
         for (int i = 0; i < 10; i++) {
