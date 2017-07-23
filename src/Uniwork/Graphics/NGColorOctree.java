@@ -116,6 +116,7 @@ public class NGColorOctree extends NGObject {
                         FNodeCount = FNodeCount - 1;
                     }
                 }
+                n.UpdateColor();
                 FLeafCount = FLeafCount + 1;
             }
         }
@@ -134,8 +135,36 @@ public class NGColorOctree extends NGObject {
         return FPalette.getIterator();
     }
 
-    public Color getNearestColorInPalatte(Color aColor) {
+    public Color getNearestColorInPalette(Color aColor) {
         return FPalette.getNearestColor(aColor);
+    }
+
+    public Color getNodeColorFromColor(Color aColor) {
+        NGColorOctreeNode res = FRoot;
+        Integer red = (int)(aColor.getRed() * 255);
+        Integer green = (int)(aColor.getGreen() * 255);
+        Integer blue = (int)(aColor.getBlue() * 255);
+        for (int i = 7; i >= 0; i--) {
+            Integer Index = 0;
+            Integer Bit = 1 << i;
+            if ((red & Bit) != 0) {
+                Index = Index | 4;
+            }
+            if ((green & Bit) != 0) {
+                Index = Index | 2;
+            }
+            if ((blue & Bit) != 0) {
+                Index = Index | 1;
+            }
+            NGColorOctreeNode child = res.getChild(Index);
+            if (child != null) {
+                res = child;
+                if (res.IsLeaf()) {
+                    break;
+                }
+            }
+        }
+        return res.getColor();
     }
 
 }

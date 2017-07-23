@@ -1,6 +1,7 @@
 package Uniwork.Graphics;
 
 import Uniwork.Base.NGObject;
+import javafx.scene.paint.Color;
 
 public class NGColorOctreeNode extends NGObject {
 
@@ -9,6 +10,7 @@ public class NGColorOctreeNode extends NGObject {
     protected Integer FGreen;
     protected Integer FBlue;
     protected NGColorOctreeNode[] FChilds;
+    protected Color FColor;
 
     public NGColorOctreeNode() {
         this(0,0,0);
@@ -20,6 +22,7 @@ public class NGColorOctreeNode extends NGObject {
         FRed = aRed;
         FGreen = aGreen;
         FBlue = aBlue;
+        UpdateColor();
         FChilds = new NGColorOctreeNode[8];
         for (int i = 0; i < 8; i++) {
             FChilds[i] = null;
@@ -108,6 +111,14 @@ public class NGColorOctreeNode extends NGObject {
 
     public Integer getBlue() {
         return FBlue;
+    }
+
+    public Color getColor() {
+        return FColor;
+    }
+
+    public void UpdateColor() {
+        FColor = Color.rgb(FRed, FGreen, FBlue);
     }
 
 }

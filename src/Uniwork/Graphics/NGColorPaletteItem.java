@@ -8,12 +8,14 @@ public class NGColorPaletteItem extends NGObject {
     protected Integer FRed;
     protected Integer FGreen;
     protected Integer FBlue;
+    protected Color FColor;
 
     public NGColorPaletteItem(Integer aRed, Integer aGreen, Integer aBlue) {
         super();
         FRed = aRed;
         FGreen = aGreen;
         FBlue = aBlue;
+        FColor = Color.rgb(FRed, FGreen, FBlue);
     }
 
     public Integer getRed() {
@@ -29,11 +31,11 @@ public class NGColorPaletteItem extends NGObject {
     }
 
     public Integer Distance(Color aColor) {
-        return Math.abs(getRed() - (int)aColor.getRed() + getGreen() - (int)aColor.getGreen() + getBlue() - (int)aColor.getBlue());
+        return Math.abs(getRed() - (int)(aColor.getRed() * 255)) + Math.abs(getGreen() - (int)(aColor.getGreen() * 255)) + Math.abs(getBlue() - (int)(aColor.getBlue() * 255));
     }
     
     public Color getColor() {
-        return new Color(getRed()/100, getGreen()/100, getBlue()/100, 1.0);
+        return FColor;
     }
 
 }
