@@ -122,6 +122,10 @@ public class NGColorOctree extends NGObject {
         }
     }
 
+    public void RebuildPalette() {
+        BuildPalette();
+    }
+
     public void BuildPalette() {
         FPalette.Clear();
         BuildPalette(FRoot);
