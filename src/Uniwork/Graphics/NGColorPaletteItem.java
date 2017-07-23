@@ -1,6 +1,7 @@
 package Uniwork.Graphics;
 
 import Uniwork.Base.NGObject;
+import javafx.scene.paint.Color;
 
 public class NGColorPaletteItem extends NGObject {
 
@@ -27,5 +28,12 @@ public class NGColorPaletteItem extends NGObject {
         return FBlue;
     }
 
+    public Integer Distance(Color aColor) {
+        return Math.abs(getRed() - (int)aColor.getRed() + getGreen() - (int)aColor.getGreen() + getBlue() - (int)aColor.getBlue());
+    }
+    
+    public Color getColor() {
+        return new Color(getRed()/100, getGreen()/100, getBlue()/100, 1.0);
+    }
 
 }

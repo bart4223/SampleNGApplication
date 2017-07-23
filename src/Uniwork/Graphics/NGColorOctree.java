@@ -1,6 +1,7 @@
 package Uniwork.Graphics;
 
 import Uniwork.Base.NGObject;
+import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 
@@ -131,6 +132,10 @@ public class NGColorOctree extends NGObject {
 
     public Iterator<NGColorPaletteItem> getPalette() {
         return FPalette.getIterator();
+    }
+
+    public Color getNearestColorInPalatte(Color aColor) {
+        return FPalette.getNearestColor(aColor);
     }
 
 }

@@ -1,6 +1,7 @@
 package Uniwork.Graphics;
 
 import Uniwork.Base.NGObject;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,6 +30,27 @@ public class NGColorPalette extends NGObject {
 
     public Integer getCount() {
         return FItems.size();
+    }
+
+    public Color getNearestColor(Color aColor) {
+        Integer dist = null;
+        NGColorPaletteItem res = null;
+        for (NGColorPaletteItem item : FItems) {
+            if (dist == null) {
+                dist = item.Distance(aColor);
+                res = item;
+            } else {
+                Integer d = item.Distance(aColor);
+                if (d < dist) {
+                    dist = d;
+                    res = item;
+                }
+            }
+        }
+        if (res != null)
+            return res.getColor();
+        else
+            return null;
     }
 
 }
