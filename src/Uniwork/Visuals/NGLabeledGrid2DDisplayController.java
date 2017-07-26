@@ -30,7 +30,7 @@ public class NGLabeledGrid2DDisplayController extends NGGrid2DDisplayController 
                     String l = label;
                     if (NGStrings.getStringCount(l,"") == 2) {
                         l = NGStrings.getStringPos(label, "", 1);
-                        String c = NGStrings.getStringPos(label, "", 1);
+                        String c = NGStrings.getStringPos(label, "", 2);
                         FGC.setStroke(Color.web(c));
                     }
                     FGC.strokeText(l, xx + 3, yy + GridDistance - FontSize / 3);
