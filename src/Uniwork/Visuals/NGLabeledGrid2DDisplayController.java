@@ -1,5 +1,6 @@
 package Uniwork.Visuals;
 
+import Uniwork.Misc.NGStrings;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -26,7 +27,13 @@ public class NGLabeledGrid2DDisplayController extends NGGrid2DDisplayController 
             for(double xx = x; xx <= x + GridWidth; xx = xx + GridDistance) {
                 String label = FLabels.get(String.format("%d.%d", indexY, indexX));
                 if (label != null) {
-                    FGC.strokeText(label, xx + 3, yy + GridDistance - FontSize / 3);
+                    String l = label;
+                    if (NGStrings.getStringCount(l,"") == 2) {
+                        l = NGStrings.getStringPos(label, "", 1);
+                        String c = NGStrings.getStringPos(label, "", 1);
+                        FGC.setStroke(Color.web(c));
+                    }
+                    FGC.strokeText(l, xx + 3, yy + GridDistance - FontSize / 3);
                 }
                 indexX = indexX + 1;
             }

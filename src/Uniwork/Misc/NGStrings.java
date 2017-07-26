@@ -39,6 +39,15 @@ public final class NGStrings {
         }
     }
 
+    public static Integer getStringCount(String aValue, String aRegex) {
+        // Regex Examples
+        // "," use ","
+        // "." use "\\."
+        // Position from 1..
+        String[] strs = aValue.split(aRegex);
+        return strs.length;
+    }
+
     public static String getLastString(String aValue, String aSep) {
         String res = aValue;
         Integer i =  aValue.lastIndexOf(aSep);

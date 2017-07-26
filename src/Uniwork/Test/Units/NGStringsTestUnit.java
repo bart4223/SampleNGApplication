@@ -52,4 +52,28 @@ public class NGStringsTestUnit extends NGCustomTestUnit {
         FinishTest();
     }
 
+    @Test
+    public void testGetStringCount01() throws Exception {
+        StartTest();
+        String str = "";
+        assertEquals(1, (int)NGStrings.getStringCount(str,"\\."));
+        FinishTest();
+    }
+
+    @Test
+    public void testGetStringCount02() throws Exception {
+        StartTest();
+        String str = "a";
+        assertEquals(1, (int)NGStrings.getStringCount(str,"\\."));
+        FinishTest();
+    }
+
+    @Test
+    public void testGetStringCount03() throws Exception {
+        StartTest();
+        String str = NGStrings.addString("A","B",".");
+        assertEquals(2, (int)NGStrings.getStringCount(str,"\\."));
+        FinishTest();
+    }
+
 }
