@@ -8,7 +8,9 @@ public class NGGrid2DDisplayController extends NGDisplayController {
     @Override
     protected void DoBeforeRender() {
         super.DoBeforeRender();
-        FGC.clearRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
+        if (ClearRect) {
+            FGC.clearRect(FPosition.getXAsInt() * FPixelSize, FPosition.getYAsInt() * FPixelSize, FWidth, FHeight);
+        }
     }
 
     @Override
@@ -61,6 +63,7 @@ public class NGGrid2DDisplayController extends NGDisplayController {
         GridWidth = FWidth;
         GridLineWidth = 1;
         AlternateGridColor = true;
+        ClearRect = true;
     }
 
     public int GridDistance;
@@ -70,5 +73,6 @@ public class NGGrid2DDisplayController extends NGDisplayController {
     public double GridHeight;
     public int GridLineWidth;
     public boolean AlternateGridColor;
+    public boolean ClearRect;
 
 }
