@@ -135,6 +135,10 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStageController.Initialize();
     }
 
+    protected void DoReset() {
+
+    }
+
     @Override
     protected void DoBeforeInitialize() {
         super.DoBeforeInitialize();
@@ -261,6 +265,11 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
             Hide();
         else
             Show();
+    }
+
+    public void Reset() {
+        DoReset();
+        Invalidate();
     }
 
     public void Invalidate() {

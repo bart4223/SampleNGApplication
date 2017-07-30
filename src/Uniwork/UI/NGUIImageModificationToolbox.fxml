@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tooltip?>
+<AnchorPane fx:controller="Uniwork.UI.NGUIImageModificationToolboxController" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white;">
+    <VBox id="VBox" prefHeight="950" prefWidth="800" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white" fx:id="VBox">
+        <HBox prefHeight="50" minWidth="800" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: lightgray;">
+            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+            <Button id="btnRefresh" prefWidth="80" text="Refresh" onAction="#handleRefresh" fx:id="btnRefresh" />
+        </HBox>
+        <Canvas id="Layer0" height="800" width="800" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" fx:id="Layer0" />
+        <Slider id="slCQ" prefHeight="50" prefWidth="800" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" fx:id="slCQ" style="-fx-background-color: darkgray">
+            <tooltip>
+                <Tooltip text="Color Quantization"/>
+            </tooltip>
+        </Slider>
+        <HBox prefHeight="50" alignment="CENTER_RIGHT" minWidth="800" spacing="15" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: gray">
+            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+            <Button id="btnOK"  prefWidth="80" text="OK" onAction="#handleOK" fx:id="btnOK" />
+            <Button id="btnCancel" prefWidth="80" text="Cancel" onAction="#handleCancel" fx:id="btnCancel" />
+        </HBox>
+    </VBox>
+</AnchorPane>
