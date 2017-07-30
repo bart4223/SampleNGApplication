@@ -10,10 +10,10 @@
     <VBox id="VBox" prefHeight="950" prefWidth="800" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white" fx:id="VBox">
         <HBox prefHeight="50" minWidth="800" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: lightgray;">
             <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
-            <Button id="btnRefresh" prefWidth="80" text="Refresh" onAction="#handleRefresh" fx:id="btnRefresh" />
+            <Button id="btnReset" prefWidth="80" text="Reset" onAction="#handleReset" fx:id="btnReset" />
         </HBox>
         <Canvas id="Layer0" height="800" width="800" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" fx:id="Layer0" />
-        <Slider id="slCQ" prefHeight="50" prefWidth="800" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" fx:id="slCQ" style="-fx-background-color: darkgray">
+        <Slider id="slCQ" prefHeight="50" prefWidth="800" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" fx:id="slCQ" showTickLabels="true" snapToTicks="true" majorTickUnit="1" minorTickCount="0" style="-fx-background-color: darkgray">
             <tooltip>
                 <Tooltip text="Color Quantization"/>
             </tooltip>

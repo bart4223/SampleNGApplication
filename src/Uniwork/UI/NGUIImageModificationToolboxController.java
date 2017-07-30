@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 
 public class NGUIImageModificationToolboxController extends NGToolboxController {
 
@@ -28,6 +29,7 @@ public class NGUIImageModificationToolboxController extends NGToolboxController 
             Double value = (Double)t1;
             if (FSliderInitialized) {
                 ((NGUIImageModificationToolboxItem)FStageItem).setCQColorCount(value.intValue());
+                FSlider.getTooltip().setText(String.format("%.0f", value));
                 FStageItem.Invalidate();
             }
         }
@@ -43,7 +45,7 @@ public class NGUIImageModificationToolboxController extends NGToolboxController 
     private Slider slCQ;
 
     @FXML
-    private Button btnRefresh;
+    private Button btnReset;
 
     @FXML
     private Button btnOK;
@@ -52,7 +54,7 @@ public class NGUIImageModificationToolboxController extends NGToolboxController 
     private Button btnCancel;
 
     @FXML
-    protected void handleRefresh() {
+    protected void handleReset() {
         FSliderInitialized = !FSliderInitialized;
         FStageItem.Reset();
     }
@@ -76,6 +78,7 @@ public class NGUIImageModificationToolboxController extends NGToolboxController 
         slCQ.setMax(((NGUIImageModificationToolboxItem)FStageItem).getOrgColorCount());
         if (!FSliderInitialized) {
             slCQ.setValue(((NGUIImageModificationToolboxItem)FStageItem).getOrgColorCount());
+            slCQ.setTooltip(new Tooltip(String.format("%.0f", slCQ.getValue())));
             FSliderInitialized = true;
         }
     }
