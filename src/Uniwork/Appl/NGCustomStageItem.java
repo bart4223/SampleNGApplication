@@ -143,6 +143,10 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
             Show();
     }
 
+    protected void DoSetContext(Object aContext) {
+        FContext = aContext;
+    }
+
     public NGCustomStageItem(NGStageManager aStageManager, String aName, Stage aStage) {
         super(aStageManager);
         FStageManager = aStageManager;
@@ -223,7 +227,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     }
 
     public void setContext(Object aContext) {
-        FContext = aContext;
+        DoSetContext(aContext);
     }
 
     public Object getContext() {
