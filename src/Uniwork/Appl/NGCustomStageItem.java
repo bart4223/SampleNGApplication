@@ -11,9 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public abstract class NGCustomStageItem extends NGComponent implements NGLogEventListener {
+
+    public enum NGDialogResult { None, OK, Cancel, Yes, No }
 
     protected String FName;
     protected NGLogManager FLogManager;
@@ -31,6 +34,8 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected Boolean FUnique;
     protected Boolean FShowAfterInitialize = true;
     protected Boolean FOnlyCaption = false;
+    protected Boolean FIsDialog = false;
+    protected NGDialogResult FDialogResult = NGDialogResult.None;
 
     protected void CreateStage() {
         FStage = new Stage();
@@ -55,6 +60,9 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
             Scene Scene = new Scene(lRoot, FWidth, FHeight, FColor);
             FStage.setScene(Scene);
             FStage.setResizable(FResizable);
+            if (IsDialog()) {
+                FStage.initModality(Modality.APPLICATION_MODAL);
+            }
         }
         catch(Exception e) {
             writeError(e.getMessage());
@@ -65,7 +73,13 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage.setX(FPosition.getX());
         FStage.setY(FPosition.getY());
         FStage.setTitle(getStageTitle());
-        FStage.show();
+        if (!IsDialog()) {
+            FStage.show();
+        }
+        else {
+            FDialogResult = NGDialogResult.None;
+            FStage.showAndWait();
+        }
     }
 
     protected void DoCloseStage() {
@@ -251,6 +265,24 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
 
     public void Invalidate() {
         RenderStage();
+    }
+
+    public Boolean IsDialog() {
+        return FIsDialog;
+    }
+
+    public NGDialogResult getDialogResult() {
+        return FDialogResult;
+    }
+
+    public void DialogOK() {
+        FDialogResult = NGDialogResult.OK;
+        Close();
+    }
+
+    public void DialogCancel() {
+        FDialogResult = NGDialogResult.Cancel;
+        Close();
     }
 
 }
