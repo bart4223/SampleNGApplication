@@ -38,7 +38,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
 
     protected String getStageTitle() {
         String res = getCaption();
-        if (!FOnlyCaption)
+        if (!FOnlyCaption && NGApplication.Application != null)
             res = NGStrings.addString(NGApplication.Application.getName(), res, ".");
         return res;
     }
