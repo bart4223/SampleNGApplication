@@ -249,4 +249,8 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
             Show();
     }
 
+    public void Invalidate() {
+        RenderStage();
+    }
+
 }
