@@ -177,6 +177,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FUnique = false;
         FShowAfterInitialize = true;
         FOnlyCaption = false;
+        FIsDialog = false;
     }
 
     public String getName() {
@@ -237,7 +238,13 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     }
 
     public NGDialogResult ShowModal() {
-        Show();
+        FIsDialog = true;
+        try
+        {
+            Show();
+        } finally {
+            FIsDialog = false;
+        }
         return getDialogResult();
     }
 

@@ -70,7 +70,6 @@ public class NGUIImageModificationToolboxItem extends NGToolboxItem {
         FColorOctree = null;
         FImage = null;
         FCQColorCount = -1;
-        FIsDialog = true;
     }
 
     public NGColorOctree getColorOctree() {
