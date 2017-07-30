@@ -236,6 +236,11 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         DoShow();
     }
 
+    public NGDialogResult ShowModal() {
+        Show();
+        return getDialogResult();
+    }
+
     public void Hide() {
         DoHide();
     }
