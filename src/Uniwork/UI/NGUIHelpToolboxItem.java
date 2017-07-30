@@ -1,6 +1,5 @@
 package Uniwork.UI;
 
-import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGStageManager;
 import Uniwork.Appl.NGToolboxItem;
 import javafx.stage.Stage;
