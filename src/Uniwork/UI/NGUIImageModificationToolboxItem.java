@@ -15,6 +15,7 @@ public class NGUIImageModificationToolboxItem extends NGToolboxItem {
     protected BufferedImage FImage;
     protected Integer FOrgColorCount;
     protected Integer FCQColorCount;
+    protected Boolean FRebuildTree;
 
     protected void BuildColorOctreeFromImage() {
         FColorOctree = new NGColorOctree();
@@ -39,7 +40,9 @@ public class NGUIImageModificationToolboxItem extends NGToolboxItem {
     @Override
     protected void BeforeRenderStage() {
         super.BeforeRenderStage();
-        BuildColorOctreeFromImage();
+        if (FRebuildTree) {
+            BuildColorOctreeFromImage();
+        }
         if (FCQColorCount > 0) {
             FColorOctree.Quantize(FCQColorCount);
         }
@@ -70,6 +73,8 @@ public class NGUIImageModificationToolboxItem extends NGToolboxItem {
         FColorOctree = null;
         FImage = null;
         FCQColorCount = -1;
+        FIsDialog = true;
+        FRebuildTree = true;
     }
 
     public NGColorOctree getColorOctree() {
@@ -85,6 +90,7 @@ public class NGUIImageModificationToolboxItem extends NGToolboxItem {
     }
 
     public void setCQColorCount(Integer aCQColorCount) {
+        FRebuildTree = aCQColorCount > FCQColorCount;
         FCQColorCount = aCQColorCount;
     }
 

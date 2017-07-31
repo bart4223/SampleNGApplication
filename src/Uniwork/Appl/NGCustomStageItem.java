@@ -60,6 +60,12 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
             Scene Scene = new Scene(lRoot, FWidth, FHeight, FColor);
             FStage.setScene(Scene);
             FStage.setResizable(FResizable);
+            if (!IsDialog()) {
+                FStage.initModality(Modality.NONE);
+            }
+            else {
+                FStage.initModality(Modality.APPLICATION_MODAL);
+            }
         }
         catch(Exception e) {
             writeError(e.getMessage());
@@ -71,11 +77,9 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage.setY(FPosition.getY());
         FStage.setTitle(getStageTitle());
         if (!IsDialog()) {
-            FStage.initModality(Modality.NONE);
             FStage.show();
         }
         else {
-            FStage.initModality(Modality.APPLICATION_MODAL);
             FStage.showAndWait();
         }
     }
@@ -237,13 +241,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
 
     public NGDialogResult ShowModal() {
         FDialogResult = NGDialogResult.None;
-        FIsDialog = true;
-        try
-        {
-            Show();
-        } finally {
-            FIsDialog = false;
-        }
+        Show();
         return getDialogResult();
     }
 
