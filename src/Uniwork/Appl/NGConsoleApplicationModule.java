@@ -1,16 +1,21 @@
 package Uniwork.Appl;
 
+import Uniwork.Appl.NGApplication;
+import Uniwork.Appl.NGCustomStageItem;
+import Uniwork.Appl.NGVisualApplicationModule;
 import Uniwork.Base.NGComponent;
 import Uniwork.UI.NGUIConsoleStageContext;
 
 public class NGConsoleApplicationModule extends NGVisualApplicationModule {
 
     protected Boolean FLogDescending;
+    protected Boolean FShowCommandArea;
 
     @Override
     protected Boolean LoadConfiguration() {
         Boolean res = super.LoadConfiguration();
         FLogDescending = Boolean.valueOf(getConfigurationProperty("LogDescending", "false"));
+        FShowCommandArea = Boolean.valueOf(getConfigurationProperty("ShowCommandArea", "false"));
         return res;
     }
 
@@ -19,10 +24,10 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         super.DoBeforeInitialize();
         NGCustomStageItem item = FStageManager.addStageItem("Console", FPrimaryStage);
         item.setCaption(getDescription());
-        item.setPosition(getPosX(), getPosY());
         item.setWidth(getWidth());
         item.setHeight(getHeight());
-        item.setContext(new NGUIConsoleStageContext(NGApplication.Application.getLogManager(), FLogDescending));
+        item.setPosition(getPosX(), getPosY());
+        item.setContext(new NGUIConsoleStageContext(NGApplication.Application.getLogManager(), FLogDescending, FShowCommandArea));
         NGApplication.Application.getLogManager().addEventListener(item);
     }
 

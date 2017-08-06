@@ -5,6 +5,8 @@ import Uniwork.Graphics.NGGraphicMisc;
 import Uniwork.Visuals.NGStageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -15,13 +17,34 @@ public class NGUIConsoleStageController extends NGStageController {
     private TextFlow Log;
 
     @FXML
+    private TextArea Console;
+
+    @FXML
     private ScrollPane ScrollLog;
+
+    @FXML
+    private VBox Container;
 
     @Override
     protected void UpdateControlSize() {
         super.UpdateControlSize();
+        Container.setPrefWidth(FStageItem.getWidth());
+        Container.setPrefHeight(FStageItem.getHeight());
+        if (ShowCommandArea) {
+            Console.setPrefWidth(FStageItem.getWidth());
+            Console.setPrefHeight(FStageItem.getHeight() * 0.25);
+        } else {
+            Container.getChildren().remove(Console);
+        }
+        ScrollLog.setPrefWidth(FStageItem.getWidth());
+        if (ShowCommandArea) {
+            ScrollLog.setPrefHeight(FStageItem.getHeight() * 0.75);
+        } else {
+            ScrollLog.setPrefHeight(FStageItem.getHeight());
+        }
         Log.setPrefWidth(FStageItem.getWidth());
-        Log.setPrefHeight(FStageItem.getHeight());
+        ScrollLog.setFitToHeight(true);
+        Log.setPrefHeight(ScrollLog.getPrefHeight());
     }
 
     protected void ScrollDown() {
@@ -68,5 +91,7 @@ public class NGUIConsoleStageController extends NGStageController {
     }
 
     public Boolean Descending = true;
+
+    public Boolean ShowCommandArea = true;
 
 }

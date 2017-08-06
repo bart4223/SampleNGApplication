@@ -1,8 +1,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.TextFlow?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane fx:controller="Uniwork.UI.NGUIConsoleStageController" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white;">
-    <ScrollPane fx:id="ScrollLog">
-        <TextFlow id="Log" prefWidth="1000" prefHeight="100" AnchorPane.topAnchor="0" style="-fx-background-color: darkgray;" fx:id="Log"/>
-    </ScrollPane>
+    <VBox prefWidth="1000" prefHeight="100" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: lightgray;" fx:id="Container">
+        <ScrollPane fx:id="ScrollLog" prefWidth="1000" prefHeight="50">
+            <TextFlow id="Log" prefWidth="1000" prefHeight="50" style="-fx-background-color: darkgray;" fx:id="Log"/>
+        </ScrollPane>
+        <TextArea id="Console" prefWidth="1000" prefHeight="50" style="-fx-background-color: darkgray;" fx:id="Console"/>
+    </VBox>
 </AnchorPane>
