@@ -19,12 +19,16 @@ public class NGCustomApplicationModule extends NGComponent {
     protected NGApplicationModuleDefinition FDefinition;
 
     protected String getConfigurationProperty(String aName) {
+        return getConfigurationProperty(aName, "");
+    }
+
+    protected String getConfigurationProperty(String aName, String aDefault) {
         if (FConfigLoaded) {
             String res = FConfiguration.getProperty(aName);
             if (res != null)
                     return res;
         }
-        return "";
+        return aDefault;
     }
 
     protected Boolean LoadConfiguration() {

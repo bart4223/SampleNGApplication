@@ -9,6 +9,35 @@ Files
         .amcf   Application Module Configuration File (txt)        
         .amdf   Application Module Definition File (txt)
 
+Configuration (.acf)
+====================
+
+    -ConsoleShowLog
+        -Show the log into the java console
+    -ConsoleShowLogEntrySource
+        -Show the entry source from log
+    -Debuglevel
+        -Sets the debug level, default value is 0
+    -TerminateQuestion
+        -Show the question when you will terminate the application
+    -DefinitionFilename
+            -Sets the definition filename (e.g. resources/runtime/definition.adf)   
+        
+Configuration (.amcf)
+=====================
+
+    -DefinitionFilename
+        -Sets the module definition filename
+
+Application Modules
+===================
+
+###Console
+-   Configuration (.amcf)
+       -    LogDescending
+            -   Shows the log descending or ascending 
+
+
 Version History
 ===============
 
@@ -21,3 +50,4 @@ Version History
     29.10.2015      First Test's in Teamcity are running
     28.11.2015      Animation Manager
     30.11.2015      StageSceneGraph
+    05.08.2017      Console application module

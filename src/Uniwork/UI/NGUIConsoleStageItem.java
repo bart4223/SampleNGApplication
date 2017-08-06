@@ -15,6 +15,12 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
             NGUIConsoleStageController sc = (NGUIConsoleStageController)FStageController;
             sc.addLog(lm.getCompleteLog(false, true));
         }
+        else if (aContext instanceof NGUIConsoleStageContext) {
+            NGUIConsoleStageContext csc = (NGUIConsoleStageContext)aContext;
+            NGUIConsoleStageController sc = (NGUIConsoleStageController)FStageController;
+            sc.Descending = csc.Descending;
+            sc.addLog(csc.LogManager.getCompleteLog(false, csc.Descending));
+        }
     }
 
     public NGUIConsoleStageItem(NGStageManager aStageManager, String aName, Stage aStage) {

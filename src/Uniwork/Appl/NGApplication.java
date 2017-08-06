@@ -31,6 +31,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected NGObjectRequestBroker FORB;
     protected String FResourcePath = "";
     protected NGApplicationDefinition FDefinition;
+    protected Boolean FTerminateQuestion = true;
 
     protected void writeInfo(String aInfo) {
         FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
@@ -83,6 +84,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 FConfigLoaded = true;
                 FConsoleShowLogEntrySource = Boolean.valueOf(getConfigurationProperty("ConsoleShowLogEntrySource", "false"));
                 FConsoleShowLog = Boolean.valueOf(getConfigurationProperty("ConsoleShowLog", "true"));
+                FTerminateQuestion = Boolean.valueOf(getConfigurationProperty("TerminateQuestion", "true"));
                 FLogManager.setLogLevel(Integer.parseInt(getConfigurationProperty("Debuglevel", "0")));
                 FDefinitionFilename = getConfigurationProperty("DefinitionFilename");
             }
@@ -262,7 +264,10 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     public void Terminate() {
-        if (NGCommonDialogs.showConfirmDialog(FPrimaryStage, "Quit", String.format("Do you really want to leave %s?", FName)) == NGCommonDialogs.Response.Yes)
+        Boolean terminate = !FTerminateQuestion;
+        if (!terminate)
+            terminate = NGCommonDialogs.showConfirmDialog(FPrimaryStage, "Quit", String.format("Do you really want to leave %s?", FName)) == NGCommonDialogs.Response.Yes;
+        if (terminate)
             DoTerminate();
     }
 

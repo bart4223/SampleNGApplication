@@ -1,5 +1,5 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextArea?>
 <AnchorPane fx:controller="Uniwork.UI.NGUIConsoleStageController" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white;">
-    <TextArea id="Log" prefWidth="1000" prefHeight="100" text="" wrapText="true" editable="false" AnchorPane.topAnchor="0" style="-fx-background-color: darkgray;" fx:id="Log"/>
+    <TextArea id="Log" prefWidth="1000" prefHeight="100" wrapText="true" editable="false" AnchorPane.topAnchor="0" style="-fx-background-color: darkgray;" fx:id="Log"/>
 </AnchorPane>
