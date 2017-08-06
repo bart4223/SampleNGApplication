@@ -34,6 +34,10 @@ Application Modules
 
 ###Console
 -   Configuration (.amcf)
+       -    Width
+            -   Stage width
+       -    Height
+            -   Stage height
        -    PosX
             -   Shows the console stage at Pos X   
        -    PosY

@@ -20,6 +20,8 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         NGCustomStageItem item = FStageManager.addStageItem("Console", FPrimaryStage);
         item.setCaption(getDescription());
         item.setPosition(getPosX(), getPosY());
+        item.setWidth(getWidth());
+        item.setHeight(getHeight());
         item.setContext(new NGUIConsoleStageContext(NGApplication.Application.getLogManager(), FLogDescending));
         NGApplication.Application.getLogManager().addEventListener(item);
     }
@@ -38,6 +40,8 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     public NGConsoleApplicationModule(NGComponent aOwner, String aName) {
         super(aOwner, aName);
         FName = "Console";
+        FDefaultWidth = 1000;
+        FDefaultHeight = 100;
         FDefaultPosX = 800;
         FDefaultPosY = 1200;
         FStageManager.registerItemClass("Console", "Uniwork.UI.NGUIConsoleStageItem");
