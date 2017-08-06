@@ -8,6 +8,18 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
     protected NGStageManager FStageManager;
     protected NGToolboxManager FToolboxManager;
     protected Stage FPrimaryStage;
+    protected Integer FPosX;
+    protected Integer FPosY;
+    protected Integer FDefaultPosX = 0;
+    protected Integer FDefaultPosY = 0;
+
+    @Override
+    protected Boolean LoadConfiguration() {
+        Boolean res = super.LoadConfiguration();
+        FPosX = Integer.parseInt(getConfigurationProperty("PosX", getDefaultPosX().toString()));
+        FPosY = Integer.parseInt(getConfigurationProperty("PosY", getDefaultPosY().toString()));
+        return res;
+    }
 
     @Override
     protected void DoInitialize() {
@@ -48,6 +60,22 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
 
     public void CloseStages() {
         FStageManager.CloseStages();
+    }
+
+    public Integer getPosX() {
+        return FPosX;
+    }
+
+    public Integer getPosY() {
+        return FPosY;
+    }
+
+    public Integer getDefaultPosX() {
+        return FDefaultPosX;
+    }
+
+    public Integer getDefaultPosY() {
+        return FDefaultPosY;
     }
 
 }

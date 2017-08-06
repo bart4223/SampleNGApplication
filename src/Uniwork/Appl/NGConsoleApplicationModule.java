@@ -6,7 +6,7 @@ import Uniwork.UI.NGUIConsoleStageContext;
 public class NGConsoleApplicationModule extends NGVisualApplicationModule {
 
     protected Boolean FLogDescending;
-    
+
     @Override
     protected Boolean LoadConfiguration() {
         Boolean res = super.LoadConfiguration();
@@ -19,7 +19,7 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         super.DoBeforeInitialize();
         NGCustomStageItem item = FStageManager.addStageItem("Console", FPrimaryStage);
         item.setCaption(getDescription());
-        item.setPosition(800, 1200);
+        item.setPosition(getPosX(), getPosY());
         item.setContext(new NGUIConsoleStageContext(NGApplication.Application.getLogManager(), FLogDescending));
         NGApplication.Application.getLogManager().addEventListener(item);
     }
@@ -27,7 +27,7 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     @Override
     protected void DoAfterInitialize() {
         super.DoAfterInitialize();
-        writeInfo("Console is ready...");
+        writeInfo(String.format("%s is ready...", getFullName()));
     }
 
     @Override
@@ -37,7 +37,9 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
 
     public NGConsoleApplicationModule(NGComponent aOwner, String aName) {
         super(aOwner, aName);
-        FDescription = "Console";
+        FName = "Console";
+        FDefaultPosX = 800;
+        FDefaultPosY = 1200;
         FStageManager.registerItemClass("Console", "Uniwork.UI.NGUIConsoleStageItem");
     }
 

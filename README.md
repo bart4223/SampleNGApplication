@@ -34,6 +34,10 @@ Application Modules
 
 ###Console
 -   Configuration (.amcf)
+       -    PosX
+            -   Shows the console stage at Pos X   
+       -    PosY
+            -   Shows the console stage at Pos Y   
        -    LogDescending
             -   Shows the log descending or ascending 
 

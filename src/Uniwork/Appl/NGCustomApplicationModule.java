@@ -126,4 +126,8 @@ public class NGCustomApplicationModule extends NGComponent {
 
     public NGApplication Application;
 
+    public String getFullName() {
+        return String.format("%s.%s", getName(), getDescription());
+    }
+
 }
