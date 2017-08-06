@@ -2,8 +2,10 @@ package Uniwork.UI;
 
 import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Appl.NGStageManager;
+import Uniwork.Misc.NGLogEntry;
 import Uniwork.Misc.NGLogEvent;
 import Uniwork.Misc.NGLogManager;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class NGUIConsoleStageItem extends NGCustomStageItem {
@@ -34,7 +36,14 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
     @Override
     public void handleAddLog(NGLogEvent e) {
         NGUIConsoleStageController sc = (NGUIConsoleStageController)FStageController;
-        sc.addLog(e.LogEntry.GetFullAsString());
+        if (e.LogEntry.GetType() == NGLogEntry.LogType.Error) {
+            sc.addLog(e.LogEntry.GetFullAsString(), Color.RED);
+        }
+        else if (e.LogEntry.GetType() == NGLogEntry.LogType.Warning) {
+            sc.addLog(e.LogEntry.GetFullAsString(), Color.DARKORANGE);
+        }  else {
+            sc.addLog(e.LogEntry.GetFullAsString());
+        }
     }
 
     @Override

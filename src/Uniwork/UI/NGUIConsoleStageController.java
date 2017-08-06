@@ -1,15 +1,21 @@
 package Uniwork.UI;
 
 import Uniwork.Appl.NGCustomStageItem;
-import Uniwork.Misc.NGStrings;
+import Uniwork.Graphics.NGGraphicMisc;
 import Uniwork.Visuals.NGStageController;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 public class NGUIConsoleStageController extends NGStageController {
 
     @FXML
-    private TextArea Log;
+    private TextFlow Log;
+
+    @FXML
+    private ScrollPane ScrollLog;
 
     @Override
     protected void UpdateControlSize() {
@@ -19,23 +25,38 @@ public class NGUIConsoleStageController extends NGStageController {
     }
 
     protected void ScrollDown() {
-        Log.selectPositionCaret(Log.getLength());
-        Log.deselect();
-        Log.setScrollTop(Double.MAX_VALUE);
+        ScrollLog.layout();
+        ScrollLog.setVvalue(1);
+        ScrollLog.layout();
     }
 
     public void addLog(String aLogText) {
+        addLog(aLogText, Color.BLACK);
+    }
+
+    public void addLog(String aLogText, Color aColor) {
+        Text t;
+        if (Log.getChildren().size() == 0) {
+            t = new Text(aLogText);
+        }  else {
+            if (Descending) {
+                t = new Text(String.format("%s\n", aLogText));
+            } else {
+                t = new Text(String.format("\n%s", aLogText));
+            }
+        }
+        t.setStyle(String.format("-fx-fill: %s;", NGGraphicMisc.colorToWeb(aColor)));
         if (Descending) {
-            Log.setText(NGStrings.addString(aLogText, Log.getText(), "\n"));
+            Log.getChildren().add(0, t);
         }
         else {
-            Log.setText(NGStrings.addString(Log.getText(), aLogText, "\n"));
+            Log.getChildren().add(t);
             ScrollDown();
         }
     }
 
     public void clearLog() {
-        Log.clear();
+        Log.getChildren().removeAll();
     }
 
     public NGUIConsoleStageController() {
