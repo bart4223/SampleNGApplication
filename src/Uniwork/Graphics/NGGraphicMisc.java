@@ -4,6 +4,10 @@ import javafx.scene.paint.Color;
 
 public class NGGraphicMisc {
 
+    public static String colorToWeb(Color aColor) {
+        return String.format("#%s", colorToHex(aColor));
+    }
+
     public static String colorToHex(Color aColor) {
         return colorChanelToHex(aColor.getRed())
                 + colorChanelToHex(aColor.getGreen())
