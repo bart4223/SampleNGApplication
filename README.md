@@ -43,7 +43,9 @@ Application Modules
        -    PosY
             -   Shows the console stage at Pos Y   
        -    LogDescending
-            -   Shows the log descending or ascending 
+            -   Shows the log descending or ascending
+       -    ShowCommandArea
+            -   Shows the command area      
 
 
 Version History

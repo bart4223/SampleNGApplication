@@ -21,7 +21,7 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
             NGUIConsoleStageContext csc = (NGUIConsoleStageContext)aContext;
             NGUIConsoleStageController sc = (NGUIConsoleStageController)FStageController;
             sc.Descending = csc.Descending;
-            sc.ShowCommandArea = csc.ShowCommandArea;
+            sc.setShowCommandArea(csc.ShowCommandArea);
             sc.addLog(csc.LogManager.getCompleteLog(false, csc.Descending));
         }
     }

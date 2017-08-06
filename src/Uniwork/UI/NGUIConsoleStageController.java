@@ -25,19 +25,21 @@ public class NGUIConsoleStageController extends NGStageController {
     @FXML
     private VBox Container;
 
+    protected Boolean FShowCommandArea = true;
+
     @Override
     protected void UpdateControlSize() {
         super.UpdateControlSize();
         Container.setPrefWidth(FStageItem.getWidth());
         Container.setPrefHeight(FStageItem.getHeight());
-        if (ShowCommandArea) {
+        if (FShowCommandArea) {
             Console.setPrefWidth(FStageItem.getWidth());
             Console.setPrefHeight(FStageItem.getHeight() * 0.25);
         } else {
             Container.getChildren().remove(Console);
         }
         ScrollLog.setPrefWidth(FStageItem.getWidth());
-        if (ShowCommandArea) {
+        if (FShowCommandArea) {
             ScrollLog.setPrefHeight(FStageItem.getHeight() * 0.75);
         } else {
             ScrollLog.setPrefHeight(FStageItem.getHeight());
@@ -92,6 +94,9 @@ public class NGUIConsoleStageController extends NGStageController {
 
     public Boolean Descending = true;
 
-    public Boolean ShowCommandArea = true;
+    public void setShowCommandArea(Boolean aShowCommandArea) {
+        FShowCommandArea = aShowCommandArea;
+        UpdateControlSize();
+    }
 
 }

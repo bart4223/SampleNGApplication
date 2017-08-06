@@ -1,8 +1,5 @@
 package Uniwork.Appl;
 
-import Uniwork.Appl.NGApplication;
-import Uniwork.Appl.NGCustomStageItem;
-import Uniwork.Appl.NGVisualApplicationModule;
 import Uniwork.Base.NGComponent;
 import Uniwork.UI.NGUIConsoleStageContext;
 
