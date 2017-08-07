@@ -1,5 +1,6 @@
 package Uniwork.Base;
 
+import Uniwork.Misc.NGLogEntry;
 import Uniwork.Misc.NGLogManager;
 
 import java.io.PrintWriter;
@@ -24,11 +25,25 @@ public class NGObjectRequestBroker extends NGObject {
         }
     }
 
+    protected void writeError(String aText) {
+        writeError(0, aText);
+    }
+
+    protected void writeError(int aLogLevel, String aText) {
+        if (FLogManager != null) {
+            FLogManager.writeLog(aLogLevel, aText, NGLogEntry.LogType.Error);
+        }
+    }
+
     protected void writeError(String aMethodName, String aErrorText) {
-        writeLog(String.format("<<<ERROR>>> at [%s.%s] with exception [%s]!", getClass().getName(), aMethodName, aErrorText));
+        if (FLogManager != null) {
+            String text = String.format("<<<ERROR>>> at [%s.%s] with exception [%s]!", getClass().getName(), aMethodName, aErrorText);
+            writeError(text);
+        }
     }
 
     protected void DoInvoke(NGObjectRequestItem aItem) {
+        Boolean invoked = false;
         for (NGObjectRequestObject oro : FObjects) {
             try {
                 NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
@@ -38,6 +53,7 @@ public class NGObjectRequestBroker extends NGObject {
                         case 0:
                             method = oro.getObject().getClass().getMethod(orm.getObjectMethod());
                             method.invoke(oro.getObject());
+                            invoked = true;
                             break;
                         case 1:
                             switch (orm.getParamKind(0)) {
@@ -51,9 +67,10 @@ public class NGObjectRequestBroker extends NGObject {
                                     method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), String.class);
                                     break;
                             }
-                            if (method != null)
+                            if (method != null) {
                                 method.invoke(oro.getObject(), aItem.getParamValue(0));
-                            else
+                                invoked = true;
+                            } else
                                 writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (1)", aItem.getObject(), aItem.getMethod()));
                             break;
                         case 2:
@@ -66,9 +83,10 @@ public class NGObjectRequestBroker extends NGObject {
                                     }
                                     break;
                             }
-                            if (method != null)
+                            if (method != null) {
                                 method.invoke(oro.getObject(), aItem.getParamValue(0), aItem.getParamValue(1));
-                            else
+                                invoked = true;
+                            } else
                                 writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (2)", aItem.getObject(), aItem.getMethod()));
                             break;
                     }
@@ -81,11 +99,15 @@ public class NGObjectRequestBroker extends NGObject {
                 writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
             }
         }
+        if (!invoked) {
+            writeError(String.format("Can't invoke \"%s\"", aItem.getMethod()));
+        }
     }
 
     protected NGObjectRequestObject getObject(String aName) {
+        String name = aName.toUpperCase();
         for (NGObjectRequestObject object : FObjects) {
-            if (object.getName().equals(aName)) {
+            if (object.getName().toUpperCase().equals(name)) {
                 return object;
             }
         }

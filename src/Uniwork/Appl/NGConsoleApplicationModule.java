@@ -49,5 +49,4 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         FStageManager.registerItemClass("Console", "Uniwork.UI.NGUIConsoleStageItem");
     }
 
-
 }

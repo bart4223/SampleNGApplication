@@ -59,4 +59,8 @@ public class NGObjectStack extends NGObject {
         return FItems.get(getSize() - 1).getObject();
     }
 
+    public Object get(Integer aIndex) {
+        return FItems.get(aIndex).getObject();
+    }
+
 }

@@ -34,8 +34,9 @@ public class NGObjectRequestObject extends NGObject {
     }
 
     public NGObjectRequestMethod getMethod(String aName) {
+        String name = aName.toUpperCase();
         for (NGObjectRequestMethod method : FMethods) {
-            if (method.getName().equals(aName)) {
+            if (method.getName().toUpperCase().equals(name)) {
                 return method;
             }
         }

@@ -19,7 +19,6 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     public enum NGDialogResult { None, OK, Cancel, Yes, No }
 
     protected String FName;
-    protected NGLogManager FLogManager;
     protected Stage FStage;
     protected NGStageManager FStageManager;
     protected NGCustomStageController FStageController = null;
@@ -35,6 +34,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected Boolean FShowAfterInitialize = true;
     protected Boolean FOnlyCaption = false;
     protected Boolean FIsDialog = false;
+    protected Boolean FIsPrimary = false;
     protected NGDialogResult FDialogResult = NGDialogResult.None;
 
     protected void CreateStage() {
@@ -61,7 +61,9 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
             FStage.setScene(Scene);
             FStage.setResizable(FResizable);
             if (!IsDialog()) {
-                FStage.initModality(Modality.NONE);
+                if (!FIsPrimary) {
+                    FStage.initModality(Modality.NONE);
+                }
             }
             else {
                 FStage.initModality(Modality.APPLICATION_MODAL);
@@ -174,12 +176,14 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         FStage = aStage;
         FLogManager = new NGLogManager();
         FLogManager.addEventListener(this);
+        FLogManager.addEventListener(NGApplication.Application);
         FPosition = new NGPoint2D(0,0);
         FContext = null;
         FUnique = false;
         FShowAfterInitialize = true;
         FOnlyCaption = false;
         FIsDialog = false;
+        FIsPrimary = false;
     }
 
     public String getName() {
@@ -301,6 +305,10 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     public void DialogCancel() {
         FDialogResult = NGDialogResult.Cancel;
         Close();
+    }
+
+    public Boolean IsPrimary() {
+        return FIsPrimary;
     }
 
 }
