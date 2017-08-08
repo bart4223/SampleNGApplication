@@ -61,3 +61,4 @@ Version History
     28.11.2015      Animation Manager
     30.11.2015      StageSceneGraph
     05.08.2017      Console application module
+    09.08.2017      Console manager
