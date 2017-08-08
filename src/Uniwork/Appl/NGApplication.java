@@ -9,10 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.concurrent.SynchronousQueue;
 
 public class NGApplication extends Application implements NGInitializable, NGLogEventListener, NGObjectResolver, NGObjectRequestRegistration, NGObjectRequestInvoker {
 
@@ -139,7 +137,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected void registerObjectRequests() {
         registerObjectRequest("Application", this, "Quit", "Terminate");
+        registerObjectRequest("Application", this, "Exit", "Terminate");
         registerObjectRequest("Application", this, "ShowStages", "ShowStages");
+        registerObjectRequest("Application", this, "Help", "ShowHelp");
     }
 
     protected void DoBeforeFinalize() {
@@ -330,6 +330,10 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     public String LoadResourceFileContent(String aFilename) {
         return NGMisc.LoadFileContent(NGMisc.combinePath(FResourcePath, aFilename));
+    }
+
+    public void ShowHelp() {
+        writeInfo(String.format("Commands: %s", FORB.toString()));
     }
 
     public void ShowStages() {

@@ -21,4 +21,8 @@ public class NGObjectRequestParameter extends NGObject {
         return FKind;
     }
 
+    public String toString() {
+        return String.format("%s %s", FKind, FName);
+    }
+
 }

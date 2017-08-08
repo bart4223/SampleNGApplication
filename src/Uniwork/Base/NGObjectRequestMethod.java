@@ -1,5 +1,7 @@
 package Uniwork.Base;
 
+import Uniwork.Misc.NGStrings;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectRequestMethod extends NGObject {
@@ -53,6 +55,14 @@ public class NGObjectRequestMethod extends NGObject {
 
     public NGObjectRequestParameter.ParamKind getParamKind(Integer aIndex) {
         return FParams.get(aIndex).getKind();
+    }
+
+    public String toString() {
+        String res = "";
+        for (NGObjectRequestParameter param : FParams) {
+            res = NGStrings.addString(res, param.toString(), ",");
+        }
+        return String.format("%s(%s)", FName, res);
     }
 
 }

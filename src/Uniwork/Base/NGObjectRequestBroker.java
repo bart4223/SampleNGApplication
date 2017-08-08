@@ -2,6 +2,7 @@ package Uniwork.Base;
 
 import Uniwork.Misc.NGLogEntry;
 import Uniwork.Misc.NGLogManager;
+import Uniwork.Misc.NGStrings;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -100,7 +101,7 @@ public class NGObjectRequestBroker extends NGObject {
             }
         }
         if (!invoked) {
-            writeError(String.format("Can't invoke \"%s\"", aItem.getMethod()));
+            writeError(String.format("Command \"%s\" is unknown!", aItem.getMethod()));
         }
     }
 
@@ -126,7 +127,7 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     public NGObjectRequestObject addObject(String aName, Object aObject) {
-        NGObjectRequestObject object =  getObject(aName);
+        NGObjectRequestObject object = getObject(aName);
         object = new NGObjectRequestObject(aName, aObject);
         addObject(object);
         return object;
@@ -146,6 +147,14 @@ public class NGObjectRequestBroker extends NGObject {
 
     public void setLogManager(NGLogManager aLogManager) {
         FLogManager = aLogManager;
+    }
+
+    public String toString() {
+        String res = "";
+        for (NGObjectRequestObject obj : FObjects) {
+            res = NGStrings.addString(res, obj.toString(), ", ");
+        }
+        return res;
     }
 
 }
