@@ -19,10 +19,9 @@ public class NGConsoleManager extends NGObject {
     public Integer ExecuteCommand(String aCommand) {
         FCommands.push(aCommand);
         NGObjectRequestCaller caller = new NGObjectRequestCaller(FInvoker);
-        Integer count = NGStrings.getStringCount(aCommand, "\\.");
         String objectname = "Application";
         String methodname;
-        if (count == 1) {
+        if (NGStrings.getStringCount(aCommand, "\\.") == 1) {
             methodname = NGStrings.getStringPos(aCommand, "\\.", 1);
         } else {
             objectname = NGStrings.getStringPos(aCommand, "\\.", 1);
