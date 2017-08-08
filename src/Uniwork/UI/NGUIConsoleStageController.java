@@ -6,6 +6,7 @@ import Uniwork.Visuals.NGStageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -25,7 +26,39 @@ public class NGUIConsoleStageController extends NGStageController {
     @FXML
     private VBox Container;
 
+    @FXML
+    protected void handletbCommand(KeyEvent keyEvent){
+        switch (keyEvent.getCode()) {
+            case ENTER:
+                FCommandIndex = ((NGUIConsoleStageItem)FStageItem).ExecuteCommand(Console.getText());
+                Console.clear();
+                keyEvent.consume();
+                break;
+            case UP:
+                if (FCommandIndex >= 0) {
+                    String cmd = ((NGUIConsoleStageItem) FStageItem).getCommand(FCommandIndex);
+                    if (FCommandIndex > 0) {
+                        FCommandIndex--;
+                    }
+                    Console.setText(cmd);
+                }
+                keyEvent.consume();
+                break;
+            case DOWN:
+                if (FCommandIndex >=0 && FCommandIndex < ((NGUIConsoleStageItem) FStageItem).getCommandCount()) {
+                    String cmd = ((NGUIConsoleStageItem) FStageItem).getCommand(FCommandIndex);
+                    if (FCommandIndex < ((NGUIConsoleStageItem) FStageItem).getCommandCount() - 1) {
+                        FCommandIndex++;
+                    }
+                    Console.setText(cmd);
+                }
+                keyEvent.consume();
+                break;
+        }
+    }
+
     protected Boolean FShowCommandArea = true;
+    protected Integer FCommandIndex = -1;
 
     @Override
     protected void UpdateControlSize() {

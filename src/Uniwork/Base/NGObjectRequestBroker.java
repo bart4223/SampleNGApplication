@@ -46,58 +46,61 @@ public class NGObjectRequestBroker extends NGObject {
     protected void DoInvoke(NGObjectRequestItem aItem) {
         Boolean invoked = false;
         for (NGObjectRequestObject oro : FObjects) {
-            try {
-                NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
-                if (orm != null && orm.IsActive()) {
-                    Method method = null;
-                    switch (orm.getParamCount()) {
-                        case 0:
-                            method = oro.getObject().getClass().getMethod(orm.getObjectMethod());
-                            method.invoke(oro.getObject());
-                            invoked = true;
-                            break;
-                        case 1:
-                            switch (orm.getParamKind(0)) {
-                                case Integer:
-                                    method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Integer.class);
-                                    break;
-                                case Double:
-                                    method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Double.class);
-                                    break;
-                                case String:
-                                    method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), String.class);
-                                    break;
-                            }
-                            if (method != null) {
-                                method.invoke(oro.getObject(), aItem.getParamValue(0));
+            if (oro.getName().toUpperCase().equals(aItem.getObject().toUpperCase())) {
+                try {
+                    NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
+                    if (orm != null && orm.IsActive()) {
+                        Method method = null;
+                        switch (orm.getParamCount()) {
+                            case 0:
+                                method = oro.getObject().getClass().getMethod(orm.getObjectMethod());
+                                method.invoke(oro.getObject());
                                 invoked = true;
-                            } else
-                                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (1)", aItem.getObject(), aItem.getMethod()));
-                            break;
-                        case 2:
-                            switch (orm.getParamKind(0)) {
-                                case Double:
-                                    switch (orm.getParamKind(1)) {
-                                        case Double:
-                                            method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Double.class, Double.class);
-                                            break;
-                                    }
-                                    break;
-                            }
-                            if (method != null) {
-                                method.invoke(oro.getObject(), aItem.getParamValue(0), aItem.getParamValue(1));
-                                invoked = true;
-                            } else
-                                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (2)", aItem.getObject(), aItem.getMethod()));
-                            break;
+                                break;
+                            case 1:
+                                switch (orm.getParamKind(0)) {
+                                    case Integer:
+                                        method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Integer.class);
+                                        break;
+                                    case Double:
+                                        method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Double.class);
+                                        break;
+                                    case String:
+                                        method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), String.class);
+                                        break;
+                                }
+                                if (method != null) {
+                                    method.invoke(oro.getObject(), aItem.getParamValue(0));
+                                    invoked = true;
+                                } else
+                                    writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (1)", aItem.getObject(), aItem.getMethod()));
+                                break;
+                            case 2:
+                                switch (orm.getParamKind(0)) {
+                                    case Double:
+                                        switch (orm.getParamKind(1)) {
+                                            case Double:
+                                                method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Double.class, Double.class);
+                                                break;
+                                        }
+                                        break;
+                                }
+                                if (method != null) {
+                                    method.invoke(oro.getObject(), aItem.getParamValue(0), aItem.getParamValue(1));
+                                    invoked = true;
+                                } else
+                                    writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (2)", aItem.getObject(), aItem.getMethod()));
+                                break;
+                        }
+                        writeLog(5, String.format("ORB invoked [%s->%s]", aItem.getObject(), aItem.getMethod()));
+                        writeLog(10, String.format("ORB invoked [%s.%s]", oro.getObject().toString(), orm.getObjectMethod()));
                     }
-                    writeLog(5, String.format("ORB invoked [%s->%s]", aItem.getObject(), aItem.getMethod()));
-                    writeLog(10, String.format("ORB invoked [%s.%s]", oro.getObject().toString(), orm.getObjectMethod()));
+                } catch (Exception e) {
+                    StringWriter sw = new StringWriter();
+                    e.printStackTrace(new PrintWriter(sw));
+                    writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
                 }
-            } catch (Exception e) {
-                StringWriter sw = new StringWriter();
-                e.printStackTrace(new PrintWriter(sw));
-                writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
+
             }
         }
         if (!invoked) {
