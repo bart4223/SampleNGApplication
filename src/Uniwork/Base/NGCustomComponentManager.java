@@ -9,7 +9,8 @@ public abstract class NGCustomComponentManager extends NGComponent {
     protected void DoInitialize() {
         super.DoInitialize();
         for (NGComponent component : FComponents) {
-            component.Initialize();
+            if (!component.IsInitialized())
+                component.Initialize();
         }
     }
 
@@ -17,7 +18,8 @@ public abstract class NGCustomComponentManager extends NGComponent {
     protected void DoFinalize() {
         super.DoFinalize();
         for (NGComponent component : FComponents) {
-            component.Finalize();
+            if (component.IsInitialized())
+                component.Finalize();
         }
     }
 

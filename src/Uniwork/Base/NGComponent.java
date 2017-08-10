@@ -90,23 +90,27 @@ public abstract class NGComponent extends NGObject implements NGInitializable {
 
     @Override
     public void Initialize() {
-        DoBeforeInitialize();
-        try {
-            DoInitialize();
-            FInitialized = true;
-        } finally {
-            DoAfterInitialize();
+        if (!FInitialized) {
+            DoBeforeInitialize();
+            try {
+                DoInitialize();
+                FInitialized = true;
+            } finally {
+                DoAfterInitialize();
+            }
         }
     }
 
     @Override
     public void Finalize() {
-        DoBeforeFinalize();
-        try {
-            DoFinalize();
-            FInitialized = false;
-        } finally {
-            DoAfterFinalize();
+        if (FInitialized) {
+            DoBeforeFinalize();
+            try {
+                DoFinalize();
+                FInitialized = false;
+            } finally {
+                DoAfterFinalize();
+            }
         }
     }
 
