@@ -108,4 +108,8 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
         return FDefaultHeight;
     }
 
+    public Integer getStageCount() {
+        return FStageManager.getItemCount();
+    }
+
 }

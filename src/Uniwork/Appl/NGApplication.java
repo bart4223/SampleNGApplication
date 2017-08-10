@@ -136,10 +136,15 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void registerObjectRequests() {
+        NGObjectRequestMethod orm;
         registerObjectRequest("Application", this, "Quit", "Terminate");
         registerObjectRequest("Application", this, "Exit", "Terminate");
         registerObjectRequest("Application", this, "ShowStages", "ShowStages");
+        registerObjectRequest("Application", this, "HideStages", "HideStages");
         registerObjectRequest("Application", this, "Help", "ShowHelp");
+        orm = registerObjectRequest("Application", this, "addModule", "addModule");
+        orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
+        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
     }
 
     protected void DoBeforeFinalize() {
@@ -281,8 +286,21 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     public static NGApplication Application;
 
+    public NGCustomApplicationModule addModule(String aClassName, String aName) {
+        try {
+            return addModule(getClass().getClassLoader().loadClass(aClassName), aName);
+        } catch (Exception ex) {
+            writeError(ex.getMessage());
+        }
+        return null;
+    }
+
     public NGCustomApplicationModule addModule(Class<?> aModuleClass, Boolean aInitialize) {
         return addModule(aModuleClass, aInitialize, "");
+    }
+
+    public NGCustomApplicationModule addModule(Class<?> aModuleClass, String aName) {
+        return addModule(aModuleClass, false, aName);
     }
 
     public NGCustomApplicationModule addModule(Class<?> aModuleClass, Boolean aInitialize, String aName) {

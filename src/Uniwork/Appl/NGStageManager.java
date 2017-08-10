@@ -136,4 +136,8 @@ public class NGStageManager extends NGComponent {
         return null;
     }
 
+    public Integer getItemCount() {
+        return FItems.size();
+    }
+
 }

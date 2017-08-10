@@ -45,6 +45,7 @@ public class NGObjectRequestBroker extends NGObject {
 
     protected void DoInvoke(NGObjectRequestItem aItem) {
         Boolean invoked = false;
+        Boolean hadError = false;
         for (NGObjectRequestObject oro : FObjects) {
             if (oro.getName().toUpperCase().equals(aItem.getObject().toUpperCase())) {
                 try {
@@ -82,6 +83,19 @@ public class NGObjectRequestBroker extends NGObject {
                                             case Double:
                                                 method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Double.class, Double.class);
                                                 break;
+                                            case String:
+                                                method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Double.class, String.class);
+                                                break;
+                                        }
+                                        break;
+                                    case String:
+                                        switch (orm.getParamKind(1)) {
+                                            case Double:
+                                                method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), String.class, Double.class);
+                                                break;
+                                            case String:
+                                                method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), String.class, String.class);
+                                                break;
                                         }
                                         break;
                                 }
@@ -96,6 +110,7 @@ public class NGObjectRequestBroker extends NGObject {
                         writeLog(10, String.format("ORB invoked [%s.%s]", oro.getObject().toString(), orm.getObjectMethod()));
                     }
                 } catch (Exception e) {
+                    hadError = true;
                     StringWriter sw = new StringWriter();
                     e.printStackTrace(new PrintWriter(sw));
                     writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
@@ -103,7 +118,7 @@ public class NGObjectRequestBroker extends NGObject {
 
             }
         }
-        if (!invoked) {
+        if (!invoked && !hadError) {
             writeError(String.format("Command \"%s\" is unknown!", aItem.getMethod()));
         }
     }

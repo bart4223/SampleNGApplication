@@ -57,7 +57,7 @@ public class NGUIConsoleStageController extends NGStageController {
         }
     }
 
-    protected Boolean FShowCommandArea = true;
+    protected Boolean FShowCommandArea = false;
     protected Integer FCommandIndex = -1;
 
     @Override
@@ -66,6 +66,7 @@ public class NGUIConsoleStageController extends NGStageController {
         Container.setPrefWidth(FStageItem.getWidth());
         Container.setPrefHeight(FStageItem.getHeight());
         if (FShowCommandArea) {
+            Container.getChildren().add(Console);
             Console.setPrefWidth(FStageItem.getWidth());
             Console.setPrefHeight(FStageItem.getHeight() * 0.25);
         } else {
