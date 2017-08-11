@@ -124,9 +124,8 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     protected NGObjectRequestObject getObject(String aName) {
-        String name = aName.toUpperCase();
         for (NGObjectRequestObject object : FObjects) {
-            if (object.getName().toUpperCase().equals(name)) {
+            if (object.getName().toUpperCase().equals(aName.toUpperCase())) {
                 return object;
             }
         }
@@ -145,10 +144,12 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     public NGObjectRequestObject addObject(String aName, Object aObject) {
-        NGObjectRequestObject object = getObject(aName);
-        object = new NGObjectRequestObject(aName, aObject);
-        addObject(object);
-        return object;
+        NGObjectRequestObject res = getObject(aName);
+        if (res == null) {
+            res = new NGObjectRequestObject(aName, aObject);
+            addObject(res);
+        }
+        return res;
     }
 
     public void addObject(NGObjectRequestObject aObject) {

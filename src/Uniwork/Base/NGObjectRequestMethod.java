@@ -60,9 +60,9 @@ public class NGObjectRequestMethod extends NGObject {
     public String toString() {
         String res = "";
         for (NGObjectRequestParameter param : FParams) {
-            res = NGStrings.addString(res, param.toString(), ",");
+            res = NGStrings.addString(res, param.toString(), " ");
         }
-        return String.format("%s(%s)", FName, res);
+        return NGStrings.addString(FName, res, " ");
     }
 
 }

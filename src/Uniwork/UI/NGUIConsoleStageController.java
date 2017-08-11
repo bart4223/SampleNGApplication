@@ -61,6 +61,12 @@ public class NGUIConsoleStageController extends NGStageController {
     protected Integer FCommandIndex = -1;
 
     @Override
+    protected void DoAfterInitialize() {
+        super.DoAfterInitialize();
+        FCommandIndex = ((NGUIConsoleStageItem) FStageItem).getCommandCount() - 1;
+    }
+
+    @Override
     protected void UpdateControlSize() {
         super.UpdateControlSize();
         Container.setPrefWidth(FStageItem.getWidth());

@@ -48,7 +48,7 @@ public class NGObjectRequestObject extends NGObject {
     public String toString() {
         String res = "";
         for (NGObjectRequestMethod method : FMethods) {
-            res = NGStrings.addString(res, String.format("%s.%s", FName, method.toString()), "\n");
+            res = NGStrings.addString(res, String.format("%s.%s", FName, method.toString()), ", ");
         }
         return res;
     }
