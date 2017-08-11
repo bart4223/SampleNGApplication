@@ -22,7 +22,7 @@ public class NGObjectRequestParameter extends NGObject {
     }
 
     public String toString() {
-        return String.format("%s=[?]", FName);
+        return String.format("[%s]", FName);
     }
 
 }
