@@ -13,6 +13,9 @@ public class NGConsoleManager extends NGObject {
     public NGConsoleManager(NGObjectRequestInvoker aInvoker) {
         super();
         FCommands = new NGObjectStack();
+        FCommands.push("help");
+        FCommands.push("console.test");
+        FCommands.push("application.addmodule A B");
         FInvoker = aInvoker;
     }
 
