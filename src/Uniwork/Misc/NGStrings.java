@@ -29,7 +29,7 @@ public final class NGStrings {
         // Regex Examples
         // "," use ","
         // "." use "\\."
-        // Position from 1..
+        // Position from 1...
         String[] strs = aValue.split(aRegex);
         if (strs.length > aPosition - 1) {
             return strs[aPosition - 1];
@@ -43,7 +43,7 @@ public final class NGStrings {
         // Regex Examples
         // "," use ","
         // "." use "\\."
-        // Position from 1..
+        // Position from 1...
         String[] strs = aValue.split(aRegex);
         return strs.length;
     }
