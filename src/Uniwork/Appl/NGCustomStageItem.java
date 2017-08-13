@@ -35,6 +35,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     protected Boolean FOnlyCaption = false;
     protected Boolean FIsDialog = false;
     protected Boolean FIsPrimary = false;
+    protected Boolean FContextInitialized = false;
     protected NGDialogResult FDialogResult = NGDialogResult.None;
 
     protected void CreateStage() {
@@ -99,8 +100,9 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
     }
 
     protected void BeforeRenderStage() {
-        if (FContext != null) {
+        if (FContext != null && !FContextInitialized) {
             setContextToController(FContext);
+            FContextInitialized = true;
         }
     }
 

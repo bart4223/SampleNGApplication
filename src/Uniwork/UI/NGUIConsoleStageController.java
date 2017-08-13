@@ -72,7 +72,9 @@ public class NGUIConsoleStageController extends NGStageController {
         Container.setPrefWidth(FStageItem.getWidth());
         Container.setPrefHeight(FStageItem.getHeight());
         if (FShowCommandArea) {
-            Container.getChildren().add(Console);
+            if (!Container.getChildren().contains(Console)) {
+                Container.getChildren().add(Console);
+            }
             Console.setPrefWidth(FStageItem.getWidth());
             Console.setPrefHeight(FStageItem.getHeight() * 0.25);
         } else {
