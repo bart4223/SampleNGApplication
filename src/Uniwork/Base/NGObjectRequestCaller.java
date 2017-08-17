@@ -68,4 +68,8 @@ public class NGObjectRequestCaller extends NGObject {
         FLogManager = aLogManager;
     }
 
+    public Boolean HasInvoker() {
+        return getInvoker() != null;
+    }
+
 }

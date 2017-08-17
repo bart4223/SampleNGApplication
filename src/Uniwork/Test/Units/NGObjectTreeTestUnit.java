@@ -37,7 +37,6 @@ public class NGObjectTreeTestUnit extends NGCustomTestUnit {
         NGObjectTree tree = new NGObjectTree();
         NGObjectNode root = tree.getRoot();
         NGObjectNode node = new NGObjectNode(root);
-        root.addChild(node);
         assertEquals(1, (int)root.getChildCount());
         assertEquals(true, node.getParent() == root);
         FinishTest();

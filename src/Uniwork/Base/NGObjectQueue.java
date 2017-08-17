@@ -7,6 +7,10 @@ public class NGObjectQueue extends NGObject {
     protected CopyOnWriteArrayList<NGObjectQueueItem> FItems;
     protected String FName;
 
+    public NGObjectQueue() {
+        this("");
+    }
+
     public NGObjectQueue(String aName) {
         super();
         FName = aName;
@@ -81,6 +85,10 @@ public class NGObjectQueue extends NGObject {
             return item.getObject();
         }
         return null;
+    }
+
+    public void clear() {
+        FItems.clear();
     }
 
 }

@@ -1,6 +1,7 @@
 package Uniwork.Base;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class NGObjectNode extends NGObject {
 
@@ -11,6 +12,9 @@ public class NGObjectNode extends NGObject {
         super();
         FChilds = new ArrayList<NGObjectNode>();
         FParent = aParent;
+        if (FParent != null) {
+            FParent.addChild(this);
+        }
     }
 
     public void addChild(NGObjectNode aChild) {
@@ -19,6 +23,13 @@ public class NGObjectNode extends NGObject {
 
     public void removeChild(NGObjectNode aChild) {
         FChilds.remove(aChild);
+    }
+
+    public void removeChilds() {
+        for (NGObjectNode child : FChilds ) {
+            child.removeChilds();
+        }
+        FChilds.clear();
     }
 
     public void setParent(NGObjectNode aParent) {
@@ -33,6 +44,10 @@ public class NGObjectNode extends NGObject {
 
     public Integer getChildCount() {
         return FChilds.size();
+    }
+
+    public Iterator<NGObjectNode> getChilds() {
+        return FChilds.iterator();
     }
 
 }

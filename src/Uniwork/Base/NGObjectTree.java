@@ -13,4 +13,8 @@ public class NGObjectTree extends NGObject {
         return FRoot;
     }
 
+    public void RemoveAll() {
+        FRoot.removeChilds();
+    }
+
 }
