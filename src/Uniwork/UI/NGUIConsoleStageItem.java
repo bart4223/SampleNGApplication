@@ -15,6 +15,12 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
     protected NGConsoleManager FConsoleManager;
 
     @Override
+    protected void DoInitialize() {
+        super.DoInitialize();
+        FConsoleManager.Initialize();
+    }
+
+    @Override
     protected void setContextToController(Object aContext) {
         if (aContext instanceof NGLogManager) {
             NGLogManager lm = (NGLogManager)aContext;
@@ -69,6 +75,10 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
 
     public Integer getCommandCount() {
         return FConsoleManager.getCommandCount();
+    }
+
+    public void RunScript(String aScript) {
+        FConsoleManager.RunScript(aScript);
     }
 
 }

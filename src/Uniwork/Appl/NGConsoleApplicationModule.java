@@ -1,7 +1,11 @@
 package Uniwork.Appl;
 
 import Uniwork.Base.NGComponent;
+import Uniwork.Base.NGObjectRequestMethod;
+import Uniwork.Base.NGObjectRequestParameter;
+import Uniwork.Misc.NGMisc;
 import Uniwork.UI.NGUIConsoleStageContext;
+import Uniwork.UI.NGUIConsoleStageItem;
 
 public class NGConsoleApplicationModule extends NGVisualApplicationModule {
 
@@ -37,6 +41,8 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     @Override
     protected void registerObjectRequests() {
         super.registerObjectRequests();
+        NGObjectRequestMethod orm = registerObjectRequest(this, "RunScript", "RunScript");
+        orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
     }
 
     public NGConsoleApplicationModule(NGComponent aOwner, String aName) {
@@ -47,6 +53,12 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         FDefaultPosX = 800;
         FDefaultPosY = 1200;
         FStageManager.registerItemClass("Console", "Uniwork.UI.NGUIConsoleStageItem");
+    }
+
+    public void RunScript(String aScript) {
+        String script = NGMisc.LoadFileContent(aScript);
+        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
+        si.RunScript(script);
     }
 
 }

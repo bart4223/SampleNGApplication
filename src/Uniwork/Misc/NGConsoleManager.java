@@ -15,15 +15,18 @@ public class NGConsoleManager extends NGComponentManager {
         FExecuter.setInvoker(aInvoker);
         FCommands = new NGObjectStack();
         FCommands.push("help");
-        FCommands.push("console.test");
-        FCommands.push("application.addmodule A B");
+        FCommands.push("console.runscript resources/scripts/sample01.as");
         FInvoker = aInvoker;
     }
 
     public Integer ExecuteCommand(String aCommand) {
         FCommands.push(aCommand);
-        FExecuter.Execute(aCommand);
+        RunScript(aCommand);
         return FCommands.getSize() - 1;
+    }
+
+    public void RunScript(String aScript) {
+        FExecuter.Execute(aScript);
     }
 
     public NGObjectRequestInvoker getInvoker() {
