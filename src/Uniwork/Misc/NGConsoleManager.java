@@ -1,17 +1,18 @@
 package Uniwork.Misc;
 
-import Uniwork.Base.NGObject;
-import Uniwork.Base.NGObjectRequestCaller;
-import Uniwork.Base.NGObjectRequestInvoker;
-import Uniwork.Base.NGObjectStack;
+import Uniwork.Base.*;
 
-public class NGConsoleManager extends NGObject {
+public class NGConsoleManager extends NGComponentManager {
 
     protected NGObjectStack FCommands;
+    protected NGScriptExecuter FExecuter;
     protected NGObjectRequestInvoker FInvoker;
 
     public NGConsoleManager(NGObjectRequestInvoker aInvoker) {
         super();
+        FExecuter = new NGScriptExecuter();
+        registerComponent(FExecuter);
+        FExecuter.setInvoker(aInvoker);
         FCommands = new NGObjectStack();
         FCommands.push("help");
         FCommands.push("console.test");
@@ -21,18 +22,7 @@ public class NGConsoleManager extends NGObject {
 
     public Integer ExecuteCommand(String aCommand) {
         FCommands.push(aCommand);
-        NGObjectRequestCaller caller = new NGObjectRequestCaller(FInvoker);
-        String objectname = "Application";
-        String methodname;
-        if (NGStrings.getStringCount(aCommand, "\\.") == 1) {
-            methodname = NGStrings.getStringPos(aCommand, "\\.", 1);
-        } else {
-            objectname = NGStrings.getStringPos(aCommand, "\\.", 1);
-            methodname = NGStrings.getStringPos(aCommand, "\\.", 2);
-        }
-        caller.setObjectName(objectname);
-        caller.setObjectMethod(methodname);
-        caller.Invoke();
+        FExecuter.Execute(aCommand);
         return FCommands.getSize() - 1;
     }
 

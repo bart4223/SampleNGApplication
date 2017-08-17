@@ -57,6 +57,8 @@ public class NGScriptExecuterTestUnit extends NGCustomTestUnit {
         se.Initialize();
         se.Execute("Help");
         assertEquals(1, (int)se.getCommandsCalled());
+        se.Execute("Help");
+        assertEquals(1, (int)se.getCommandsCalled());
         FinishTest();
     }
 

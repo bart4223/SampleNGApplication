@@ -7,6 +7,13 @@ public class NGScriptParser extends NGTextParser {
 
     protected NGParseTokenCommand FCommand = null;
 
+    @Override
+    protected void DoBeforeParse() {
+        super.DoBeforeParse();
+        FCommand = null;
+    }
+
+    @Override
     protected void DoInitialize() {
         super.DoInitialize();
         addSpecialStart(CRemark);

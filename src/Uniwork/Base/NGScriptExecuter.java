@@ -55,7 +55,7 @@ public class NGScriptExecuter extends NGComponentManager {
     }
 
     protected void DoExecute() {
-        if (FCaller != null ) {
+        if (FCaller != null) {
             FCommandsCalled = FCommandsCalled + 1;
             if (FCaller.HasInvoker()) {
                 FCaller.Invoke();
