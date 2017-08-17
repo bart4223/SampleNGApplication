@@ -82,6 +82,10 @@ public class NGCustomApplicationModule extends NGComponent {
 
     }
 
+    protected NGObjectRequestMethod registerObjectRequest(Object aObject, String aMethod, String aObjectMethod) {
+        return registerObjectRequest("", aObject, aMethod, aObjectMethod);
+    }
+
     protected NGObjectRequestMethod registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod) {
         String name = NGStrings.addString(FName, aName, ".");
         return NGApplication.Application.registerObjectRequest(name, aObject, aMethod, aObjectMethod);
