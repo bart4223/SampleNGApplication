@@ -38,7 +38,7 @@ public class NGScriptExecuter extends NGComponentManager {
                 FCaller.setObjectMethod(methodname);
                 scanParseTree(token);
             } else if (token instanceof NGParseTokenParameter) {
-                // ToDo
+                FCaller.addParam(((NGParseTokenParameter)token).getToken());
             }
         }
     }

@@ -1,5 +1,6 @@
 package Uniwork.Base;
 
+import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGPropertyList extends NGObject {
@@ -98,6 +99,10 @@ public class NGPropertyList extends NGObject {
 
     public CopyOnWriteArrayList<NGPropertyItem> getItems() {
         return FItems;
+    }
+
+    public Iterator<NGPropertyItem> getItemsAs() {
+        return FItems.iterator();
     }
 
 }
