@@ -139,15 +139,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void registerObjectRequests() {
-        NGObjectRequestMethod orm;
-        registerObjectRequest("Application", this, "Quit", "Terminate");
-        registerObjectRequest("Application", this, "Exit", "Terminate");
-        registerObjectRequest("Application", this, "ShowStages", "ShowStages");
-        registerObjectRequest("Application", this, "HideStages", "HideStages");
-        registerObjectRequest("Application", this, "Help", "ShowHelp");
-        orm = registerObjectRequest("Application", this, "addModule", "addModule");
-        orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
-        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
+
     }
 
     protected void DoBeforeFinalize() {

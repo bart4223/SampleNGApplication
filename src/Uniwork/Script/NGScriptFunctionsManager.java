@@ -13,6 +13,9 @@ public class NGScriptFunctionsManager extends NGComponentManager {
         NGCustomScriptFunctions sf = new NGScriptFunctionsBase(FORR);
         sf.setLogManager(FLogManager);
         registerComponent(sf);
+        sf = new NGScriptFunctionsApplication(FORR);
+        sf.setLogManager(FLogManager);
+        registerComponent(sf);
     }
 
     public NGScriptFunctionsManager(NGObjectRequestRegistration aORR) {

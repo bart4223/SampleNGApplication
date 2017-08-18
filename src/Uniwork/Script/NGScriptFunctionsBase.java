@@ -11,13 +11,13 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
     @Override
     protected void DoInitialize() {
         super.DoInitialize();
-        NGObjectRequestMethod orm = registerObjectRequest(CBase, this, "Add", "add");
+        NGObjectRequestMethod orm = registerObjectRequest(CBase,"Add", "add");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest(CBase, this, "Sub", "sub");
+        orm = registerObjectRequest(CBase,"Sub", "sub");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest(CBase, this, "Neg", "neg");
+        orm = registerObjectRequest(CBase,"Neg", "neg");
         orm.addParam("Operand", NGObjectRequestParameter.ParamKind.Double);
     }
 
