@@ -1,5 +1,6 @@
-package Uniwork.Base;
+package Uniwork.Script;
 
+import Uniwork.Base.*;
 import Uniwork.Misc.NGStrings;
 
 import java.util.Iterator;
@@ -21,11 +22,11 @@ public class NGScriptExecuter extends NGComponentManager {
         Iterator<NGObjectNode> itr = aObjectNode.getChilds();
         while (itr.hasNext()) {
             NGObjectNode token = itr.next();
-            if (token instanceof NGParseTokenRemark) {
+            if (token instanceof NGScriptTokenRemark) {
                 Nop();
-            } else if (token instanceof NGParseTokenCommand) {
+            } else if (token instanceof NGScriptTokenCommand) {
                 FCaller = new NGObjectRequestCaller(FInvoker);
-                String cmd = ((NGParseTokenCommand)token).getToken();
+                String cmd = ((NGScriptTokenCommand)token).getToken();
                 String objectname = "Application";
                 String methodname;
                 if (NGStrings.getStringCount(cmd, "\\.") == 1) {
@@ -37,8 +38,8 @@ public class NGScriptExecuter extends NGComponentManager {
                 FCaller.setObjectName(objectname);
                 FCaller.setObjectMethod(methodname);
                 scanParseTree(token);
-            } else if (token instanceof NGParseTokenParameter) {
-                FCaller.addParam(((NGParseTokenParameter)token).getToken());
+            } else if (token instanceof NGScriptTokenParameter) {
+                FCaller.addParam(((NGScriptTokenParameter)token).getToken());
             }
         }
     }

@@ -41,6 +41,7 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     @Override
     protected void registerObjectRequests() {
         super.registerObjectRequests();
+        registerObjectRequest(this, "ShowVariables", "ConsoleShowVariables");
         NGObjectRequestMethod orm = registerObjectRequest(this, "RunScript", "RunScript");
         orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
     }
@@ -57,8 +58,14 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
 
     public void RunScript(String aScript) {
         String script = NGMisc.LoadFileContent(aScript);
+        writeInfo(String.format("Application script %s loaded.", aScript));
         NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
         si.RunScript(script);
+    }
+
+    public void ConsoleShowVariables() {
+        System.out.println("OK");
+        //ToDo
     }
 
 }

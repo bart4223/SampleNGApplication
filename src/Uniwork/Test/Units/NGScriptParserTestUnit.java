@@ -1,6 +1,6 @@
 package Uniwork.Test.Units;
 
-import Uniwork.Base.NGScriptParser;
+import Uniwork.Script.NGScriptParser;
 import Uniwork.Test.NGCustomTestUnit;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

@@ -1,6 +1,7 @@
 package Uniwork.Misc;
 
 import Uniwork.Base.*;
+import Uniwork.Script.NGScriptExecuter;
 
 public class NGConsoleManager extends NGComponentManager {
 

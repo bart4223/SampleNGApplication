@@ -1,11 +1,13 @@
-package Uniwork.Base;
+package Uniwork.Script;
+
+import Uniwork.Base.NGTextParser;
 
 public class NGScriptParser extends NGTextParser {
 
     public String CRemark = "//";
     public String CAllocation = "=>";
 
-    protected NGParseTokenCommand FCommand = null;
+    protected NGScriptTokenCommand FCommand = null;
 
     @Override
     protected void DoBeforeParse() {
@@ -22,16 +24,16 @@ public class NGScriptParser extends NGTextParser {
     @Override
     protected void DoSpecialTokenFound(String aSpecialStart, String aSpecialToken) {
         if (aSpecialStart == CRemark) {
-            new NGParseTokenRemark(FParseTree.getRoot(), aSpecialToken);
+            new NGScriptTokenRemark(FParseTree.getRoot(), aSpecialToken);
         }
     }
 
     @Override
     protected void DoTokenFound(String aToken) {
         if (FCommand == null) {
-            FCommand = new NGParseTokenCommand(FParseTree.getRoot(), aToken);
+            FCommand = new NGScriptTokenCommand(FParseTree.getRoot(), aToken);
         } else if (!aToken.equals(CAllocation)){
-            new NGParseTokenParameter(FCommand, aToken);
+            new NGScriptTokenParameter(FCommand, aToken);
         }
     }
 
