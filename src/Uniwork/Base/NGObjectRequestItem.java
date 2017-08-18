@@ -29,7 +29,10 @@ public class NGObjectRequestItem extends NGObject {
         return FParams.get(aName);
     }
 
-    public Object getParamValue(Integer aIndex) {
+    public Object getParamValue(Integer aIndex) throws Exception {
+        if (aIndex > FParams.size() - 1) {
+            throw new NGInvalidParamException();
+        }
         return FParams.get(aIndex);
     }
 

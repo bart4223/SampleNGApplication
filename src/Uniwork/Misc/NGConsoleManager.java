@@ -16,7 +16,7 @@ public class NGConsoleManager extends NGComponentManager {
         FExecuter.setInvoker(aInvoker);
         FCommands = new NGObjectStack();
         FCommands.push("help");
-        FCommands.push("console.runscript resources/scripts/sample01.as");
+        FCommands.push("console.runscript resources/scripts/sample10.as");
         FInvoker = aInvoker;
     }
 

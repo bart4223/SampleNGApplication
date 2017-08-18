@@ -10,7 +10,9 @@ public class NGScriptFunctionsManager extends NGComponentManager {
     @Override
     protected void DoBeforeInitialize() {
         super.DoBeforeInitialize();
-        registerComponent(new NGScriptFunctionsBase(FORR));
+        NGCustomScriptFunctions sf = new NGScriptFunctionsBase(FORR);
+        sf.setLogManager(FLogManager);
+        registerComponent(sf);
     }
 
     public NGScriptFunctionsManager(NGObjectRequestRegistration aORR) {

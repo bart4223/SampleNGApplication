@@ -71,7 +71,15 @@ public class NGObjectRequestBroker extends NGObject {
                                         break;
                                 }
                                 if (method != null) {
-                                    method.invoke(oro.getObject(), aItem.getParamValue(0));
+                                    Object param1 = aItem.getParamValue(0);
+                                    switch (orm.getParamKind(0)) {
+                                        case Double:
+                                            if (aItem.getParamValue(0) instanceof String) {
+                                                param1 = Double.parseDouble((String)aItem.getParamValue(0   ));
+                                            }
+                                            break;
+                                    }
+                                    method.invoke(oro.getObject(), param1);
                                     invoked = true;
                                 } else
                                     writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (1)", aItem.getObject(), aItem.getMethod()));
@@ -100,7 +108,19 @@ public class NGObjectRequestBroker extends NGObject {
                                         break;
                                 }
                                 if (method != null) {
-                                    method.invoke(oro.getObject(), aItem.getParamValue(0), aItem.getParamValue(1));
+                                    Object[] params = new Object[2];
+                                    params[0] = aItem.getParamValue(0);
+                                    params[1] = aItem.getParamValue(1);
+                                    for (int i = 0; i < 2; i++) {
+                                        switch (orm.getParamKind(i)) {
+                                            case Double:
+                                                if (aItem.getParamValue(i) instanceof String) {
+                                                    params[i] = Double.parseDouble((String)aItem.getParamValue(i));
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    method.invoke(oro.getObject(), params[0], params[1]);
                                     invoked = true;
                                 } else
                                     writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (2)", aItem.getObject(), aItem.getMethod()));
@@ -111,9 +131,13 @@ public class NGObjectRequestBroker extends NGObject {
                     }
                 } catch (Exception e) {
                     hadError = true;
-                    StringWriter sw = new StringWriter();
-                    e.printStackTrace(new PrintWriter(sw));
-                    writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
+                    if (e instanceof NGCustomScriptException) {
+                        writeError(e.getMessage());
+                    } else {
+                        StringWriter sw = new StringWriter();
+                        e.printStackTrace(new PrintWriter(sw));
+                        writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] with %s. \n Stack Trace is: \n %s", aItem.getObject(), aItem.getMethod(), e.getMessage(), sw.toString()));
+                    }
                 }
 
             }
