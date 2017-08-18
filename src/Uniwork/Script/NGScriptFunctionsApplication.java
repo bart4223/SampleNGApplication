@@ -13,18 +13,19 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
     protected void DoInitialize() {
         super.DoInitialize();
         NGObjectRequestMethod orm;
-        registerObjectRequest(CApplication,"Quit", "Terminate");
-        registerObjectRequest(CApplication,"Exit", "Terminate");
-        registerObjectRequest(CApplication,"ShowStages", "ShowStages");
-        registerObjectRequest(CApplication,"HideStages", "HideStages");
-        registerObjectRequest(CApplication,"Help", "ShowHelp");
-        orm = registerObjectRequest(CApplication,"addModule", "addModule");
+        registerObjectRequest("Quit", "Terminate");
+        registerObjectRequest("Exit", "Terminate");
+        registerObjectRequest("ShowStages", "ShowStages");
+        registerObjectRequest("HideStages", "HideStages");
+        registerObjectRequest("Help", "ShowHelp");
+        orm = registerObjectRequest("addModule", "addModule");
         orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
     }
 
     public NGScriptFunctionsApplication(NGObjectRequestRegistration aORR) {
         super(aORR, NGApplication.Application);
+        FDomain = CApplication;
     }
 
 }

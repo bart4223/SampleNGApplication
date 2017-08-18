@@ -11,18 +11,19 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
     @Override
     protected void DoInitialize() {
         super.DoInitialize();
-        NGObjectRequestMethod orm = registerObjectRequest(CBase,"Add", "add");
+        NGObjectRequestMethod orm = registerObjectRequest("Add", "add");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest(CBase,"Sub", "sub");
+        orm = registerObjectRequest("Sub", "sub");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest(CBase,"Neg", "neg");
+        orm = registerObjectRequest("Neg", "neg");
         orm.addParam("Operand", NGObjectRequestParameter.ParamKind.Double);
     }
 
     public NGScriptFunctionsBase(NGObjectRequestRegistration aORR) {
         super(aORR);
+        FDomain = CBase;
     }
 
     public void add(Double aOperand1, Double aOperand2) {
