@@ -2,6 +2,7 @@ package Uniwork.Appl;
 
 import Uniwork.Base.*;
 import Uniwork.Misc.*;
+import Uniwork.Script.NGScriptFunctionsManager;
 import Uniwork.Visuals.NGCommonDialogs;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -30,6 +31,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected String FResourcePath = "";
     protected NGApplicationDefinition FDefinition;
     protected Boolean FTerminateQuestion = true;
+    protected NGScriptFunctionsManager FScriptFunctionManager;
 
     protected void writeInfo(String aInfo) {
         FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
@@ -129,6 +131,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected void DoInitialize() {
         FModuleManager.Initialize();
+        FScriptFunctionManager.Initialize();
     }
 
     protected void DoAfterInitialize() {
@@ -169,6 +172,8 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         FLogManager = new NGLogManager();
         FModuleManager = new NGApplicationModuleManager();
         FModuleManager.setLogManager(FLogManager);
+        FScriptFunctionManager = new NGScriptFunctionsManager(this);
+        FScriptFunctionManager.setLogManager(FLogManager);
         FLogManager.addEventListener(this);
         FConfiguration = new Properties();
         FORB = new NGObjectRequestBroker(this);
