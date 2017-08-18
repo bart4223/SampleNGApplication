@@ -8,8 +8,8 @@ public class NGScriptFunctionsManager extends NGComponentManager {
     protected NGObjectRequestRegistration FORR;
 
     @Override
-    protected void DoInitialize() {
-        super.DoInitialize();
+    protected void DoBeforeInitialize() {
+        super.DoBeforeInitialize();
         registerComponent(new NGScriptFunctionsBase(FORR));
     }
 
