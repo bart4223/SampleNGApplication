@@ -89,4 +89,8 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
         FConsoleManager.EchoOff();
     }
 
+    public String getConsoleDataStoreValuesAsString() {
+        return FConsoleManager.getExecuterDataStoreValuesAsString();
+    }
+
 }

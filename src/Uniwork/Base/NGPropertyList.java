@@ -1,5 +1,7 @@
 package Uniwork.Base;
 
+import Uniwork.Misc.NGStrings;
+
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -103,6 +105,17 @@ public class NGPropertyList extends NGObject {
 
     public Iterator<NGPropertyItem> getItemsAs() {
         return FItems.iterator();
+    }
+
+    @Override
+    public String toString() {
+        String res = "";
+        Iterator<NGPropertyItem> itr = getItemsAs();
+        while (itr.hasNext()) {
+            NGPropertyItem prop = itr.next();
+            NGStrings.addString(res, String.format("%s=%s", prop.getName(), prop.getValue().toString()), ";");
+        }
+        return res;
     }
 
 }

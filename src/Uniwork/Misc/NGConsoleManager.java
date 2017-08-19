@@ -20,7 +20,7 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
         FExecuter.addEventListener(this);
         FCommands = new NGObjectStack();
         FCommands.push("help");
-        FCommands.push("console.runscript resources/scripts/sample10.as");
+        FCommands.push("console.runscript resources/scripts/sample20.as");
         FInvoker = aInvoker;
     }
 
@@ -64,6 +64,10 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
 
     public void EchoOn() {
         FEcho = true;
+    }
+
+    public String getExecuterDataStoreValuesAsString() {
+        return FExecuter.getDataStoreValuesAsString();
     }
 
 }

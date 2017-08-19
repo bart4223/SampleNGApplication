@@ -10,7 +10,7 @@ public class NGScriptExecuter extends NGComponentManager {
 
     protected String FScript = "";
     protected NGScriptParser FParser;
-    protected NGPropertyList FDataStorage;
+    protected NGPropertyList FDataStore;
     protected NGObjectRequestCaller FCaller = null;
     protected NGObjectRequestInvoker FInvoker = null;
     protected Integer FCommandsCalled = 0;
@@ -74,7 +74,7 @@ public class NGScriptExecuter extends NGComponentManager {
     protected void _BeforeExecute() {
         FCaller = null;
         FCommandsCalled = 0;
-        FDataStorage.clear();
+        FDataStore.clear();
         DoBeforeExecute();
     }
 
@@ -116,7 +116,7 @@ public class NGScriptExecuter extends NGComponentManager {
         FParser = new NGScriptParser();
         registerComponent(FParser);
         FEventListeners = new ArrayList<NGScriptExecuterListener>();
-        FDataStorage = new NGPropertyList();
+        FDataStore = new NGPropertyList();
     }
 
     public void Execute(String aScript) {
@@ -144,5 +144,8 @@ public class NGScriptExecuter extends NGComponentManager {
         FEventListeners.remove(aListener);
     }
 
+    public String getDataStoreValuesAsString() {
+        return FDataStore.toString();
+    }
 
 }

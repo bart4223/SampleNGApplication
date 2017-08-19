@@ -64,8 +64,13 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     }
 
     public void ConsoleShowVariables() {
-        // ToDo
-        System.out.println("OK");
+        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
+        String variables = si.getConsoleDataStoreValuesAsString();
+        if (variables.length() == 0) {
+            writeWarning("No variables existing.");
+        } else {
+            writeInfo(variables);
+        }
     }
 
     public void ConsoleEchoOn() {
