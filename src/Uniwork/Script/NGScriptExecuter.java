@@ -158,8 +158,16 @@ public class NGScriptExecuter extends NGComponentManager {
         FEventListeners.remove(aListener);
     }
 
-    public String getDataStoreValuesAsString() {
+    public String getVariablesAsString() {
         return FDataStore.toString();
+    }
+
+    public String getVariableAsString(String aVariable) {
+        Object res = FDataStore.get(aVariable);
+        if (res == null) {
+            res = "null";
+        }
+        return res.toString();
     }
 
 }

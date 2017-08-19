@@ -23,14 +23,14 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     @Override
     protected void DoBeforeInitialize() {
         super.DoBeforeInitialize();
-        NGCustomStageItem item = FStageManager.addStageItem("Console", FPrimaryStage);
+        NGUIConsoleStageItem item = (NGUIConsoleStageItem)FStageManager.addStageItem("Console", FPrimaryStage);
         item.setCaption(getDescription());
         item.setWidth(getWidth());
         item.setHeight(getHeight());
         item.setPosition(getPosX(), getPosY());
         item.setContext(new NGUIConsoleStageContext(NGApplication.Application.getLogManager(), FLogDescending, FShowCommandArea));
         NGApplication.Application.getLogManager().addEventListener(item);
-        FConsoleScriptFunctions = new NGConsoleScriptFunctions(NGApplication.Application, this);
+        FConsoleScriptFunctions = new NGConsoleScriptFunctions(NGApplication.Application, item.getConsoleManager());
         FConsoleScriptFunctions.setLogManager(FLogManager);
     }
 
@@ -55,32 +55,5 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         FDefaultPosY = 1200;
         FStageManager.registerItemClass("Console", "Uniwork.UI.NGUIConsoleStageItem");
     }
-
-    public void RunScript(String aScript) {
-        String script = NGMisc.LoadFileContent(aScript);
-        writeInfo(String.format("Application script %s loaded.", aScript));
-        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
-        si.RunScript(script);
-    }
-
-    public void ConsoleShowVariables() {
-        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
-        String variables = si.getConsoleDataStoreValuesAsString();
-        if (variables.length() == 0) {
-            writeWarning("No variables existing.");
-        } else {
-            writeInfo(variables);
-        }
-    }
-
-    public void ConsoleEchoOn() {
-        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
-        si.ConsoleEchoOn();
-    }
-
-    public void ConsoleEchoOff() {
-        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
-        si.ConsoleEchoOff();
-    }
-
+    
 }

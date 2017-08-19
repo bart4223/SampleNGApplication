@@ -77,20 +77,7 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
         return FConsoleManager.getCommandCount();
     }
 
-    public void RunScript(String aScript) {
-        FConsoleManager.RunScript(aScript);
+    public NGConsoleManager getConsoleManager() {
+        return FConsoleManager;
     }
-
-    public void ConsoleEchoOn() {
-        FConsoleManager.EchoOn();
-    }
-
-    public void ConsoleEchoOff() {
-        FConsoleManager.EchoOff();
-    }
-
-    public String getConsoleDataStoreValuesAsString() {
-        return FConsoleManager.getExecuterDataStoreValuesAsString();
-    }
-
 }

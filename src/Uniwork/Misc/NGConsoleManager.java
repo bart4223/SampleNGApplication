@@ -4,6 +4,7 @@ import Uniwork.Base.*;
 import Uniwork.Script.NGScriptExecuter;
 import Uniwork.Script.NGScriptExecuterEvent;
 import Uniwork.Script.NGScriptExecuterListener;
+import Uniwork.UI.NGUIConsoleStageItem;
 
 public class NGConsoleManager extends NGComponentManager implements NGScriptExecuterListener {
 
@@ -26,12 +27,8 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
 
     public Integer ExecuteCommand(String aCommand) {
         FCommands.push(aCommand);
-        RunScript(aCommand);
+        FExecuter.Execute(aCommand);
         return FCommands.getSize() - 1;
-    }
-
-    public void RunScript(String aScript) {
-        FExecuter.Execute(aScript);
     }
 
     public NGObjectRequestInvoker getInvoker() {
@@ -66,8 +63,24 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
         FEcho = true;
     }
 
-    public String getExecuterDataStoreValuesAsString() {
-        return FExecuter.getDataStoreValuesAsString();
+    public void RunScript(String aScript) {
+        System.out.println(aScript);
+        String script = NGMisc.LoadFileContent(aScript);
+        writeInfo(String.format("Application script %s loaded.", aScript));
+        FExecuter.Execute(script);
+    }
+
+    public void ConsoleShowVariables() {
+        String variables = FExecuter.getVariablesAsString();
+        if (variables.length() == 0) {
+            writeWarning("No variables existing.");
+        } else {
+            writeInfo(variables);
+        }
+    }
+
+    public void ConsoleShowVariable(String aVariable) {
+        writeInfo(String.format("%s=%s", aVariable, FExecuter.getVariableAsString(aVariable)));
     }
 
 }
