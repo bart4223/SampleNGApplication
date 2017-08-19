@@ -65,8 +65,7 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
         sc.clearLog();
     }
 
-    public Integer ExecuteCommand(String aCommand) {
-        writeInfo(String.format("Execute -> %s", aCommand));
+    public Integer ExecuteSingleCommand(String aCommand) {
         return FConsoleManager.ExecuteCommand(aCommand);
     }
 

@@ -2,8 +2,10 @@ package Uniwork.Misc;
 
 import Uniwork.Base.*;
 import Uniwork.Script.NGScriptExecuter;
+import Uniwork.Script.NGScriptExecuterEvent;
+import Uniwork.Script.NGScriptExecuterListener;
 
-public class NGConsoleManager extends NGComponentManager {
+public class NGConsoleManager extends NGComponentManager implements NGScriptExecuterListener {
 
     protected NGObjectStack FCommands;
     protected NGScriptExecuter FExecuter;
@@ -14,6 +16,7 @@ public class NGConsoleManager extends NGComponentManager {
         FExecuter = new NGScriptExecuter();
         registerComponent(FExecuter);
         FExecuter.setInvoker(aInvoker);
+        FExecuter.addEventListener(this);
         FCommands = new NGObjectStack();
         FCommands.push("help");
         FCommands.push("console.runscript resources/scripts/sample10.as");
@@ -42,4 +45,13 @@ public class NGConsoleManager extends NGComponentManager {
         return FCommands.getSize();
     }
 
+    @Override
+    public void handleBeforeExecute(NGScriptExecuterEvent e) {
+        writeInfo(String.format("Execute -> %s", e.getCaller().toString()));
+    }
+
+    @Override
+    public void handleAfterExecute(NGScriptExecuterEvent e) {
+
+    }
 }

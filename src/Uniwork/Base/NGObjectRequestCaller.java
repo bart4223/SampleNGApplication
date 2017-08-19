@@ -1,6 +1,7 @@
 package Uniwork.Base;
 
 import Uniwork.Misc.NGLogManager;
+import Uniwork.Misc.NGStrings;
 
 import java.util.Iterator;
 
@@ -87,6 +88,17 @@ public class NGObjectRequestCaller extends NGObject {
 
     public void addParam(String aName, Object aValue) {
         FParams.add(new NGPropertyItem(aName, aValue));
+    }
+
+    @Override
+    public String toString() {
+        String params = "";
+        Iterator<NGPropertyItem> itr = FParams.getItemsAs();
+        while (itr.hasNext()) {
+            NGPropertyItem param = itr.next();
+            params = NGStrings.addString(params, param.getValue().toString(), " ");
+        }
+        return NGStrings.addString(String.format("%s.%s", getObjectName(), getObjectMethod()), params, " ");
     }
 
 }

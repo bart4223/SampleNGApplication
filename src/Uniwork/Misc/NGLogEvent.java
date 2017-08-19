@@ -7,11 +7,11 @@ public class NGLogEvent extends EventObject {
     public NGLogEntry LogEntry;
 
     public NGLogEvent(Object source) {
-        super(source);
+        this(source, null);
     }
 
     public NGLogEvent(Object source, NGLogEntry aLogEntry) {
-        this(source);
+        super(source);
         LogEntry = aLogEntry;
     }
 

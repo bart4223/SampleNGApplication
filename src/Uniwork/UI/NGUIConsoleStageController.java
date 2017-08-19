@@ -30,7 +30,7 @@ public class NGUIConsoleStageController extends NGStageController {
     protected void handletbCommand(KeyEvent keyEvent){
         switch (keyEvent.getCode()) {
             case ENTER:
-                FCommandIndex = ((NGUIConsoleStageItem)FStageItem).ExecuteCommand(Console.getText());
+                FCommandIndex = ((NGUIConsoleStageItem)FStageItem).ExecuteSingleCommand(Console.getText());
                 Console.clear();
                 keyEvent.consume();
                 break;

@@ -3,6 +3,7 @@ package Uniwork.Script;
 import Uniwork.Base.*;
 import Uniwork.Misc.NGStrings;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class NGScriptExecuter extends NGComponentManager {
@@ -13,9 +14,28 @@ public class NGScriptExecuter extends NGComponentManager {
     protected NGObjectRequestCaller FCaller = null;
     protected NGObjectRequestInvoker FInvoker = null;
     protected Integer FCommandsCalled = 0;
+    protected ArrayList<NGScriptExecuterListener> FEventListeners;
 
     protected void Nop() {
         // Nix machen ;o)
+    }
+
+    protected synchronized void raiseBeforeExecute(NGObjectRequestCaller aCaller) {
+        NGScriptExecuterEvent event = new NGScriptExecuterEvent(this, aCaller);
+        Iterator lItr = FEventListeners.iterator();
+        while(lItr.hasNext())  {
+            NGScriptExecuterListener listener = (NGScriptExecuterListener)lItr.next();
+            listener.handleBeforeExecute(event);
+        }
+    }
+
+    protected synchronized void raiseAfterExecute(NGObjectRequestCaller aCaller) {
+        NGScriptExecuterEvent event = new NGScriptExecuterEvent(this, aCaller);
+        Iterator lItr = FEventListeners.iterator();
+        while(lItr.hasNext())  {
+            NGScriptExecuterListener listener = (NGScriptExecuterListener)lItr.next();
+            listener.handleAfterExecute(event);
+        }
     }
 
     protected void scanParseTree(NGObjectNode aObjectNode) {
@@ -46,6 +66,9 @@ public class NGScriptExecuter extends NGComponentManager {
 
     protected void DoBeforeExecute() {
         scanParseTree(FParser.getParseTree().getRoot());
+        if (FCaller != null) {
+            raiseBeforeExecute(FCaller);
+        }
     }
 
     protected void _BeforeExecute() {
@@ -83,13 +106,16 @@ public class NGScriptExecuter extends NGComponentManager {
     }
 
     protected void DoAfterExecute() {
-
+        if (FCaller != null) {
+            raiseAfterExecute(FCaller);
+        }
     }
 
     public NGScriptExecuter() {
         super();
         FParser = new NGScriptParser();
         registerComponent(FParser);
+        FEventListeners = new ArrayList<NGScriptExecuterListener>();
         FDataStorage = new NGPropertyList();
     }
 
@@ -109,5 +135,14 @@ public class NGScriptExecuter extends NGComponentManager {
     public Integer getCommandsCalled() {
         return FCommandsCalled;
     }
-    
+
+    public synchronized void addEventListener(NGScriptExecuterListener aListener)  {
+        FEventListeners.add(aListener);
+    }
+
+    public synchronized void removeEventListener(NGScriptExecuterListener aListener)   {
+        FEventListeners.remove(aListener);
+    }
+
+
 }

@@ -64,8 +64,8 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     }
 
     public void ConsoleShowVariables() {
+        // ToDo
         System.out.println("OK");
-        //ToDo
     }
 
 }
