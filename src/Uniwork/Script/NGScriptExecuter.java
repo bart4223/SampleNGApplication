@@ -15,6 +15,8 @@ public class NGScriptExecuter extends NGComponentManager {
     protected NGObjectRequestInvoker FInvoker = null;
     protected Integer FCommandsCalled = 0;
     protected ArrayList<NGScriptExecuterListener> FEventListeners;
+    protected Boolean FDoReceiveCall = false;
+    protected NGPropertyItem FResultItem = null;
 
     protected void Nop() {
         // Nix machen ;o)
@@ -59,7 +61,17 @@ public class NGScriptExecuter extends NGComponentManager {
                 FCaller.setObjectMethod(methodname);
                 scanParseTree(token);
             } else if (token instanceof NGScriptTokenParameter) {
-                FCaller.addParam(((NGScriptTokenParameter)token).getToken());
+                if (!FDoReceiveCall) {
+                    String value = ((NGScriptTokenParameter)token).getToken();
+                    if (value.startsWith(":")) {
+                        value = (String)FDataStore.get(value.substring(1, value.length() - 1));
+                    }
+                    FCaller.addParam(value);
+                } else {
+                    FResultItem = FDataStore.set(((NGScriptTokenParameter)token).getToken(), null);
+                }
+            } else if (token instanceof NGScriptTokenAllocation) {
+                FDoReceiveCall = true;
             }
         }
     }
@@ -73,6 +85,8 @@ public class NGScriptExecuter extends NGComponentManager {
 
     protected void _BeforeExecute() {
         FCaller = null;
+        FDoReceiveCall = false;
+        FResultItem = null;
         FCommandsCalled = 0;
         FDataStore.clear();
         DoBeforeExecute();

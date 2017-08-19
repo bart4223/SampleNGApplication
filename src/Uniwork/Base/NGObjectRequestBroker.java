@@ -71,15 +71,18 @@ public class NGObjectRequestBroker extends NGObject {
                                         break;
                                 }
                                 if (method != null) {
-                                    Object param1 = aItem.getParamValue(0);
+                                    Object param = aItem.getParamValue(0);
                                     switch (orm.getParamKind(0)) {
                                         case Double:
                                             if (aItem.getParamValue(0) instanceof String) {
-                                                param1 = Double.parseDouble((String)aItem.getParamValue(0   ));
+                                                param = Double.parseDouble((String)aItem.getParamValue(0   ));
                                             }
                                             break;
                                     }
-                                    method.invoke(oro.getObject(), param1);
+                                    if (param == null) {
+                                        throw new NGInvalidParamException();
+                                    }
+                                    method.invoke(oro.getObject(), param);
                                     invoked = true;
                                 } else
                                     writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (1)", aItem.getObject(), aItem.getMethod()));
@@ -118,6 +121,9 @@ public class NGObjectRequestBroker extends NGObject {
                                                     params[i] = Double.parseDouble((String)aItem.getParamValue(i));
                                                 }
                                                 break;
+                                        }
+                                        if (params[i] == null) {
+                                            throw new NGInvalidParamException();
                                         }
                                     }
                                     method.invoke(oro.getObject(), params[0], params[1]);

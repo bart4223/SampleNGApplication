@@ -96,7 +96,11 @@ public class NGObjectRequestCaller extends NGObject {
         Iterator<NGPropertyItem> itr = FParams.getItemsAs();
         while (itr.hasNext()) {
             NGPropertyItem param = itr.next();
-            params = NGStrings.addString(params, param.getValue().toString(), " ");
+            Object value = param.getValue();
+            if (value == null) {
+                value = "";
+            }
+            params = NGStrings.addString(params, value.toString(), " ");
         }
         return NGStrings.addString(String.format("%s.%s", getObjectName(), getObjectMethod()), params, " ");
     }

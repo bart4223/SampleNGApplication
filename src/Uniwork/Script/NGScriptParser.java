@@ -32,7 +32,9 @@ public class NGScriptParser extends NGTextParser {
     protected void DoTokenFound(String aToken) {
         if (FCommand == null) {
             FCommand = new NGScriptTokenCommand(FParseTree.getRoot(), aToken);
-        } else if (!aToken.equals(CAllocation)){
+        } else if (aToken.equals(CAllocation)){
+            new NGScriptTokenAllocation(FCommand, aToken);
+        } else {
             new NGScriptTokenParameter(FCommand, aToken);
         }
     }
