@@ -69,7 +69,7 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
         FExecuter.Execute(script);
     }
 
-    public void ConsoleShowVariables() {
+    public void ShowVariables() {
         String variables = FExecuter.getVariablesAsString();
         if (variables.length() == 0) {
             writeWarning("No variables existing.");
@@ -78,7 +78,7 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
         }
     }
 
-    public void ConsoleShowVariable(String aVariable) {
+    public void ShowVariable(String aVariable) {
         writeInfo(String.format("%s=%s", aVariable, FExecuter.getVariableAsString(aVariable)));
     }
 
