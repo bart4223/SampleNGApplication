@@ -17,6 +17,7 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
     @Override
     protected void DoInitialize() {
         super.DoInitialize();
+        FConsoleManager.setLogManager(FLogManager);
         FConsoleManager.Initialize();
     }
 
