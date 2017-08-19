@@ -81,4 +81,12 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
         FConsoleManager.RunScript(aScript);
     }
 
+    public void ConsoleEchoOn() {
+        FConsoleManager.EchoOn();
+    }
+
+    public void ConsoleEchoOff() {
+        FConsoleManager.EchoOff();
+    }
+
 }

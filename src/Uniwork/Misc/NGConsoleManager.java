@@ -10,6 +10,7 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
     protected NGObjectStack FCommands;
     protected NGScriptExecuter FExecuter;
     protected NGObjectRequestInvoker FInvoker;
+    protected Boolean FEcho = true;
 
     public NGConsoleManager(NGObjectRequestInvoker aInvoker) {
         super();
@@ -47,11 +48,22 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
 
     @Override
     public void handleBeforeExecute(NGScriptExecuterEvent e) {
-        writeInfo(String.format("Execute -> %s", e.getCaller().toString()));
+        if (FEcho) {
+            writeInfo(String.format("Execute -> %s", e.getCaller().toString()));
+        }
     }
 
     @Override
     public void handleAfterExecute(NGScriptExecuterEvent e) {
 
     }
+
+    public void EchoOff() {
+        FEcho = false;
+    }
+
+    public void EchoOn() {
+        FEcho = true;
+    }
+
 }

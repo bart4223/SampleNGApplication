@@ -1,8 +1,7 @@
 package Uniwork.Appl;
 
 import Uniwork.Base.NGComponent;
-import Uniwork.Base.NGObjectRequestMethod;
-import Uniwork.Base.NGObjectRequestParameter;
+import Uniwork.Misc.NGConsoleScriptFunctions;
 import Uniwork.Misc.NGMisc;
 import Uniwork.UI.NGUIConsoleStageContext;
 import Uniwork.UI.NGUIConsoleStageItem;
@@ -11,6 +10,7 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
 
     protected Boolean FLogDescending;
     protected Boolean FShowCommandArea;
+    protected NGConsoleScriptFunctions FConsoleScriptFunctions;
 
     @Override
     protected Boolean LoadConfiguration() {
@@ -30,6 +30,8 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         item.setPosition(getPosX(), getPosY());
         item.setContext(new NGUIConsoleStageContext(NGApplication.Application.getLogManager(), FLogDescending, FShowCommandArea));
         NGApplication.Application.getLogManager().addEventListener(item);
+        FConsoleScriptFunctions = new NGConsoleScriptFunctions(NGApplication.Application, this);
+        FConsoleScriptFunctions.setLogManager(FLogManager);
     }
 
     @Override
@@ -39,11 +41,9 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     }
 
     @Override
-    protected void registerObjectRequests() {
-        super.registerObjectRequests();
-        registerObjectRequest(this, "ShowVariables", "ConsoleShowVariables");
-        NGObjectRequestMethod orm = registerObjectRequest(this, "RunScript", "RunScript");
-        orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
+    protected void DoInitialize() {
+        super.DoInitialize();
+        FConsoleScriptFunctions.Initialize();
     }
 
     public NGConsoleApplicationModule(NGComponent aOwner, String aName) {
@@ -66,6 +66,16 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
     public void ConsoleShowVariables() {
         // ToDo
         System.out.println("OK");
+    }
+
+    public void ConsoleEchoOn() {
+        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
+        si.ConsoleEchoOn();
+    }
+
+    public void ConsoleEchoOff() {
+        NGUIConsoleStageItem si = (NGUIConsoleStageItem)FStageManager.getItem("Console");
+        si.ConsoleEchoOff();
     }
 
 }
