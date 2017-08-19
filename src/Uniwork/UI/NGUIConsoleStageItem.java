@@ -80,4 +80,5 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
     public NGConsoleManager getConsoleManager() {
         return FConsoleManager;
     }
+
 }

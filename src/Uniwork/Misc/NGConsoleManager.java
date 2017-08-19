@@ -4,7 +4,6 @@ import Uniwork.Base.*;
 import Uniwork.Script.NGScriptExecuter;
 import Uniwork.Script.NGScriptExecuterEvent;
 import Uniwork.Script.NGScriptExecuterListener;
-import Uniwork.UI.NGUIConsoleStageItem;
 
 public class NGConsoleManager extends NGComponentManager implements NGScriptExecuterListener {
 
