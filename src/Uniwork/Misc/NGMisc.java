@@ -27,21 +27,27 @@ public final class NGMisc {
     public static String LoadFileContent(String aFilename) {
         String lResult = "";
         try {
-            InputStream lFileStream = new FileInputStream(aFilename);
-            try {
-                if (lFileStream != null) {
-                    int lContent;
-                    while ((lContent = lFileStream.read()) != -1) {
-                        lResult = lResult + (char)lContent;
-                    }
-                }
-            } finally {
-                if (lFileStream != null) {
-                    lFileStream.close();
-                }
-            }
+            lResult = LoadFileContentUnsafe(aFilename);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return lResult;
+    }
+
+    public static String LoadFileContentUnsafe(String aFilename) throws Exception {
+        String lResult = "";
+        InputStream lFileStream = new FileInputStream(aFilename);
+        try {
+            if (lFileStream != null) {
+                int lContent;
+                while ((lContent = lFileStream.read()) != -1) {
+                    lResult = lResult + (char)lContent;
+                }
+            }
+        } finally {
+            if (lFileStream != null) {
+                lFileStream.close();
+            }
         }
         return lResult;
     }

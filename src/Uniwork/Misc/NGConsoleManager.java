@@ -63,10 +63,13 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
     }
 
     public void RunScript(String aScript) {
-        System.out.println(aScript);
-        String script = NGMisc.LoadFileContent(aScript);
-        writeInfo(String.format("Application script %s loaded.", aScript));
-        FExecuter.Execute(script);
+        try {
+            String script = NGMisc.LoadFileContentUnsafe(aScript);
+            writeInfo(String.format("Application script %s loaded.", aScript));
+            FExecuter.Execute(script);
+        } catch (Exception e) {
+            writeError(e.getMessage());
+        }
     }
 
     public void ShowVariables() {
