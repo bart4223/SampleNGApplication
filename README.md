@@ -7,7 +7,7 @@ Files
         .acf    Application Configuration File (txt)
         .adf    Application Definition File (xml)
         .amcf   Application Module Configuration File (txt)        
-        .amdf   Application Module Definition File (txt)
+        .amdf   Application Module Definition File (xml)
 
 Configuration (.acf)
 ====================
