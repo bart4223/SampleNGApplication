@@ -11,6 +11,6 @@ public class NGConsoleDefinition extends NGApplicationModuleDefinition {
     }
 
     public void setCommands(ArrayList<NGConsoleDefinitionCommandItem> value) { Commands = value;}
-    public ArrayList<NGConsoleDefinitionCommandItem> getSounds() { return Commands; }
+    public ArrayList<NGConsoleDefinitionCommandItem> getCommands() { return Commands; }
     
 }
