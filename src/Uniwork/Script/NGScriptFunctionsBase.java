@@ -27,18 +27,18 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
     }
 
     public void add(Double aOperand1, Double aOperand2) {
-        double res = aOperand1 + aOperand2;
-        writeInfo(String.format("%.2f", res));
+        Double res = aOperand1 + aOperand2;
+        writeInfo(res.toString());
     }
 
     public void sub(Double aOperand1, Double aOperand2) {
-        double res = aOperand1 - aOperand2;
-        writeInfo(String.format("%.2f", res));
+        Double res = aOperand1 - aOperand2;
+        writeInfo(res.toString());
     }
 
     public void neg(Double aOperand) {
-        double res = -aOperand;
-        writeInfo(String.format("%.2f", res));
+        Double res = -aOperand;
+        writeInfo(res.toString());
     }
 
 }
