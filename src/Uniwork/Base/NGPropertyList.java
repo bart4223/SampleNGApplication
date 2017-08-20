@@ -113,7 +113,11 @@ public class NGPropertyList extends NGObject {
         Iterator<NGPropertyItem> itr = getItemsAs();
         while (itr.hasNext()) {
             NGPropertyItem prop = itr.next();
-            NGStrings.addString(res, String.format("%s=%s", prop.getName(), prop.getValue().toString()), ";");
+            Object value = prop.getValue();
+            if (value != null) {
+                value = value.toString();
+            }
+            res = NGStrings.addString(res, String.format("%s=%s", prop.getName(), value), ";");
         }
         return res;
     }

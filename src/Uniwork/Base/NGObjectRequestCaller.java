@@ -12,6 +12,7 @@ public class NGObjectRequestCaller extends NGObject {
     protected String FObjectName;
     protected String FObjectMethod;
     protected NGPropertyList FParams;
+    protected NGPropertyList FResults;
 
     protected void writeLog(String aText) {
         writeLog(0, aText);
@@ -27,19 +28,33 @@ public class NGObjectRequestCaller extends NGObject {
         writeLog(String.format("<<<ERROR>>> at [%s.%s] with exception [%s]!", getClass().getName(), aMethodName, aErrorText));
     }
 
+    protected void BeforeInvoke() {
+        FResults.clear();
+    }
+
     protected void DoInvoke() {
         NGObjectRequestItem item = new NGObjectRequestItem(FObjectName, FObjectMethod);
-        Iterator<NGPropertyItem> itr = FParams.getItemsAs();
-        while (itr.hasNext()) {
-            NGPropertyItem prop = itr.next();
-            item.addParam(prop.getName(), prop.getValue());
+        Iterator<NGPropertyItem> params = FParams.getItemsAs();
+        while (params.hasNext()) {
+            NGPropertyItem param = params.next();
+            item.addParam(param.getName(), param.getValue());
         }
         FInvoker.Invoke(item);
+        Iterator<NGPropertyItem> results = item.getResults();
+        while (results.hasNext()) {
+            NGPropertyItem result = results.next();
+            FResults.set(result.getName(), result.getValue());
+        }
+    }
+
+    protected void AfterInvoke() {
+
     }
 
     public NGObjectRequestCaller(NGObjectRequestInvoker aInvoker) {
         super();
         FParams = new NGPropertyList();
+        FResults = new NGPropertyList();
         FInvoker = aInvoker;
         FLogManager = null;
         FObjectName = "";
@@ -67,7 +82,12 @@ public class NGObjectRequestCaller extends NGObject {
     }
 
     public void Invoke() {
-        DoInvoke();
+        BeforeInvoke();
+        try {
+            DoInvoke();
+        } finally {
+            AfterInvoke();
+        }
     }
 
     public NGLogManager getLogManager() {
@@ -103,6 +123,18 @@ public class NGObjectRequestCaller extends NGObject {
             params = NGStrings.addString(params, value.toString(), " ");
         }
         return NGStrings.addString(String.format("%s.%s", getObjectName(), getObjectMethod()), params, " ");
+    }
+
+    public Object getResult(String aName) {
+        return FResults.get(aName);
+    }
+
+    public Object getFirstResult() {
+        Object res = null;
+        if (FResults.size() > 0) {
+            res = FResults.get(0);
+        }
+        return res;
     }
 
 }

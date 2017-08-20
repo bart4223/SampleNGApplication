@@ -15,6 +15,7 @@ public class NGConsoleScriptFunctions extends NGCustomScriptFunctions {
         NGObjectRequestMethod orm;
         registerObjectRequest("EchoOn", "EchoOn");
         registerObjectRequest("EchoOff", "EchoOff");
+        registerObjectRequest("ClearVariables", "ClearVariables");
         registerObjectRequest("ShowVariables", "ShowVariables");
         orm = registerObjectRequest("ShowVariable", "ShowVariable");
         orm.addParam("Variable", NGObjectRequestParameter.ParamKind.String);

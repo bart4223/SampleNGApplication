@@ -62,9 +62,10 @@ public class NGScriptExecuter extends NGComponentManager {
                 scanParseTree(token);
             } else if (token instanceof NGScriptTokenParameter) {
                 if (!FDoReceiveCall) {
-                    String value = ((NGScriptTokenParameter)token).getToken();
-                    if (value.startsWith(":")) {
-                        value = (String)FDataStore.get(value.substring(1, value.length() - 1));
+                    String str = ((NGScriptTokenParameter)token).getToken();
+                    Object value = str;
+                    if (str.startsWith(":")) {
+                        value = FDataStore.get(str.substring(1, str.length()));
                     }
                     FCaller.addParam(value);
                 } else {
@@ -88,7 +89,6 @@ public class NGScriptExecuter extends NGComponentManager {
         FDoReceiveCall = false;
         FResultItem = null;
         FCommandsCalled = 0;
-        FDataStore.clear();
         DoBeforeExecute();
     }
 
@@ -117,6 +117,9 @@ public class NGScriptExecuter extends NGComponentManager {
 
     protected void _AfterExecute() {
         DoAfterExecute();
+        if (FCaller != null && FResultItem != null) {
+            FDataStore.set(FResultItem.getName(), FCaller.getFirstResult());
+        }
     }
 
     protected void DoAfterExecute() {
@@ -168,6 +171,10 @@ public class NGScriptExecuter extends NGComponentManager {
             res = "null";
         }
         return res.toString();
+    }
+
+    public void ClearVariables() {
+        FDataStore.clear();
     }
 
 }

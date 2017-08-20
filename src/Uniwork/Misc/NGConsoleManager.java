@@ -20,7 +20,7 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
         FExecuter.addEventListener(this);
         FCommands = new NGObjectStack();
         FCommands.push("help");
-        FCommands.push("console.runscript resources/scripts/sample20.as");
+        FCommands.push("console.runscript resources/scripts/sample21.as");
         FInvoker = aInvoker;
     }
 
@@ -83,6 +83,11 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
 
     public void ShowVariable(String aVariable) {
         writeInfo(String.format("%s=%s", aVariable, FExecuter.getVariableAsString(aVariable)));
+    }
+
+    public void ClearVariables() {
+        FExecuter.ClearVariables();
+        writeInfo("Variables cleared.");
     }
 
 }

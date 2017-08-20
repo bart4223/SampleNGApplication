@@ -18,6 +18,7 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
         registerObjectRequest("ShowStages", "ShowStages");
         registerObjectRequest("HideStages", "HideStages");
         registerObjectRequest("Help", "ShowHelp");
+        registerObjectRequest("?", "ShowHelp");
         orm = registerObjectRequest("addModule", "addModule");
         orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);

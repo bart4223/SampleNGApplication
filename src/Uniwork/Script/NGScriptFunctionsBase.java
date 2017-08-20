@@ -26,19 +26,22 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
         FDomain = CBase;
     }
 
-    public void add(Double aOperand1, Double aOperand2) {
+    public Double add(Double aOperand1, Double aOperand2) {
         Double res = aOperand1 + aOperand2;
         writeInfo(res.toString());
+        return res;
     }
 
-    public void sub(Double aOperand1, Double aOperand2) {
+    public Double sub(Double aOperand1, Double aOperand2) {
         Double res = aOperand1 - aOperand2;
         writeInfo(res.toString());
+        return res;
     }
 
-    public void neg(Double aOperand) {
+    public Double neg(Double aOperand) {
         Double res = -aOperand;
         writeInfo(res.toString());
+        return res;
     }
 
 }

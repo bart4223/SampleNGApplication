@@ -52,10 +52,11 @@ public class NGObjectRequestBroker extends NGObject {
                     NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
                     if (orm != null && orm.IsActive()) {
                         Method method = null;
+                        Object res = null;
                         switch (orm.getParamCount()) {
                             case 0:
                                 method = oro.getObject().getClass().getMethod(orm.getObjectMethod());
-                                method.invoke(oro.getObject());
+                                res = method.invoke(oro.getObject());
                                 invoked = true;
                                 break;
                             case 1:
@@ -82,7 +83,7 @@ public class NGObjectRequestBroker extends NGObject {
                                     if (param == null) {
                                         throw new NGInvalidParamException();
                                     }
-                                    method.invoke(oro.getObject(), param);
+                                    res = method.invoke(oro.getObject(), param);
                                     invoked = true;
                                 } else
                                     writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (1)", aItem.getObject(), aItem.getMethod()));
@@ -126,11 +127,14 @@ public class NGObjectRequestBroker extends NGObject {
                                             throw new NGInvalidParamException();
                                         }
                                     }
-                                    method.invoke(oro.getObject(), params[0], params[1]);
+                                    res = method.invoke(oro.getObject(), params[0], params[1]);
                                     invoked = true;
                                 } else
                                     writeError("DoInvoke", String.format("<<<ERROR>>> ORB can't invoke [%s.%s] (2)", aItem.getObject(), aItem.getMethod()));
                                 break;
+                        }
+                        if (res != null) {
+                            aItem.addResult("Result", res);
                         }
                         writeLog(5, String.format("ORB invoked [%s->%s]", aItem.getObject(), aItem.getMethod()));
                         writeLog(10, String.format("ORB invoked [%s.%s]", oro.getObject().toString(), orm.getObjectMethod()));
