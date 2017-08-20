@@ -1,7 +1,7 @@
 package Uniwork.Base;
 
 import Uniwork.Misc.NGStrings;
-
+import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectRequestObject extends NGObject {
@@ -51,6 +51,10 @@ public class NGObjectRequestObject extends NGObject {
             res = NGStrings.addString(res, String.format("%s.%s", FName, method.toString()), ", ");
         }
         return res;
+    }
+
+    public Iterator<NGObjectRequestMethod> getMethods() {
+        return FMethods.iterator();
     }
 
 }

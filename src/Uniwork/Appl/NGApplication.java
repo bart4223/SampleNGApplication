@@ -148,6 +148,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected void DoFinalize() {
         FModuleManager.Finalize();
+        FScriptFunctionManager.Finalize();
     }
 
     protected void DoAfterFinalize() {
@@ -325,7 +326,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     @Override
     public Object ResolveObject(String aName, Class aClass) {
         Object res = null;
-        if (aClass.isAssignableFrom(getClass())) {
+        if (aClass.isAssignableFrom(FORB.getClass())) {
+            res = FORB;
+        } else if (aClass.isAssignableFrom(getClass())) {
             res = this;
         } else {
             res = FModuleManager.ResolveObject(aName, aClass);
@@ -350,10 +353,6 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     public String LoadResourceFileContent(String aFilename) {
         return NGMisc.LoadFileContent(NGMisc.combinePath(FResourcePath, aFilename));
-    }
-
-    public void ShowHelp() {
-        writeInfo(String.format("Commands: %s", FORB.toString()));
     }
 
     public void ShowStages() {
@@ -385,6 +384,21 @@ public class NGApplication extends Application implements NGInitializable, NGLog
             if ( module instanceof NGVisualApplicationModule) {
                 NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
                 visualModule.CloseStages();
+            }
+        }
+    }
+
+    public void ShowHelp(String aDomain) {
+        NGObjectRequestBroker orb = (NGObjectRequestBroker) NGApplication.Application.ResolveObject(NGObjectRequestBroker.class);
+        Iterator<NGObjectRequestObject> objects = orb.getObjects();
+        while (objects.hasNext()) {
+            NGObjectRequestObject obj = objects.next();
+            if (aDomain.length() == 0 || obj.getName().toUpperCase().equals(aDomain.toUpperCase())) {
+                Iterator<NGObjectRequestMethod> methods = obj.getMethods();
+                while (methods.hasNext()) {
+                    NGObjectRequestMethod method = methods.next();
+                    writeInfo(String.format("%s.%s", obj.getName(), method.toString()));
+                }
             }
         }
     }

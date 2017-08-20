@@ -33,11 +33,12 @@ public class NGObjectRequestItem extends NGObject {
         return FParams.get(aName);
     }
 
-    public Object getParamValue(Integer aIndex) throws Exception {
-        if (aIndex > FParams.size() - 1) {
-            throw new NGInvalidParamException();
+    public Object getParamValue(Integer aIndex) {
+        Object res = null;
+        if (aIndex < FParams.size() ) {
+            res = FParams.get(aIndex);
         }
-        return FParams.get(aIndex);
+        return res;
     }
 
     public void addResult(String aName, Object aValue) {

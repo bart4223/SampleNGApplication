@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 
+import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class NGObjectRequestBroker extends NGObject {
@@ -74,9 +75,16 @@ public class NGObjectRequestBroker extends NGObject {
                                 if (method != null) {
                                     Object param = aItem.getParamValue(0);
                                     switch (orm.getParamKind(0)) {
+                                        case String:
+                                            if (param == null) {
+                                                param = "";
+                                            }
+                                            break;
                                         case Double:
-                                            if (aItem.getParamValue(0) instanceof String) {
-                                                param = Double.parseDouble((String)aItem.getParamValue(0   ));
+                                            if (param == null) {
+                                                param = 0.0;
+                                            } else if (param instanceof String) {
+                                                param = Double.parseDouble((String)param);
                                             }
                                             break;
                                     }
@@ -117,9 +125,16 @@ public class NGObjectRequestBroker extends NGObject {
                                     params[1] = aItem.getParamValue(1);
                                     for (int i = 0; i < 2; i++) {
                                         switch (orm.getParamKind(i)) {
+                                            case String:
+                                                if (params[i] == null) {
+                                                    params[i] = "";
+                                                }
+                                                break;
                                             case Double:
-                                                if (aItem.getParamValue(i) instanceof String) {
-                                                    params[i] = Double.parseDouble((String)aItem.getParamValue(i));
+                                                if (params[i] == null) {
+                                                    params[i] = 0.0;
+                                                } else if (params[i] instanceof String) {
+                                                    params[i] = Double.parseDouble((String)params[i]);
                                                 }
                                                 break;
                                         }
@@ -208,6 +223,10 @@ public class NGObjectRequestBroker extends NGObject {
             res = NGStrings.addString(res, obj.toString(), ", ");
         }
         return res;
+    }
+
+    public Iterator<NGObjectRequestObject> getObjects() {
+        return FObjects.iterator();
     }
 
 }

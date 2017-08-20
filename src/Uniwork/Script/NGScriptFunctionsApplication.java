@@ -1,9 +1,7 @@
 package Uniwork.Script;
 
 import Uniwork.Appl.NGApplication;
-import Uniwork.Base.NGObjectRequestMethod;
-import Uniwork.Base.NGObjectRequestParameter;
-import Uniwork.Base.NGObjectRequestRegistration;
+import Uniwork.Base.*;
 
 public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
 
@@ -17,8 +15,10 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
         registerObjectRequest("Exit", "Terminate");
         registerObjectRequest("ShowStages", "ShowStages");
         registerObjectRequest("HideStages", "HideStages");
-        registerObjectRequest("Help", "ShowHelp");
-        registerObjectRequest("?", "ShowHelp");
+        orm = registerObjectRequest("Help", "ShowHelp");
+        orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest("?", "ShowHelp");
+        orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest("addModule", "addModule");
         orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
