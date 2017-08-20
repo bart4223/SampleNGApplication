@@ -22,7 +22,8 @@ public class NGScriptParser extends NGTextParser {
     }
 
     @Override
-    protected void DoSpecialTokenFound(String aSpecialStart, String aSpecialToken) {
+    protected void DoSpecialStartsTokenFound(String aSpecialStart, String aSpecialToken) {
+        super.DoSpecialStartsTokenFound(aSpecialStart, aSpecialToken);
         if (aSpecialStart == CRemark) {
             new NGScriptTokenRemark(FParseTree.getRoot(), aSpecialToken);
         }

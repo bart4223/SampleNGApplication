@@ -22,6 +22,8 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
         orm = registerObjectRequest("addModule", "addModule");
         orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest("ShowMessage", "ShowMessage");
+        orm.addParam("Message", NGObjectRequestParameter.ParamKind.String);
     }
 
     public NGScriptFunctionsApplication(NGObjectRequestRegistration aORR) {

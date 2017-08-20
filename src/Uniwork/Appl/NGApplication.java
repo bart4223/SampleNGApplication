@@ -388,6 +388,10 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         }
     }
 
+    public void ShowMessage(String aMessage) {
+        NGCommonDialogs.showMessageDialog(getName(), aMessage);
+    }
+
     public void ShowHelp(String aDomain) {
         NGObjectRequestBroker orb = (NGObjectRequestBroker) NGApplication.Application.ResolveObject(NGObjectRequestBroker.class);
         Iterator<NGObjectRequestObject> objects = orb.getObjects();

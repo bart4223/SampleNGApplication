@@ -4,18 +4,22 @@ import java.util.ArrayList;
 
 public class NGTextParser extends NGComponent {
 
+    public String CStringLimiter = "\"";
+
+    protected ArrayList<String> FSpecialStarts;
+
     protected Integer FTokenCount;
     protected NGParseTree FParseTree;
     protected NGObjectQueue FTokenQueue;
-    protected ArrayList<String> FSpecialStarts;
+    protected Boolean FInString = false;
 
-    protected void DoSpecialTokenFound(String aSpecialStart, String aSpecialToken) {
+    protected void DoSpecialStartsTokenFound(String aSpecialStart, String aSpecialToken) {
 
     }
 
-    protected void _SpecialTokenFound(String aSpecialStart, String aSpecialToken) {
+    protected void _SpecialStartsTokenFound(String aSpecialStart, String aSpecialToken) {
         FTokenCount = FTokenCount + 1;
-        DoSpecialTokenFound(aSpecialStart, aSpecialToken);
+        DoSpecialStartsTokenFound(aSpecialStart, aSpecialToken);
     }
 
     protected void DoTokenFound(String aToken) {
@@ -31,12 +35,13 @@ public class NGTextParser extends NGComponent {
         FTokenCount = 0;
         FParseTree.RemoveAll();
         FTokenQueue.clear();
+        FInString = false;
     }
 
     protected void _Parse(String aText) {
         for (int i = 0; i < FSpecialStarts.size(); i++) {
             if (aText.startsWith(FSpecialStarts.get(i))) {
-                _SpecialTokenFound(FSpecialStarts.get(i), aText);
+                _SpecialStartsTokenFound(FSpecialStarts.get(i), aText);
                 return;
             }
         }
@@ -46,19 +51,30 @@ public class NGTextParser extends NGComponent {
     protected void DoParse(String aText) {
         String token = "";
         for (int i = 0; i < aText.length(); i++) {
-            char c =  aText.charAt(i);
-            Boolean InToken = (c != ' ');
+            String Char = String.format("%c", aText.charAt(i));
+            Boolean InToken = (!Char.equals(" ")) || (FInString && !Char.equals(CStringLimiter));
             if (InToken) {
-                token = token + c;
+                token = String.format("%s%s",token, Char);
             } else  {
                 if (token.length() > 0) {
-                    _TokenFound(token);
-                    token = "";
+                    if (!FInString && token.startsWith(CStringLimiter)) {
+                        token = token.substring(1, token.length());
+                        token = String.format("%s%s",token, Char);
+                        FInString = true;
+                    } else if (!FInString || FInString && Char.equals(CStringLimiter)) {
+                        if (Char.equals(CStringLimiter)) {
+                            FInString = false;
+                        }
+                        _TokenFound(token);
+                        token = "";
+                    }
                 }
             }
-
         }
         if (token.length() > 0) {
+            if (FInString && token.endsWith(CStringLimiter)) {
+                token = token.substring(0, token.length() - 1);
+            }
             _TokenFound(token);
         }
     }
