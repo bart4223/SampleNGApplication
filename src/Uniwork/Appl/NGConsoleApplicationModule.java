@@ -31,6 +31,11 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         NGApplication.Application.getLogManager().addEventListener(item);
         FConsoleScriptFunctions = new NGConsoleScriptFunctions(NGApplication.Application, item.getConsoleManager());
         FConsoleScriptFunctions.setLogManager(FLogManager);
+        if (Definition != null) {
+            for (NGConsoleDefinitionCommandItem command : Definition.Commands) {
+                item.getConsoleManager().pushCommand(command.getCommand());
+            }
+        }
     }
 
     @Override
@@ -54,5 +59,7 @@ public class NGConsoleApplicationModule extends NGVisualApplicationModule {
         FDefaultPosY = 1200;
         FStageManager.registerItemClass("Console", "Uniwork.UI.NGUIConsoleStageItem");
     }
+
+    public NGConsoleDefinition Definition;
     
 }

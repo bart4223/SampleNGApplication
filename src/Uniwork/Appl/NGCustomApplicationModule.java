@@ -55,6 +55,7 @@ public class NGCustomApplicationModule extends NGComponent {
             NGObjectXMLDeserializerFile loader = new NGObjectXMLDeserializerFile(null, FDefinitionFilename);
             loader.deserializeObject();
             FDefinition = (NGApplicationModuleDefinition)loader.getTarget();
+            setProperty(this, "Definition", loader.getTarget());
             writeInfo(String.format("Module [%s] definition file %s loaded.", getName(), FDefinitionFilename));
         }
     }
