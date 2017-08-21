@@ -10,11 +10,17 @@ public class NGObjectRequestMethod extends NGObject {
     protected String FObjectMethod;
     protected CopyOnWriteArrayList<NGObjectRequestParameter> FParams;
     protected Boolean FActive;
+    protected String FDescription;
 
     public NGObjectRequestMethod(String aName, String aObjectMethod) {
+        this(aName, aObjectMethod, "");
+    }
+
+    public NGObjectRequestMethod(String aName, String aObjectMethod, String aDescription) {
         super();
         FName = aName;
         FObjectMethod = aObjectMethod;
+        FDescription = aDescription;
         FParams = new CopyOnWriteArrayList<NGObjectRequestParameter>();
         FActive = true;
     }
@@ -63,6 +69,10 @@ public class NGObjectRequestMethod extends NGObject {
             res = NGStrings.addString(res, param.toString(), " ");
         }
         return NGStrings.addString(FName, res, " ");
+    }
+
+    public String getDescription() {
+        return FDescription;
     }
 
 }

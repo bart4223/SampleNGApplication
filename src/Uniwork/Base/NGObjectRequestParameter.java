@@ -6,11 +6,17 @@ public class NGObjectRequestParameter extends NGObject {
 
     protected String FName;
     protected ParamKind FKind;
+    protected String FDescription;
 
     public NGObjectRequestParameter(String aName, ParamKind aKind) {
+        this(aName, aKind, "");
+    }
+
+    public NGObjectRequestParameter(String aName, ParamKind aKind, String aDescription) {
         super();
         FName = aName;
         FKind = aKind;
+        FDescription = aDescription;
     }
 
     public String getName() {
@@ -19,6 +25,10 @@ public class NGObjectRequestParameter extends NGObject {
 
     public ParamKind getKind() {
         return FKind;
+    }
+
+    public String getDescription() {
+        return FDescription;
     }
 
     public String toString() {

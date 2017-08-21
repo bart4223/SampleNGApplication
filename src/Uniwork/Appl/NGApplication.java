@@ -338,8 +338,13 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     @Override
     public NGObjectRequestMethod registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod) {
+        return registerObjectRequest(aName, aObject, aMethod, aObjectMethod, "");
+    }
+
+    @Override
+    public NGObjectRequestMethod registerObjectRequest(String aName, Object aObject, String aMethod, String aObjectMethod, String aDescription) {
         NGObjectRequestObject reqobj = FORB.addObject(aName, aObject);
-        return reqobj.addMethod(aMethod, aObjectMethod);
+        return reqobj.addMethod(aMethod, aObjectMethod, aDescription);
     }
 
     @Override
@@ -401,7 +406,11 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 Iterator<NGObjectRequestMethod> methods = obj.getMethods();
                 while (methods.hasNext()) {
                     NGObjectRequestMethod method = methods.next();
-                    writeInfo(String.format("%s.%s", obj.getName(), method.toString()));
+                    if (method.getDescription().length() == 0) {
+                        writeInfo(String.format("%s.%s", obj.getName(), method.toString()));
+                    } else {
+                        writeInfo(String.format("%s.%s : %s", obj.getName(), method.toString(), method.getDescription()));
+                    }
                 }
             }
         }

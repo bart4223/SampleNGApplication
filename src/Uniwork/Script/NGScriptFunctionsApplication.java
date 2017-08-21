@@ -11,18 +11,18 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
     protected void DoInitialize() {
         super.DoInitialize();
         NGObjectRequestMethod orm;
-        registerObjectRequest("Quit", "Terminate");
-        registerObjectRequest("Exit", "Terminate");
-        registerObjectRequest("ShowStages", "ShowStages");
-        registerObjectRequest("HideStages", "HideStages");
-        orm = registerObjectRequest("Help", "ShowHelp");
+        registerObjectRequest("Quit", "Terminate", "\"Leave the application.\"");
+        registerObjectRequest("Exit", "Terminate", "\"Leave the application.\"");
+        registerObjectRequest("ShowStages", "ShowStages","\"Show all stages of application.\"");
+        registerObjectRequest("HideStages", "HideStages","\"Hide all stages of application.\"");
+        orm = registerObjectRequest("Help", "ShowHelp","\"Show the help of application.\"");
         orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest("?", "ShowHelp");
+        orm = registerObjectRequest("?", "ShowHelp", "\"Show the help of application.\"");
         orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest("addModule", "addModule");
+        orm = registerObjectRequest("addModule", "addModule","\"Add a module to application.\"");
         orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest("ShowMessage", "ShowMessage");
+        orm = registerObjectRequest("ShowMessage", "ShowMessage", "\"Shows a message box.\"");
         orm.addParam("Message", NGObjectRequestParameter.ParamKind.String);
     }
 

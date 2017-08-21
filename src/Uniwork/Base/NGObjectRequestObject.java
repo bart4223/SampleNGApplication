@@ -18,7 +18,11 @@ public class NGObjectRequestObject extends NGObject {
     }
 
     public NGObjectRequestMethod addMethod(String aName, String aObjectMethod) {
-        NGObjectRequestMethod method = new NGObjectRequestMethod(aName, aObjectMethod);
+        return this.addMethod(aName, aObjectMethod, "");
+    }
+
+    public NGObjectRequestMethod addMethod(String aName, String aObjectMethod, String aDescription) {
+        NGObjectRequestMethod method = new NGObjectRequestMethod(aName, aObjectMethod, aDescription);
         addMethod(method);
         return method;
     }
