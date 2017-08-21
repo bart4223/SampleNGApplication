@@ -8,6 +8,7 @@ Files
         .adf    Application Definition File (xml)
         .amcf   Application Module Configuration File (txt)        
         .amdf   Application Module Definition File (xml)
+        .asf    Application Script File (txt)
 
 Configuration (.acf)
 ====================
