@@ -52,7 +52,7 @@ public class NGTextParser extends NGComponent {
         String token = "";
         for (int i = 0; i < aText.length(); i++) {
             String Char = String.format("%c", aText.charAt(i));
-            Boolean InToken = (!Char.equals(" ")) || (FInString && !Char.equals(CStringLimiter));
+            Boolean InToken = (!FInString && !Char.equals(" ")) || (FInString && !Char.equals(CStringLimiter));
             if (InToken) {
                 token = String.format("%s%s",token, Char);
             } else  {

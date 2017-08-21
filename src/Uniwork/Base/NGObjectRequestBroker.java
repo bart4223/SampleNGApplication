@@ -71,6 +71,9 @@ public class NGObjectRequestBroker extends NGObject {
                                     case String:
                                         method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), String.class);
                                         break;
+                                    case Object:
+                                        method = oro.getObject().getClass().getMethod(orm.getObjectMethod(), Object.class);
+                                        break;
                                 }
                                 if (method != null) {
                                     Object param = aItem.getParamValue(0);

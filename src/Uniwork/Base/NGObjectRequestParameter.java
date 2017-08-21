@@ -2,7 +2,7 @@ package Uniwork.Base;
 
 public class NGObjectRequestParameter extends NGObject {
 
-    public enum ParamKind {String, Integer, Double}
+    public enum ParamKind {String, Integer, Double, Object}
 
     protected String FName;
     protected ParamKind FKind;

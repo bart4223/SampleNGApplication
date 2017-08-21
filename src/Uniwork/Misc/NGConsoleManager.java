@@ -5,6 +5,8 @@ import Uniwork.Script.NGScriptExecuter;
 import Uniwork.Script.NGScriptExecuterEvent;
 import Uniwork.Script.NGScriptExecuterListener;
 
+import java.util.Iterator;
+
 public class NGConsoleManager extends NGComponentManager implements NGScriptExecuterListener {
 
     protected NGObjectStack FCommands;
@@ -85,11 +87,14 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
     }
 
     public void ShowVariables() {
-        String variables = FExecuter.getVariablesAsString();
-        if (variables.length() == 0) {
+        Iterator<NGPropertyItem> variables = FExecuter.getVariables();
+        if (!variables.hasNext()) {
             writeWarning("No variables existing.");
         } else {
-            writeInfo(variables);
+            while (variables.hasNext()) {
+                NGPropertyItem var = variables.next();
+                writeInfo(String.format("%s=%s", var.getName(), var.getValue()));
+            }
         }
     }
 

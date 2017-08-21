@@ -65,11 +65,11 @@ public class NGScriptExecuter extends NGComponentManager {
                     String str = ((NGScriptTokenParameter)token).getToken();
                     Object value = str;
                     if (str.startsWith(":")) {
-                        value = FDataStore.get(str.substring(1, str.length()));
+                        value = FDataStore.get(str.substring(1, str.length()).toUpperCase());
                     }
                     FCaller.addParam(value);
                 } else {
-                    FResultItem = FDataStore.set(((NGScriptTokenParameter)token).getToken(), null);
+                    FResultItem = FDataStore.set(((NGScriptTokenParameter)token).getToken().toUpperCase(), null);
                 }
             } else if (token instanceof NGScriptTokenAllocation) {
                 FDoReceiveCall = true;
@@ -163,6 +163,10 @@ public class NGScriptExecuter extends NGComponentManager {
 
     public String getVariablesAsString() {
         return FDataStore.toString();
+    }
+
+    public Iterator<NGPropertyItem> getVariables() {
+        return FDataStore.getItemsAs();
     }
 
     public String getVariableAsString(String aVariable) {

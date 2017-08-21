@@ -13,15 +13,15 @@ public class NGConsoleScriptFunctions extends NGCustomScriptFunctions {
     protected void DoInitialize() {
         super.DoInitialize();
         NGObjectRequestMethod orm;
-        registerObjectRequest("EchoOn", "EchoOn");
-        registerObjectRequest("EchoOff", "EchoOff");
-        registerObjectRequest("ClearVariables", "ClearVariables");
-        registerObjectRequest("ShowVariables", "ShowVariables");
-        orm = registerObjectRequest("ShowVariable", "ShowVariable");
+        registerObjectRequest("EchoOn", "EchoOn", "\"Switch the console echo on.\"");
+        registerObjectRequest("EchoOff", "EchoOff", "\"Switch the console echo off.\"");
+        registerObjectRequest("ClearVariables", "ClearVariables", "\"Clear the variables.\"");
+        registerObjectRequest("ShowVariables", "ShowVariables", "\"Show the variables.\"");
+        orm = registerObjectRequest("ShowVariable", "ShowVariable", "\"Show a concrete variable.\"");
         orm.addParam("Variable", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest( "RunScript", "RunScript");
+        orm = registerObjectRequest( "RunScript", "RunScript","\"Runs an application script.\"");
         orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest( "ShowScript", "ShowScript");
+        orm = registerObjectRequest( "ShowScript", "ShowScript", "\"Shows an application script.\"");
         orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
     }
 
