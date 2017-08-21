@@ -63,3 +63,4 @@ Version History
     30.11.2015      StageSceneGraph
     05.08.2017      Console application module
     09.08.2017      Console manager
+    21.08.2017      Application Script Support
