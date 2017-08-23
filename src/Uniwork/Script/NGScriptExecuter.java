@@ -170,7 +170,7 @@ public class NGScriptExecuter extends NGComponentManager {
     }
 
     public String getVariableAsString(String aVariable) {
-        Object res = FDataStore.get(aVariable);
+        Object res = FDataStore.get(aVariable.toUpperCase());
         if (res == null) {
             res = "null";
         }

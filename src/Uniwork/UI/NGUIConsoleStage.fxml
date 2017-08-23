@@ -6,7 +6,7 @@
 <AnchorPane fx:controller="Uniwork.UI.NGUIConsoleStageController" xmlns:fx="http://javafx.com/fxml">
     <VBox prefWidth="1000" prefHeight="100" xmlns:fx="http://javafx.com/fxml" fx:id="Container">
         <ScrollPane fx:id="ScrollLog" prefWidth="1000" prefHeight="50">
-            <TextFlow id="Log" prefWidth="1000" prefHeight="50" style="-fx-background-color: darkgray;" fx:id="Log"/>
+            <TextFlow id="Log" prefWidth="1000" prefHeight="50" style="-fx-background-color: lightgray;" fx:id="Log"/>
         </ScrollPane>
         <TextArea id="Console" prefWidth="1000" prefHeight="50" onKeyPressed="#handletbCommand" style="-fx-background-color: darkgray; -fx-border-color: lightgray; -fx-border-width: 3;" fx:id="Console"/>
     </VBox>

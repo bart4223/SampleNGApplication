@@ -63,6 +63,17 @@ public class NGConsoleManager extends NGComponentManager implements NGScriptExec
         FEcho = true;
     }
 
+    public void Information(String aInformation) {
+        writeInfo(aInformation);
+    }
+
+    public void Warning(String aWarning) {
+        writeWarning(aWarning);
+    }
+    public void Error(String aError) {
+        writeError(aError);
+    }
+
     public void RunScript(String aScript) {
         try {
             String script = NGMisc.LoadFileContentUnsafe(aScript);

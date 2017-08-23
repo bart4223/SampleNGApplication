@@ -23,6 +23,12 @@ public class NGConsoleScriptFunctions extends NGCustomScriptFunctions {
         orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest( "ShowScript", "ShowScript", "\"Shows an application script.\"");
         orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest( "Info", "Information", "\"Writes a information to console.\"");
+        orm.addParam("Information", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest( "Warning", "Warning", "\"Writes a warning to console.\"");
+        orm.addParam("Warning", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest( "Error", "Error", "\"Writes a error to console.\"");
+        orm.addParam("Error", NGObjectRequestParameter.ParamKind.String);
     }
 
     public NGConsoleScriptFunctions(NGObjectRequestRegistration aORR, Object aDelegate) {
