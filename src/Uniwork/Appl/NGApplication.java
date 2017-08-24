@@ -2,6 +2,7 @@ package Uniwork.Appl;
 
 import Uniwork.Base.*;
 import Uniwork.Misc.*;
+import Uniwork.Script.NGScriptExecuter;
 import Uniwork.Script.NGScriptFunctionsManager;
 import Uniwork.Visuals.NGCommonDialogs;
 import javafx.application.Application;
@@ -31,6 +32,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected String FResourcePath = "";
     protected NGApplicationDefinition FDefinition;
     protected Boolean FTerminateQuestion = true;
+    protected NGScriptExecuter FScriptExecuter;
     protected NGScriptFunctionsManager FScriptFunctionManager;
 
     protected void writeInfo(String aInfo) {
@@ -102,19 +104,21 @@ public class NGApplication extends Application implements NGInitializable, NGLog
             NGObjectXMLDeserializerFile loader = new NGObjectXMLDeserializerFile(null, FDefinitionFilename);
             loader.deserializeObject();
             FDefinition = (NGApplicationDefinition)loader.getTarget();
-            for (NGApplicationModuleItemDefinition item : FDefinition.getModules()) {
-                try {
-                    String name = item.getName();
-                    if (name.length() == 0)
-                        name = String.format("%d", FModuleManager.getModuleCount() + 1);
-                    NGCustomApplicationModule module = addModule(getClass().getClassLoader().loadClass(item.getClassName()), false, name);
-                    module.setDescription(item.getDescription());
-                    if (module.getDescription().length() == 0)
-                        module.setDescription(String.format("%d", FModuleManager.getModuleCount()));
-                    module.setConfigurationFilename(item.getConfigurationFilename());
-                }
-                catch (Exception e){
-                    writeError(String.format("Error: %s", e.getMessage()));
+            if (FDefinition.Modules != null) {
+                for (NGApplicationModuleItemDefinition item : FDefinition.getModules()) {
+                    try {
+                        String name = item.getName();
+                        if (name.length() == 0)
+                            name = String.format("%d", FModuleManager.getModuleCount() + 1);
+                        NGCustomApplicationModule module = addModule(getClass().getClassLoader().loadClass(item.getClassName()), false, name);
+                        module.setDescription(item.getDescription());
+                        if (module.getDescription().length() == 0)
+                            module.setDescription(String.format("%d", FModuleManager.getModuleCount()));
+                        module.setConfigurationFilename(item.getConfigurationFilename());
+                    }
+                    catch (Exception e){
+                        writeError(String.format("Error: %s", e.getMessage()));
+                    }
                 }
             }
             writeInfo(String.format("Application definition file %s loaded.", FDefinitionFilename));
@@ -131,6 +135,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected void DoInitialize() {
         FModuleManager.Initialize();
+        FScriptExecuter.Initialize();
         FScriptFunctionManager.Initialize();
     }
 
@@ -147,8 +152,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void DoFinalize() {
-        FModuleManager.Finalize();
         FScriptFunctionManager.Finalize();
+        FScriptExecuter.Finalize();
+        FModuleManager.Finalize();
     }
 
     protected void DoAfterFinalize() {
@@ -163,11 +169,13 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         super();
         Application = this;
         FLogManager = new NGLogManager();
+        FLogManager.addEventListener(this);
         FModuleManager = new NGApplicationModuleManager();
         FModuleManager.setLogManager(FLogManager);
         FScriptFunctionManager = new NGScriptFunctionsManager(this);
         FScriptFunctionManager.setLogManager(FLogManager);
-        FLogManager.addEventListener(this);
+        FScriptExecuter = new NGScriptExecuter();
+        FScriptExecuter.setInvoker(this);
         FConfiguration = new Properties();
         FORB = new NGObjectRequestBroker(this);
         FORB.setLogManager(FLogManager);
@@ -413,6 +421,16 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                     }
                 }
             }
+        }
+    }
+
+    protected void RunScript(String aScript) {
+        try {
+            String script = NGMisc.LoadFileContentUnsafe(aScript);
+            writeInfo(String.format("Application script %s loaded.", aScript));
+            FScriptExecuter.Execute(script);
+        } catch (Exception e) {
+            writeError(e.getMessage());
         }
     }
 

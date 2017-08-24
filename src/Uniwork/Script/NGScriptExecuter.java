@@ -97,6 +97,8 @@ public class NGScriptExecuter extends NGComponentManager {
             FCommandsCalled = FCommandsCalled + 1;
             if (FCaller.HasInvoker()) {
                 FCaller.Invoke();
+            } else {
+                writeError("No caller available.");
             }
         }
     }
