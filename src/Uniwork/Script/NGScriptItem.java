@@ -9,14 +9,9 @@ public class NGScriptItem extends NGObject {
     protected String FDescription;
     protected String FFileName;
 
-    public NGScriptItem(String aName, String aScript, String aDescription) {
-        this(aName, aScript, "", aDescription);
-    }
-
-    public NGScriptItem(String aName, String aScript, String aFilename, String aDescription) {
+    public NGScriptItem(String aName, String aFilename, String aDescription) {
         super();
         FName = aName;
-        FScript = aScript;
         FFileName = aFilename;
         FDescription = aDescription;
     }
@@ -27,6 +22,10 @@ public class NGScriptItem extends NGObject {
 
     public String getScript() {
         return FScript;
+    }
+
+    public void setScript(String aScript) {
+        FScript = aScript;
     }
 
     public String getDescription() {

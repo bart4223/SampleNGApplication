@@ -10,24 +10,19 @@ public class NGScriptManager extends NGComponent {
 
     protected ArrayList<NGScriptItem> FScripts;
 
+    protected void DoInitialize() {
+        super.DoInitialize();
+        Reload();
+    }
+
     public NGScriptManager() {
         super();
         FScripts = new ArrayList<NGScriptItem>();
     }
 
-    public NGScriptItem addScript(String aName, String aScript, String aFileName, String aDescription) {
-        return new NGScriptItem(aName, aScript, aFileName, aDescription);
-    }
-
-    public NGScriptItem addScriptFromFile(String aName, String aFileName, String aDescription) {
-        NGScriptItem res = null;
-        try {
-            String script = NGMisc.LoadFileContentUnsafe(aFileName);
-            res = addScript(aName, script, aFileName, aDescription);
-            FScripts.add(res);
-        } catch (Exception e) {
-            writeError(e.getMessage());
-        }
+    public NGScriptItem addScript(String aName, String aFileName, String aDescription) {
+        NGScriptItem res = new NGScriptItem(aName, aFileName, aDescription);
+        FScripts.add(res);
         return res;
     }
 
@@ -37,11 +32,22 @@ public class NGScriptManager extends NGComponent {
 
     public String getScript(String aName) {
         for (NGScriptItem script: FScripts ) {
-            if (script.equals(aName)) {
+            if (script.getName().toUpperCase().equals(aName.toUpperCase())) {
                 return script.getScript();
             }
         }
         return "";
+    }
+
+    public void Reload() {
+        for (NGScriptItem item : FScripts) {
+            try {
+                String script = NGMisc.LoadFileContentUnsafe(item.getFileName());
+                item.setScript(script);
+            } catch (Exception e) {
+                writeError(e.getMessage());
+            }
+        }
     }
 
 }

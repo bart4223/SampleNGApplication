@@ -123,6 +123,11 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                     }
                 }
             }
+            if (FDefinition.Scripts != null) {
+                for (NGApplicationScriptItemDefinition script : FDefinition.Scripts) {
+                    FScriptManager.addScript(script.Name, script.Filename, script.Description);
+                }
+            }
             writeInfo(String.format("Application definition file %s loaded.", FDefinitionFilename));
         }
     }
@@ -431,13 +436,12 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         }
     }
 
-    protected void RunScript(String aScript) {
-        try {
-            String script = NGMisc.LoadFileContentUnsafe(aScript);
-            writeInfo(String.format("Application script %s loaded.", aScript));
+    protected void RunScript(String aName) {
+        String script = FScriptManager.getScript(aName);
+        if (script.length() != 0) {
             FScriptExecuter.Execute(script);
-        } catch (Exception e) {
-            writeError(e.getMessage());
+        } else {
+            writeError(String.format("Script [%s] is empty.", aName));
         }
     }
 
