@@ -4,6 +4,7 @@ import Uniwork.Base.*;
 import Uniwork.Misc.*;
 import Uniwork.Script.NGScriptExecuter;
 import Uniwork.Script.NGScriptFunctionsManager;
+import Uniwork.Script.NGScriptManager;
 import Uniwork.Visuals.NGCommonDialogs;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -34,6 +35,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     protected Boolean FTerminateQuestion = true;
     protected NGScriptExecuter FScriptExecuter;
     protected NGScriptFunctionsManager FScriptFunctionManager;
+    protected NGScriptManager FScriptManager;
 
     protected void writeInfo(String aInfo) {
         FLogManager.writeLog(aInfo, NGLogEntry.LogType.Info, toString());
@@ -137,6 +139,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         FModuleManager.Initialize();
         FScriptExecuter.Initialize();
         FScriptFunctionManager.Initialize();
+        FScriptManager.Initialize();
     }
 
     protected void DoAfterInitialize() {
@@ -152,6 +155,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void DoFinalize() {
+        FScriptManager.Finalize();
         FScriptFunctionManager.Finalize();
         FScriptExecuter.Finalize();
         FModuleManager.Finalize();
@@ -176,6 +180,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         FScriptFunctionManager.setLogManager(FLogManager);
         FScriptExecuter = new NGScriptExecuter();
         FScriptExecuter.setInvoker(this);
+        FScriptExecuter.setLogManager(FLogManager);
+        FScriptManager = new NGScriptManager();
+        FScriptManager.setLogManager(FLogManager);
         FConfiguration = new Properties();
         FORB = new NGObjectRequestBroker(this);
         FORB.setLogManager(FLogManager);
