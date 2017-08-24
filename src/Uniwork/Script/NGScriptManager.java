@@ -15,15 +15,15 @@ public class NGScriptManager extends NGComponent {
         FScripts = new ArrayList<NGScriptItem>();
     }
 
-    public NGScriptItem addScript(String aName, String aScript, String aDescription) {
-        return new NGScriptItem(aName, aScript, aDescription);
+    public NGScriptItem addScript(String aName, String aScript, String aFileName, String aDescription) {
+        return new NGScriptItem(aName, aScript, aFileName, aDescription);
     }
 
     public NGScriptItem addScriptFromFile(String aName, String aFileName, String aDescription) {
         NGScriptItem res = null;
         try {
             String script = NGMisc.LoadFileContentUnsafe(aFileName);
-            res = addScript(aName, script, aDescription);
+            res = addScript(aName, script, aFileName, aDescription);
             FScripts.add(res);
         } catch (Exception e) {
             writeError(e.getMessage());
@@ -33,6 +33,15 @@ public class NGScriptManager extends NGComponent {
 
     public Iterator<NGScriptItem> getScripts() {
         return FScripts.iterator();
+    }
+
+    public String getScript(String aName) {
+        for (NGScriptItem script: FScripts ) {
+            if (script.equals(aName)) {
+                return script.getScript();
+            }
+        }
+        return "";
     }
 
 }
