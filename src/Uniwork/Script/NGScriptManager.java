@@ -39,6 +39,10 @@ public class NGScriptManager extends NGComponent {
         return "";
     }
 
+    public Integer getScriptCount() {
+        return FScripts.size();
+    }
+
     public void Reload() {
         for (NGScriptItem item : FScripts) {
             try {

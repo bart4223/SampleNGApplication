@@ -346,7 +346,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     @Override
     public Object ResolveObject(String aName, Class aClass) {
         Object res = null;
-        if (aClass.isAssignableFrom(FORB.getClass())) {
+        if (aClass.isAssignableFrom(FScriptManager.getClass())) {
+            res = FScriptManager;
+        } else if (aClass.isAssignableFrom(FORB.getClass())) {
             res = FORB;
         } else if (aClass.isAssignableFrom(getClass())) {
             res = this;
@@ -436,7 +438,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         }
     }
 
-    protected void RunScript(String aName) {
+    public void RunScript(String aName) {
         String script = FScriptManager.getScript(aName);
         if (script.length() != 0) {
             FScriptExecuter.Execute(script);

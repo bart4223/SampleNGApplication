@@ -90,6 +90,13 @@ public class NGObjectRequestBroker extends NGObject {
                                                 param = Double.parseDouble((String)param);
                                             }
                                             break;
+                                        case Integer:
+                                            if (param == null) {
+                                                param = 0;
+                                            } else if (param instanceof String) {
+                                                param = Integer.parseInt((String)param);
+                                            }
+                                            break;
                                     }
                                     if (param == null) {
                                         throw new NGInvalidParamException();
