@@ -286,6 +286,11 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     }
 
+    public void ScriptTerminate() {
+        FTerminateQuestion = false;
+        Terminate();
+    }
+
     public void Terminate() {
         Boolean terminate = !FTerminateQuestion;
         if (!terminate)

@@ -11,8 +11,8 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
     protected void DoInitialize() {
         super.DoInitialize();
         NGObjectRequestMethod orm;
-        registerObjectRequest("Quit", "Terminate", "\"Leave the application.\"");
-        registerObjectRequest("Exit", "Terminate", "\"Leave the application.\"");
+        registerObjectRequest("Quit", "ScriptTerminate", "\"Leave the application.\"");
+        registerObjectRequest("Exit", "ScriptTerminate", "\"Leave the application.\"");
         registerObjectRequest("ShowStages", "ShowStages","\"Show all stages of application.\"");
         registerObjectRequest("HideStages", "HideStages","\"Hide all stages of application.\"");
         orm = registerObjectRequest("Help", "ShowHelp","\"Show the help of application.\"");
