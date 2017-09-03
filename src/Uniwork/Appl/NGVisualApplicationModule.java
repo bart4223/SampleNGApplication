@@ -112,4 +112,8 @@ public abstract class NGVisualApplicationModule extends NGCustomApplicationModul
         return FStageManager.getItemCount();
     }
 
+    public void SetShowStagesAfterInitialize(Boolean aValue) {
+        FStageManager.SetShowAfterInitialize(aValue);
+    }
+
 }

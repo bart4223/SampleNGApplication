@@ -117,6 +117,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                         if (module.getDescription().length() == 0)
                             module.setDescription(String.format("%d", FModuleManager.getModuleCount()));
                         module.setConfigurationFilename(item.getConfigurationFilename());
+                        if (item instanceof NGVisualApplicationModuleItemDefinition) {
+                            ((NGVisualApplicationModule)module).SetShowStagesAfterInitialize(((NGVisualApplicationModuleItemDefinition)item).ShowStagesAfterInitialize);
+                        }
                     }
                     catch (Exception e){
                         writeError(String.format("Error: %s", e.getMessage()));

@@ -10,6 +10,7 @@ public class NGStageManager extends NGComponent {
 
     protected CopyOnWriteArrayList<NGCustomStageItem> FItems;
     protected CopyOnWriteArrayList<NGStageItemClass> FItemClasses;
+    protected Boolean FShowAfterInitialize;
 
     protected void DoInitialize() {
         super.DoInitialize();
@@ -50,6 +51,7 @@ public class NGStageManager extends NGComponent {
         super(aOwner, aName);
         FItems = new CopyOnWriteArrayList<NGCustomStageItem>();
         FItemClasses = new CopyOnWriteArrayList<NGStageItemClass>();
+        FShowAfterInitialize = true;
     }
 
     public void registerItemClass(String aName, String aClassname) {
@@ -89,6 +91,7 @@ public class NGStageManager extends NGComponent {
         NGStageItemClass itemclass = getItemClass(aItemName);
         try {
             item = (NGCustomStageItem)itemclass.getItemClass().getConstructor(NGStageManager.class, String.class, Stage.class).newInstance(this, getFullname(aName), aStage);
+            item.setShowAfterInitialize(FShowAfterInitialize);
             FItems.add(item);
             writeInfo(String.format("Stage item %s[%s] added.", item.getName(), itemclass.getItemClass().getName()));
         }
@@ -138,6 +141,10 @@ public class NGStageManager extends NGComponent {
 
     public Integer getItemCount() {
         return FItems.size();
+    }
+
+    public void SetShowAfterInitialize(Boolean aValue) {
+        FShowAfterInitialize = aValue;
     }
 
 }

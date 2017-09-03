@@ -313,4 +313,8 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
         return FIsPrimary;
     }
 
+    public void setShowAfterInitialize(Boolean aValue) {
+        FShowAfterInitialize = aValue;
+    }
+
 }
