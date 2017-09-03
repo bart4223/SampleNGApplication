@@ -286,9 +286,8 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     }
 
-    public void ScriptTerminate() {
-        FTerminateQuestion = false;
-        Terminate();
+    public void SetTerminateQuestion(Boolean aValue) {
+        FTerminateQuestion = aValue;
     }
 
     public void Terminate() {
@@ -448,31 +447,12 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         NGCommonDialogs.showMessageDialog(getName(), aMessage);
     }
 
-    public void ShowHelp(String aDomain) {
-        NGObjectRequestBroker orb = (NGObjectRequestBroker) NGApplication.Application.ResolveObject(NGObjectRequestBroker.class);
-        Iterator<NGObjectRequestObject> objects = orb.getObjects();
-        while (objects.hasNext()) {
-            NGObjectRequestObject obj = objects.next();
-            if (aDomain.length() == 0 || obj.getName().toUpperCase().equals(aDomain.toUpperCase())) {
-                Iterator<NGObjectRequestMethod> methods = obj.getMethods();
-                while (methods.hasNext()) {
-                    NGObjectRequestMethod method = methods.next();
-                    if (method.getDescription().length() == 0) {
-                        writeInfo(String.format("%s.%s", obj.getName(), method.toString()));
-                    } else {
-                        writeInfo(String.format("%s.%s : %s", obj.getName(), method.toString(), method.getDescription()));
-                    }
-                }
-            }
-        }
-    }
-
     public void RunScript(String aName) {
         String script = FScriptManager.getScript(aName);
         if (script.length() != 0) {
             FScriptExecuter.Execute(script);
         } else {
-            writeError(String.format("Script [%s] is empty.", aName));
+            writeError(String.format("Script [%s] is empty or unknown.", aName));
         }
     }
 

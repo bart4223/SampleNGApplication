@@ -12,23 +12,23 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
     protected void DoInitialize() {
         super.DoInitialize();
         NGObjectRequestMethod orm;
-        orm = registerObjectRequest("Let", "let", "\"Defines a variable.\"");
+        orm = registerObjectRequest("Let", "let", "Defines a variable.");
         orm.addParam("Variable", NGObjectRequestParameter.ParamKind.Object);
-        orm = registerObjectRequest("Add", "addition", "\"Adds two operands.\"");
+        orm = registerObjectRequest("Add", "addition", "Adds two operands.");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest("Sub", "substraction", "\"Subtracts two operands.\"");
+        orm = registerObjectRequest("Sub", "substraction", "Subtracts two operands.");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest("Neg", "negation", "\"Negate a operand.\"");
+        orm = registerObjectRequest("Neg", "negation", "Negate a operand.");
         orm.addParam("Operand", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest("Mult", "multiplication", "\"Multiplies two operands.\"");
+        orm = registerObjectRequest("Mult", "multiplication", "Multiplies two operands.");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest("Div", "division", "\"Divide two operands.\"");
+        orm = registerObjectRequest("Div", "division", "Divide two operands.");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
-        orm = registerObjectRequest("AddString", "addString", "\"Adds two strings.\"");
+        orm = registerObjectRequest("AddString", "addString", "Adds two strings.");
         orm.addParam("String1", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("String2", NGObjectRequestParameter.ParamKind.String);
     }

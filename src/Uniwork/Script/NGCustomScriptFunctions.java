@@ -15,7 +15,11 @@ public abstract class NGCustomScriptFunctions extends NGComponent {
     }
 
     protected NGObjectRequestMethod registerObjectRequest(String aMethod, String aObjectMethod, String aDescription) {
-        return FORR.registerObjectRequest(FDomain, getInvokeObject(), aMethod, aObjectMethod, aDescription);
+        return registerObjectRequest(getInvokeObject(), aMethod, aObjectMethod, aDescription);
+    }
+
+    protected NGObjectRequestMethod registerObjectRequest(Object aObject, String aMethod, String aObjectMethod, String aDescription) {
+        return FORR.registerObjectRequest(FDomain, aObject, aMethod, aObjectMethod, aDescription);
     }
 
     public NGCustomScriptFunctions(NGObjectRequestRegistration aORR) {

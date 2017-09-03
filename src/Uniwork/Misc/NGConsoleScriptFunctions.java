@@ -13,21 +13,21 @@ public class NGConsoleScriptFunctions extends NGCustomScriptFunctions {
     protected void DoInitialize() {
         super.DoInitialize();
         NGObjectRequestMethod orm;
-        registerObjectRequest("EchoOn", "EchoOn", "\"Switch the console echo on.\"");
-        registerObjectRequest("EchoOff", "EchoOff", "\"Switch the console echo off.\"");
-        registerObjectRequest("ClearVariables", "ClearVariables", "\"Clear the variables.\"");
-        registerObjectRequest("ShowVariables", "ShowVariables", "\"Show the variables.\"");
-        orm = registerObjectRequest("ShowVariable", "ShowVariable", "\"Show a concrete variable.\"");
+        registerObjectRequest("EchoOn", "EchoOn", "Switch the console echo on.");
+        registerObjectRequest("EchoOff", "EchoOff", "Switch the console echo off.");
+        registerObjectRequest("ClearVariables", "ClearVariables", "Clear the variables.");
+        registerObjectRequest("ShowVariables", "ShowVariables", "Show the variables.");
+        orm = registerObjectRequest("ShowVariable", "ShowVariable", "Show a concrete variable.");
         orm.addParam("Variable", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest( "RunScript", "RunScript","\"Runs an application script.\"");
+        orm = registerObjectRequest( "RunScript", "RunScript","Runs an application script.");
         orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest( "ShowScript", "ShowScript", "\"Shows an application script.\"");
+        orm = registerObjectRequest( "ShowScript", "ShowScript", "Shows an application script.");
         orm.addParam("Script", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest( "Info", "Information", "\"Writes a information to console.\"");
+        orm = registerObjectRequest( "Info", "Information", "Writes a information to console.");
         orm.addParam("Information", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest( "Warning", "Warning", "\"Writes a warning to console.\"");
+        orm = registerObjectRequest( "Warning", "Warning", "Writes a warning to console.");
         orm.addParam("Warning", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest( "Error", "Error", "\"Writes a error to console.\"");
+        orm = registerObjectRequest( "Error", "Error", "Writes a error to console.");
         orm.addParam("Error", NGObjectRequestParameter.ParamKind.String);
     }
 

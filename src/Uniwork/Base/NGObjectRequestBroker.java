@@ -204,7 +204,7 @@ public class NGObjectRequestBroker extends NGObject {
 
     public NGObjectRequestObject addObject(String aName, Object aObject) {
         NGObjectRequestObject res = getObject(aName);
-        if (res == null) {
+        if (res == null || !res.getObject().equals(aObject)) {
             res = new NGObjectRequestObject(aName, aObject);
             addObject(res);
         }
