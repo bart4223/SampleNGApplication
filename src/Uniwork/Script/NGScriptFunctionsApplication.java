@@ -15,6 +15,13 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
         registerObjectRequest("Exit", "ScriptTerminate", "\"Leave the application.\"");
         registerObjectRequest("ShowStages", "ShowStages","\"Show all stages of application.\"");
         registerObjectRequest("HideStages", "HideStages","\"Hide all stages of application.\"");
+        registerObjectRequest("CloseStages", "CloseStages","\"Close all stages of application.\"");
+        orm = registerObjectRequest("ShowStage", "ShowStage","\"Show all stages of application module.\"");
+        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest("HideStage", "HideStage","\"Hide all stages of application module.\"");
+        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest("CloseStage", "CloseStage","\"Close all stages of application module.\"");
+        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest("Help", "ShowHelp","\"Show the help of application.\"");
         orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest("?", "ShowHelp", "\"Show the help of application.\"");

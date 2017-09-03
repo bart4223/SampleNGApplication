@@ -62,7 +62,7 @@ public abstract class NGCustomComponentManager extends NGComponent {
 
     public NGComponent getComponent(String aName) {
         for (NGComponent comp : FComponents) {
-            if (comp.getName().equals(aName)) {
+            if (comp.getName().toUpperCase().equals(aName.toUpperCase())) {
                 return comp;
             }
         }

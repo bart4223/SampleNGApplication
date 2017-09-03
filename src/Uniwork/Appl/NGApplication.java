@@ -398,6 +398,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         }
     }
 
+    public void ShowStage(String aName) {
+        NGCustomApplicationModule module = FModuleManager.getModule(aName);
+        if (module instanceof NGVisualApplicationModule) {
+            NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
+            visualModule.ShowStages();
+        }
+    }
+
     public void HideStages() {
         Iterator<NGCustomApplicationModule> itr = FModuleManager.getModules();
         while (itr.hasNext()) {
@@ -409,6 +417,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         }
     }
 
+    public void HideStage(String aName) {
+        NGCustomApplicationModule module = FModuleManager.getModule(aName);
+        if (module instanceof NGVisualApplicationModule) {
+            NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
+            visualModule.HideStages();
+        }
+    }
+
     public void CloseStages() {
         Iterator<NGCustomApplicationModule> itr = FModuleManager.getModules();
         while (itr.hasNext()) {
@@ -417,6 +433,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
                 NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
                 visualModule.CloseStages();
             }
+        }
+    }
+
+    public void CloseStage(String aName) {
+        NGCustomApplicationModule module = FModuleManager.getModule(aName);
+        if (module instanceof NGVisualApplicationModule) {
+            NGVisualApplicationModule visualModule = (NGVisualApplicationModule)module;
+            visualModule.CloseStages();
         }
     }
 
