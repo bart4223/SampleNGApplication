@@ -152,14 +152,23 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     protected void DoAfterInitialize() {
         registerObjectRequests();
+        RunStartupScripts();
     }
 
     protected void registerObjectRequests() {
 
     }
 
-    protected void DoBeforeFinalize() {
+    protected void RunStartupScripts() {
+        if (FDefinition.Startups != null) {
+            for (NGApplicationStartupItemDefinition item : FDefinition.getStartups()) {
+                RunScript(item.getName());
+            }
+        }
+    }
 
+    protected void DoBeforeFinalize() {
+        RunShutdownScripts();
     }
 
     protected void DoFinalize() {
@@ -170,7 +179,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void DoAfterFinalize() {
+    }
 
+    protected void RunShutdownScripts() {
+        if (FDefinition.Startups != null) {
+            for (NGApplicationShutdownItemDefinition item : FDefinition.getShutdowns()) {
+                RunScript(item.getName());
+            }
+        }
     }
 
     protected void DoTerminate() {
