@@ -145,36 +145,36 @@
   
   <path id="uniwork.module.production.classpath">
     <path refid="${module.jdk.classpath.uniwork}"/>
-    <path refid="library.junit-4.12.classpath"/>
-    <path refid="library.hamcrest-core-1.3.classpath"/>
-    <path refid="library.ant.classpath"/>
     <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
   <path id="uniwork.runtime.production.module.classpath">
     <pathelement location="${uniwork.output.dir}"/>
-    <path refid="library.junit-4.12.classpath"/>
-    <path refid="library.hamcrest-core-1.3.classpath"/>
-    <path refid="library.ant.classpath"/>
     <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
   <path id="uniwork.module.classpath">
     <path refid="${module.jdk.classpath.uniwork}"/>
     <pathelement location="${uniwork.output.dir}"/>
-    <path refid="library.junit-4.12.classpath"/>
-    <path refid="library.hamcrest-core-1.3.classpath"/>
-    <path refid="library.ant.classpath"/>
     <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
   <path id="uniwork.runtime.module.classpath">
     <pathelement location="${uniwork.testoutput.dir}"/>
     <pathelement location="${uniwork.output.dir}"/>
-    <path refid="library.junit-4.12.classpath"/>
-    <path refid="library.hamcrest-core-1.3.classpath"/>
-    <path refid="library.ant.classpath"/>
     <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
   </path>
   
   
@@ -240,18 +240,22 @@
     <mkdir dir="${artifact.temp.output.uniwork.jar}"/>
     <jar destfile="${temp.jar.path.Uniwork.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
       <zipfileset dir="${uniwork.output.dir}"/>
+      <zipfileset src="${basedir}/../libs/junit-4.12.jar"/>
+      <zipfileset src="${basedir}/../libs/gson-2.5.jar"/>
+      <zipfileset src="${basedir}/../libs/ant.jar"/>
+      <zipfileset src="${basedir}/../libs/hamcrest-core-1.3.jar"/>
     </jar>
     <copy file="${temp.jar.path.Uniwork.jar}" tofile="${artifact.temp.output.uniwork.jar}/Uniwork.jar"/>
   </target>
 
   <target name="testall" depends="artifact.uniwork.jar" description="Perform Tests">
-    <java fork="true" classname="Uniwork.Test.NGTestRunner">
-      <classpath>
-        <path refid="library.junit-4.12.classpath"/>
-        <path refid="library.hamcrest-core-1.3.classpath"/>
-        <path location="${basedir}/out/artifacts/Uniwork.jar"/>
-      </classpath>
-    </java>
+      <java fork="true" classname="Uniwork.Test.NGTestRunner">
+          <classpath>
+              <path refid="library.junit-4.12.classpath"/>
+              <path refid="library.hamcrest-core-1.3.classpath"/>
+              <path location="${basedir}/out/artifacts/Uniwork.jar"/>
+          </classpath>
+      </java>
   </target>
 
   <target name="build.all.artifacts" depends="artifact.uniwork.jar" description="Build all artifacts">
