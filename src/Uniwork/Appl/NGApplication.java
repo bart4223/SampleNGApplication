@@ -160,7 +160,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void RunStartupScripts() {
-        if (FDefinition.Startups != null) {
+        if (FDefinition != null && FDefinition.Startups != null) {
             for (NGApplicationStartupItemDefinition item : FDefinition.getStartups()) {
                 RunScript(item.getName());
             }
@@ -182,7 +182,7 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     protected void RunShutdownScripts() {
-        if (FDefinition.Startups != null) {
+        if (FDefinition != null && FDefinition.Startups != null) {
             for (NGApplicationShutdownItemDefinition item : FDefinition.getShutdowns()) {
                 RunScript(item.getName());
             }
