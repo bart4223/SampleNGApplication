@@ -241,37 +241,37 @@
   
   <path id="samplengapplication.module.production.classpath">
     <path refid="${module.jdk.classpath.samplengapplication}"/>
-    <pathelement location="${uniwork.output.dir}"/>
     <path refid="library.gson-2.5.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.ant.classpath"/>
+    <pathelement location="${uniwork.output.dir}"/>
   </path>
   
   <path id="samplengapplication.runtime.production.module.classpath">
     <pathelement location="${samplengapplication.output.dir}"/>
-    <path refid="uniwork.runtime.production.module.classpath"/>
     <path refid="library.gson-2.5.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.ant.classpath"/>
+    <path refid="uniwork.runtime.production.module.classpath"/>
   </path>
   
   <path id="samplengapplication.module.classpath">
     <path refid="${module.jdk.classpath.samplengapplication}"/>
     <pathelement location="${samplengapplication.output.dir}"/>
-    <pathelement location="${uniwork.testoutput.dir}"/>
-    <pathelement location="${uniwork.output.dir}"/>
     <path refid="library.gson-2.5.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.ant.classpath"/>
+    <pathelement location="${uniwork.testoutput.dir}"/>
+    <pathelement location="${uniwork.output.dir}"/>
   </path>
   
   <path id="samplengapplication.runtime.module.classpath">
     <pathelement location="${samplengapplication.testoutput.dir}"/>
     <pathelement location="${samplengapplication.output.dir}"/>
-    <path refid="uniwork.runtime.module.classpath"/>
     <path refid="library.gson-2.5.classpath"/>
     <path refid="library.hamcrest-core-1.3.classpath"/>
     <path refid="library.ant.classpath"/>
+    <path refid="uniwork.runtime.module.classpath"/>
   </path>
   
   
