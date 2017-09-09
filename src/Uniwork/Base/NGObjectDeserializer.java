@@ -10,6 +10,7 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
     protected Object FSource;
     protected NGLogManager FLogManager;
     protected InputStream FInputStream;
+    protected Class FTargetClass;
 
     protected void CreateInputStream() throws Exception {
 
@@ -80,11 +81,20 @@ public abstract class NGObjectDeserializer extends NGObject implements NGObjectD
         }
     }
 
+    public NGObjectDeserializer(Class aTargetClass) {
+        this(null, aTargetClass);
+    }
+
     public NGObjectDeserializer(Object aTarget) {
+        this(aTarget, null);
+    }
+
+    public NGObjectDeserializer(Object aTarget, Class aTargetClass) {
         FTarget = aTarget;
         FSource = null;
         FInputStream = null;
         FLogManager = null;
+        FTargetClass = aTargetClass;
     }
 
     public void setLogManager(NGLogManager aLogManager) {

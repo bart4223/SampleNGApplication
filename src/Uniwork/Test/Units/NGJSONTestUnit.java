@@ -1,5 +1,6 @@
 package Uniwork.Test.Units;
 
+import Uniwork.Base.NGObjectJSONDeserializer;
 import Uniwork.Base.NGObjectJSONSerializer;
 import Uniwork.Test.NGCustomTestUnit;
 import org.junit.AfterClass;
@@ -13,7 +14,7 @@ public class NGJSONTestUnit extends NGCustomTestUnit {
     private class Person {
 
         protected String Name;
-
+        
         public Person(String aName) {
             Name = aName;
         }
@@ -46,6 +47,35 @@ public class NGJSONTestUnit extends NGCustomTestUnit {
         NGObjectJSONSerializer serializer = new NGObjectJSONSerializer(p);
         serializer.serializeObject();
         assertEquals("{\"Name\":\"Bart4223\"}", serializer.getJSON());
+        FinishTest();
+    }
+
+    @Test
+    public void testJSONDeserialize01() throws Exception {
+        StartTest();
+        NGObjectJSONDeserializer deserializer = new NGObjectJSONDeserializer(Person.class);
+        deserializer.setJSON("{\"Name\":\"Bart4223\"}");
+        assertEquals(true, deserializer.deserializeObject());
+        FinishTest();
+    }
+
+    @Test
+    public void testJSONDeserialize02() throws Exception {
+        StartTest();
+        NGObjectJSONDeserializer deserializer = new NGObjectJSONDeserializer(Person.class);
+        deserializer.setJSON("\"Name\":\"Bart4223\"}");
+        assertEquals(false, deserializer.deserializeObject());
+        FinishTest();
+    }
+
+    @Test
+    public void testJSONDeserialize03() throws Exception {
+        StartTest();
+        NGObjectJSONDeserializer deserializer = new NGObjectJSONDeserializer(Person.class);
+        deserializer.setJSON("{\"Name\":\"Bart4223\"}");
+        deserializer.deserializeObject();
+        Person p = (Person)deserializer.getTarget();
+        assertEquals("Bart4223", p.Name);
         FinishTest();
     }
 
