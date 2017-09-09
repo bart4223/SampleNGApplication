@@ -1,0 +1,11 @@
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<AnchorPane fx:controller="Sample.MainStageController" xmlns:fx="http://javafx.com/fxml" >
+    <HBox prefHeight="50" minWidth="500" alignment="TOP_LEFT" spacing="10" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: gray;">
+        <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+        <Button id="btnShow" prefWidth="80" text="Show" onAction="#handleShow" fx:id="btnShow" />
+        <Button id="btnQuit" prefWidth="80" text="Quit" onAction="#handleQuit" fx:id="btnQuit" />
+    </HBox>
+</AnchorPane>

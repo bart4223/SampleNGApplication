@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="samplengapplication" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ane"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/packager.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.ant.classpath">
+    <pathelement location="${basedir}/../libs/ant.jar"/>
+  </path>
+  
+  <path id="library.gson-2.5.classpath">
+    <pathelement location="${basedir}/../libs/gson-2.5.jar"/>
+  </path>
+  
+  <path id="library.hamcrest-core-1.3.classpath">
+    <pathelement location="${basedir}/../libs/hamcrest-core-1.3.jar"/>
+  </path>
+  
+  <path id="library.junit-4.12.classpath">
+    <pathelement location="${basedir}/../libs/junit-4.12.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Uniwork -->
+  
+  <dirname property="module.uniwork.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.uniwork" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.uniwork" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.uniwork" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.uniwork" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="uniwork.output.dir" value="${module.uniwork.basedir}/out/production/Uniwork"/>
+  <property name="uniwork.testoutput.dir" value="${module.uniwork.basedir}/out/test/Uniwork"/>
+  
+  <path id="uniwork.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="uniwork.module.production.classpath">
+    <path refid="${module.jdk.classpath.uniwork}"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
+  </path>
+  
+  <path id="uniwork.runtime.production.module.classpath">
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
+  </path>
+  
+  <path id="uniwork.module.classpath">
+    <path refid="${module.jdk.classpath.uniwork}"/>
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
+  </path>
+  
+  <path id="uniwork.runtime.module.classpath">
+    <pathelement location="${uniwork.testoutput.dir}"/>
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.ant.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.junit-4.12.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.uniwork">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.uniwork">
+    <patternset refid="excluded.from.module.uniwork"/>
+  </patternset>
+  
+  <path id="uniwork.module.sourcepath">
+    <dirset dir="${module.uniwork.basedir}/../Uniwork">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.uniwork" depends="compile.module.uniwork.production,compile.module.uniwork.tests" description="Compile module Uniwork"/>
+  
+  <target name="compile.module.uniwork.production" depends="register.custom.compilers" description="Compile module Uniwork; production classes">
+    <mkdir dir="${uniwork.output.dir}"/>
+    <javac2 destdir="${uniwork.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.uniwork}/javac">
+      <compilerarg line="${compiler.args.uniwork}"/>
+      <bootclasspath refid="uniwork.module.bootclasspath"/>
+      <classpath refid="uniwork.module.production.classpath"/>
+      <src refid="uniwork.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.uniwork"/>
+    </javac2>
+    
+    <copy todir="${uniwork.output.dir}">
+      <fileset dir="${module.uniwork.basedir}/../Uniwork/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.uniwork.tests" depends="register.custom.compilers,compile.module.uniwork.production" description="compile module Uniwork; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.uniwork" description="cleanup module">
+    <delete dir="${uniwork.output.dir}"/>
+    <delete dir="${uniwork.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module SampleNGApplication -->
+  
+  <dirname property="module.samplengapplication.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.samplengapplication" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.samplengapplication" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.samplengapplication" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.samplengapplication" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="samplengapplication.output.dir" value="${module.samplengapplication.basedir}/out/production/SampleNGApplication"/>
+  <property name="samplengapplication.testoutput.dir" value="${module.samplengapplication.basedir}/out/test/SampleNGApplication"/>
+  
+  <path id="samplengapplication.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="samplengapplication.module.production.classpath">
+    <path refid="${module.jdk.classpath.samplengapplication}"/>
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  <path id="samplengapplication.runtime.production.module.classpath">
+    <pathelement location="${samplengapplication.output.dir}"/>
+    <path refid="uniwork.runtime.production.module.classpath"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  <path id="samplengapplication.module.classpath">
+    <path refid="${module.jdk.classpath.samplengapplication}"/>
+    <pathelement location="${samplengapplication.output.dir}"/>
+    <pathelement location="${uniwork.testoutput.dir}"/>
+    <pathelement location="${uniwork.output.dir}"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  <path id="samplengapplication.runtime.module.classpath">
+    <pathelement location="${samplengapplication.testoutput.dir}"/>
+    <pathelement location="${samplengapplication.output.dir}"/>
+    <path refid="uniwork.runtime.module.classpath"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.hamcrest-core-1.3.classpath"/>
+    <path refid="library.ant.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.samplengapplication">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.samplengapplication">
+    <patternset refid="excluded.from.module.samplengapplication"/>
+  </patternset>
+  
+  <path id="samplengapplication.module.sourcepath">
+    <dirset dir="${module.samplengapplication.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.samplengapplication" depends="compile.module.samplengapplication.production,compile.module.samplengapplication.tests" description="Compile module SampleNGApplication"/>
+  
+  <target name="compile.module.samplengapplication.production" depends="register.custom.compilers,compile.module.uniwork" description="Compile module SampleNGApplication; production classes">
+    <mkdir dir="${samplengapplication.output.dir}"/>
+    <javac2 destdir="${samplengapplication.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.samplengapplication}/javac">
+      <compilerarg line="${compiler.args.samplengapplication}"/>
+      <bootclasspath refid="samplengapplication.module.bootclasspath"/>
+      <classpath refid="samplengapplication.module.production.classpath"/>
+      <src refid="samplengapplication.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.samplengapplication"/>
+    </javac2>
+    
+    <copy todir="${samplengapplication.output.dir}">
+      <fileset dir="${module.samplengapplication.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.samplengapplication.tests" depends="register.custom.compilers,compile.module.samplengapplication.production" description="compile module SampleNGApplication; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.samplengapplication" description="cleanup module">
+    <delete dir="${samplengapplication.output.dir}"/>
+    <delete dir="${samplengapplication.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.uniwork, clean.module.samplengapplication, clean.artifact.sample" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.uniwork, compile.module.samplengapplication" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.sample" value="${basedir}/out/artifacts/Sample"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="artifact.temp.output.Sample" value="${artifacts.temp.dir}/Sample.jar"/>
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
+  </target>
+  
+  <target name="clean.artifact.sample" description="clean Sample artifact output">
+    <delete dir="${artifact.output.sample}"/>
+  </target>
+  
+  <target name="artifact.sample" depends="init.artifacts, compile.module.samplengapplication, compile.module.uniwork" description="Build &#39;Sample&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <mkdir dir="${artifact.output.sample}"/>
+    <copy todir="${artifact.temp.output.Sample}">
+      <fileset dir="${samplengapplication.output.dir}"/>
+    </copy>
+    <copy todir="${artifact.temp.output.Sample}">
+      <fileset dir="${uniwork.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.temp.output.Sample}/resources"/>
+    <copy todir="${artifact.temp.output.Sample}/resources">
+      <fileset dir="${basedir}/resources"/>
+    </copy>
+    <mkdir dir="${artifact.temp.output.Sample}/libs"/>
+    <copy file="${basedir}/../libs/gson-2.5.jar" tofile="${artifact.temp.output.Sample}/libs/gson-2.5.jar"/>
+    <fx:fileset id="all_but_Sample" dir="${artifact.temp.output.Sample}" includes="**/*.jar">
+      <exclude name="Sample.jar"/>
+    </fx:fileset>
+    <fx:fileset id="all_Sample" dir="${artifact.temp.output.Sample}" includes="**/*.jar"/>
+    <fx:application id="Sample_id" name="Sample" mainClass="Sample.Main"/>
+    <fx:jar destfile="${artifact.temp.output.Sample}/Sample.jar">
+      <fx:application refid="Sample_id"/>
+      <fileset dir="${artifact.temp.output.Sample}" excludes="**/*.jar"/>
+      <fx:resources>
+        <fx:fileset refid="all_but_Sample"/>
+      </fx:resources>
+      <manifest>
+        <attribute name="Implementation-Title" value=""/>
+        <attribute name="Implementation-Vendor" value=""/>
+      </manifest>
+    </fx:jar>
+    <fx:deploy width="600" height="400" updatemode="background" outdir="${artifact.temp.output.Sample}/deploy" outfile="Sample">
+      <fx:application refid="Sample_id"/>
+      <fx:resources>
+        <fx:fileset refid="all_Sample"/>
+      </fx:resources>
+    </fx:deploy>
+    <copy todir="${artifact.output.sample}">
+      <fileset dir="${artifact.temp.output.Sample}/deploy"/>
+    </copy>
+    <delete includeemptydirs="true">
+      <fileset dir="${artifact.temp.output.Sample}"/>
+    </delete>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.sample" description="Build all artifacts">
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

@@ -1,0 +1,5 @@
+ConsoleShowLog=true
+TerminateQuestion=false
+ConsoleShowLogEntrySource=false
+Debuglevel=0
+DefinitionFilename=resources/runtime/definition.adf
