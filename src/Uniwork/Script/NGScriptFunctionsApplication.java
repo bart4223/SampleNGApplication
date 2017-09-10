@@ -15,25 +15,27 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
         NGObjectRequestMethod orm;
         registerObjectRequest(this, "Quit", "Terminate", "Leave the application.");
         registerObjectRequest(this, "Exit", "Terminate", "Leave the application.");
-        registerObjectRequest("ShowStages", "ShowStages","Show all stages of application.");
-        registerObjectRequest("HideStages", "HideStages","Hide all stages of application.");
-        registerObjectRequest("CloseStages", "CloseStages","Close all stages of application.");
-        orm = registerObjectRequest("ShowStage", "ShowStage","Show all stages of application module.");
+        registerObjectRequest("ShowStages", "ShowStages", "Show all stages of application.");
+        registerObjectRequest("HideStages", "HideStages", "Hide all stages of application.");
+        registerObjectRequest("CloseStages", "CloseStages", "Close all stages of application.");
+        orm = registerObjectRequest("ShowStage", "ShowStage", "Show all stages of application module.");
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest("HideStage", "HideStage","Hide all stages of application module.");
+        orm = registerObjectRequest("HideStage", "HideStage", "Hide all stages of application module.");
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest("CloseStage", "CloseStage","Close all stages of application module.");
+        orm = registerObjectRequest("CloseStage", "CloseStage", "Close all stages of application module.");
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest(this,"Help", "ShowHelp","Show the help for application.");
+        orm = registerObjectRequest(this, "Help", "ShowHelp", "Show the help for application.");
         orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest(this,"?", "ShowHelp", "Show the help for domain.");
+        orm = registerObjectRequest(this, "?", "ShowHelp", "Show the help for domain.");
         orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest("addModule", "addModule","Add a module to application.");
+        orm = registerObjectRequest("addModule", "addModule", "Add a module to application.");
         orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest("ShowMessage", "ShowMessage", "Shows a message box.");
         orm.addParam("Message", NGObjectRequestParameter.ParamKind.String);
         registerObjectRequest(this, "ListScripts", "ListScripts", "List all scripts.");
+        orm = registerObjectRequest(this, "ListScript", "ListScript", "List a script.");
+        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
         registerObjectRequest("ReloadScripts", "ReloadScripts", "Reload all scripts.");
         orm = registerObjectRequest("ReloadScript", "ReloadScript", "Reload a script.");
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
@@ -71,11 +73,20 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
     }
 
     public void ListScripts() {
-        NGScriptManager sm = (NGScriptManager)NGApplication.Application.ResolveObject(NGScriptManager.class);
+        NGScriptManager sm = (NGScriptManager) NGApplication.Application.ResolveObject(NGScriptManager.class);
         Iterator<NGScriptItem> itr = sm.getScripts();
         while (itr.hasNext()) {
             NGScriptItem item = itr.next();
             writeInfo(String.format("%s : %s", item.getName(), item.getFileName()));
+        }
+    }
+
+    public void ListScript(String aName) {
+        NGScriptManager sm = (NGScriptManager) NGApplication.Application.ResolveObject(NGScriptManager.class);
+        String script = sm.getScript(aName);
+        String[] lines = script.split("\\n");
+        for (int i = 0; i < lines.length; i++) {
+            writeInfo(lines[i]);
         }
     }
 
