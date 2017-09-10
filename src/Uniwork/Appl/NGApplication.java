@@ -475,4 +475,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         }
     }
 
+    public void ReloadScript(String aName) {
+        if (!FScriptManager.Reload(aName)) {
+            writeError(String.format("Script [%s] is unknown.", aName));
+        }
+    }
+
+    public void ReloadScripts() {
+        FScriptManager.Reload();
+    }
+
 }

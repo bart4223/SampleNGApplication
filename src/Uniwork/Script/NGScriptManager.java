@@ -15,6 +15,24 @@ public class NGScriptManager extends NGComponent {
         Reload();
     }
 
+    protected NGScriptItem getItem(String aName) {
+        for (NGScriptItem item : FScripts) {
+            if (item.getName().toUpperCase().equals(aName.toUpperCase())) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    private void LoadScript(NGScriptItem aItem) {
+        try {
+            String script = NGMisc.LoadFileContentUnsafe(aItem.getFileName());
+            aItem.setScript(script);
+        } catch (Exception e) {
+            writeError(e.getMessage());
+        }
+    }
+
     public NGScriptManager() {
         super();
         FScripts = new ArrayList<NGScriptItem>();
@@ -31,10 +49,9 @@ public class NGScriptManager extends NGComponent {
     }
 
     public String getScript(String aName) {
-        for (NGScriptItem script: FScripts ) {
-            if (script.getName().toUpperCase().equals(aName.toUpperCase())) {
-                return script.getScript();
-            }
+        NGScriptItem item = getItem(aName);
+        if (item != null) {
+            return item.getScript();
         }
         return "";
     }
@@ -45,13 +62,16 @@ public class NGScriptManager extends NGComponent {
 
     public void Reload() {
         for (NGScriptItem item : FScripts) {
-            try {
-                String script = NGMisc.LoadFileContentUnsafe(item.getFileName());
-                item.setScript(script);
-            } catch (Exception e) {
-                writeError(e.getMessage());
-            }
+            LoadScript(item);
         }
+    }
+
+    public Boolean Reload(String aName) {
+        NGScriptItem item = getItem(aName);
+        if (item != null) {
+            LoadScript(item);
+        }
+        return item != null;
     }
 
 }

@@ -24,15 +24,21 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest("CloseStage", "CloseStage","Close all stages of application module.");
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest(this,"Help", "ShowHelp","Show the help of application.");
+        orm = registerObjectRequest(this,"Help", "ShowHelp","Show the help for application.");
         orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
-        orm = registerObjectRequest(this,"?", "ShowHelp", "Show the help of application.");
+        orm = registerObjectRequest(this,"?", "ShowHelp", "Show the help for domain.");
         orm.addParam("Domain", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest("addModule", "addModule","Add a module to application.");
         orm.addParam("Classname", NGObjectRequestParameter.ParamKind.String);
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
         orm = registerObjectRequest("ShowMessage", "ShowMessage", "Shows a message box.");
         orm.addParam("Message", NGObjectRequestParameter.ParamKind.String);
+        registerObjectRequest(this, "ListScripts", "ListScripts", "List all scripts.");
+        registerObjectRequest("ReloadScripts", "ReloadScripts", "Reload all scripts.");
+        orm = registerObjectRequest("ReloadScript", "ReloadScript", "Reload a script.");
+        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
+        orm = registerObjectRequest("RunScript", "RunScript", "Run a script.");
+        orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
     }
 
     public NGScriptFunctionsApplication(NGObjectRequestRegistration aORR) {
@@ -62,6 +68,15 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
     public void Terminate() {
         NGApplication.Application.SetTerminateQuestion(false);
         NGApplication.Application.Terminate();
+    }
+
+    public void ListScripts() {
+        NGScriptManager sm = (NGScriptManager)NGApplication.Application.ResolveObject(NGScriptManager.class);
+        Iterator<NGScriptItem> itr = sm.getScripts();
+        while (itr.hasNext()) {
+            NGScriptItem item = itr.next();
+            writeInfo(String.format("%s : %s", item.getName(), item.getFileName()));
+        }
     }
 
 }
