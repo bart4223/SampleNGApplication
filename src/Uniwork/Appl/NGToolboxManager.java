@@ -60,6 +60,7 @@ public class NGToolboxManager extends NGStageManager {
         }
         if (res == null) {
             res = addStageItem(aItemName, aName);
+            res.setShowAfterInitialize(false);
             res.Initialize();
         }
         if (aCaption.length() > 0)
