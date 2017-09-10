@@ -27,7 +27,11 @@ public class NGObjectJSONDeserializerFile extends NGObjectJSONDeserializer {
     }
 
     public NGObjectJSONDeserializerFile(Class aTargetClass) {
-        this(null, aTargetClass, "");
+        this(aTargetClass, "");
+    }
+
+    public NGObjectJSONDeserializerFile(Class aTargetClass, String aFilename) {
+        this(null, aTargetClass, aFilename);
     }
 
     public NGObjectJSONDeserializerFile(Object aTarget, Class aTargetClass, String aFilename) {
