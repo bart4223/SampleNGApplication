@@ -3,6 +3,8 @@ package Uniwork.Test.Units;
 import Uniwork.Base.NGObjectJSONDeserializer;
 import Uniwork.Base.NGObjectJSONSerializer;
 import Uniwork.Test.NGCustomTestUnit;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -76,6 +78,27 @@ public class NGJSONTestUnit extends NGCustomTestUnit {
         deserializer.deserializeObject();
         Person p = (Person)deserializer.getTarget();
         assertEquals("Bart4223", p.Name);
+        FinishTest();
+    }
+
+    @Test
+    public void testJSONDeserialize04() throws Exception {
+        StartTest();
+        NGObjectJSONDeserializer deserializer = new NGObjectJSONDeserializer(JsonElement.class);
+        deserializer.setJSON("{\"Name\":\"Bart4223\"}");
+        assertEquals(true, deserializer.deserializeObject());
+        FinishTest();
+    }
+
+    @Test
+    public void testJSONDeserialize05() throws Exception {
+        StartTest();
+        NGObjectJSONDeserializer deserializer = new NGObjectJSONDeserializer(JsonElement.class);
+        deserializer.setJSON("{\"Name\":\"Bart4223\"}");
+        deserializer.deserializeObject();
+        JsonElement je = (JsonElement)deserializer.getTarget();
+        JsonObject jo = je.getAsJsonObject();
+        assertEquals("Bart4223", jo.get("Name").getAsString());
         FinishTest();
     }
 
