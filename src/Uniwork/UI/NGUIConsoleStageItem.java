@@ -49,7 +49,10 @@ public class NGUIConsoleStageItem extends NGCustomStageItem {
     @Override
     public void handleAddLog(NGLogEvent e) {
         NGUIConsoleStageController sc = (NGUIConsoleStageController)FStageController;
-        if (e.LogEntry.GetType() == NGLogEntry.LogType.Error) {
+        if (e.LogEntry.IsEncapsulated()) {
+             sc.addLog(e.LogEntry);
+        }
+        else if (e.LogEntry.GetType() == NGLogEntry.LogType.Error) {
             sc.addLog(e.LogEntry.GetFullAsString(), Color.RED);
         }
         else if (e.LogEntry.GetType() == NGLogEntry.LogType.Warning) {

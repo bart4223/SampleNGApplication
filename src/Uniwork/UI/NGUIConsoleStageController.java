@@ -1,7 +1,10 @@
 package Uniwork.UI;
 
 import Uniwork.Appl.NGCustomStageItem;
+import Uniwork.Base.NGObjectJSONDeserializer;
 import Uniwork.Graphics.NGGraphicMisc;
+import Uniwork.Misc.NGLogEntry;
+import Uniwork.Misc.NGLogObject;
 import Uniwork.Visuals.NGStageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -95,6 +98,24 @@ public class NGUIConsoleStageController extends NGStageController {
         ScrollLog.layout();
         ScrollLog.setVvalue(1);
         ScrollLog.layout();
+    }
+
+    public void addLog(NGLogEntry aLogEntry) {
+        try {
+            Class cl = getClass().getClassLoader().loadClass(aLogEntry.getJSONClass());
+            NGObjectJSONDeserializer deserializer = new NGObjectJSONDeserializer(cl);
+            deserializer.setJSON(aLogEntry.getJSON());
+            deserializer.deserializeObject();
+            Object target = deserializer.getTarget();
+            if (target instanceof NGLogObject.ColorMessage) {
+                NGLogObject.ColorMessage cm = (NGLogObject.ColorMessage) target;
+                addLog(aLogEntry.GetDateAsString() + " " + cm.Message, Color.web(cm.Color));
+            } else if (target instanceof NGLogObject.SimpleMessage) {
+                addLog(aLogEntry.GetDateAsString() + " " + ((NGLogObject.SimpleMessage)target).Message);
+            }
+        } catch (Exception e) {
+            addLog(e.getMessage(), Color.RED);
+        }
     }
 
     public void addLog(String aLogText) {

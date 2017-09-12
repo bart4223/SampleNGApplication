@@ -1,5 +1,8 @@
 package Uniwork.Misc;
 
+import Uniwork.Base.NGObjectJSONDeserializer;
+import com.google.gson.JsonElement;
+
 import java.util.Date;
 
 public class NGLogEntry {
@@ -12,6 +15,8 @@ public class NGLogEntry {
     protected String FText;
     protected String FSource;
     protected LogType FType;
+    protected JsonElement FJSONRoot;
+    protected NGObjectJSONDeserializer FJSONDeserializer;
 
     public NGLogEntry() {
         this("");
@@ -42,8 +47,13 @@ public class NGLogEntry {
     }
 
     public NGLogEntry(Date aDate, String aText, String aSource, LogType aType) {
+        FJSONDeserializer = new NGObjectJSONDeserializer(JsonElement.class);
         FDate = aDate;
         FText = aText;
+        FJSONDeserializer.setJSON(FText);
+        if (FJSONDeserializer.deserializeObject()) {
+            FJSONRoot = (JsonElement)FJSONDeserializer.getTarget();
+        }
         FSource = aSource;
         FType = aType;
     }
@@ -53,7 +63,11 @@ public class NGLogEntry {
     }
 
     public String GetText() {
-        return FText;
+        String res = FText;
+        if (IsEncapsulated()) {
+            res = FJSONRoot.getAsJsonObject().get("Message").getAsString();
+        }
+        return res;
     }
 
     public LogType GetType() {
@@ -91,6 +105,22 @@ public class NGLogEntry {
         else {
             return GetDateAsString(aFormat) + " " + GetSource() + " - " + GetText();
         }
+    }
+
+    public Boolean IsEncapsulated() {
+        return FJSONRoot != null && FJSONRoot.isJsonObject();
+    }
+
+    public String getJSON() {
+        return FText;
+    }
+
+    public String getJSONClass() {
+        String res = "";
+        if (IsEncapsulated()) {
+            res = FJSONRoot.getAsJsonObject().get("Classname").getAsString();
+        }
+        return res;
     }
 
 }

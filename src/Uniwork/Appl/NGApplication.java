@@ -296,8 +296,9 @@ public class NGApplication extends Application implements NGInitializable, NGLog
 
     @Override
     public void handleAddLog(NGLogEvent e) {
-        if (FConsoleShowLog)
+        if (FConsoleShowLog) {
             System.out.println(e.LogEntry.GetFullAsString(FConsoleShowLogEntrySource));
+        }
     }
 
     @Override
