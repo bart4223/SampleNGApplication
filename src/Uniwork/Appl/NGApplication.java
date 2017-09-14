@@ -467,10 +467,14 @@ public class NGApplication extends Application implements NGInitializable, NGLog
         NGCommonDialogs.showMessageDialog(getName(), aMessage);
     }
 
+    public void RunScriptDirect(String aScript) {
+        FScriptExecuter.Execute(aScript);
+    }
+
     public void RunScript(String aName) {
         String script = FScriptManager.getScript(aName);
         if (script.length() != 0) {
-            FScriptExecuter.Execute(script);
+            RunScriptDirect(script);
         } else {
             writeError(String.format("Script [%s] is empty or unknown.", aName));
         }

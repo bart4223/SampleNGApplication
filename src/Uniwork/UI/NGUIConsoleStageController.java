@@ -1,15 +1,20 @@
 package Uniwork.UI;
 
+import Uniwork.Appl.NGApplication;
 import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Base.NGObjectJSONDeserializer;
 import Uniwork.Graphics.NGGraphicMisc;
 import Uniwork.Misc.NGLogEntry;
 import Uniwork.Misc.NGLogObject;
 import Uniwork.Visuals.NGStageController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -107,7 +112,10 @@ public class NGUIConsoleStageController extends NGStageController {
             deserializer.setJSON(aLogEntry.getJSON());
             deserializer.deserializeObject();
             Object target = deserializer.getTarget();
-            if (target instanceof NGLogObject.ColorMessage) {
+            if (target instanceof NGLogObject.ScriptMessage) {
+                NGLogObject.ScriptMessage sm = (NGLogObject.ScriptMessage) target;
+                addLog(aLogEntry.GetDateAsString() + " " + sm.Message, Color.web(sm.Color),  sm.ScriptCaption, sm.Script);
+            } else if (target instanceof NGLogObject.ColorMessage) {
                 NGLogObject.ColorMessage cm = (NGLogObject.ColorMessage) target;
                 addLog(aLogEntry.GetDateAsString() + " " + cm.Message, Color.web(cm.Color));
             } else if (target instanceof NGLogObject.SimpleMessage) {
@@ -116,6 +124,43 @@ public class NGUIConsoleStageController extends NGStageController {
         } catch (Exception e) {
             addLog(e.getMessage(), Color.RED);
         }
+    }
+
+    public void addLog(String aLogText, Color aColor, String aScriptCaption, final String aScript) {
+        HBox hbox = new HBox(5);
+        Button btn = new Button();
+        btn.setText(aScriptCaption);
+        btn.setStyle(String.format("-fx-fill: %s;", NGGraphicMisc.colorToWeb(aColor)));
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                NGApplication.Application.RunScriptDirect(aScript);
+            }
+        });
+        Text t;
+        if (Log.getChildren().size() == 0) {
+            t = new Text(aLogText);
+        }  else {
+            if (Descending) {
+                t = new Text(String.format("%s\n", aLogText));
+            } else {
+                t = new Text(String.format("\n%s", aLogText));
+            }
+        }
+        t.setStyle(btn.getStyle());
+        hbox.getChildren().add(t);
+        hbox.getChildren().add(btn);
+        addNewline();
+        if (Descending) {
+            Log.getChildren().add(0, hbox);
+        }
+        else {
+            Log.getChildren().add(hbox);
+            ScrollDown();
+        }
+    }
+
+    public void addNewline() {
+        addLog("");
     }
 
     public void addLog(String aLogText) {
