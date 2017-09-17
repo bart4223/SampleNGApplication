@@ -6,6 +6,8 @@ public class NGScriptParser extends NGTextParser {
 
     public String CRemark = "//";
     public String CAllocation = "=>";
+    public String CDecision = "??";
+    public String CElseDecision = "!!";
 
     protected NGScriptTokenCommand FCommand = null;
 
@@ -35,6 +37,12 @@ public class NGScriptParser extends NGTextParser {
             FCommand = new NGScriptTokenCommand(FParseTree.getRoot(), aToken);
         } else if (aToken.equals(CAllocation)){
             new NGScriptTokenAllocation(FCommand, aToken);
+        } else if (aToken.equals(CDecision)) {
+            new NGScriptTokenDecision(FCommand, aToken);
+            FCommand = null;
+        } else if (aToken.equals(CElseDecision)) {
+            new NGScriptTokenElseDecision(FCommand, aToken);
+            FCommand = null;
         } else {
             new NGScriptTokenParameter(FCommand, aToken);
         }

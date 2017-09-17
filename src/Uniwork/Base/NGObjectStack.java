@@ -63,4 +63,8 @@ public class NGObjectStack extends NGObject {
         return FItems.get(aIndex).getObject();
     }
 
+    public void Clear() {
+        FItems.clear();
+    }
+
 }

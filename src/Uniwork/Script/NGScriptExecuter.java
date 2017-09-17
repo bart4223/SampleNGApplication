@@ -17,6 +17,8 @@ public class NGScriptExecuter extends NGComponentManager {
     protected ArrayList<NGScriptExecuterListener> FEventListeners;
     protected Boolean FDoReceiveCall = false;
     protected NGPropertyItem FResultItem = null;
+    protected NGObjectStack FCallStack;
+    protected Boolean FPushCallStack = false;
 
     protected void Nop() {
         // Nix machen ;o)
@@ -40,56 +42,60 @@ public class NGScriptExecuter extends NGComponentManager {
         }
     }
 
-    protected void scanParseTree(NGObjectNode aObjectNode) {
-        Iterator<NGObjectNode> itr = aObjectNode.getChilds();
-        while (itr.hasNext()) {
-            NGObjectNode token = itr.next();
-            if (token instanceof NGScriptTokenRemark) {
-                Nop();
-            } else if (token instanceof NGScriptTokenCommand) {
-                FCaller = new NGObjectRequestCaller(FInvoker);
-                String cmd = ((NGScriptTokenCommand)token).getToken();
-                String objectname = "Application";
-                String methodname;
-                if (NGStrings.getStringCount(cmd, "\\.") == 1) {
-                    methodname = NGStrings.getStringPos(cmd, "\\.", 1);
-                } else {
-                    objectname = NGStrings.getStringPos(cmd, "\\.", 1);
-                    methodname = NGStrings.getStringPos(cmd, "\\.", 2);
-                }
-                FCaller.setObjectName(objectname);
-                FCaller.setObjectMethod(methodname);
-                scanParseTree(token);
-            } else if (token instanceof NGScriptTokenParameter) {
-                if (!FDoReceiveCall) {
-                    String str = ((NGScriptTokenParameter)token).getToken();
-                    Object value = str;
-                    if (str.startsWith(":")) {
-                        value = FDataStore.get(str.substring(1, str.length()).toUpperCase());
-                    }
-                    FCaller.addParam(value);
-                } else {
-                    FResultItem = FDataStore.set(((NGScriptTokenParameter)token).getToken().toUpperCase(), null);
-                }
-            } else if (token instanceof NGScriptTokenAllocation) {
-                FDoReceiveCall = true;
+    protected void scanParseNode(NGObjectNode aObjectNode) {
+        NGObjectNode token = aObjectNode;
+        if (token instanceof NGScriptTokenRemark) {
+            Nop();
+        } else if (token instanceof NGScriptTokenCommand) {
+            FCaller = new NGObjectRequestCaller(FInvoker);
+            String cmd = ((NGScriptTokenCommand)token).getToken();
+            String objectname = "Application";
+            String methodname;
+            if (NGStrings.getStringCount(cmd, "\\.") == 1) {
+                methodname = NGStrings.getStringPos(cmd, "\\.", 1);
+            } else {
+                objectname = NGStrings.getStringPos(cmd, "\\.", 1);
+                methodname = NGStrings.getStringPos(cmd, "\\.", 2);
             }
+            FCaller.setObjectName(objectname);
+            FCaller.setObjectMethod(methodname);
+            Iterator<NGObjectNode> itr = aObjectNode.getChilds();
+            while (itr.hasNext()) {
+                scanParseNode(itr.next());
+            }
+        } else if (token instanceof NGScriptTokenParameter) {
+            if (!FDoReceiveCall) {
+                String str = ((NGScriptTokenParameter)token).getToken();
+                Object value = str;
+                if (str.startsWith(":")) {
+                    value = FDataStore.get(str.substring(1, str.length()).toUpperCase());
+                }
+                FCaller.addParam(value);
+            } else {
+                FResultItem = FDataStore.set(((NGScriptTokenParameter)token).getToken().toUpperCase(), null);
+            }
+        } else if (token instanceof NGScriptTokenAllocation || token instanceof NGScriptTokenElseDecision) {
+            FDoReceiveCall = true;
+        } else if (token instanceof NGScriptTokenDecision) {
+            FDoReceiveCall = true;
+            FPushCallStack = true;
         }
     }
 
-    protected void DoBeforeExecute() {
-        scanParseTree(FParser.getParseTree().getRoot());
+    protected void DoBeforeExecute(NGObjectNode aObjectNode) {
+        scanParseNode(aObjectNode);
         if (FCaller != null) {
             raiseBeforeExecute(FCaller);
         }
     }
 
-    protected void _BeforeExecute() {
+    protected void _BeforeExecute(NGObjectNode aObjectNode) {
         FCaller = null;
         FDoReceiveCall = false;
+        FPushCallStack = false;
         FResultItem = null;
         FCommandsCalled = 0;
-        DoBeforeExecute();
+        DoBeforeExecute(aObjectNode);
     }
 
     protected void DoExecute() {
@@ -104,23 +110,45 @@ public class NGScriptExecuter extends NGComponentManager {
     }
 
     protected void _Execute() {
+        Integer CalledTokens;
         String[] script = FScript.split("\\n");
         for (int i = 0; i < script.length; i++) {
+            CalledTokens = 0;
+            FCallStack.Clear();
             FParser.Parse(script[i]);
-            _BeforeExecute();
-            try {
-                DoExecute();
-            } finally {
-                _AfterExecute();
+            Iterator<NGObjectNode> itr = FParser.getParseTree().getRoot().getChilds();
+            while (itr.hasNext()) {
+                NGObjectNode token = itr.next();
+                if (CalledTokens < 2) {
+                    Boolean lOK = FCallStack.isEmpty();
+                    if (!lOK) {
+                        Object obj = FCallStack.pop();
+                        if (obj instanceof Boolean) {
+                            lOK = (Boolean) obj;
+                        }
+                    }
+                    if (lOK) {
+                        _BeforeExecute(token);
+                        try {
+                            DoExecute();
+                            CalledTokens++;
+                        } finally {
+                            _AfterExecute();
+                        }
+                    }
+                }
             }
-
         }
     }
 
     protected void _AfterExecute() {
         DoAfterExecute();
-        if (FCaller != null && FResultItem != null) {
-            FDataStore.set(FResultItem.getName(), FCaller.getFirstResult());
+        if (FCaller != null) {
+            if (FPushCallStack) {
+                FCallStack.push(FCaller.getFirstResult());
+            } else if (FResultItem != null) {
+                FDataStore.set(FResultItem.getName(), FCaller.getFirstResult());
+            }
         }
     }
 
@@ -136,6 +164,7 @@ public class NGScriptExecuter extends NGComponentManager {
         registerComponent(FParser);
         FEventListeners = new ArrayList<NGScriptExecuterListener>();
         FDataStore = new NGPropertyList();
+        FCallStack = new NGObjectStack();
     }
 
     public void Execute(String aScript) {

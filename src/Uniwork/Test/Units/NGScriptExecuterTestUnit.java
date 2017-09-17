@@ -62,4 +62,14 @@ public class NGScriptExecuterTestUnit extends NGCustomTestUnit {
         FinishTest();
     }
 
+    @Test
+    public void testScript05() throws Exception {
+        StartTest();
+        NGScriptExecuter se = new NGScriptExecuter();
+        se.Initialize();
+        se.Execute("Base.less 4 2 ?? Base.add 4 2 !! Base.sub 4 2");
+        assertEquals(1, (int)se.getCommandsCalled());
+        FinishTest();
+    }
+
 }

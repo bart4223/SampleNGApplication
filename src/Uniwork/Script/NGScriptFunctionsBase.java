@@ -14,6 +14,24 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
         NGObjectRequestMethod orm;
         orm = registerObjectRequest("Let", "let", "Defines a variable.");
         orm.addParam("Variable", NGObjectRequestParameter.ParamKind.Object);
+        orm = registerObjectRequest("Equal", "eqaul", "Comparison between two operands.");
+        orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
+        orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
+        orm = registerObjectRequest("NotEqual", "notequal", "Comparison between two operands.");
+        orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
+        orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
+        orm = registerObjectRequest("Less", "less", "Comparison between two operands.");
+        orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
+        orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
+        orm = registerObjectRequest("LessEqual", "lessequal", "Comparison between two operands.");
+        orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
+        orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
+        orm = registerObjectRequest("Greater", "Greater", "Comparison between two operands.");
+        orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
+        orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
+        orm = registerObjectRequest("GreaterEqual", "greaterequal", "Comparison between two operands.");
+        orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
+        orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
         orm = registerObjectRequest("Add", "addition", "Adds two operands.");
         orm.addParam("Operand1", NGObjectRequestParameter.ParamKind.Double);
         orm.addParam("Operand2", NGObjectRequestParameter.ParamKind.Double);
@@ -40,6 +58,42 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
 
     public Object let(Object aVariable) {
         return aVariable;
+    }
+
+    public Boolean equal(Double aOperand1, Double aOperand2) {
+        Boolean res = aOperand1 == aOperand2;
+        writeInfo(res.toString());
+        return res;
+    }
+
+    public Boolean notequal(Double aOperand1, Double aOperand2) {
+        Boolean res = aOperand1 != aOperand2;
+        writeInfo(res.toString());
+        return res;
+    }
+
+    public Boolean less(Double aOperand1, Double aOperand2) {
+        Boolean res = aOperand1 < aOperand2;
+        writeInfo(res.toString());
+        return res;
+    }
+
+    public Boolean lessequal(Double aOperand1, Double aOperand2) {
+        Boolean res = aOperand1 <= aOperand2;
+        writeInfo(res.toString());
+        return res;
+    }
+
+    public Boolean greater(Double aOperand1, Double aOperand2) {
+        Boolean res = aOperand1 > aOperand2;
+        writeInfo(res.toString());
+        return res;
+    }
+
+    public Boolean greaterequal(Double aOperand1, Double aOperand2) {
+        Boolean res = aOperand1 >= aOperand2;
+        writeInfo(res.toString());
+        return res;
     }
 
     public Double addition(Double aOperand1, Double aOperand2) {
