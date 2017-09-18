@@ -19,6 +19,7 @@ public class NGScriptExecuter extends NGComponentManager {
     protected NGPropertyItem FResultItem = null;
     protected NGObjectStack FCallStack;
     protected Boolean FPushCallStack = false;
+    protected Boolean FDoGoto = false;
 
     protected void Nop() {
         // Nix machen ;o)
@@ -46,6 +47,13 @@ public class NGScriptExecuter extends NGComponentManager {
         NGObjectNode token = aObjectNode;
         if (token instanceof NGScriptTokenRemark) {
             Nop();
+        } else if (token instanceof NGScriptTokenGoto) {
+            FCaller = null;
+            FDoGoto = true;
+            Iterator<NGObjectNode> itr = aObjectNode.getChilds();
+            while (itr.hasNext()) {
+                scanParseNode(itr.next());
+            }
         } else if (token instanceof NGScriptTokenCommand) {
             FCaller = new NGObjectRequestCaller(FInvoker);
             String cmd = ((NGScriptTokenCommand)token).getToken();
@@ -64,7 +72,10 @@ public class NGScriptExecuter extends NGComponentManager {
                 scanParseNode(itr.next());
             }
         } else if (token instanceof NGScriptTokenParameter) {
-            if (!FDoReceiveCall) {
+            if (FDoGoto) {
+                String s = ((NGScriptTokenParameter)token).getToken();
+                FCallStack.push(Integer.parseInt(s));
+            } else if (!FDoReceiveCall) {
                 String str = ((NGScriptTokenParameter)token).getToken();
                 Object value = str;
                 if (str.startsWith(":")) {
@@ -93,6 +104,7 @@ public class NGScriptExecuter extends NGComponentManager {
         FCaller = null;
         FDoReceiveCall = false;
         FPushCallStack = false;
+        FDoGoto = false;
         FResultItem = null;
         FCommandsCalled = 0;
         DoBeforeExecute(aObjectNode);
@@ -124,18 +136,28 @@ public class NGScriptExecuter extends NGComponentManager {
                     if (!lOK) {
                         Object obj = FCallStack.pop();
                         if (obj instanceof Boolean) {
-                            lOK = (Boolean) obj;
+                            lOK = (Boolean)obj;
                         }
                     }
                     if (lOK) {
                         _BeforeExecute(token);
                         try {
                             DoExecute();
-                            CalledTokens++;
+                            if (FCaller != null) {
+                                CalledTokens++;
+                            }
                         } finally {
                             _AfterExecute();
+                            if (FDoGoto && !FCallStack.isEmpty()) {
+                                Object obj = FCallStack.pop();
+                                i = (Integer)obj;
+                                i = i - 2;
+                            }
                         }
                     }
+                }
+                if (FDoGoto) {
+                    break;
                 }
             }
         }

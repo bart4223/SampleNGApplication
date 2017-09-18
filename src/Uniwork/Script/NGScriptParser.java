@@ -8,6 +8,7 @@ public class NGScriptParser extends NGTextParser {
     public String CAllocation = "=>";
     public String CDecision = "??";
     public String CElseDecision = "!!";
+    public String CGoto = ">>";
 
     protected NGScriptTokenCommand FCommand = null;
 
@@ -34,7 +35,11 @@ public class NGScriptParser extends NGTextParser {
     @Override
     protected void DoTokenFound(String aToken) {
         if (FCommand == null) {
-            FCommand = new NGScriptTokenCommand(FParseTree.getRoot(), aToken);
+            if (aToken.equals(CGoto)) {
+                FCommand = new NGScriptTokenGoto(FParseTree.getRoot(), aToken);
+            } else {
+                FCommand = new NGScriptTokenCommand(FParseTree.getRoot(), aToken);
+            }
         } else if (aToken.equals(CAllocation)){
             new NGScriptTokenAllocation(FCommand, aToken);
         } else if (aToken.equals(CDecision)) {
@@ -43,6 +48,8 @@ public class NGScriptParser extends NGTextParser {
         } else if (aToken.equals(CElseDecision)) {
             new NGScriptTokenElseDecision(FCommand, aToken);
             FCommand = null;
+        } else if (aToken.equals(CGoto)) {
+            FCommand = new NGScriptTokenGoto(FParseTree.getRoot(), aToken);
         } else {
             new NGScriptTokenParameter(FCommand, aToken);
         }
