@@ -10,6 +10,21 @@ public abstract class NGCustomScriptFunctions extends NGComponent {
     protected Object FDelegate;
     protected String FDomain;
 
+    protected void DoRegisterObjectRequests() {
+
+    }
+
+    protected void DoRegisterObjectAliases() {
+
+    }
+
+    @Override
+    protected void DoInitialize() {
+        super.DoInitialize();
+        DoRegisterObjectRequests();
+        DoRegisterObjectAliases();
+    }
+
     protected NGObjectRequestMethod registerObjectRequest(String aMethod, String aObjectMethod) {
         return this.registerObjectRequest(aMethod, aObjectMethod, "");
     }
@@ -29,7 +44,11 @@ public abstract class NGCustomScriptFunctions extends NGComponent {
     }
 
     public void registerObjectAlias(String aAlias) {
-        FORR.registerObjectAlias(FDomain, aAlias);
+        registerObjectAlias(FDomain, aAlias);
+    }
+
+    public void registerObjectAlias(String aName, String aAlias) {
+        FORR.registerObjectAlias(aName, aAlias);
     }
 
     public NGCustomScriptFunctions(NGObjectRequestRegistration aORR) {

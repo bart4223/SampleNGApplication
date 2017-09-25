@@ -203,8 +203,16 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     public NGObjectRequestObject addObject(String aName, Object aObject) {
-        NGObjectRequestObject res = getObject(aName);
-        if (res == null || !res.getObject().equals(aObject)) {
+        NGObjectRequestObject res = null;
+        Iterator<NGObjectRequestObject> itr = getObjects();
+        while (itr.hasNext()) {
+            NGObjectRequestObject obj = itr.next();
+            if (obj.getObject().equals(aObject)) {
+                res = obj;
+            }
+        }
+        getObject(aName);
+        if (res == null) {
             res = new NGObjectRequestObject(aName, aObject);
             addObject(res);
         }
@@ -240,9 +248,12 @@ public class NGObjectRequestBroker extends NGObject {
     }
 
     public void registerObjectAlias(String aName, String aAlias) {
-        NGObjectRequestObject obj = getObject(aName);
-        if (obj != null) {
-            obj.setAlias(aAlias);
+        Iterator<NGObjectRequestObject> itr = getObjects();
+        while (itr.hasNext()) {
+            NGObjectRequestObject obj = itr.next();
+            if (obj.IsThis(aName)) {
+                obj.setAlias(aAlias);
+            }
         }
     }
 

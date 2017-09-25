@@ -83,10 +83,18 @@ public class NGObjectRequestMethod extends NGObject {
 
     public String toString() {
         String res = "";
+        String name = getName();
         for (NGObjectRequestParameter param : FParams) {
             res = NGStrings.addString(res, param.toString(), " ");
         }
-        return NGStrings.addString(FName, res, " ");
+        if (HasAlias()) {
+            name = String.format("%s(%s)", name, getAlias());
+        }
+        return NGStrings.addString(name, res, " ");
+    }
+
+    public Boolean HasAlias() {
+        return getAlias().length() > 0;
     }
 
     public String getDescription() {

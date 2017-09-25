@@ -9,8 +9,8 @@ public class NGScriptFunctionsBase extends NGCustomScriptFunctions {
     public static String CBase = "Base";
 
     @Override
-    protected void DoInitialize() {
-        super.DoInitialize();
+    protected void DoRegisterObjectRequests() {
+        super.DoRegisterObjectRequests();
         NGObjectRequestMethod orm;
         orm = registerObjectRequest("Let", "let", "Defines a variable.");
         orm.addParam("Variable", NGObjectRequestParameter.ParamKind.Object);

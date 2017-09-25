@@ -10,11 +10,10 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
     public static String CApplication = "Application";
 
     @Override
-    protected void DoInitialize() {
-        super.DoInitialize();
+    protected void DoRegisterObjectRequests() {
+        super.DoRegisterObjectRequests();
         NGObjectRequestMethod orm;
         registerObjectRequest(this, "Quit", "Terminate", "Leave the application.");
-        registerObjectAlias("App");
         registerObjectRequest(this, "Exit", "Terminate", "Leave the application.");
         registerObjectRequest("ShowStages", "ShowStages", "Show all stages of application.");
         registerObjectRequest("HideStages", "HideStages", "Hide all stages of application.");
@@ -44,6 +43,12 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
         orm.addParam("Name", NGObjectRequestParameter.ParamKind.String);
     }
 
+    @Override
+    protected void DoRegisterObjectAliases() {
+        super.DoRegisterObjectAliases();
+        registerObjectAlias("App");
+    }
+
     public NGScriptFunctionsApplication(NGObjectRequestRegistration aORR) {
         super(aORR, NGApplication.Application);
         FDomain = CApplication;
@@ -59,7 +64,11 @@ public class NGScriptFunctionsApplication extends NGCustomScriptFunctions {
                 while (methods.hasNext()) {
                     NGObjectRequestMethod method = methods.next();
                     if (method.getDescription().length() == 0) {
-                        writeInfo(String.format("%s.%s", obj.getName(), method.toString()));
+                        if (obj.HasAlias()) {
+                            writeInfo(String.format("%s(%s).%s", obj.getName(), obj.getAlias(), method.toString()));
+                        } else {
+                            writeInfo(String.format("%s.%s", obj.getName(), method.toString()));
+                        }
                     } else {
                         writeInfo(String.format("%s.%s : \"%s\"", obj.getName(), method.toString(), method.getDescription()));
                     }

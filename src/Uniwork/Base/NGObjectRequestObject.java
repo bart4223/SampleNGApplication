@@ -69,10 +69,18 @@ public class NGObjectRequestObject extends NGObject {
 
     public String toString() {
         String res = "";
+        String name = getName();
+        if (HasAlias()) {
+            name = String.format("%s(%s)", name, getAlias());
+        }
         for (NGObjectRequestMethod method : FMethods) {
-            res = NGStrings.addString(res, String.format("%s.%s", FName, method.toString()), ", ");
+            res = NGStrings.addString(res, String.format("%s.%s", name, method.toString()), ", ");
         }
         return res;
+    }
+
+    public Boolean HasAlias() {
+        return getAlias().length() > 0;
     }
 
     public Iterator<NGObjectRequestMethod> getMethods() {

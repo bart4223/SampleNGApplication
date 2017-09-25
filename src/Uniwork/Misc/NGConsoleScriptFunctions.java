@@ -10,8 +10,8 @@ public class NGConsoleScriptFunctions extends NGCustomScriptFunctions {
     public static String CConsole = "Console";
 
     @Override
-    protected void DoInitialize() {
-        super.DoInitialize();
+    protected void DoRegisterObjectRequests() {
+        super.DoRegisterObjectRequests();
         NGObjectRequestMethod orm;
         registerObjectRequest("EchoOn", "EchoOn", "Switch the console echo on.");
         registerObjectRequest("EchoOff", "EchoOff", "Switch the console echo off.");
