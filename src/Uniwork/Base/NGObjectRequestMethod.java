@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class NGObjectRequestMethod extends NGObject {
 
     protected String FName;
+    protected String FAlias;
     protected String FObjectMethod;
     protected CopyOnWriteArrayList<NGObjectRequestParameter> FParams;
     protected Boolean FActive;
@@ -16,17 +17,34 @@ public class NGObjectRequestMethod extends NGObject {
         this(aName, aObjectMethod, "");
     }
 
-    public NGObjectRequestMethod(String aName, String aObjectMethod, String aDescription) {
+    public NGObjectRequestMethod(String aName, String aObjectMethod, String aAlias) {
+        this(aName, aObjectMethod, "", aAlias);
+    }
+
+    public NGObjectRequestMethod(String aName, String aObjectMethod, String aDescription, String aAlias) {
         super();
         FName = aName;
         FObjectMethod = aObjectMethod;
         FDescription = aDescription;
         FParams = new CopyOnWriteArrayList<NGObjectRequestParameter>();
         FActive = true;
+        FAlias = aAlias;
     }
 
     public String getName() {
         return FName;
+    }
+
+    public String getAlias() {
+        return FAlias;
+    }
+
+    public void setAlias(String aAlias) {
+        FAlias = aAlias;
+    }
+
+    public Boolean IsThis(String aName) {
+        return getName().toUpperCase().equals(aName.toUpperCase()) || getAlias().toUpperCase().equals(aName.toUpperCase());
     }
 
     public String getObjectMethod() {

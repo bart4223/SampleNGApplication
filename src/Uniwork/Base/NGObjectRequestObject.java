@@ -7,14 +7,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class NGObjectRequestObject extends NGObject {
 
     protected String FName;
+    protected String FAlias;
     protected CopyOnWriteArrayList<NGObjectRequestMethod> FMethods;
     protected Object FObject;
 
     public NGObjectRequestObject(String aName, Object aObject) {
+        this(aName, aObject, "");
+    }
+
+    public NGObjectRequestObject(String aName, Object aObject, String aAlias) {
         super();
         FName = aName;
         FObject = aObject;
         FMethods = new CopyOnWriteArrayList<NGObjectRequestMethod>();
+        FAlias = aAlias;
     }
 
     public NGObjectRequestMethod addMethod(String aName, String aObjectMethod) {
@@ -35,6 +41,18 @@ public class NGObjectRequestObject extends NGObject {
         return FName;
     }
 
+    public String getAlias() {
+        return FAlias;
+    }
+
+    public void setAlias(String aAlias) {
+        FAlias = aAlias;
+    }
+
+    public Boolean IsThis(String aName) {
+        return getName().toUpperCase().equals(aName.toUpperCase()) || getAlias().toUpperCase().equals(aName.toUpperCase());
+    }
+
     public Object getObject() {
         return FObject;
     }
@@ -42,7 +60,7 @@ public class NGObjectRequestObject extends NGObject {
     public NGObjectRequestMethod getMethod(String aName) {
         String name = aName.toUpperCase();
         for (NGObjectRequestMethod method : FMethods) {
-            if (method.getName().toUpperCase().equals(name)) {
+            if (method.getName().toUpperCase().equals(name) || method.getAlias().toUpperCase().equals(aName.toUpperCase())) {
                 return method;
             }
         }

@@ -48,7 +48,7 @@ public class NGObjectRequestBroker extends NGObject {
         Boolean invoked = false;
         Boolean hadError = false;
         for (NGObjectRequestObject oro : FObjects) {
-            if (oro.getName().toUpperCase().equals(aItem.getObject().toUpperCase())) {
+            if (oro.IsThis(aItem.getObject())) {
                 try {
                     NGObjectRequestMethod orm = oro.getMethod(aItem.getMethod());
                     if (orm != null && orm.IsActive()) {
@@ -237,6 +237,13 @@ public class NGObjectRequestBroker extends NGObject {
 
     public Iterator<NGObjectRequestObject> getObjects() {
         return FObjects.iterator();
+    }
+
+    public void registerObjectAlias(String aName, String aAlias) {
+        NGObjectRequestObject obj = getObject(aName);
+        if (obj != null) {
+            obj.setAlias(aAlias);
+        }
     }
 
 }

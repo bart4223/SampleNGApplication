@@ -394,6 +394,11 @@ public class NGApplication extends Application implements NGInitializable, NGLog
     }
 
     @Override
+    public void registerObjectAlias(String aName, String aAlias) {
+        FORB.registerObjectAlias(aName, aAlias);
+    }
+
+    @Override
     public void Invoke(NGObjectRequestItem aRequest) {
         FORB.Invoke(aRequest);
     }
