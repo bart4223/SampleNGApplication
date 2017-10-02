@@ -7,6 +7,8 @@ import java.util.TimeZone;
 
 public final class NGStrings {
 
+    public final static String C_UTCFORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+
     public static String addString(String aString1, String aString2, String aSeparator) {
         if (aString1.length() > 0) {
             if (aString2.length() > 0)
@@ -23,6 +25,24 @@ public final class NGStrings {
         DateFormat formatter = new SimpleDateFormat(aFormat);
         formatter.setTimeZone(TimeZone.getDefault()); //TimeZone.getTimeZone("GMT+2:00")
         return formatter.format(aDate);
+    }
+
+    public static String getUTCDateAsString(Date aDate) {
+        DateFormat formatter = new SimpleDateFormat(C_UTCFORMAT);
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return formatter.format(aDate);
+    }
+
+    public static Date getUTCDateFromString(String aDate) {
+        DateFormat formatter = new SimpleDateFormat(C_UTCFORMAT);
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date res = null;
+        try {
+            res = formatter.parse(aDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     public static String getStringPos(String aValue, String aRegex, Integer aPosition) {

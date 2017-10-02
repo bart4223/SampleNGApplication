@@ -97,4 +97,24 @@ public class NGStringsTestUnit extends NGCustomTestUnit {
         FinishTest();
     }
 
+    @Test
+    public void testDate03() throws Exception {
+        StartTest();
+        Date date = new Date();
+        String str = NGStrings.getUTCDateAsString(date);
+        assertEquals(true, str.length() > 0);
+        FinishTest();
+    }
+
+    @Test
+    public void testDate04() throws Exception {
+        StartTest();
+        Date date = new Date();
+        String str = NGStrings.getUTCDateAsString(date);
+        Date date2 = NGStrings.getUTCDateFromString(str);
+        String str2 = NGStrings.getUTCDateAsString(date2);
+        assertEquals(true, str2.length() > 0);
+        FinishTest();
+    }
+
 }
