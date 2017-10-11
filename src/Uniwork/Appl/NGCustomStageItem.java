@@ -169,6 +169,7 @@ public abstract class NGCustomStageItem extends NGComponent implements NGLogEven
 
     protected void DoSetContext(Object aContext) {
         FContext = aContext;
+        FContextInitialized = false;
     }
 
     public NGCustomStageItem(NGStageManager aStageManager, String aName, Stage aStage) {

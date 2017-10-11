@@ -23,6 +23,7 @@ public class NGUIApplicationProtocolController extends NGToolboxController {
     }
 
     public void setProtocol(NGApplicationProtocol aApplicationProtocol) {
+        Protocol.clear();
         Iterator<NGApplicationProtocolItem> itr = aApplicationProtocol.getItems();
         while (itr.hasNext()) {
             NGApplicationProtocolItem item = itr.next();
