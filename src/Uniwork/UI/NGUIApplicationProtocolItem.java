@@ -17,7 +17,7 @@ public class NGUIApplicationProtocolItem extends NGToolboxItem {
 
     public NGUIApplicationProtocolItem(NGStageManager aStageManager, String aName, Stage aStage) {
         super(aStageManager, aName, aStage);
-        FFXMLName = "NGUIHelpToolbox.fxml";
+        FFXMLName = "NGUIApplicationProtocol.fxml";
         FWidth = 800;
         FHeight = 800;
         FCaption = "Protocol";
