@@ -6,7 +6,6 @@ import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Misc.NGStrings;
 import Uniwork.Visuals.NGToolboxController;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
