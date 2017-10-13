@@ -6,6 +6,8 @@ import Uniwork.Appl.NGCustomStageItem;
 import Uniwork.Misc.NGStrings;
 import Uniwork.Visuals.NGToolboxController;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 import java.util.Iterator;
@@ -13,16 +15,20 @@ import java.util.Iterator;
 public class NGUIApplicationProtocolController extends NGToolboxController {
 
     @FXML
+    private Button btnSave;
+
+    @FXML
     private TextArea Protocol;
 
-    @Override
-    protected void UpdateControlSize() {
-        super.UpdateControlSize();
-        Protocol.setPrefWidth(FStageItem.getWidth());
-        Protocol.setPrefHeight(FStageItem.getHeight());
+    @FXML
+    protected void handleSave(){
+        ((NGUIApplicationProtocolItem)FStageItem).SaveApplicationProtocolAsText();
     }
 
+    protected NGApplicationProtocol FApplicationProtocol;
+    
     public void setProtocol(NGApplicationProtocol aApplicationProtocol) {
+        FApplicationProtocol = aApplicationProtocol;
         Protocol.clear();
         Iterator<NGApplicationProtocolItem> itr = aApplicationProtocol.getItems();
         while (itr.hasNext()) {

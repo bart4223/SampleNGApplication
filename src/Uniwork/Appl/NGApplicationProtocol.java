@@ -3,6 +3,7 @@ package Uniwork.Appl;
 import Uniwork.Base.NGObject;
 import Uniwork.Misc.NGCustomLogEntry;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -68,6 +69,21 @@ public class NGApplicationProtocol extends NGObject{
 
     public Iterator<NGApplicationProtocolItem> getItems() {
         return FItems.iterator();
+    }
+
+    public void SaveAsText(File aFile) {
+        try
+        {
+            FileOutputStream is = new FileOutputStream(aFile);
+            OutputStreamWriter osw = new OutputStreamWriter(is);
+            Writer w = new BufferedWriter(osw);
+            for (NGApplicationProtocolItem item : FItems) {
+                w.write(item.GetText() + "\n");
+            }
+            w.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,5 +1,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <AnchorPane fx:controller="Uniwork.UI.NGUIApplicationProtocolController" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white;">
-    <TextArea id="Protocol" minWidth="800" prefHeight="800" text="" wrapText="true" editable="false" AnchorPane.topAnchor="0" style="-fx-background-color: white;" fx:id="Protocol"/>
+    <AnchorPane prefHeight="50" minWidth="800" xmlns:fx="http://javafx.com/fxml" AnchorPane.TopAnchor="0">
+        <HBox prefHeight="50" minWidth="800" spacing="10" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: gray;">
+            <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+            <Button id="btnSave" prefWidth="80" text="Save" onAction="#handleSave" fx:id="btnSave" />
+        </HBox>
+    </AnchorPane>
+    <AnchorPane prefHeight="750" minWidth="800" xmlns:fx="http://javafx.com/fxml" AnchorPane.BottomAnchor="0">
+        <TextArea id="Protocol" prefHeight="750" minWidth="800" wrapText="true" editable="false" style="-fx-background-color: white;" fx:id="Protocol"/>
+    </AnchorPane>
 </AnchorPane>
