@@ -117,4 +117,60 @@ public class NGStringsTestUnit extends NGCustomTestUnit {
         FinishTest();
     }
 
+    @Test
+    public void testDuration01() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(0);
+        assertEquals("00:00:00", str);
+        FinishTest();
+    }
+
+    @Test
+    public void testDuration02() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(1);
+        assertEquals("00:00:01", str);
+        FinishTest();
+    }
+
+    @Test
+    public void testDuration03() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(60);
+        assertEquals("00:01:00", str);
+        FinishTest();
+    }
+
+    @Test
+    public void testDuration04() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(3600);
+        assertEquals("01:00:00", str);
+        FinishTest();
+    }
+
+    @Test
+    public void testDuration05() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(3661);
+        assertEquals("01:01:01", str);
+        FinishTest();
+    }
+
+    @Test
+    public void testDuration06() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(86400);
+        assertEquals("1 Tag(e) 00:00:00", str);
+        FinishTest();
+    }
+
+    @Test
+    public void testDuration07() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(86400 * 2 + 3661);
+        assertEquals("2 Tag(e) 01:01:01", str);
+        FinishTest();
+    }
+    
 }

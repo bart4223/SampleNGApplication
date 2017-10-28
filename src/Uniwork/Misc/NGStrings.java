@@ -1,11 +1,14 @@
 package Uniwork.Misc;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
 public final class NGStrings {
+
+    protected static DecimalFormat FDecimaFormat = new DecimalFormat("00");
 
     public final static String C_UTCFORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
@@ -41,6 +44,18 @@ public final class NGStrings {
             res = formatter.parse(aDate);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return res;
+    }
+
+    public static String getDurationAsString(Integer aDuration) {
+        double dd = Math.floor(aDuration / 86400);
+        double hh = Math.floor((aDuration%86400) / 3600);
+        double mm = Math.floor((aDuration%3600) / 60);
+        double ss = Math.floor(aDuration%60);
+        String res = String.format("%s:%s:%s", FDecimaFormat.format(hh), FDecimaFormat.format(mm), FDecimaFormat.format(ss));
+        if (dd > 0.0) {
+            res = String.format("%.0f Tag(e) %s", dd, res);
         }
         return res;
     }
