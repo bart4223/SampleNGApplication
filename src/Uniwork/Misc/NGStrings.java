@@ -1,5 +1,7 @@
 package Uniwork.Misc;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -7,6 +9,9 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public final class NGStrings {
+
+    private static final String AES = "AES";
+    private static final String CHotSeeed = "E11B2B7FC6C69136FCEAB55222E320F6";
 
     protected static DecimalFormat FDecimaFormat = new DecimalFormat("00");
 
@@ -18,8 +23,7 @@ public final class NGStrings {
                 return aString1 + aSeparator + aString2;
             else
                 return aString1;
-        }
-        else {
+        } else {
             return aString2;
         }
     }
@@ -50,9 +54,9 @@ public final class NGStrings {
 
     public static String getDurationAsString(Integer aDuration) {
         double dd = Math.floor(aDuration / 86400);
-        double hh = Math.floor((aDuration%86400) / 3600);
-        double mm = Math.floor((aDuration%3600) / 60);
-        double ss = Math.floor(aDuration%60);
+        double hh = Math.floor((aDuration % 86400) / 3600);
+        double mm = Math.floor((aDuration % 3600) / 60);
+        double ss = Math.floor(aDuration % 60);
         String res = String.format("%s:%s:%s", FDecimaFormat.format(hh), FDecimaFormat.format(mm), FDecimaFormat.format(ss));
         if (dd > 0.0) {
             res = String.format("%.0f Tag(e) %s", dd, res);
@@ -68,8 +72,7 @@ public final class NGStrings {
         String[] strs = aValue.split(aRegex);
         if (strs.length > aPosition - 1) {
             return strs[aPosition - 1];
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -85,7 +88,7 @@ public final class NGStrings {
 
     public static String getLastString(String aValue, String aSep) {
         String res = aValue;
-        Integer i =  aValue.lastIndexOf(aSep);
+        Integer i = aValue.lastIndexOf(aSep);
         if ((i > 0) && (i + 1 < aValue.length()))
             res = aValue.substring(i + 1, aValue.length());
         return res;
@@ -93,7 +96,7 @@ public final class NGStrings {
 
     public static String getFirstString(String aValue, String aSep) {
         String res = aValue;
-        Integer i =  aValue.indexOf(aSep);
+        Integer i = aValue.indexOf(aSep);
         if (i > 0)
             res = aValue.substring(0, i);
         return res;
@@ -118,6 +121,58 @@ public final class NGStrings {
             while (res.length() < aLength) {
                 res = aChar + res;
             }
+        }
+        return res;
+    }
+
+    public static String byteArrayToHexString(byte[] b) {
+        StringBuffer sb = new StringBuffer(b.length * 2);
+        for (int i = 0; i < b.length; i++) {
+            int v = b[i] & 0xff;
+            if (v < 16) {
+                sb.append('0');
+            }
+            sb.append(Integer.toHexString(v));
+        }
+        return sb.toString().toUpperCase();
+    }
+
+    public static byte[] hexStringToByteArray(String s) {
+        byte[] b = new byte[s.length() / 2];
+        for (int i = 0; i < b.length; i++) {
+            int index = i * 2;
+            int v = Integer.parseInt(s.substring(index, index + 2), 16);
+            b[i] = (byte) v;
+        }
+        return b;
+    }
+
+    public static String encryptPassword(String aPassword) {
+        String res = null;
+        try {
+            byte[] bytekey = hexStringToByteArray(CHotSeeed);
+            SecretKeySpec sks = new SecretKeySpec(bytekey, AES);
+            Cipher cipher = Cipher.getInstance(AES);
+            cipher.init(Cipher.ENCRYPT_MODE, sks, cipher.getParameters());
+            byte[] encrypted = cipher.doFinal(aPassword.getBytes());
+            res = byteArrayToHexString(encrypted);
+        } catch (Exception e) {
+
+        }
+        return res;
+    }
+
+    public static String decryptPassword(String aPassword) {
+        String res = null;
+        try {
+            byte[] bytekey = hexStringToByteArray(CHotSeeed);
+            SecretKeySpec sks = new SecretKeySpec(bytekey, AES);
+            Cipher cipher = Cipher.getInstance(AES);
+            cipher.init(Cipher.DECRYPT_MODE, sks);
+            byte[] decrypted = cipher.doFinal(hexStringToByteArray(aPassword));
+            res = new String(decrypted);
+        }  catch (Exception e) {
+
         }
         return res;
     }

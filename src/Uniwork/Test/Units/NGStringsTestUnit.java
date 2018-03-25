@@ -172,5 +172,45 @@ public class NGStringsTestUnit extends NGCustomTestUnit {
         assertEquals("2 Tag(e) 01:01:01", str);
         FinishTest();
     }
-    
+
+    @Test
+    public void testByteArrayToHex01() throws Exception {
+        StartTest();
+        byte[] ba = new byte[3];
+        ba[0] = (byte)255;
+        ba[1] = (byte)118;
+        ba[2] = (byte)201;
+        String str = NGStrings.byteArrayToHexString(ba);
+        assertEquals("FF76C9", str);
+        FinishTest();
+    }
+
+    @Test
+    public void testHexToByteArray01() throws Exception {
+        StartTest();
+        String str = "FF76C9";
+        byte[] ba = NGStrings.hexStringToByteArray(str);
+        assertEquals(3, ba.length);
+        assertEquals((byte)255, ba[0]);
+        assertEquals((byte)118, ba[1]);
+        assertEquals((byte)201, ba[2]);
+        FinishTest();
+    }
+
+    @Test
+    public void testencryptPassword01() throws Exception {
+        StartTest();
+        String pw = NGStrings.encryptPassword("Cool");
+        assertEquals("F17ED04D10A1D9EF3AA8092AE8C98A11", pw);
+        FinishTest();
+    }
+
+    @Test
+    public void testdecryptPassword01() throws Exception {
+        StartTest();
+        String pw = NGStrings.decryptPassword("F17ED04D10A1D9EF3AA8092AE8C98A11");
+        assertEquals("Cool", pw);
+        FinishTest();
+    }
+
 }
