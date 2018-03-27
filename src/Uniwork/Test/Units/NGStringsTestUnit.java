@@ -200,7 +200,7 @@ public class NGStringsTestUnit extends NGCustomTestUnit {
     @Test
     public void testencryptPassword01() throws Exception {
         StartTest();
-        String pw = NGStrings.encryptPassword("Cool");
+        String pw = NGStrings.encryptText("Cool");
         assertEquals("F17ED04D10A1D9EF3AA8092AE8C98A11", pw);
         FinishTest();
     }
@@ -208,7 +208,7 @@ public class NGStringsTestUnit extends NGCustomTestUnit {
     @Test
     public void testdecryptPassword01() throws Exception {
         StartTest();
-        String pw = NGStrings.decryptPassword("F17ED04D10A1D9EF3AA8092AE8C98A11");
+        String pw = NGStrings.decryptText("F17ED04D10A1D9EF3AA8092AE8C98A11");
         assertEquals("Cool", pw);
         FinishTest();
     }

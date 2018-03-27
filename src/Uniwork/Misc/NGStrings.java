@@ -147,14 +147,14 @@ public final class NGStrings {
         return b;
     }
 
-    public static String encryptPassword(String aPassword) {
+    public static String encryptText(String aText) {
         String res = null;
         try {
             byte[] bytekey = hexStringToByteArray(CHotSeeed);
             SecretKeySpec sks = new SecretKeySpec(bytekey, AES);
             Cipher cipher = Cipher.getInstance(AES);
             cipher.init(Cipher.ENCRYPT_MODE, sks, cipher.getParameters());
-            byte[] encrypted = cipher.doFinal(aPassword.getBytes());
+            byte[] encrypted = cipher.doFinal(aText.getBytes());
             res = byteArrayToHexString(encrypted);
         } catch (Exception e) {
 
@@ -162,14 +162,14 @@ public final class NGStrings {
         return res;
     }
 
-    public static String decryptPassword(String aPassword) {
+    public static String decryptText(String aText) {
         String res = null;
         try {
             byte[] bytekey = hexStringToByteArray(CHotSeeed);
             SecretKeySpec sks = new SecretKeySpec(bytekey, AES);
             Cipher cipher = Cipher.getInstance(AES);
             cipher.init(Cipher.DECRYPT_MODE, sks);
-            byte[] decrypted = cipher.doFinal(hexStringToByteArray(aPassword));
+            byte[] decrypted = cipher.doFinal(hexStringToByteArray(aText));
             res = new String(decrypted);
         }  catch (Exception e) {
 
