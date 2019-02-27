@@ -174,6 +174,14 @@ public class NGStringsTestUnit extends NGCustomTestUnit {
     }
 
     @Test
+    public void testDuration08() throws Exception {
+        StartTest();
+        String str = NGStrings.getDurationAsString(86400 * 42 + 3661);
+        assertEquals("42 Tag(e) 01:01:01", str);
+        FinishTest();
+    }
+
+    @Test
     public void testByteArrayToHex01() throws Exception {
         StartTest();
         byte[] ba = new byte[3];
