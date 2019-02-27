@@ -62,6 +62,9 @@ public class NGUIConsoleStageController extends NGStageController {
                 }
                 keyEvent.consume();
                 break;
+            case TAB:
+                System.out.println("ToDo");
+                keyEvent.consume();
         }
     }
 

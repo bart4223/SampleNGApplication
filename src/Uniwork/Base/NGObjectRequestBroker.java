@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class NGObjectRequestBroker extends NGObject {
+public class NGObjectRequestBroker extends NGComponent {
 
     protected Object FOwner;
     protected CopyOnWriteArrayList<NGObjectRequestObject> FObjects;
@@ -196,10 +196,6 @@ public class NGObjectRequestBroker extends NGObject {
         FOwner = aOwner;
         FObjects = new CopyOnWriteArrayList<NGObjectRequestObject>();
         FLogManager = null;
-    }
-
-    public Object getOwner() {
-        return FOwner;
     }
 
     public NGObjectRequestObject addObject(String aName, Object aObject) {
